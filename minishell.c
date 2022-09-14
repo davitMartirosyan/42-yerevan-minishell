@@ -7,4 +7,5 @@ int main(void)
     cmd = readline("$> ");
 
     printf("%s\n", cmd);
+    
 }
