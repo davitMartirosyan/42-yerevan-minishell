@@ -4,8 +4,6 @@ int main(void)
 {
     char *cmd;
 
-    cmd = readline("$>> ");
-
-    printf("%s\n", cmd);
-    
+    cmd = readline("$ ");
+    printf("%s\n", cmd);   
 }

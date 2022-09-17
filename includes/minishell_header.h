@@ -9,11 +9,16 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+typedef struct s_envkeys
+{
+    char *key;
+    char *val;
+    struct s_envkeys *next;
+} t_envkeys;
+
 #include "../libft/libft.h"
 #include "./lex.h"
-// #include "./parse.h"
-// #include "./execute.h"
-
-
+#include "./env.h"
+#include "./utilities.h"
 
 #endif
