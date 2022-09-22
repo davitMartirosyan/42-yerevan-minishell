@@ -1,69 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envpoints.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/09/22 08:20:33 by dmartiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell_header.h"
 
-void env_tokenizing(t_envkeys **env, char **envp)
+t_envkeys *env_tokenizing(char **envp)
 {
     int i;
-    char **env_tokens;
-
-    if (envp == NULL)
-        return ;
+    char **_tok;
+    t_envkeys *t;
+    t_envkeys *temp;
+    
     i = -1;
+    t = malloc(sizeof(t_envkeys));
+    temp = t;
     while(envp[++i])
     {
-        env_tokens = ft_split(envp[i], '=');
-        *env = malloc(sizeof(**env));
-        (*env)->key = env_tokens[0];
-        (*env)->val = env_tokens[1];
-        env = &((*env)->next);
+        _tok = ft_split(envp[i], '=');
+        t->key = _tok[0];
+        t->val = _tok[1];
+        t->next =  malloc(sizeof(t_envkeys));
+        t = t->next;
     }
+   return (temp);
 }
 
-
-void printSigset(FILE *of, const char *prefix, const sigset_t *sigset)
+void add_paths(t_envkeys **env, t_table **table)
 {
-    int sig, cnt;
-
-    cnt = 0;
-    for (sig = 1; sig < NSIG; sig++) {
-        if (sigismember(sigset, sig)) {
-            cnt++;
-            fprintf(of, "%s%d (%s)\n", prefix, sig, strsignal(sig));
-        }
-    }
+    char **abs;
     
-
-    if (cnt == 0)
-        fprintf(of, "%s<empty signal set>\n", prefix);
-}
-
-                    /* Print mask of blocked signals for this process */ 
-int printSigMask(FILE *of, const char *msg)
-{
-    sigset_t currMask;
-
-    if (msg != NULL)
-        fprintf(of, "%s", msg);
-
-    if (sigprocmask(SIG_BLOCK, NULL, &currMask) == -1)
-        return -1;
-
-    printSigset(of, "\t\t", &currMask);
-
-    return 0;
-}
-
-                    /* Print signals currently pending for this process */
-int printPendingSigs(FILE *of, const char *msg)
-{
-    sigset_t pendingSigs;
-
-    if (msg != NULL)
-        fprintf(of, "%s", msg);
-
-    if (sigpending(&pendingSigs) == -1)
-        return -1;
-
-    printSigset(of, "\t\t", &pendingSigs);
-
-    return 0;
+    while((*env))
+    {
+        if(!ft_strncmp((*env)->key, "PATH", ft_strlen((*env)->key)))
+        {
+            (*table)->paths = ft_split((*env)->val, ':');
+            return ;
+        }
+        (*env) = (*env)->next;
+    }
 }

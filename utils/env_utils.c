@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.h                                        :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:24 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/21 20:20:25 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/09/21 20:19:56 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#include "../includes/minishell_header.h"
 
-void free_environment(char **env_tokens);
+void free_environment(char **env_tokens)
+{
+    int i;
 
-#endif
+    i = -1;
+    while(env_tokens[++i])
+        free(env_tokens[i]);
+    free(env_tokens);
+}

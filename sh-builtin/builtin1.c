@@ -1,18 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.h                                        :+:      :+:    :+:   */
+/*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:24 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/21 20:20:25 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/09/21 20:19:52 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/09/21 20:21:14 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#include "../includes/minishell_header.h"
 
-void free_environment(char **env_tokens);
-
-#endif
