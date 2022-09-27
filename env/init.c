@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_header.h                                 :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/27 03:12:12 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/09/27 03:09:29 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/09/27 03:34:40 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell_header.h"
 
-#ifndef MINISHELL_HEADER_H
-#define MINISHELL_HEADER_H
-
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-#include "./structs.h"
-#include "../libft/libft.h"
-#include "./lex.h"
-#include "./env.h"
-#include "./utilities.h"
-
-#endif
+void create_env(t_env **env, char **envp, t_table **table)
+{
+	*table = malloc(sizeof(t_table));
+    *env = env_tokenizing(envp);
+	add_paths(env, table);
+}

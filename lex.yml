@@ -1,0 +1,14 @@
+if(ft_strchr(cmdline, '<'))
+	{
+		t_heredoc *hd;
+		hd = malloc(sizeof(t_heredoc));
+		while(1)
+		{
+			hd->hd_term = readline("heredoc> ");
+			hd->heredoc = ft_strjoin(hd->heredoc, hd->hd_term);
+			if(ft_strchr(hd->hd_term, '{'))
+				break;
+			hd->heredoc = ft_strjoin(hd->heredoc, "\n");
+		}
+		printf("%s\n", hd->heredoc); 
+	}

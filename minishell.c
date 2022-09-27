@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/22 08:20:40 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/27 06:14:12 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-    t_envkeys   *env;
+    t_env   *env;
     t_table     *table;
-
-    table = malloc(sizeof(t_table));
-    env = env_tokenizing(envp);
-    add_paths(&env, &table);
-    printf("%s", table->paths[0]);
+    char *cmd;
+    create_env(&env, envp, &table);
+    while(1)
+    {
+        cmd = readline("$: ");
+        lexical_analyze(cmd, &env, &table);
+        // parse_cmds();
+        // execute_line();
+        // if(is_exit())
+        //     exit(table->exit_status);
+    }
 }
-
-
-
-
-
-
-
 
 
 
 
 //  char *cmd;
 
-    // t_envkeys *e;
+    // t_env *e;
 
     // e = NULL;
     // env_tokenizing(&e, envp);
