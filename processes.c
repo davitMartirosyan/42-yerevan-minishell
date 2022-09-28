@@ -1,21 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   processes.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/28 19:49:35 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/09/28 19:52:05 by dmartiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/minishell_header.h"
 
 int main(void)
 {
-	 id1 = fork(){
-		 id1 = ?
-		 main = parentProcessId
-		 id2 = fork(){
-			 id1 = parentProcessId
-			 id2 = ?
-			 printf("ok");
-		 }
-		 printf("ok");
-	 }
-	 id2 = fork(){
-		 id1 = parentProcessId
-		 printf("ok");
-	 }
-
-	 printf("ok");
+	int fd[2];
+	
 }

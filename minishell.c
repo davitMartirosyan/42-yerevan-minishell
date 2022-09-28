@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/27 06:14:12 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/28 21:22:38 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main(int argc, char *argv[], char *envp[])
         // execute_line();
         // if(is_exit())
         //     exit(table->exit_status);
+        // printf("%s\n", cmd);
     }
 }
 

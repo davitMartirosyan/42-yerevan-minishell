@@ -6,15 +6,53 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:14:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/27 04:47:11 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/28 22:27:01 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
 
+
+
 void lexical_analyze(char *cmdline, t_env **env, t_table **table)
 {
-	
+	if(contains("<<", cmdline))
+	{
+		printf("ok\n");
+	}
+}
+
+
+int contains(char *tok, char *cmdline)
+{
+	// tok -> |
+	// cmdline -> abc | x=
+	int i;
+	int c;
+	int j;
+	int len;
+	int flag;
+
+	i = -1;
+	len = ft_strlen(tok);
+	while(cmdline[++i])
+	{
+		c = -1;
+		j = i;
+		if(cmdline[j] == tok[++c])
+		{
+			flag = 1;
+			while(tok[++c])
+				if(cmdline[++j] == tok[c])
+					flag++;
+			if(cmdline[++j] == tok[c - 1])
+				return (0);
+			else if(flag == len)
+				return (1);
+			flag = 0;
+		}
+	}
+	return (0);
 }
 
 // int main(int ac, char *av[], char **envp)
