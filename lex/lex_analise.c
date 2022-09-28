@@ -16,17 +16,18 @@
 
 void lexical_analyze(char *cmdline, t_env **env, t_table **table)
 {
-	if(contains("<<", cmdline))
-	{
-		printf("ok\n");
+	int pos;
+	if(contains("<<", cmdline, &pos))
+	{          /*<<< <<*/
+		printf("%s\n", cmdline+pos-2);
+		printf("%s\n", cmdline);
+
 	}
 }
 
 
-int contains(char *tok, char *cmdline)
+int contains(char *tok, char *cmdline, int *pos)
 {
-	// tok -> |
-	// cmdline -> abc | x=
 	int i;
 	int c;
 	int j;
@@ -37,23 +38,48 @@ int contains(char *tok, char *cmdline)
 	len = ft_strlen(tok);
 	while(cmdline[++i])
 	{
-		c = -1;
+		c = 0;
 		j = i;
-		if(cmdline[j] == tok[++c])
+		if(cmdline[j] == tok[c])
 		{
-			flag = 1;
-			while(tok[++c])
-				if(cmdline[++j] == tok[c])
-					flag++;
-			if(cmdline[++j] == tok[c - 1])
-				return (0);
-			else if(flag == len)
-				return (1);
 			flag = 0;
+			while(tok[c])
+			{
+				if(cmdline[j] == tok[c])
+				{
+					flag++;
+					j++;
+				}
+				c++;
+			}
+			if(cmdline[j] == tok[c - 1])
+			{
+				i = j;
+				continue;
+			}
+			if(flag == len)
+			{
+				*pos = j;
+				return (1);
+			}
+			i = j;
 		}
 	}
 	return (0);
 }
+
+
+int counter_of("<<", cmdline)
+{
+
+}
+
+
+
+
+
+
+
 
 // int main(int ac, char *av[], char **envp)
 // {

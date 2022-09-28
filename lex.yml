@@ -77,3 +77,42 @@ int contains(char *tok, char *cmdline)
 	}
 	return (0);
 }
+
+
+
+int contains(char *tok, char *cmdline)
+{
+	// tok -> |
+	// cmdline -> abc | x=
+	int i;
+	int c;
+	int j;
+	int len;
+	int flag;
+
+	i = -1;
+	len = ft_strlen(tok);
+	while(cmdline[++i])
+	{
+		c = 0;
+		j = i;
+		if(cmdline[j] == tok[c])
+		{
+			flag = 0;
+			while(tok[c])
+			{
+				if(cmdline[j] == tok[c])
+				{
+					flag++;
+					j++;
+				}
+				c++;
+			}
+			if(cmdline[j] == tok[c - 1])
+				continue;
+			if(flag == len)
+				return (1);
+		}
+	}
+	return (0);
+}

@@ -14,5 +14,5 @@
 #define LEX_H
 
 void lexical_analyze(char *cmdline, t_env **env, t_table **table);
-int contains(char *tok, char *cmdline);
+int contains(char *tok, char *cmdline, int *pos);
 #endif

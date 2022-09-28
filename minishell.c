@@ -44,7 +44,7 @@ int main(int argc, char *argv[], char *envp[])
 //     cmd = readline("$ ");
 //     printf("%s\n", cmd);
 
-// gcc -lreadline env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
+// gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
 // gcc env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
 
 
