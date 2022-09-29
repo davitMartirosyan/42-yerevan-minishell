@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/29 13:01:22 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:36:42 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[], char *envp[])
     }
 }
 
-//i'm in Sirush_branch
+//I'm in Master branch
 
 
 //  char *cmd;
