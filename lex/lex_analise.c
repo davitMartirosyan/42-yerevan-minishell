@@ -6,26 +6,31 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:14:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/29 11:07:18 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:27:40 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
 
-// void char_by_char(char *tok, char *cmdline, int *j, int *c, int *count);
-
+static int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count);
+static int find_space_orpipe(char *cmdline);
 void lexical_analyze(char *cmdline, t_env **env, t_table **table)
 {
 	int pos;
+	(*table)->heredoc = malloc(sizeof(t_heredoc));
 	if(contains("<<", cmdline, &pos))
-			   /*<<<<<*/
-		printf("HEREDOC\n");
+	{
+		int end;
+		
+		end = find_space_orpipe(cmdline+pos);
+		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
+		printf("%s\n", (*table)->heredoc->delimiter);
+	}
 	if(contains(">>", cmdline, &pos))
 		printf("APPEND MODE\n");
 	if(contains(">", cmdline, &pos))
 		printf("OUTPUT\n");
 	if(contains("<", cmdline, &pos))
-			   /*<< >> <*/
 		printf("INPUT\n");
 	if(contains("|", cmdline, &pos))
 		printf("PIPE\n");
@@ -51,7 +56,7 @@ int contains(char *tok, char *cmdline, int *pos)
 		j = i;
 		if(cmdline[j] == tok[c])
 		{
-			flag = 0;
+			flag = 0;	
 			while(tok[c])
 			{
 				if(cmdline[j] == tok[c])
@@ -88,8 +93,24 @@ int contains(char *tok, char *cmdline, int *pos)
 }
 
 
-// void char_by_char(char *tok, char *cmdline, int *j, int *c, int *count)
+static int find_space_orpipe(char *cmdline)
+{
+	int i;
+
+	i = 0;
+	while(cmdline[i] != ' ' && cmdline[i] != '|')
+	{
+		// printf("%c\n", cmdline[i]);
+		i++;
+	}
+	return (i);
+}
+
+// int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count)
 // {
+// 	int flag;
+
+// 	flag = 0;
 // 	while(tok[*c])
 // 	{
 // 		if(cmdline[*j] == tok[*c])
@@ -100,6 +121,8 @@ int contains(char *tok, char *cmdline, int *pos)
 // 		}
 // 		c++;
 // 	}
+// 	// printf("%s : %s\n", tok, cmdline);
+// 	return (flag);
 // }
 
 
