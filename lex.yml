@@ -79,11 +79,9 @@ int contains(char *tok, char *cmdline)
 }
 
 
-
-int contains(char *tok, char *cmdline)
+//finished but have a mistakes
+int contains(char *tok, char *cmdline, int *pos)
 {
-	// tok -> |
-	// cmdline -> abc | x=
 	int i;
 	int c;
 	int j;
@@ -109,9 +107,16 @@ int contains(char *tok, char *cmdline)
 				c++;
 			}
 			if(cmdline[j] == tok[c - 1])
+			{
+				i = j;
 				continue;
+			}
 			if(flag == len)
+			{
+				*pos = j;
 				return (1);
+			}
+			i = j;
 		}
 	}
 	return (0);

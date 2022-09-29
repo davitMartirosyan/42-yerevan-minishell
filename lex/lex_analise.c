@@ -6,23 +6,29 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:14:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/28 22:27:01 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:07:18 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
 
-
+// void char_by_char(char *tok, char *cmdline, int *j, int *c, int *count);
 
 void lexical_analyze(char *cmdline, t_env **env, t_table **table)
 {
 	int pos;
 	if(contains("<<", cmdline, &pos))
-	{          /*<<< <<*/
-		printf("%s\n", cmdline+pos-2);
-		printf("%s\n", cmdline);
-
-	}
+			   /*<<<<<*/
+		printf("HEREDOC\n");
+	if(contains(">>", cmdline, &pos))
+		printf("APPEND MODE\n");
+	if(contains(">", cmdline, &pos))
+		printf("OUTPUT\n");
+	if(contains("<", cmdline, &pos))
+			   /*<< >> <*/
+		printf("INPUT\n");
+	if(contains("|", cmdline, &pos))
+		printf("PIPE\n");
 }
 
 
@@ -33,11 +39,14 @@ int contains(char *tok, char *cmdline, int *pos)
 	int j;
 	int len;
 	int flag;
+	int count;
 
 	i = -1;
 	len = ft_strlen(tok);
+	count = 0;
 	while(cmdline[++i])
 	{
+		
 		c = 0;
 		j = i;
 		if(cmdline[j] == tok[c])
@@ -47,6 +56,7 @@ int contains(char *tok, char *cmdline, int *pos)
 			{
 				if(cmdline[j] == tok[c])
 				{
+					++count;
 					flag++;
 					j++;
 				}
@@ -54,25 +64,60 @@ int contains(char *tok, char *cmdline, int *pos)
 			}
 			if(cmdline[j] == tok[c - 1])
 			{
+				++count;
 				i = j;
 				continue;
 			}
-			if(flag == len)
+			if(count != len && cmdline[j] != tok[c - 1])
+			{
+				count = 0;
+				i = j;
+				continue;
+			}
+			if(flag == len && count == len)
 			{
 				*pos = j;
+				count = 0;
 				return (1);
 			}
 			i = j;
 		}
+		count = 0;
 	}
 	return (0);
 }
 
 
-int counter_of("<<", cmdline)
-{
+// void char_by_char(char *tok, char *cmdline, int *j, int *c, int *count)
+// {
+// 	while(tok[*c])
+// 	{
+// 		if(cmdline[*j] == tok[*c])
+// 		{
+// 			++count;
+// 			flag++;
+// 			j++;
+// 		}
+// 		c++;
+// 	}
+// }
 
-}
+
+
+// while(tok[c])
+// {
+// 	if(cmdline[j] == tok[c])
+// 	{
+// 		++count;
+// 		flag++;
+// 		j++;
+// 	}
+// 	c++;
+// }
+// int counter_of("<<", cmdline)
+// {
+
+// }
 
 
 
