@@ -34,10 +34,38 @@ if(ft_strchr(cmdline, '<'))
 }
 
 
+static int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count);
+
+// int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count)
+// {
+// 	int flag;
+
+// 	flag = 0;
+// 	while(tok[*c])
+// 	{
+// 		if(cmdline[*j] == tok[*c])
+// 		{
+// 			++count;
+// 			flag++;
+// 			j++;
+// 		}
+// 		c++;
+// 	}
+// 	// printf("%s : %s\n", tok, cmdline);
+// 	return (flag);
+// }
 
 
 
 
+if(contains("<<", cmdline, &pos))
+	{
+		int end;
+		
+		end = find_space_orpipe(cmdline+pos);
+		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
+		printf("%s\n", (*table)->heredoc->delimiter);
+	}
 
 
 
