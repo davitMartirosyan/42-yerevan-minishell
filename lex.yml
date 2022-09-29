@@ -36,7 +36,14 @@ if(ft_strchr(cmdline, '<'))
 
 
 
-
+(*table)->heredoc = malloc(sizeof(t_heredoc));
+	if(contains("<<", cmdline, &pos))
+	{
+		int end;
+		
+		end = find_space_orpipe(cmdline+pos);
+		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
+	}
 
 
 

@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/29 09:17:57 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/09/29 13:01:22 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main(int argc, char *argv[], char *envp[])
     t_env   *env;
     t_table     *table;
     char *cmd;
-    create_env(&env, envp, &table);
+    create(&env, envp, &table);
     while(1)
     {
         cmd = readline("$: ");
@@ -30,7 +30,7 @@ int main(int argc, char *argv[], char *envp[])
     }
 }
 
-
+//i'm in Sirush_branch
 
 
 //  char *cmd;

@@ -1,10 +1,6 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#define DOUBLEQUOTE "\""
-#define PIPE		"|"
-#define HEREDOC		"<<"
-
 typedef struct s_env
 {
     char *key;
@@ -15,13 +11,15 @@ typedef struct s_env
 typedef struct s_heredoc
 {
 	char *hd_term;
+    char *delimiter;
 	char *heredoc;
 } t_heredoc;
 
 typedef struct s_table{
-    char **paths;
-    char *cmdline;
-	char *hd;
+    char        **paths;
+    char        *cmdline;
+	t_heredoc   *heredoc;
+    t_env       *env;
 } t_table;
 
 #endif
