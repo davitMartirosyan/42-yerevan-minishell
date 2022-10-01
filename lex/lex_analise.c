@@ -13,23 +13,22 @@
 #include "../includes/minishell_header.h"
 
 
-static int find_space_orpipe(char *cmdline);
 void lexical_analyze(char *cmdline, t_env **env, t_table **table)
 {
-	int pos;
-	(*table)->heredoc = malloc(sizeof(t_heredoc));
-	if(contains("<<", cmdline, &pos))
-		printf("HEREDOC\n");
-	if(contains(">>", cmdline, &pos))
-		printf("APPEND MODE\n");
-	if(contains(">", cmdline, &pos))
-		printf("OUTPUT\n");
-	if(contains("<", cmdline, &pos))
-		printf("INPUT\n");
-	if(contains("|", cmdline, &pos))
-		printf("PIPE\n");
-}
+	// int pos;
+	// if(contains("<<", cmdline, &pos))
+	// 	printf("HEREDOC\n");
+	// if(contains(">>", cmdline, &pos))
+	// 	printf("APPEND MODE\n");
+	// if(contains(">", cmdline, &pos))
+	// 	printf("OUTPUT\n");
+	// if(contains("<", cmdline, &pos))
+	// 	printf("INPUT\n");
+	// if(contains("|", cmdline, &pos))
+	// 	printf("PIPE\n");
 
+	regexp(cmdline, "/A-Za-z*/");
+}
 
 int contains(char *tok, char *cmdline, int *pos)
 {
@@ -85,18 +84,6 @@ int contains(char *tok, char *cmdline, int *pos)
 	}
 	return (0);
 }
-
-
-static int find_end(char *cmdline)
-{
-	int i;
-
-	i = 0;
-	while(cmdline[i] && cmdline[i] != ' ' && cmdline[i] != '|')
-		i++;
-	return (i);
-}
-
 
 
 

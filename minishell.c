@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *envp[])
 {
     t_table     *table;
     char        *cmd;
-    
+    char **cmdline;
     create_shell(envp, &table);
     while(1)
     {
@@ -28,6 +28,7 @@ int main(int argc, char *argv[], char *envp[])
         //     exit(table->exit_status);
         // printf("%s\n", cmd);
     }
+
 }
 
 //I'm in master branchhhhh

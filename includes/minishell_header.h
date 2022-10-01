@@ -24,6 +24,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include "regex.h"
 #include "./structs.h"
 #include "../libft/libft.h"
 #include "./lex.h"
