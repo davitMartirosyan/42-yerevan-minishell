@@ -30,15 +30,20 @@
 #include "../libft/libft.h"
 #include "./structs.h"
 
+#define DQUOTE '\"'
+#define SQUOTE '\''
+
 t_env *env_tokenizing(char **envp);
 void create_shell(char **envp, t_table **table);
 void add_paths(t_env **env, t_table **table);
 void execute(t_table **table, char **envp);
-void lexical_analyze(char *cmdline, t_table **table);
 void free_environment(char **env_tokens);
-int regexp(char *cmdline, char *regex);
 
 //lexycal analise
-int contains(char *tok, char *cmdline, int *pos);
-char *token_replacment(char *cmdline, char schr, char rchr);
+void    lexical_analyze(char *cmdline, t_table **table);
+char    *openquotes(char *cmdline);
+char    *token_replacment(char *cmdline, char schr, char rchr);
+char    *open_env_vars(char *cmdline, t_env *env);
+int     contains(char *tok, char *cmdline, int *pos);
+int     regexp(char *cmdline, char *regex);
 #endif

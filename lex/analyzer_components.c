@@ -81,6 +81,53 @@ char *token_replacment(char *cmdline, char schr, char rchr)
 		else
 			newpoint[i] = cmdline[i];
 	}
-
+	newpoint[i] = '\0';
+	free(cmdline);
 	return (newpoint);
+}
+
+char *openquotes(char *cmdline)
+{
+	char *newpoint;
+	int i;
+	int c;
+	int dq;
+	int sq;
+
+	i = -1;
+	dq = 0;
+	sq = 0;
+	while(cmdline[++i])
+	{
+		if(cmdline[i] == DQUOTE)
+			dq++;
+		else if(cmdline[i] == SQUOTE)
+			sq++;
+	}
+	if((dq && ((dq % 2) != 0)) || (sq && ((sq % 2) != 0)))
+		printf("not in even measure of DOUBLE or SINGLE quotes\n");
+
+	newpoint = malloc(sizeof(char) * (ft_strlen(cmdline) - (dq + sq) + 1));
+	if(!newpoint)
+		return (NULL);
+	i = -1;
+	c = 0;
+	while(cmdline[++i])
+	{
+		if(cmdline[i] == DQUOTE)
+			continue;
+		else if(cmdline[i] == SQUOTE)
+			continue;
+		newpoint[c] = cmdline[i];
+		c++;
+	}
+	newpoint[c] = '\0';
+	free(cmdline);
+	return (newpoint);
+}
+
+char *open_env_vars(char *cmdline, t_env *env)
+{
+	printf("%s\n", env->key);
+	return (0);
 }

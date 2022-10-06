@@ -12,15 +12,9 @@
 
 #include "../includes/minishell_header.h"
 
-void test(void);
-
 void lexical_analyze(char *cmdline, t_table **table)
 {
-	char **tokens;
-	add_history(cmdline);
-
-	cmdline = token_replacment(cmdline, ' ', '\a');
-	printf("%s\n", cmdline);
-	cmdline = token_replacment(cmdline, '\a', ' ');
-	printf("%s\n", cmdline);
+	cmdline = openquotes(cmdline);
+	cmdline = open_env_vars(cmdline, (*table)->env);
 }
+
