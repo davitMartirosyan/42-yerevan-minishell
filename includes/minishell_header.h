@@ -35,9 +35,10 @@ void create_shell(char **envp, t_table **table);
 void add_paths(t_env **env, t_table **table);
 void execute(t_table **table, char **envp);
 void lexical_analyze(char *cmdline, t_table **table);
-int contains(char *tok, char *cmdline, int *pos);
 void free_environment(char **env_tokens);
 int regexp(char *cmdline, char *regex);
 
-
+//lexycal analise
+int contains(char *tok, char *cmdline, int *pos);
+char *token_replacment(char *cmdline, char schr, char rchr);
 #endif

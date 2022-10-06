@@ -1,0 +1,19 @@
+ 1 ls
+ 2 clea
+ 3 clear
+ 4 pwd
+ 5 clear
+ 6 cd ..
+ 7 ls
+ 8 clear
+ 9 ps
+ 10 clear
+ 11 ls -la
+ 12 clear
+ 13 echo hello
+ 14 clear
+ 15 leaks
+ 16 clear
+ 17 pwd
+ 18 env
+ 19 exit

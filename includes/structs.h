@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-typedef int t_list (*t_builtin_ptr)(t_list *, t_table);
+// typedef int t_list (*t_builtin_ptr)(t_list *, t_table);
 
 typedef struct s_env
 {

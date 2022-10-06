@@ -12,14 +12,15 @@
 
 #include "../includes/minishell_header.h"
 
+void test(void);
 
 void lexical_analyze(char *cmdline, t_table **table)
 {
 	char **tokens;
 	add_history(cmdline);
-	tokens = ft_split(cmdline, ' ');
-	int i = -1;
-	while(tokens[++i])
-		tokens[i] = ft_strtrim(tokens[i], " ");
-	
+
+	cmdline = token_replacment(cmdline, ' ', '\a');
+	printf("%s\n", cmdline);
+	cmdline = token_replacment(cmdline, '\a', ' ');
+	printf("%s\n", cmdline);
 }

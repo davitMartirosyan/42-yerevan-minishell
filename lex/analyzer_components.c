@@ -66,3 +66,21 @@ int contains(char *tok, char *cmdline, int *pos)
 	}
 	return (0);
 }
+
+char *token_replacment(char *cmdline, char schr, char rchr)
+{
+	int i = -1;
+	char *newpoint = malloc(sizeof(char) * ft_strlen(cmdline + 1));
+	if(!newpoint)
+		return (NULL);
+	while(cmdline[++i])
+	{
+		
+		if(cmdline[i] == schr)
+			newpoint[i] =  rchr;
+		else
+			newpoint[i] = cmdline[i];
+	}
+
+	return (newpoint);
+}
