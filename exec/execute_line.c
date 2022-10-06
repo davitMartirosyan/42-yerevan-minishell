@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities.h                                        :+:      :+:    :+:   */
+/*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:24 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/21 20:20:25 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/10/06 03:17:29 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/10/06 04:01:12 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#include "../includes/minishell_header.h"
 
-void free_environment(char **env_tokens);
-
-#endif
+void execute(t_table **table, char **envp)
+{
+		
+}

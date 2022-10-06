@@ -1,6 +1,6 @@
 #include "../includes/minishell_header.h"
 
-void regexp(char *cmdline, char *regex)
+int regexp(char *cmdline, char *regex)
 {
     int i = 0;
     char *cmds;
@@ -24,6 +24,7 @@ void regexp(char *cmdline, char *regex)
         i++;
     }
     printf("%s\n", cmds);
+    return (0);
 }
 
 // [
