@@ -35,3 +35,4 @@ int main(int argc, char *argv[], char *envp[])
   // gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
  //gcc  env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell -lreadline && ./minishell
 // gcc env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
+//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
