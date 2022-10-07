@@ -12,6 +12,9 @@
 
 #include "../includes/minishell_header.h"
 
+static char *find_var(char *cmdline, int *pos);
+static char *valueof(char *key, t_env *env);
+
 int contains(char *tok, char *cmdline, int *pos)
 {
 	int i;
@@ -126,8 +129,46 @@ char *openquotes(char *cmdline)
 	return (newpoint);
 }
 
-char *open_env_vars(char *cmdline, t_env *env)
+char *find_replace(char *cmdline, t_env *env)
 {
-	printf("%s\n", env->key);
+	char *key;
+	char *val;
+	char *newpoint;
+	int i;
+
+	i = 0;
+	while(cmdline[i])
+	{
+		if(cmdline[i] && cmdline[i++] == '$' && !ft_isspace(cmdline[i + 1]))
+		{
+			key = find_var(cmdline, &i);
+			val = valueof(key, env);
+			printf("%s : %s\n", key, val);
+			free(val);
+			free(key);
+		}
+	}
 	return (0);
+}
+
+static char *valueof(char *key, t_env *env)
+{
+	return (0);
+}
+
+static char *find_var(char *cmdline, int *pos)
+{
+	char *var;
+	int i;
+	int varlen;
+	int len;
+
+	i = *pos;
+	varlen = 0;
+	while(ft_isascii(cmdline[i++]))
+		varlen++;
+	i = *pos;	
+	var = malloc(sizeof(char) * (varlen));
+	len = ft_strlcpy(var, cmdline+i, varlen+1);
+	return (var);
 }

@@ -15,6 +15,7 @@
 void lexical_analyze(char *cmdline, t_table **table)
 {
 	cmdline = openquotes(cmdline);
-	cmdline = open_env_vars(cmdline, (*table)->env);
+	cmdline = find_replace(cmdline, (*table)->env);
+	// printf("%s\n", cmdline);
 }
 
