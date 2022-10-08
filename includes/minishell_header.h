@@ -43,7 +43,7 @@ void free_environment(char **env_tokens);
 void    lexical_analyze(char *cmdline, t_table **table);
 char    *openquotes(char *cmdline);
 char    *token_replacment(char *cmdline, char schr, char rchr);
-char *find_replace(char *cmdline, t_env *env);
+char    *find_replace(char *cmdline, t_env *env);
 int     contains(char *tok, char *cmdline, int *pos);
 int     regexp(char *cmdline, char *regex);
 #endif
