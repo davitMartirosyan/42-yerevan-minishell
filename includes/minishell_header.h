@@ -33,6 +33,10 @@
 #define DQUOTE '\"'
 #define SQUOTE '\''
 
+#define DOUBLEQUOTECOUNT 0
+#define SINGLEQUOTECOUNT 0
+
+
 t_env *env_tokenizing(char **envp);
 void create_shell(char **envp, t_table **table);
 void add_paths(t_env **env, t_table **table);

@@ -12,9 +12,9 @@
 
 #include "../includes/minishell_header.h"
 
-static char *find_var(char *cmdline, int pos);
+static char *keyof(char *cmdline, int pos);
 static char *valueof(char *key, t_env *env);
-static char *replace(char *cmd, char *key, char *val, int pos);
+static char *replace(char *cmd, char *key, char *val, int *pos);
 
 int contains(char *tok, char *cmdline, int *pos)
 {
@@ -110,7 +110,6 @@ char *openquotes(char *cmdline)
 	}
 	if((dq && ((dq % 2) != 0)) || (sq && ((sq % 2) != 0)))
 		printf("not in even measure of DOUBLE or SINGLE quotes\n");
-
 	newpoint = malloc(sizeof(char) * (ft_strlen(cmdline) - (dq + sq) + 1));
 	if(!newpoint)
 		return (NULL);
@@ -140,52 +139,29 @@ char *find_replace(char *cmdline, t_env *env)
 	i = 0;
 	while(cmdline[i])
 	{
-		if(cmdline[i] && cmdline[i++] == '$' && !ft_isspace(cmdline[i])
-			&& (cmdline[i] != '\"' || cmdline[i] != '\''))
+		if(cmdline[i] && cmdline[i] == '$')
 		{
-			key = find_var(cmdline, i);
+			key = keyof(cmdline, i+1);
 			val = valueof(key, env);
-			// printf("%s\n%s\n", key, val);
-			cmdline = replace(cmdline, key, val, i-1);
+			cmdline = replace(cmdline, key, val, &i);
+			free(key);
 		}
-	}
-	printf("%s\n", cmdline);
-	return (0);
-}
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-/**************************************************************************/
-static char *replace(char *cmd, char *key, char *val, int pos)
-{
-	//all string 			-> cmd;
-	//right half 			-> cmd+pos;
-	//key of var 			-> key;
-	//value of  key 		-> val;
-	//position of $ sign	-> pos;
-	char *newpoint;
-	int i;
-
-	newpoint = malloc(sizeof(char) * (pos + 1));
-	if(!newpoint)
-		return (NULL);
-	i = 0;
-	while(i < pos)
-	{
-		newpoint[i] = cmd[i];
 		i++;
 	}
-	newpoint[i] = '\0';
-	newpoint = ft_strjoin(newpoint, val);
-	newpoint = ft_strjoin(newpoint, cmd+pos+ft_strlen(key));
-	free(cmd);
-	return (newpoint);
+	return (cmdline);
+}
+static char *keyof(char *cmdline, int pos)
+{
+	char *var;
+	int varlen;
+	int i;
+
+	i = pos;
+	varlen = 0;
+	while(cmdline[i] && !ft_isspace(cmdline[i++]))
+		varlen++;
+	var = ft_substr(cmdline, pos, varlen);
+	return (var);
 }
 
 static char *valueof(char *key, t_env *env)
@@ -199,19 +175,26 @@ static char *valueof(char *key, t_env *env)
 			return(t->val);
 		t = t->next;
 	}
-	return (0);
+	return (NULL);
 }
 
-static char *find_var(char *cmdline, int pos)
+static char *replace(char *cmd, char *key, char *val, int *pos)
 {
-	char *var;
-	int varlen;
+	char *newpoint;
 	int i;
 
-	i = pos;
-	varlen = 0;
-	while(ft_isascii(cmdline[pos]) && cmdline[pos++] != '$')
-		varlen++;
-	var = ft_substr(cmdline, i, varlen);
-	return (var);
+	i = -1;
+	while(++i < *pos);
+	newpoint = malloc(sizeof(char) * (i + 1));
+	i = -1;
+	while(cmd[++i] && i < *pos)
+		newpoint[i] = cmd[i];
+	newpoint[i] = '\0';
+	newpoint = ft_strjoin(newpoint, val);
+	newpoint = ft_strjoin(newpoint, cmd+i + 1 + ft_strlen(key));
+	free(cmd);
+	return (newpoint);
 }
+
+
+
