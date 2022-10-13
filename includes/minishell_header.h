@@ -33,21 +33,33 @@
 #define DQUOTE '\"'
 #define SQUOTE '\''
 
-#define DOUBLEQUOTECOUNT 0
-#define SINGLEQUOTECOUNT 0
-
-
+/**********************************************/
+/***************Initializing*******************/
+/**********************************************/
 t_env *env_tokenizing(char **envp);
 void create_shell(char **envp, t_table **table);
 void add_paths(t_env **env, t_table **table);
 void execute(t_table **table, char **envp);
 void free_environment(char **env_tokens);
 
-//lexycal analise
+
+/**********************************************/
+/*************Lexical Analyzing****************/
+/**********************************************/
 void    lexical_analyze(char *cmdline, t_table **table);
+int     regexp(char *cmdline, char *regex);
 char    *openquotes(char *cmdline);
 char    *token_replacment(char *cmdline, char schr, char rchr);
 char    *find_replace(char *cmdline, t_env *env);
 int     contains(char *tok, char *cmdline, int *pos);
-int     regexp(char *cmdline, char *regex);
+char    *keyof(char *cmdline, int pos);
+char    *valueof(char *key, t_env *env);
+char    *replace(char *cmd, char *key, char *val, int *pos);
+
+
+
+
+/**********************************************/
+/************Parsing (Parse Tree)**************/
+/**********************************************/
 #endif

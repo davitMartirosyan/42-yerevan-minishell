@@ -12,10 +12,6 @@
 
 #include "../includes/minishell_header.h"
 
-static char *keyof(char *cmdline, int pos);
-static char *valueof(char *key, t_env *env);
-static char *replace(char *cmd, char *key, char *val, int *pos);
-
 int contains(char *tok, char *cmdline, int *pos)
 {
 	int i;
@@ -143,7 +139,8 @@ char *find_replace(char *cmdline, t_env *env)
 	}
 	return (cmdline);
 }
-static char *keyof(char *cmdline, int pos)
+
+char *keyof(char *cmdline, int pos)
 {
 	char *var;
 	int varlen;
@@ -161,7 +158,7 @@ static char *keyof(char *cmdline, int pos)
 	return (var);
 }
 
-static char *valueof(char *key, t_env *env)
+char *valueof(char *key, t_env *env)
 {
 	t_env *t;
 
@@ -175,7 +172,7 @@ static char *valueof(char *key, t_env *env)
 	return (NULL);
 }
 
-static char *replace(char *cmd, char *key, char *val, int *pos)
+char *replace(char *cmd, char *key, char *val, int *pos)
 {
 	char *newpoint;
 	int i;
@@ -192,6 +189,3 @@ static char *replace(char *cmd, char *key, char *val, int *pos)
 	free(cmd);
 	return (newpoint);
 }
-
-
-
