@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/03 00:51:23 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/13 07:40:57 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,15 @@ char *openquotes(char *cmdline)
 	int i;
 	int c;
 	int dq;
-	int sq;
 
 	i = -1;
 	dq = 0;
-	sq = 0;
 	while(cmdline[++i])
-	{
 		if(cmdline[i] == DQUOTE)
 			dq++;
-		else if(cmdline[i] == SQUOTE)
-			sq++;
-	}
-	if((dq && ((dq % 2) != 0)) || (sq && ((sq % 2) != 0)))
+	if((dq && ((dq % 2) != 0)))
 		printf("not in even measure of DOUBLE or SINGLE quotes\n");
-	newpoint = malloc(sizeof(char) * (ft_strlen(cmdline) - (dq + sq) + 1));
+	newpoint = malloc(sizeof(char) * (ft_strlen(cmdline) - (dq + 1)));
 	if(!newpoint)
 		return (NULL);
 	i = -1;
@@ -118,8 +112,6 @@ char *openquotes(char *cmdline)
 	while(cmdline[++i])
 	{
 		if(cmdline[i] == DQUOTE)
-			continue;
-		else if(cmdline[i] == SQUOTE)
 			continue;
 		newpoint[c] = cmdline[i];
 		c++;
@@ -139,7 +131,8 @@ char *find_replace(char *cmdline, t_env *env)
 	i = 0;
 	while(cmdline[i])
 	{
-		if(cmdline[i] && cmdline[i] == '$')
+		if(cmdline[i] && cmdline[i] == '$' 
+			&& (ft_isalpha(cmdline[i+1]) || ft_isdigit(cmdline[i+1])))
 		{
 			key = keyof(cmdline, i+1);
 			val = valueof(key, env);
@@ -158,8 +151,12 @@ static char *keyof(char *cmdline, int pos)
 
 	i = pos;
 	varlen = 0;
-	while(cmdline[i] && !ft_isspace(cmdline[i++]))
+	while(cmdline[i] && !ft_isspace(cmdline[i])
+		&& (ft_isalpha(cmdline[i])|| ft_isdigit(cmdline[i])))
+	{
 		varlen++;
+		i++;
+	}
 	var = ft_substr(cmdline, pos, varlen);
 	return (var);
 }
@@ -171,7 +168,7 @@ static char *valueof(char *key, t_env *env)
 	t = env;
 	while(t->next != NULL)
 	{
-		if(ft_strncmp(t->key, key, ft_strlen(t->key)) == 0)
+		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0)
 			return(t->val);
 		t = t->next;
 	}

@@ -1,7 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/10/13 06:14:55 by dmartiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-// typedef int t_list (*t_builtin_ptr)(t_list *, t_table);
+typedef enum s_types
+{
+    SEP,           // 0 [' ']
+    WORD,          // 1 [A-Z]
+    FIELD,         // 2 '
+    EXP_FIELD,     // 3 "
+    STDIN,         // 4 0
+    STDOUT,        // 5 1
+    STDERR,        // 6 2
+    APPEND,        // 7 >>
+    HEREDOC,       // 8 <<
+    PIPE           // 9 |
+} t_type;
 
 typedef struct s_env
 {
@@ -19,20 +43,21 @@ typedef struct s_heredoc
 
 typedef struct s_cmds
 {
-    char    *cmd;
+    char    *fullcmd;
     char    *path;
     int     istream;
     int     ostream;
-    struct  s_cmds *next;
 }   t_cmds;
+
 
 typedef struct s_table{
     char        **paths;
     char        **reserved;
     char        *cmdline;
-	t_heredoc   *heredoc;
     t_env       *env;
-    t_cmds      *cmds;
+    t_list      *cmds;
 } t_table;
+
+typedef int (*t_builtin_ptr)(t_list *, t_table *);
 
 #endif

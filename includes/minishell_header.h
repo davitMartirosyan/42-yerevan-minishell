@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/06 04:39:15 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/13 01:40:11 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #ifndef MINISHELL_HEADER_H
 #define MINISHELL_HEADER_H
 
-#define RESERVED 		"echo pwd cd unset export exit env"
-#define CMD         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
-#define HEREDOC     	"[[<<][A-Za-z]]*"
+#define RESERVED		"echo pwd cd unset export exit env"
+#define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
+#define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 
 #include <stdio.h>
 #include <string.h>
