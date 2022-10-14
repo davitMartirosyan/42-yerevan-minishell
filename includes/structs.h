@@ -17,8 +17,8 @@ typedef enum s_types
 {
     SEP,           // 0 [' ']
     WORD,          // 1 [A-Z]
-    FIELD,         // 2 '
-    EXP_FIELD,     // 3 "
+    SGL,           // 2 '
+    DBL,           // 3 "
     STDIN,         // 4 0
     STDOUT,        // 5 1
     STDERR,        // 6 2

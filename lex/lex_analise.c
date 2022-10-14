@@ -14,7 +14,9 @@
 
 void lexical_analyze(char *cmdline, t_table **table)
 {
-	cmdline = openquotes(cmdline);
-	cmdline = find_replace(cmdline, (*table)->env);
+	openquotes(cmdline);
 	printf("%s\n", cmdline);
+
+	// printf("%d | %d", DBL, SGL);
+
 }

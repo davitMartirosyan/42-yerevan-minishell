@@ -57,7 +57,11 @@ static int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count);
 
 
 
-
+token_replacment(cmdline, '\'', '\a');
+	// cmdline = find_replace(cmdline, (*table)->env);
+	printf("%s\n", cmdline);
+	token_replacment(cmdline, '\a', '\'');
+	printf("%s\n", cmdline);
 
 
 

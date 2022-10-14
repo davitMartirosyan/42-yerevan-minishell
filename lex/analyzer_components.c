@@ -67,54 +67,61 @@ int contains(char *tok, char *cmdline, int *pos)
 	return (0);
 }
 
-char *token_replacment(char *cmdline, char schr, char rchr)
+void token_replacment(char *cmdline, char schr, char rchr)
 {
-	int i = -1;
-	char *newpoint = malloc(sizeof(char) * ft_strlen(cmdline + 1));
-	if(!newpoint)
-		return (NULL);
-	while(cmdline[++i])
+	int i;
+
+	i = 0;
+	while(cmdline[i])
 	{
-		
 		if(cmdline[i] == schr)
-			newpoint[i] =  rchr;
-		else
-			newpoint[i] = cmdline[i];
+			cmdline[i] =  rchr;
+		i++;
 	}
-	newpoint[i] = '\0';
-	free(cmdline);
-	return (newpoint);
 }
 
-char *openquotes(char *cmdline)
+void openquotes(char *cmdline)
 {
-	char *newpoint;
 	int i;
-	int c;
-	int dq;
+	int dbl;
+	int sgl;
 
 	i = -1;
-	dq = 0;
-	while(cmdline[++i])
-		if(cmdline[i] == DQUOTE)
-			dq++;
-	if((dq && ((dq % 2) != 0)))
-		printf("not in even measure of DOUBLE or SINGLE quotes\n");
-	newpoint = malloc(sizeof(char) * (ft_strlen(cmdline) - (dq + 1)));
-	if(!newpoint)
-		return (NULL);
-	i = -1;
-	c = 0;
 	while(cmdline[++i])
 	{
-		if(cmdline[i] == DQUOTE)
-			continue;
-		newpoint[c] = cmdline[i];
-		c++;
+		if(cmdline[i] == '\'')
+			inside_quote(cmdline, &i, DBL);
+		if(cmdline[i] == '\"')
+			inside_quote(cmdline, &i, SGL);
 	}
-	newpoint[c] = '\0';
-	free(cmdline);
-	return (newpoint);
+}
+
+void inside_quote(char *cmdline, int *pos, int find)
+{
+	int i;
+
+	i = *pos;
+	if(find == SGL)
+	{
+		while(cmdline[++i])
+		{
+			if(cmdline[i] == '\"')
+				break;
+			if(cmdline[i] == '\'')
+				cmdline[i] = '\a';
+		}
+	}
+	else if(find == DBL)
+	{
+		while(cmdline[++i])
+		{
+			if(cmdline[i] == '\'')
+				break;
+			if(cmdline[i] == '\"')
+				cmdline[i] = '\b';
+		}
+	}
+	*pos = i;
 }
 
 char *find_replace(char *cmdline, t_env *env)

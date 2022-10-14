@@ -30,8 +30,6 @@
 #include "../libft/libft.h"
 #include "./structs.h"
 
-#define DQUOTE '\"'
-#define SQUOTE '\''
 
 /**********************************************/
 /***************Initializing*******************/
@@ -47,9 +45,12 @@ void free_environment(char **env_tokens);
 /*************Lexical Analyzing****************/
 /**********************************************/
 void    lexical_analyze(char *cmdline, t_table **table);
+void    token_replacment(char *cmdline, char schr, char rchr);
+
+void    openquotes(char *cmdline);
+void    inside_quote(char *cmdline, int *pos, int find);
+
 int     regexp(char *cmdline, char *regex);
-char    *openquotes(char *cmdline);
-char    *token_replacment(char *cmdline, char schr, char rchr);
 char    *find_replace(char *cmdline, t_env *env);
 int     contains(char *tok, char *cmdline, int *pos);
 char    *keyof(char *cmdline, int pos);
