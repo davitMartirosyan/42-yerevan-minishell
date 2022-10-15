@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_analise.c                                      :+:      :+:    :+:   */
+/*   syntax_analizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 21:14:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/13 02:23:52 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/10/15 20:07:27 by root              #+#    #+#             */
+/*   Updated: 2022/10/15 20:07:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
 
-void lexical_analyze(char *cmdline, t_table **table)
+void syntax_analyze(char *cmdline, int *q_c)
 {
-	openquotes(cmdline);
-	printf("%s\n", cmdline);
-
-	// printf("%d | %d", DBL, SGL);
-
+	if(check_quotes(cmdline, q_c))
+		printf("Syntax quotes is ok\n");
+	else
+		printf("Syntax is bad\n");
 }

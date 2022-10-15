@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyzer_components.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/13 07:40:57 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/15 20:07:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,50 +80,6 @@ void token_replacment(char *cmdline, char schr, char rchr)
 	}
 }
 
-void openquotes(char *cmdline)
-{
-	int i;
-	int dbl;
-	int sgl;
-
-	i = -1;
-	while(cmdline[++i])
-	{
-		if(cmdline[i] == '\'')
-			inside_quote(cmdline, &i, DBL);
-		if(cmdline[i] == '\"')
-			inside_quote(cmdline, &i, SGL);
-	}
-}
-
-void inside_quote(char *cmdline, int *pos, int find)
-{
-	int i;
-
-	i = *pos;
-	if(find == SGL)
-	{
-		while(cmdline[++i])
-		{
-			if(cmdline[i] == '\"')
-				break;
-			if(cmdline[i] == '\'')
-				cmdline[i] = '\a';
-		}
-	}
-	else if(find == DBL)
-	{
-		while(cmdline[++i])
-		{
-			if(cmdline[i] == '\'')
-				break;
-			if(cmdline[i] == '\"')
-				cmdline[i] = '\b';
-		}
-	}
-	*pos = i;
-}
-
 char *find_replace(char *cmdline, t_env *env)
 {
 	char *key;
@@ -134,7 +90,7 @@ char *find_replace(char *cmdline, t_env *env)
 	i = 0;
 	while(cmdline[i])
 	{
-		if(cmdline[i] && cmdline[i] == '$' 
+		if(cmdline[i] && cmdline[i] == '$'
 			&& (ft_isalpha(cmdline[i+1]) || ft_isdigit(cmdline[i+1])))
 		{
 			key = keyof(cmdline, i+1);

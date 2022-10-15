@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/13 06:14:55 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/15 20:02:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
+
+#define DBL_Q 0
+#define SGL_Q 0
 
 typedef enum s_types
 {
@@ -54,8 +57,8 @@ typedef struct s_table{
     char        **paths;
     char        **reserved;
     char        *cmdline;
+    int         q_c[2];
     t_env       *env;
-    t_list      *cmds;
 } t_table;
 
 typedef int (*t_builtin_ptr)(t_list *, t_table *);

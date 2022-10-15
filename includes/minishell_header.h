@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/13 01:40:11 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/15 18:31:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void free_environment(char **env_tokens);
 void    lexical_analyze(char *cmdline, t_table **table);
 void    token_replacment(char *cmdline, char schr, char rchr);
 
+int     check_quotes(char *cmdline, int *q_counts);
 void    openquotes(char *cmdline);
 void    inside_quote(char *cmdline, int *pos, int find);
+void    syntax_analyze(char *cmdline, int *q_counts);
 
 int     regexp(char *cmdline, char *regex);
 char    *find_replace(char *cmdline, t_env *env);
