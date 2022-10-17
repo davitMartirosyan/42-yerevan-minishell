@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/17 03:08:28 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/17 08:17:24 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ int main(int argc, char *argv[], char *envp[])
   // gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
  //gcc  env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell -lreadline && ./minishell
 // gcc env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
-//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
+////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
+//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
