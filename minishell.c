@@ -22,7 +22,7 @@ int main(int argc, char *argv[], char *envp[])
         cmd = readline(SHELL);
         lexical_analyze(cmd, &table);
         // parse_cmds(envp);
-        // execute(&table, envp);
+        // execute(cmd, &table, envp);
         // if(is_exit())
         //     exit(table->exit_status);
         // printf("%s\n", cmd);
@@ -31,7 +31,7 @@ int main(int argc, char *argv[], char *envp[])
 }
 
 
-// echo "hello             ho?" how are you $USER | > out
+   // echo "hello             ho?" how are you $USER | > out
 
   // gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
  //gcc  env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell -lreadline && ./minishell

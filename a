@@ -1,0 +1,15 @@
+a
+env
+exec
+filename
+history.txt
+includes
+lex
+lex.yml
+libft
+Makefile
+minishell
+minishell.c
+sh-builtin
+testing_cmds
+utils

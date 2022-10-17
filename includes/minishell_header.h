@@ -20,6 +20,7 @@
 #define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 #define SHELL 				"Minishell-$ "
 
+
 /*Error Handlers*/
 #define QUOTE_SYNTAX_ERR 	"syntax error near unexpected token"
 
@@ -42,7 +43,6 @@
 t_env *env_tokenizing(char **envp);
 void create_shell(char **envp, t_table **table);
 void add_paths(t_env **env, t_table **table);
-void execute(t_table **table, char **envp);
 void free_environment(char **env_tokens);
 void destruct_shell(t_table **table);
 
@@ -71,4 +71,12 @@ char    *replace(char *cmd, char *key, char *val, int *pos);
 /**********************************************/
 /************Parsing (Parse Tree)**************/
 /**********************************************/
+
+
+
+/**********************************************/
+/*******************Executing******************/
+/**********************************************/
+int execute(char *cmd, t_table **table, char **envp);
+
 #endif

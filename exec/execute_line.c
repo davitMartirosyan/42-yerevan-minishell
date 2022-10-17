@@ -12,7 +12,13 @@
 
 #include "../includes/minishell_header.h"
 
-void execute(t_table **table, char **envp)
+int execute(char *cmd, t_table **table, char **envp)
 {
-		
+    int stdindup =  dup(STDIN);
+    int stdoutdup =  dup(STDOUT);
+    printf("%d : %d\n", stdindup, stdoutdup);
+
+    close(stdindup);
+    close(stdoutdup);
+    return (0);
 }

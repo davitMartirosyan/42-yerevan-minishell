@@ -81,3 +81,19 @@ void inside_quote(char *cmdline, int *pos, int find)
 	}
 	*pos = i;
 }
+
+int quote_syntax_analyze(char *cmdline, int *q_c)
+{
+	if(check_quotes(cmdline, q_c))
+	{
+		token_replacment(cmdline, '\a', '\'');
+		token_replacment(cmdline, '\b', '\"');
+		return (1);
+	}
+	else
+	{
+		token_replacment(cmdline, '\a', '\'');
+		token_replacment(cmdline, '\b', '\"');
+		return (0);
+	}
+}

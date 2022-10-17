@@ -20,13 +20,13 @@
 
 typedef enum s_types
 {
-    SEP,           // 0 [' ']
-    WORD,          // 1 [A-Z]
-    SGL,           // 2 '
-    DBL,           // 3 "
-    STDIN,         // 4 0
-    STDOUT,        // 5 1
-    STDERR,        // 6 2
+    STDIN,         // 0 0
+    STDOUT,        // 1 1
+    STDERR,        // 2 2
+    SEP,           // 3 [' ']
+    WORD,          // 4 [A-Z]
+    SGL,           // 5 '
+    DBL,           // 6 "
     APPEND,        // 7 >>
     HEREDOC,       // 8 <<
     PIPE           // 9 |
