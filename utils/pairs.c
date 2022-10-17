@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_analizer.c                                     :+:      :+:    :+:   */
+/*   pairs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/10/17 06:03:02 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/10/17 03:19:41 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/10/17 03:20:23 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/minishell_header.h"
 
-void lexical_analyze(char *cmdline, t_table **table)
-{
-	openquotes(cmdline);
-	if(quote_syntax_analyze(cmdline, (*table)->q_c))
-		cmdline = find_replace(cmdline, (*table)->env);
-	else
-		printf("%s %s '%s'\n", SHELL, QUOTE_SYNTAX_ERR, "\'");
-	printf("%s\n", cmdline);
-}
-
-	// printf("double quotes -> %d\n", (*table)->q_counts[0]);
-	// printf("single quotes -> %d\n", (*table)->q_counts[1]);
-
-	

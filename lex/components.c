@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analyzer_components.c                              :+:      :+:    :+:   */
+/*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/15 20:07:46 by root             ###   ########.fr       */
+/*   Updated: 2022/10/17 05:56:06 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ char *valueof(char *key, t_env *env)
 	t = env;
 	while(t->next != NULL)
 	{
-		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0)
+		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0 && \
+			ft_strlen(t->key) == ft_strlen(key))
 			return(t->val);
 		t = t->next;
 	}

@@ -3,19 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:07:27 by root              #+#    #+#             */
-/*   Updated: 2022/10/15 20:07:47 by root             ###   ########.fr       */
+/*   Updated: 2022/10/17 06:01:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
 
-void syntax_analyze(char *cmdline, int *q_c)
+int quote_syntax_analyze(char *cmdline, int *q_c)
 {
 	if(check_quotes(cmdline, q_c))
-		printf("Syntax quotes is ok\n");
+	{
+		token_replacment(cmdline, '\a', '\'');
+		token_replacment(cmdline, '\b', '\"');
+		return (1);
+	}
 	else
-		printf("Syntax is bad\n");
+	{
+		token_replacment(cmdline, '\a', '\'');
+		token_replacment(cmdline, '\b', '\"');
+		return (0);
+	}
 }

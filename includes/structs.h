@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/15 20:02:06 by root             ###   ########.fr       */
+/*   Updated: 2022/10/16 23:35:56 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#define DBL_Q 0
-#define SGL_Q 0
+/*  
+    sgl -> ' -> \a
+    dbl -> " -> \b
+*/
 
 typedef enum s_types
 {

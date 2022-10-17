@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/13 05:50:52 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/17 03:08:28 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(int argc, char *argv[], char *envp[])
     create_shell(envp, &table);
     while(1)
     {
-        cmd = readline("~ ");
+        cmd = readline(SHELL);
         lexical_analyze(cmd, &table);
         // parse_cmds(envp);
         // execute(&table, envp);
