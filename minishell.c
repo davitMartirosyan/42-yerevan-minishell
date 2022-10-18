@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/17 08:17:24 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:43:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int main(int argc, char *argv[], char *envp[])
     while(1)
     {
         cmd = readline(SHELL);
-        lexical_analyze(cmd, &table);
+        lexical_analyzer(cmd, &table);
         // parse_cmds(envp);
         // execute(cmd, &table, envp);
         // if(is_exit())
         //     exit(table->exit_status);
         // printf("%s\n", cmd);
     }
-        
 }
+
 
 
    // echo "hello             ho?" how are you $USER | > out

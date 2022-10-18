@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/17 03:28:21 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:45:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 #include <sys/types.h>
@@ -50,11 +51,11 @@ void destruct_shell(t_table **table);
 /**********************************************/
 /*************Lexical Analyzing****************/
 /**********************************************/
-void    lexical_analyze(char *cmdline, t_table **table);
+void    lexical_analyzer(char *cmdline, t_table **table);
 void    token_replacment(char *cmdline, char schr, char rchr);
 
 int     check_quotes(char *cmdline, int *q_counts);
-int		quote_syntax_analyze(char *cmdline, int *q_c);
+int		quote_syntax_analyzer(char *cmdline, int *q_c);
 void    openquotes(char *cmdline);
 void    inside_quote(char *cmdline, int *pos, int find);
 

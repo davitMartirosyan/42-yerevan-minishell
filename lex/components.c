@@ -90,13 +90,18 @@ char *find_replace(char *cmdline, t_env *env)
 	i = 0;
 	while(cmdline[i])
 	{
-		if(cmdline[i] && cmdline[i] == '$'
-			&& (ft_isalpha(cmdline[i+1]) || ft_isdigit(cmdline[i+1])))
+		if(cmdline[i] && cmdline[i] == '$' \
+			&& (ft_isalpha(cmdline[i+1]) || ft_isdigit(cmdline[i+1])
+				|| cmdline[i+1] == '\"' || cmdline[i+1] == '\'' ))
 		{
 			key = keyof(cmdline, i+1);
 			val = valueof(key, env);
 			cmdline = replace(cmdline, key, val, &i);
 			free(key);
+		}
+		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i+1] == '?')
+		{
+			
 		}
 		i++;
 	}

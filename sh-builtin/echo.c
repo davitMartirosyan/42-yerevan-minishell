@@ -1,13 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin2.c                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:46 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/21 20:21:00 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/10/18 15:43:49 by user              #+#    #+#             */
+/*   Updated: 2022/10/18 15:47:17 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
+#define echo main
+
+void echo(void)
+{
+    printf("hello world\n");
+}

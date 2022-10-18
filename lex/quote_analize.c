@@ -77,12 +77,14 @@ void inside_quote(char *cmdline, int *pos, int find)
 				cmdline[i] = '\b';
 			if(cmdline[i] == '$')
 				cmdline[i] = 4;
+			if(cmdline[i] == '|')
+				cmdline[i] = 5;
 		}
 	}
 	*pos = i;
 }
 
-int quote_syntax_analyze(char *cmdline, int *q_c)
+int quote_syntax_analyzer(char *cmdline, int *q_c)
 {
 	if(check_quotes(cmdline, q_c))
 	{

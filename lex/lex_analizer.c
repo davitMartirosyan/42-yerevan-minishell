@@ -13,17 +13,17 @@
 
 #include "../includes/minishell_header.h"
 
-void lexical_analyze(char *cmdline, t_table **table)
+void lexical_analyzer(char *cmdline, t_table **table)
 {
 	openquotes(cmdline);
-	if(quote_syntax_analyze(cmdline, (*table)->q_c))
+	if(quote_syntax_analyzer(cmdline, (*table)->q_c))
 	{
 		cmdline = find_replace(cmdline, (*table)->env);
 		token_replacment(cmdline, 4, '$');
 		printf("%s\n", cmdline);
 	}
 	else
-		printf("%s %s '%s'\n", SHELL, QUOTE_SYNTAX_ERR, "\'");
+		printf("%s '%s'\n",QUOTE_SYNTAX_ERR, "\'");
 }
 	// printf("double quotes -> %d\n", (*table)->q_counts[0]);
 	// printf("single quotes -> %d\n", (*table)->q_counts[1]);
