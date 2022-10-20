@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/17 05:56:06 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:20:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char *find_replace(char *cmdline, t_env *env)
 	while(cmdline[i])
 	{
 		if(cmdline[i] && cmdline[i] == '$' \
-			&& (ft_isalpha(cmdline[i+1]) || ft_isdigit(cmdline[i+1])
+			&& (ft_isalnum(cmdline[i+1])|| cmdline[i+1] == '_' \
 				|| cmdline[i+1] == '\"' || cmdline[i+1] == '\'' ))
 		{
 			key = keyof(cmdline, i+1);
@@ -99,10 +99,10 @@ char *find_replace(char *cmdline, t_env *env)
 			cmdline = replace(cmdline, key, val, &i);
 			free(key);
 		}
-		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i+1] == '?')
-		{
+		// else if(cmdline[i] && cmdline[i] == '$'&& cmdline[i+1] == '?')
+		// {
 			
-		}
+		// }
 		i++;
 	}
 	return (cmdline);
@@ -117,7 +117,7 @@ char *keyof(char *cmdline, int pos)
 	i = pos;
 	varlen = 0;
 	while(cmdline[i] && !ft_isspace(cmdline[i])
-		&& (ft_isalpha(cmdline[i])|| ft_isdigit(cmdline[i])))
+		&& (ft_isalnum(cmdline[i]) || cmdline[i] == '_'))
 	{
 		varlen++;
 		i++;

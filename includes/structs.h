@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/16 23:35:56 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:16:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 #define STRUCTS_H
 
 /*  
-    sgl -> ' -> \a
-    dbl -> " -> \b
+    $ -> ?  -> 4
+    | -> ?  -> 5
+    ' -> \a -> 7
+    " -> \b -> 8
 */
 
 typedef enum s_types
@@ -24,7 +26,7 @@ typedef enum s_types
     STDOUT,        // 1 1
     STDERR,        // 2 2
     SEP,           // 3 [' ']
-    WORD,          // 4 [A-Z]
+    WORD,          // 4 [A-Z_0-9]
     SGL,           // 5 '
     DBL,           // 6 "
     APPEND,        // 7 >>
@@ -39,26 +41,11 @@ typedef struct s_env
     struct s_env *next;
 } t_env; 
 
-typedef struct s_heredoc
-{
-    char *term;
-	char *delimiter;
-	char *heredoc;
-} t_heredoc;
-
-typedef struct s_cmds
-{
-    char    *fullcmd;
-    char    *path;
-    int     istream;
-    int     ostream;
-}   t_cmds;
-
-
 typedef struct s_table{
     char        **paths;
     char        **reserved;
-    char        *cmdline;
+    int         *fds;
+    char        **files;
     int         q_c[2];
     t_env       *env;
 } t_table;

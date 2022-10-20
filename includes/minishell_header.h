@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/18 15:45:06 by user             ###   ########.fr       */
+/*   Updated: 2022/10/20 11:47:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@
 #define TOKENS				"|<>;&"
 #define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 #define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
-#define SHELL 				"Minishell-$ "
+#define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
 
 
 /*Error Handlers*/
 #define QUOTE_SYNTAX_ERR 	"syntax error near unexpected token"
+#define SYNTAX_ERR          2
+#define CMD_NOT_FOUND_ERR   "not found"
+#define CMD_ERR             127
+#define PATH_SYNTAX_ERR     "No such file or directory"
+#define PATH_ERR            1
 
 #include <stdio.h>
 #include <string.h>
@@ -51,7 +56,7 @@ void destruct_shell(t_table **table);
 /**********************************************/
 /*************Lexical Analyzing****************/
 /**********************************************/
-void    lexical_analyzer(char *cmdline, t_table **table);
+char    *lexical_analyzer(char *cmdline, t_table **table);
 void    token_replacment(char *cmdline, char schr, char rchr);
 
 int     check_quotes(char *cmdline, int *q_counts);

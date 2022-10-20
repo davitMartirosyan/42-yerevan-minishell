@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/18 15:43:37 by user             ###   ########.fr       */
+/*   Updated: 2022/10/20 14:36:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,28 @@
 int main(int argc, char *argv[], char *envp[])
 {
     t_table     *table;
-    char        *cmd;
+    char        *cmdline;
     create_shell(envp, &table);
     while(1)
     {
-        cmd = readline(SHELL);
-        lexical_analyzer(cmd, &table);
+        cmdline = readline(SHELL);
+        cmdline = lexical_analyzer(cmdline, &table);
         // parse_cmds(envp);
         // execute(cmd, &table, envp);
         // if(is_exit())
         //     exit(table->exit_status);
-        // printf("%s\n", cmd);
+        if(cmdline)
+            printf("%s\n", cmdline);
     }
-}
+    int a;
+    a = ~2;
+    printf("%d\n", a);
 
+    //~2 -> 11111101
+    //10 -> 00001010
+    //2  -> 00000010
+    //o  -> 00001000
+}
 
 
    // echo "hello             ho?" how are you $USER | > out

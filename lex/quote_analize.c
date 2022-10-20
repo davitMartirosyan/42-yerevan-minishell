@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_analize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/10/17 05:46:09 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/19 10:30:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void inside_quote(char *cmdline, int *pos, int find)
 			if(cmdline[i] == '\"')
 				break;
 			if(cmdline[i] == '\'')
-				cmdline[i] = '\a';
+				cmdline[i] = 7;
 		}
 	}
 	else if(find == DBL)
@@ -74,7 +74,7 @@ void inside_quote(char *cmdline, int *pos, int find)
 			if(cmdline[i] == '\'')
 				break;
 			if(cmdline[i] == '\"')
-				cmdline[i] = '\b';
+				cmdline[i] = 8;
 			if(cmdline[i] == '$')
 				cmdline[i] = 4;
 			if(cmdline[i] == '|')
@@ -88,14 +88,14 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 {
 	if(check_quotes(cmdline, q_c))
 	{
-		token_replacment(cmdline, '\a', '\'');
-		token_replacment(cmdline, '\b', '\"');
+		token_replacment(cmdline, 7, '\'');
+		token_replacment(cmdline, 8, '\"');
 		return (1);
 	}
 	else
 	{
-		token_replacment(cmdline, '\a', '\'');
-		token_replacment(cmdline, '\b', '\"');
+		token_replacment(cmdline, 7, '\'');
+		token_replacment(cmdline, 8, '\"');
 		return (0);
 	}
 }
