@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/20 14:36:34 by user             ###   ########.fr       */
+/*   Updated: 2022/10/22 03:21:58 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,7 @@ int main(int argc, char *argv[], char *envp[])
         // execute(cmd, &table, envp);
         // if(is_exit())
         //     exit(table->exit_status);
-        if(cmdline)
-            printf("%s\n", cmdline);
     }
-    int a;
-    a = ~2;
-    printf("%d\n", a);
 
     //~2 -> 11111101
     //10 -> 00001010

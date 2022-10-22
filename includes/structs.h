@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/20 14:16:28 by user             ###   ########.fr       */
+/*   Updated: 2022/10/22 07:16:27 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@
 
 typedef enum s_types
 {
-    STDIN,         // 0 0
-    STDOUT,        // 1 1
-    STDERR,        // 2 2
-    SEP,           // 3 [' ']
-    WORD,          // 4 [A-Z_0-9]
-    SGL,           // 5 '
-    DBL,           // 6 "
-    APPEND,        // 7 >>
-    HEREDOC,       // 8 <<
-    PIPE           // 9 |
+    STDIN,         // 0  0
+    STDOUT,        // 1  1
+    STDERR,        // 2  2
+    SEP,           // 3  [' ']
+    WORD,          // 4  [A-Z_0-9]
+    SGL,           // 5  '
+    DBL,           // 6  "
+    REDIR_OUT,     // 7  >
+    REDIR_IN,      // 8  <
+    APPEND,        // 9  >>
+    HEREDOC,       // 10 <<
+    PIPE           // 11 |
 } t_type;
 
 typedef struct s_env
@@ -39,7 +41,16 @@ typedef struct s_env
     char *key;
     char *val;
     struct s_env *next;
-} t_env; 
+} t_env;
+
+typedef struct s_tok
+{
+    int     len;
+    char    *tok;
+    int     type;
+    struct  s_tok *next;
+    struct  s_tok *prev;
+} t_tok;
 
 typedef struct s_table{
     char        **paths;

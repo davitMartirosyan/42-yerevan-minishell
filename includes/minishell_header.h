@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/20 11:47:02 by user             ###   ########.fr       */
+/*   Updated: 2022/10/22 03:25:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ char    *find_replace(char *cmdline, t_env *env);
 int     contains(char *tok, char *cmdline, int *pos);
 char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
-char    *replace(char *cmd, char *key, char *val, int *pos);
+char    *replace(char *cmdline, char *key, char *val, int *pos);
 
-
+t_tok	*tokenization(char *cmdline);
 
 
 /**********************************************/
