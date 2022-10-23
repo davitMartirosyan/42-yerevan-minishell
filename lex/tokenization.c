@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:00:39 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/23 05:11:40 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/23 08:31:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
 static int wordlen(char *wordstart, int s_pos);
 static char *word(char *cmdline, int len, int s_pos);
-
+static void add_word(char *cmdline, int *pos, t_tok *token);
 
 t_tok *tokenization(char *cmdline)
 {
@@ -23,26 +23,31 @@ t_tok *tokenization(char *cmdline)
 	i = -1;
 	while(cmdline[++i])
 	{
-		len = 0;
 		if(ft_iswordpart(cmdline[i]))
 			add_word(cmdline, &i, token);
-		if(cmdline[i] == '>')
-			redirection(cmdline, &i, token, '>');
-		if(cmdline[i] == '<')
-			redirection(cmdline, &i, token, '<');
-		if(cmdline[i] == '|')
-			pipe(cmdline, &i, token);
+		// if(cmdline[i] == '>')
+		// 	redirection(cmdline, &i, token, '>');
+		// if(cmdline[i] == '<')
+		// 	redirection(cmdline, &i, token, '<');
+		// if(cmdline[i] == '|')
+		// 	pipe(cmdline, &i, token);
 	}
-	return (tok_tmp);
+	return (token);
 }
 
 static void add_word(char *cmdline, int *pos, t_tok *token)
 {
-	int i;
+	int len;
+	char *wordpart;
+	t_tok *node;
 	
-	i = 0;
-	token = 
-	// while(cmdline[*pos] && ft_iswordpart(cmdline[*pos]))
+	len = wordlen(cmdline, *pos);
+	wordpart = word(cmdline, len, *pos);
+	
+	node = new_token(len, wordpart, WORD);
+	
+	printf("%s : %d | type : %d\n", node->tok, node->len, node->type);
+	*pos += len;
 }
 
 static int wordlen(char *wordstart, int s_pos)
