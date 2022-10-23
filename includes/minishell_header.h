@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/22 03:25:07 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/23 03:34:18 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void destruct_shell(t_table **table);
 /**********************************************/
 /*************Lexical Analyzing****************/
 /**********************************************/
-char    *lexical_analyzer(char *cmdline, t_table **table);
+void	lexical_analyzer(char *cmdline, t_table *table);
 void    token_replacment(char *cmdline, char schr, char rchr);
 
 int     check_quotes(char *cmdline, int *q_counts);

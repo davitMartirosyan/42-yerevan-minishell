@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/22 07:16:27 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/23 03:35:55 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_table{
     char        **files;
     int         q_c[2];
     t_env       *env;
+    t_tok       *token;
 } t_table;
 
 typedef int (*t_builtin_ptr)(t_list *, t_table *);

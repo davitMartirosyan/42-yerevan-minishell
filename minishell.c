@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/22 03:21:58 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/23 03:26:34 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,6 @@ int main(int argc, char *argv[], char *envp[])
     while(1)
     {
         cmdline = readline(SHELL);
-        cmdline = lexical_analyzer(cmdline, &table);
-        // parse_cmds(envp);
-        // execute(cmd, &table, envp);
-        // if(is_exit())
-        //     exit(table->exit_status);
+        lexical_analyzer(cmdline, table);
     }
-
-    //~2 -> 11111101
-    //10 -> 00001010
-    //2  -> 00000010
-    //o  -> 00001000
 }
-
-
-   // echo "hello             ho?" how are you $USER | > out
-
-  // gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
- //gcc  env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell -lreadline && ./minishell
-// gcc env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
-////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
-//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

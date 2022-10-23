@@ -34,6 +34,16 @@ if(ft_strchr(cmdline, '<'))
 }
 
 
+
+   // echo "hello             ho?" how are you $USER | > out
+
+  // gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
+ //gcc  env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell -lreadline && ./minishell
+// gcc env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
+////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
+//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
+
+
 typedef struct s_heredoc
 {
     char *term;
