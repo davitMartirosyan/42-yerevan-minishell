@@ -6,33 +6,34 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:00:39 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/23 08:31:18 by root             ###   ########.fr       */
+/*   Updated: 2022/10/23 21:12:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
-static int wordlen(char *wordstart, int s_pos);
+static int wordlen(char *wordstart, int pos);
 static char *word(char *cmdline, int len, int s_pos);
 static void add_word(char *cmdline, int *pos, t_tok *token);
+static void insert_after(t_tok **tokens, t_tok *node);
 
 t_tok *tokenization(char *cmdline)
 {
-	t_tok *token;
+	t_tok *tokens;
 	int i;
 	
 	i = -1;
 	while(cmdline[++i])
 	{
-		if(ft_iswordpart(cmdline[i]))
-			add_word(cmdline, &i, token);
+		if (cmdline[i] && ft_iswordpart(cmdline[i]))
+			add_word(cmdline, &i, tokens);
 		// if(cmdline[i] == '>')
-		// 	redirection(cmdline, &i, token, '>');
+		// 	redirection(cmdline, &i, tokens, '>');
 		// if(cmdline[i] == '<')
-		// 	redirection(cmdline, &i, token, '<');
+		// 	redirection(cmdline, &i, tokens, '<');
 		// if(cmdline[i] == '|')
-		// 	pipe(cmdline, &i, token);
+		// 	pipe(cmdline, &i, tokens);
 	}
-	return (token);
+	return (tokens);
 }
 
 static void add_word(char *cmdline, int *pos, t_tok *token)
@@ -42,13 +43,12 @@ static void add_word(char *cmdline, int *pos, t_tok *token)
 	t_tok *node;
 	
 	len = wordlen(cmdline, *pos);
-	wordpart = word(cmdline, len, *pos);
+	wordpart = word(cmdline+*pos, len, *pos);
 	
-	node = new_token(len, wordpart, WORD);
-	
-	printf("%s : %d | type : %d\n", node->tok, node->len, node->type);
+	printf("%s\n", wordpart);
 	*pos += len;
 }
+
 
 static int wordlen(char *wordstart, int s_pos)
 {
@@ -72,6 +72,7 @@ static char *word(char *cmdline, int len, int s_pos)
 	word = malloc(sizeof(char) * (len + 1));
 	while(i < len)
 	{
+		printf("%c\n", cmdline[s_pos]);
 		word[i] = cmdline[s_pos];
 		s_pos++;
 		i++;
