@@ -34,6 +34,14 @@ if(ft_strchr(cmdline, '<'))
 }
 
 
+		// if(cmdline[i] == '>')
+		// 	redirection(cmdline, &i, tokens, '>');
+		// if(cmdline[i] == '<')
+		// 	redirection(cmdline, &i, tokens, '<');
+		// if(cmdline[i] == '|')
+		// 	pipe(cmdline, &i, tokens);
+
+
 
    // echo "hello             ho?" how are you $USER | > out
 

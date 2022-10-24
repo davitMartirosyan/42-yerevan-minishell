@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/23 07:18:31 by root             ###   ########.fr       */
+/*   Updated: 2022/10/24 22:20:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
 char    *replace(char *cmdline, char *key, char *val, int *pos);
 
-t_tok	*tokenization(char *cmdline);
+t_tok   *tokenization(char *cmdline);
+t_tok   *last(t_tok *lst);
+void	add(t_tok **lst, t_tok *new);
 
 
 /**********************************************/
