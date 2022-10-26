@@ -41,7 +41,11 @@ if(ft_strchr(cmdline, '<'))
 		// if(cmdline[i] == '|')
 		// 	pipe(cmdline, &i, tokens);
 
-
+		// while(table->token != NULL)
+		// {
+		// 	printf("%s\n", table->token->tok);
+		// 	table->token = table->token->next;
+		// }
 
    // echo "hello             ho?" how are you $USER | > out
 

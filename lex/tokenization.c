@@ -3,81 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:00:39 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/24 21:46:12 by root             ###   ########.fr       */
+/*   Updated: 2022/10/26 08:09:42 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
-static int		wordlen(char *wordstart, int pos);
-static char		*word(char *cmdline, int len, int s_pos);
-static void		add_word(char *cmdline, int *pos, t_tok **token);
+#include "minishell_header.h"
 
-t_tok	*tokenization(char *cmdline)
+static void add_redirection(char *cmdline, int *pos, int io, t_tok **token);
+static char *find_file_name(char *cmdline, int *pos);
+
+t_tok *tokenization(char *cmdline)
 {
 	t_tok *tokens;
-	t_tok *tmp;
 	int i;
 
+	tokens = NULL;
 	i = -1;
-	tokens = malloc(sizeof(t_tok));
-	if(!tokens)
-		return (NULL);
-	tokens->tok = ".";
-	tokens->next = NULL;
-	tmp = tokens;
 	while(cmdline[++i])
 	{
 		if(cmdline[i] && ft_iswordpart(cmdline[i]))
-			add_word(cmdline, &i, &tokens);		
+			add_word(cmdline, &i, &tokens);
+		if(cmdline[i] && cmdline[i] == '>')
+			add_redirection(cmdline, &i, '>', &tokens);
 	}
-	return (tmp);
+	return (tokens);
 }
 
-static void add_word(char *cmdline, int *pos, t_tok **token)
+static void add_redirection(char *cmdline, int *pos, int io, t_tok **token)
 {
-	char *wordpart;
+	int _iostream_count;
 	int len;
-
-	len = wordlen(cmdline, *pos);
-	wordpart = word(cmdline, len, *pos);
-	while((*token)->next != NULL)
-		(*token) = (*token)->next;
-
-	(*token)->next = new_token(len, wordpart, WORD);
-	free(wordpart);
-	*pos += len;
+	int i;
+	char *filename;
+	
+	i = *pos;
+	_iostream_count = 1;
+	while(cmdline[++i] == io)
+		_iostream_count++;
+	while(!ft_iswordpart(cmdline[++i]));
+	
+	len = wordlen(cmdline, i);
+	filename = word(cmdline, len, i);
+	add(token, new_token(len, filename, REDIR_OUT));
+	*pos += i;
+	// printf("%s\n", cmdline+i);
 }
 
 
-static int wordlen(char *wordstart, int s_pos)
+
+static char *find_file_name(char *cmdline, int *pos)
 {
-	int i;
-
-	i = 0;
-	while(wordstart[s_pos] && ft_iswordpart(wordstart[s_pos]))
+	int len;
+	int i = *pos;
+	char *file;
+	
+	while(cmdline[i++])
 	{
-		s_pos++;
-		i++;
+		if(ft_iswordpart(cmdline[i]))
+		{
+			len = wordlen(cmdline, i);
+			file = word(cmdline, len, i);		
+			break;
+		}
 	}
-	return (i);
-}
-
-static char *word(char *cmdline, int len, int s_pos)
-{
-	char *word;
-	int i;
-
-	i = 0;
-	word = malloc(sizeof(char) * (len + 1));
-	while(i < len)
-	{
-		word[i] = cmdline[s_pos];
-		s_pos++;
-		i++;
-	}
-	word[i] = '\0';
-	return (word);
+	*pos += i+len;
+	return (file);
 }

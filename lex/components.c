@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/20 10:20:08 by user             ###   ########.fr       */
+/*   Updated: 2022/10/26 01:05:51 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,6 @@ char *find_replace(char *cmdline, t_env *env)
 			cmdline = replace(cmdline, key, val, &i);
 			free(key);
 		}
-		// else if(cmdline[i] && cmdline[i] == '$'&& cmdline[i+1] == '?')
-		// {
-			
-		// }
 		i++;
 	}
 	return (cmdline);

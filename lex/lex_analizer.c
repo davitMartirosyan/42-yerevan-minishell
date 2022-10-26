@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lex_analizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/10/24 21:39:09 by root             ###   ########.fr       */
+/*   Updated: 2022/10/26 08:09:45 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 void lexical_analyzer(char *cmdline, t_table *table)
 {
@@ -23,7 +23,7 @@ void lexical_analyzer(char *cmdline, t_table *table)
 		table->token = tokenization(cmdline);
 		while(table->token != NULL)
 		{
-			printf("%s\n", table->token->tok);
+			printf("%s : %d\n", table->token->tok, table->token->type);
 			table->token = table->token->next;
 		}
 	}
@@ -32,10 +32,6 @@ void lexical_analyzer(char *cmdline, t_table *table)
 		printf("%s '%s'\n",QUOTE_SYNTAX_ERR, "\'");
 		return ;
 	}
-	
-	// printf("\n%s\n", cmdline);
 }
-	// printf("double quotes -> %d\n", (*table)->q_counts[0]);
-	// printf("single quotes -> %d\n", (*table)->q_counts[1]);
 
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/24 22:20:37 by root             ###   ########.fr       */
+/*   Updated: 2022/10/26 04:33:48 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,14 @@ char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
 char    *replace(char *cmdline, char *key, char *val, int *pos);
 
-t_tok   *tokenization(char *cmdline);
-t_tok   *last(t_tok *lst);
+
+t_tok	*tokenization(char *cmdline);
+int		wordlen(char *wordstart, int s_pos);
+char	*word(char *cmdline, int len, int s_pos);
+
+void	add_word(char *cmdline, int *pos, t_tok **token);
+// void	redirection(char *cmdline, int *pos, int io, t_tok **token);
+
 void	add(t_tok **lst, t_tok *new);
 
 
