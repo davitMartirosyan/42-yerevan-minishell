@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/26 01:09:40 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:13:46 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef enum s_types
     REDIR_IN,      // 8  <
     APPEND,        // 9  >>
     HEREDOC,       // 10 <<
-    PIPE           // 11 |
+    PIPE,          // 11 |
+    UNDEFINED      // 12
 } t_type;
 
 typedef struct s_env

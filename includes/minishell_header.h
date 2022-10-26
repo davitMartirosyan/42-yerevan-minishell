@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/26 04:33:48 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:11:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@
 /**********************************************/
 /***************Listing************************/
 /**********************************************/
-t_tok *new_token(int len, char *token, int type);
-
+t_tok   *new_token(int len, char *token, int type);
+void	add(t_tok **lst, t_tok *new);
 
 
 /**********************************************/
@@ -72,8 +72,8 @@ void    openquotes(char *cmdline);
 void    inside_quote(char *cmdline, int *pos, int find);
 
 int     regexp(char *cmdline, char *regex);
-char    *find_replace(char *cmdline, t_env *env);
 int     contains(char *tok, char *cmdline, int *pos);
+char    *find_replace(char *cmdline, t_env *env);
 char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
 char    *replace(char *cmdline, char *key, char *val, int *pos);
@@ -81,12 +81,11 @@ char    *replace(char *cmdline, char *key, char *val, int *pos);
 
 t_tok	*tokenization(char *cmdline);
 int		wordlen(char *wordstart, int s_pos);
+int     typeface(int c, int len);
 char	*word(char *cmdline, int len, int s_pos);
-
 void	add_word(char *cmdline, int *pos, t_tok **token);
-// void	redirection(char *cmdline, int *pos, int io, t_tok **token);
+void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 
-void	add(t_tok **lst, t_tok *new);
 
 
 /**********************************************/
