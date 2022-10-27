@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/10/27 11:29:16 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 18:08:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@ void lexical_analyzer(char *cmdline, t_table *table)
 		cmdline = find_replace(cmdline, table->env);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);
-		while(table->token != NULL)
-		{
-			printf("%s : %d\n", table->token->tok, table->token->type);
-			table->token = table->token->next;
-		}
 	}
 	else
 	{
-		printf("%s '%s'\n",QUOTE_SYNTAX_ERR, "\'");
+		printf("%s '%s'\n", QUOTE_SYNTAX_ERR, "\'");
 		return ;
 	}
 }

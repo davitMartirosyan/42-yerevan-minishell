@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:00:39 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 14:31:26 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 18:08:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_tok *tokenization(char *cmdline)
 
 	tokens = NULL;
 	i = -1;
-	while(cmdline[++i])
+	while (cmdline[++i])
 	{
 		if (cmdline[i] && ft_iswordpart(cmdline[i]))
 			add_word(cmdline, &i, &tokens);
@@ -27,8 +27,6 @@ t_tok *tokenization(char *cmdline)
 			redirection(cmdline, &i, cmdline[i], &tokens);
 		if (cmdline[i] && cmdline[i] == '|')
 			add_pipe(cmdline, &i, cmdline[i], &tokens);
-		if (cmdline[i] && (cmdline[i] == '\"' || cmdline[i] == '\''))
-			expansion(cmdline, &i, cmdline[i], &tokens);
 	}
 	return (tokens);
 }

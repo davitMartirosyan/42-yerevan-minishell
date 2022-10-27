@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/26 01:05:51 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:15:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char *find_replace(char *cmdline, t_env *env)
 {
 	char *key;
 	char *val;
-	char *newpoint;
 	int i;
 
 	i = 0;
@@ -97,7 +96,6 @@ char *find_replace(char *cmdline, t_env *env)
 			key = keyof(cmdline, i+1);
 			val = valueof(key, env);
 			cmdline = replace(cmdline, key, val, &i);
-			free(key);
 		}
 		i++;
 	}

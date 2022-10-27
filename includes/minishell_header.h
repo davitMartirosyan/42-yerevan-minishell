@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 15:54:59 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 18:25:14 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define PATH_SYNTAX_ERR     "No such file or directory"
 # define PATH_ERR            1
 
+# define HEREDOC_SYNTAX_WARNING    "Warning: HEREDOC (wanted ${hd})"
+# define HEREDOC_WARNING     0
+
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
@@ -46,14 +49,14 @@
 
 
 /**********************************************/
-/***************Listing************************/
+/*******************Listing********************/
 /**********************************************/
 t_tok   *new_token(int len, char *token, int type);
 void	add(t_tok **lst, t_tok *new);
 
 
 /**********************************************/
-/***************Initializing*******************/
+/****************Initializing******************/
 /**********************************************/
 t_env   *env_tokenizing(char **envp);
 void    create_shell(char **envp, t_table **table);
@@ -63,7 +66,7 @@ void    destruct_shell(t_table **table);
 
 
 /**********************************************/
-/*************Lexical Analyzing****************/
+/**************Lexical Analyzing***************/
 /**********************************************/
 void	lexical_analyzer(char *cmdline, t_table *table);
 void    token_replacment(char *cmdline, char schr, char rchr);
@@ -81,9 +84,9 @@ char    *valueof(char *key, t_env *env);
 char    *replace(char *cmdline, char *key, char *val, int *pos);
 
 t_tok	*tokenization(char *cmdline);
+char	*word(char *cmdline, int len, int s_pos);
 int		wordlen(char *wordstart, int s_pos);
 int     typeface(int c, int len);
-char	*word(char *cmdline, int len, int s_pos);
 void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
@@ -98,6 +101,6 @@ void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
 /**********************************************/
 /*******************Executing******************/
 /**********************************************/
-int execute(char *cmd, t_table **table, char **envp);
+int     execute(char *cmd, t_table **table, char **envp);
 
 #endif
