@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:07:27 by root              #+#    #+#             */
-/*   Updated: 2022/10/26 04:55:44 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/27 14:31:29 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,20 @@ void add_word(char *cmdline, int *pos, t_tok **token)
 	add(token, new_token(len, wordpart, WORD));
 	free(wordpart);
 	*pos += len;
+}
+
+void expansion(char *cmdline, int *pos, int quote, t_tok **token)
+{
+	int i;
+	int len;
+	char *expansion;
+
+	i = *pos;
+	len = 0;
+	while(cmdline[++i] && cmdline[i] != quote)
+		len++;
+	expansion = word(cmdline, len, *pos+1);
+	add(token, new_token(len, expansion, WORD));
+	free(expansion);
+	*pos += len+1;
 }

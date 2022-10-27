@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/26 16:13:46 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 11:20:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ typedef struct s_tok
 } t_tok;
 
 typedef struct s_table{
+
     char        **paths;
     char        **reserved;
     int         *fds;
-    char        **files;
+    char        **in_files;
+    char        **out_files;
     int         q_c[2];
     t_env       *env;
     t_tok       *token;

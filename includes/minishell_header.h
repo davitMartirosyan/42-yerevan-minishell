@@ -6,41 +6,43 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/26 18:11:10 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 15:54:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef MINISHELL_HEADER_H
-#define MINISHELL_HEADER_H
+# ifndef MINISHELL_HEADER_H
+# define MINISHELL_HEADER_H
 
-#define RESERVED			"echo pwd cd unset export exit env"
-#define TOKENS				"|<>;&"
-#define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
-#define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
-#define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
+# define RESERVED			"echo pwd cd unset export exit env"
+# define TOKENS				"| < > ; &"
+# define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
+# define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
+# define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
 
 
 /*Error Handlers*/
-#define QUOTE_SYNTAX_ERR 	"syntax error near unexpected token"
-#define SYNTAX_ERR          2
-#define CMD_NOT_FOUND_ERR   "not found"
-#define CMD_ERR             127
-#define PATH_SYNTAX_ERR     "No such file or directory"
-#define PATH_ERR            1
+# define QUOTE_SYNTAX_ERR 	"Syntax error near unexpected token"
+# define SYNTAX_ERR          2
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "../libft/libft.h"
-#include "./structs.h"
+# define CMD_NOT_FOUND_ERR   "Command not found"
+# define CMD_ERR             127
+
+# define PATH_SYNTAX_ERR     "No such file or directory"
+# define PATH_ERR            1
+
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "../libft/libft.h"
+# include "./structs.h"
 
 
 /**********************************************/
@@ -53,11 +55,11 @@ void	add(t_tok **lst, t_tok *new);
 /**********************************************/
 /***************Initializing*******************/
 /**********************************************/
-t_env *env_tokenizing(char **envp);
-void create_shell(char **envp, t_table **table);
-void add_paths(t_env **env, t_table **table);
-void free_environment(char **env_tokens);
-void destruct_shell(t_table **table);
+t_env   *env_tokenizing(char **envp);
+void    create_shell(char **envp, t_table **table);
+void    add_paths(t_env **env, t_table **table);
+void    free_environment(char **env_tokens);
+void    destruct_shell(t_table **table);
 
 
 /**********************************************/
@@ -78,15 +80,14 @@ char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
 char    *replace(char *cmdline, char *key, char *val, int *pos);
 
-
 t_tok	*tokenization(char *cmdline);
 int		wordlen(char *wordstart, int s_pos);
 int     typeface(int c, int len);
 char	*word(char *cmdline, int len, int s_pos);
 void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
-
-
+void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
+void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
 
 /**********************************************/
 /************Parsing (Parse Tree)**************/

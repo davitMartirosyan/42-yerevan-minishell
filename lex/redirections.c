@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 04:24:24 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/26 17:33:44 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 13:23:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ int typeface(int c, int len)
 void	redirection(char *cmdline, int *pos, int io, t_tok **token)
 {
 	int _io;
-	int i = *pos;
+	int i;
 	int type;
 	char *reddir;
 	
+	i = *pos;
 	_io = 0;
 	while(cmdline[++i] && cmdline[i] == io)
 		_io++;
 	reddir = word(cmdline, _io+1, *pos);
 	type = typeface(io, _io+1);
 	add(token, new_token(_io+1, reddir, type));
-	
 	free(reddir);
 	*pos += _io;
 }

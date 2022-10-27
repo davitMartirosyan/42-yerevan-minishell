@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/10/19 10:30:36 by user             ###   ########.fr       */
+/*   Updated: 2022/10/27 11:23:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,14 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 	{
 		token_replacment(cmdline, 7, '\'');
 		token_replacment(cmdline, 8, '\"');
+		token_replacment(cmdline, 5, '|');
 		return (1);
 	}
 	else
 	{
 		token_replacment(cmdline, 7, '\'');
 		token_replacment(cmdline, 8, '\"');
+		token_replacment(cmdline, 5, '|');
 		return (0);
 	}
 }

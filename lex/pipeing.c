@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pipeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 12:59:07 by user             ###   ########.fr       */
+/*   Created: 2022/10/27 10:14:09 by user              #+#    #+#             */
+/*   Updated: 2022/10/27 13:23:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell_header.h"
-int g_val = 15;
-int main(int argc, char *argv[], char *envp[])
+#include "minishell_header.h"
+
+void add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token)
 {
-    t_table     *table;
-    char        *cmdline;
-    create_shell(envp, &table);
-    while(1)
-    {
-        cmdline = readline(SHELL);
-        add_history(cmdline);
-        lexical_analyzer(cmdline, table);
-    }
+	int i;
+	int _p;
+	int type;
+	char *pipe;
+	
+	i = *pos;
+	_p = 1;
+	while(cmdline[++i] && cmdline[i] == _p_ch)
+		++_p;
+	pipe = word(cmdline, _p, *pos);
+	if(_p > 1)
+		type = UNDEFINED;
+	else
+		type = PIPE;
+	add(token, new_token(_p, pipe, type));
+	free(pipe);
+	*pos += _p;
 }
