@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_analize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/10/27 18:00:51 by user             ###   ########.fr       */
+/*   Updated: 2022/10/28 18:21:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void inside_quote(char *cmdline, int *pos, int find)
 				cmdline[i] = 8;
 			if(cmdline[i] == '$')
 				cmdline[i] = 4;
-			if(cmdline[i] == '|')
-				cmdline[i] = 5;
 		}
 	}
 	*pos = i;
@@ -90,14 +88,12 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 	{
 		token_replacment(cmdline, 7, '\'');
 		token_replacment(cmdline, 8, '\"');
-		token_replacment(cmdline, 5, '|');
 		return (1);
 	}
 	else
 	{
 		token_replacment(cmdline, 7, '\'');
 		token_replacment(cmdline, 8, '\"');
-		token_replacment(cmdline, 5, '|');
 		return (0);
 	}
 }

@@ -34,6 +34,11 @@ if(ft_strchr(cmdline, '<'))
 }
 
 
+
+			
+			# if(cmdline[i] == '|')
+			# 	cmdline[i] = 5;
+
 		// if (cmdline[i] && (cmdline[i] == '\"' || cmdline[i] == '\''))
 		// 	expansion(cmdline, &i, cmdline[i], &tokens);
 
