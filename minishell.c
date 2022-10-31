@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/28 18:20:09 by root             ###   ########.fr       */
+/*   Updated: 2022/10/31 06:21:33 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,5 @@ int main(int argc, char *argv[], char *envp[])
         cmdline = readline(SHELL);
         add_history(cmdline);
         lexical_analyzer(cmdline, table);
-        // while(table->token != NULL)
-		// {
-		// 	printf("%s : %d\n", table->token->tok, table->token->type);
-		// 	table->token = table->token->next;
-		// }
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 18:25:14 by user             ###   ########.fr       */
+/*   Updated: 2022/10/31 01:23:19 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int     typeface(int c, int len);
 void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
-void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
+void    expansions(char *cmdline, int *pos, int quote, t_tok **token);
 
 /**********************************************/
 /************Parsing (Parse Tree)**************/

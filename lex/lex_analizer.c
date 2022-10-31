@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_analizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/10/28 18:23:54 by root             ###   ########.fr       */
+/*   Updated: 2022/10/31 06:31:34 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void lexical_analyzer(char *cmdline, t_table *table)
 	{
 		cmdline = find_replace(cmdline, table->env);
 		token_replacment(cmdline, 4, '$');
-		expansions()
-		printf("%s\n", cmdline);
-		// table->token = tokenization(cmdline);
+		// printf("%s\n", cmdline);
+		table->token = tokenization(cmdline);
+		
 	}
 	else
 	{
