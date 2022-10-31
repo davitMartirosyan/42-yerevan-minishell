@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 11:20:11 by user             ###   ########.fr       */
+/*   Updated: 2022/10/31 11:21:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ typedef enum s_types
     WORD,          // 4  [A-Z_0-9]
     SGL,           // 5  '
     DBL,           // 6  "
-    REDIR_OUT,     // 7  >
-    REDIR_IN,      // 8  <
-    APPEND,        // 9  >>
-    HEREDOC,       // 10 <<
-    PIPE,          // 11 |
-    UNDEFINED      // 12
+    EXP_FIELD,     // 7  "..." || '...'
+    REDIR_OUT,     // 8  >
+    REDIR_IN,      // 9  <
+    APPEND,        // 10 >>
+    HEREDOC,       // 11 <<
+    PIPE,          // 12 |
+    UNDEFINED      // 13
 } t_type;
 
 typedef struct s_env
