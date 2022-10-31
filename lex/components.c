@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/31 12:07:54 by user             ###   ########.fr       */
+/*   Updated: 2022/10/31 12:57:22 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ char *find_replace(char *cmdline, t_env *env)
 	while(cmdline[i])
 	{
 		if(cmdline[i] && cmdline[i] == '$' \
-			&& !ft_isspace(cmdline[i+1]))
+			&& (ft_isalnum(cmdline[i+1])|| cmdline[i+1] == '_'))
 		{
 			key = keyof(cmdline, i+1);
 			val = valueof(key, env);
 			cmdline = replace(cmdline, key, val, &i);
+			free(key);
 		}
 		i++;
 	}
@@ -131,7 +132,6 @@ char *valueof(char *key, t_env *env)
 			break;
 		t = t->next;
 	}
-	
 	return (t->val);
 }
 

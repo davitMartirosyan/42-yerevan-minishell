@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/31 11:22:17 by user             ###   ########.fr       */
+/*   Updated: 2022/10/31 15:42:09 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
 void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
+void    space(char *cmdline, int *pos, char sep, t_tok **token);
 
 /**********************************************/
 /************Parsing (Parse Tree)**************/

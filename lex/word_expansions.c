@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:07:27 by root              #+#    #+#             */
-/*   Updated: 2022/10/31 11:22:31 by user             ###   ########.fr       */
+/*   Updated: 2022/10/31 15:39:06 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,26 @@ void add_word(char *cmdline, int *pos, t_tok **token)
 	wordpart = word(cmdline, len, *pos);
 	add(token, new_token(len, wordpart, WORD));
 	free(wordpart);
+	*pos += len;
+}
+
+void expansion(char *cmdline, int *pos, int quote, t_tok **token)
+{
+	int i;
+	int flag;
+	int len;
+	char *exp;
+	
+	i = *pos;
+	len = 1;
+	while(cmdline[++i])
+	{
+		if(cmdline[i] == quote)
+			break;
+		++len;
+	}
+	exp = word(cmdline, len+1, *pos);
+	add(token, new_token(len, exp, EXP_FIELD));
+	free(exp);
 	*pos += len;
 }

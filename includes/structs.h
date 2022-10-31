@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/31 11:21:44 by user             ###   ########.fr       */
+/*   Updated: 2022/10/31 15:22:31 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ typedef enum s_types
     UNDEFINED      // 13
 } t_type;
 
+typedef struct s_cmdline
+{
+    t_list  *cmds;
+    char    **env;
+    pid_t   pid;
+}   t_cmdline;
+
+typedef struct s_cmds
+{
+    char    **command;
+    char    *path;
+    int     i_stream;
+    int     o_stream;
+} t_cmds;
+
 typedef struct s_env
 {
     char *key;
@@ -53,16 +68,12 @@ typedef struct s_tok
     char    *tok;
     int     type;
     struct  s_tok *next;
-    struct  s_tok *prev;
 } t_tok;
 
 typedef struct s_table{
 
     char        **paths;
     char        **reserved;
-    int         *fds;
-    char        **in_files;
-    char        **out_files;
     int         q_c[2];
     t_env       *env;
     t_tok       *token;
