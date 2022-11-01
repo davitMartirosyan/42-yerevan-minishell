@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/10/31 16:08:31 by user             ###   ########.fr       */
+/*   Updated: 2022/11/01 15:56:21 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void lexical_analyzer(char *cmdline, t_table *table)
 	openquotes(cmdline);
 	if(quote_syntax_analyzer(cmdline, table->q_c))
 	{
-		// cmdline = find_replace(cmdline, table->env);
+		cmdline = find_replace(cmdline, table->env);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);
 	}
@@ -26,5 +26,3 @@ void lexical_analyzer(char *cmdline, t_table *table)
 		printf("%s '%s'\n", QUOTE_SYNTAX_ERR, "\'");
 	free(cmdline);
 }
-
-	

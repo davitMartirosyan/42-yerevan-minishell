@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_analize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/10/28 18:21:37 by root             ###   ########.fr       */
+/*   Updated: 2022/11/01 10:49:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void inside_quote(char *cmdline, int *pos, int find)
 				break;
 			if(cmdline[i] == '\'')
 				cmdline[i] = 7;
+			if(cmdline[i] == ' ')
+				cmdline[i] = 3;
 		}
 	}
 	else if(find == DBL)
@@ -77,6 +79,8 @@ void inside_quote(char *cmdline, int *pos, int find)
 				cmdline[i] = 8;
 			if(cmdline[i] == '$')
 				cmdline[i] = 4;
+			if(cmdline[i] == ' ')
+				cmdline[i] = 3;
 		}
 	}
 	*pos = i;
