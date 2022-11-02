@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 01:29:11 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:18:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char *find_replace(char *cmdline, t_env *env)
 	while(cmdline[i])
 	{
 		if(cmdline[i] && cmdline[i] == '$' \
-			&& (ft_isalnum(cmdline[i+1])|| cmdline[i+1] == '_'))
+			&& (ft_iswordpart(cmdline[i+1])))
 		{
 			key = keyof(cmdline, i+1);
 			val = valueof(key, env);

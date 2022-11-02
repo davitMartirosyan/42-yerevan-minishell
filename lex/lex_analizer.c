@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/11/01 15:56:21 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 17:36:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void lexical_analyzer(char *cmdline, t_table *table)
 		table->token = tokenization(cmdline);
 	}
 	else
-		printf("%s '%s'\n", QUOTE_SYNTAX_ERR, "\'");
+		printf("%s '%s'\n", TOKEN_SYNTAX_ERR, "\'");
 	free(cmdline);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 04:46:09 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:36:24 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 
 /*Error Handlers*/
-# define QUOTE_SYNTAX_ERR 	"Syntax error near unexpected token"
+# define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
 # define SYNTAX_ERR          2
 
 # define CMD_NOT_FOUND_ERR   "Command not found"
