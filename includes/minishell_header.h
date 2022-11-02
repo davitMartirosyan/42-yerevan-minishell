@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/01 15:00:42 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 04:46:09 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 # include <stdio.h>
 # include <string.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
@@ -106,11 +107,6 @@ char	*word(char *cmdline, int len, int s_pos);
 /************Parsing (Parse Tree)**************/
 /**********************************************/
 
-
-
-/**********************************************/
-/*******************Executing******************/
-/**********************************************/
-int     execute(char *cmd, t_table **table, char **envp);
+void parse_tree(t_table *table, char **envp);
 
 #endif

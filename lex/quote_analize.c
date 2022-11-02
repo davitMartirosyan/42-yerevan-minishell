@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_analize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/11/01 10:49:43 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 01:29:19 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 void openquotes(char *cmdline)
 {

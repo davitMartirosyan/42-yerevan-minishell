@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/31 15:22:31 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 02:51:59 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
-
 /*  
     < -> ?  -> 2
     > -> ?  -> 3
@@ -21,6 +20,13 @@
     ' -> \a -> 7
     " -> \b -> 8
 */
+
+typedef struct s_table t_table;
+typedef struct s_cmdline t_cmdline;
+typedef struct s_env t_en;
+typedef struct s_tok t_tok;
+typedef struct s_cmds t_cmds;
+typedef int (*t_built)(t_list *, t_table *);
 
 typedef enum s_types
 {
@@ -39,6 +45,7 @@ typedef enum s_types
     PIPE,          // 12 |
     UNDEFINED      // 13
 } t_type;
+
 
 typedef struct s_cmdline
 {
@@ -71,14 +78,13 @@ typedef struct s_tok
 } t_tok;
 
 typedef struct s_table{
-
+    char        **minienv;
     char        **paths;
     char        **reserved;
     int         q_c[2];
+    t_built     builtin[7];
     t_env       *env;
     t_tok       *token;
 } t_table;
-
-typedef int (*t_builtin_ptr)(t_list *, t_table *);
 
 #endif
