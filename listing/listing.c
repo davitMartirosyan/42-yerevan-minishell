@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   listing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:12 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/27 03:34:40 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/10/23 07:19:03 by root              #+#    #+#             */
+/*   Updated: 2022/11/02 01:30:35 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-#define ENV_H
+#include "minishell_header.h"
 
-t_env *env_tokenizing(char **envp);
-void create_env(t_env **env, char **envp, t_table **table);
-void add_paths(t_env **env, t_table **table);
+t_tok *new_token(int len, char *token, int type)
+{
+    t_tok *tok;
 
-#endif
+    tok = malloc(sizeof(t_tok));
+    if(!tok)
+        return (NULL);
+    tok->len  = len;
+    tok->tok  = ft_strdup(token);
+    tok->type = type;
+    tok->next = NULL;
+    return (tok);
+}
+
+void	add(t_tok **lst, t_tok *new)
+{
+	while(*lst)
+		lst = &(*lst)->next;
+	*lst = new;	
+}

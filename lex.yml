@@ -33,9 +33,16 @@ if(ft_strchr(cmdline, '<'))
 	 printf("ok");
 }
 
+char *abc = echo                   hello                    world
+split(abc, ' '); -> ["echo", "hello", "world"]
+
+char *def = echo     hello         "$USER      world"        barev
+						echo     hello         userworld               barev
+split(def, ' '); -> ["echo", "hello", "userworld", "barev"];
+										token_replace(def[i], 3, ' ');
 
 
-
+<<<<<<< HEAD
 (*table)->heredoc = malloc(sizeof(t_heredoc));
 	if(contains("<<", cmdline, &pos))
 	{
@@ -44,7 +51,138 @@ if(ft_strchr(cmdline, '<'))
 		end = find_space_orpipe(cmdline+pos);
 		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
 	}
+=======
+Parsing steps
 
+Step 1: Check TYPE of token if WORD | SPACE | EXP_FIELD
+	Substep 1.0: Input -> echo user[hided spaces]helloworld
+	Substep 1.1: Count all characters of (WORD && SPACE && EXP_FIELD)
+	Substep 1.2: Join all WORD | SPACE | EXP_FIELD
+					if(token->type == WORD || token->type == EXP_FIELD || token->type == SEP)
+										join_tokens();
+	Substep 1.3: Output -> "echo userhelloworld"
+	Substep 1.4: Split by spaces
+						split = ["echo", "userhelloworld"]
+	Substep 1.5: replace hided spaces in exp_fields
+						token_replacment(split[i], 3, ' ');
+	Substep 1.6: Output -> split = ["echo", "user helloworld"]
+	
+>>>>>>> master
+
+
+echo "user hello"world
+
+	echo "userhello"world
+	echo userhelloworld
+	if(token->type == WORD || token->type == EXP_FIELD || token->type == SEP)
+		join_tokens();
+		echo userhelloworld
+
+			replace("userhello", 3, ' ');
+			
+		echo user helloworld
+			
+			# if(cmdline[i] == '|')
+			# 	cmdline[i] = 5;
+
+		// if (cmdline[i] && (cmdline[i] == '\"' || cmdline[i] == '\''))
+		// 	expansion(cmdline, &i, cmdline[i], &tokens);
+
+///usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+		// if(cmdline[i] == '>')
+		// 	redirection(cmdline, &i, tokens, '>');
+		// if(cmdline[i] == '<')
+		// 	redirection(cmdline, &i, tokens, '<');
+		// if(cmdline[i] == '|')
+		// 	pipe(cmdline, &i, tokens);
+
+		// while(table->token != NULL)
+		// {
+		// 	printf("%s\n", table->token->tok);
+		// 	table->token = table->token->next;
+		// }
+
+   // echo "hello             ho?" how are you $USER | > out
+
+  // gcc -lreadline env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell && ./minishell
+ //gcc  env/*.c utils/*.c lex/*c libft/libft.a  minishell.c -o minishell -lreadline && ./minishell
+// gcc env/*.c utils/*.c libft/libft.a  minishell.c -o minishell
+////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
+//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
+
+
+typedef struct s_heredoc
+{
+    char *term;
+	char *delimiter;
+	char *heredoc;
+} t_heredoc;
+
+typedef struct s_cmds
+{
+    char    *fullcmd;
+    char    *path;
+    int     istream;
+    int     ostream;
+}   t_cmds;
+
+
+
+static int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count);
+
+// int char_by_char(char *tok, char *cmdline, int *j, int *c, int *count)
+// {
+// 	int flag;
+
+// 	flag = 0;
+// 	while(tok[*c])
+// 	{
+// 		if(cmdline[*j] == tok[*c])
+// 		{
+// 			++count;
+// 			flag++;
+// 			j++;
+// 		}
+// 		c++;
+// 	}
+// 	// printf("%s : %s\n", tok, cmdline);
+// 	return (flag);
+// }
+
+
+
+token_replacment(cmdline, '\'', '\a');
+	// cmdline = find_replace(cmdline, (*table)->env);
+	printf("%s\n", cmdline);
+	token_replacment(cmdline, '\a', '\'');
+	printf("%s\n", cmdline);
+
+
+
+
+// int main(int ac, char *av[], char **envp)
+// {
+// 	const char *CAP_LETTERS;
+// 	const char *SML_LETTERS;
+// 	CAP_LETTERS = "A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z";
+// 	SML_LETTERS = "a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z";
+// 	char **lex = ft_split(CAP_LETTERS, '|');
+// 	int i = -1;
+// 	while(envp[++i])
+// 		printf("%s\n", envp[i]);
+// }
+
+
+
+if(contains("<<", cmdline, &pos))
+	{
+		int end;
+		
+		end = find_space_orpipe(cmdline+pos);
+		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
+		printf("%s\n", (*table)->heredoc->delimiter);
+	}
 
 
 
