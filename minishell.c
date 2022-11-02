@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 03:09:29 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 21:40:13 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/11/02 21:37:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-void create_shell(char **envp, t_table **table)
+int main(int argc, char *argv[], char *envp[])
 {
-	*table = malloc(sizeof(t_table));
-	(*table)->env = malloc(sizeof(t_env));
-    (*table)->env = env_tokenizing(envp);
-	(*table)->reserved = ft_split(RESERVED, ' ');
-	add_paths(&(*table)->env, table);
+    t_table     *table;
+    char        *cmdline;
+    create_shell(envp, &table);
+    while(1)
+    {
+        cmdline = readline(SHELL);
+        add_history(cmdline);
+        lexical_analyzer(cmdline, table);
+        parse_tree(table, envp);
+    }
 }

@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 17:36:24 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 21:41:33 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-<<<<<<< HEAD
-#ifndef MINISHELL_HEADER_H
-#define MINISHELL_HEADER_H
-
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-#include "./structs.h"
-#include "../libft/libft.h"
-#include "./lex.h"
-#include "./env.h"
-#include "./utilities.h"
-#include "./builtins.h"
-=======
 # ifndef MINISHELL_HEADER_H
 # define MINISHELL_HEADER_H
 
@@ -68,6 +47,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include "./structs.h"
+# include "./builtins.h"
 
 
 /**********************************************/
@@ -129,6 +109,5 @@ char	*word(char *cmdline, int len, int s_pos);
 /**********************************************/
 
 void parse_tree(t_table *table, char **envp);
->>>>>>> master
 
 #endif

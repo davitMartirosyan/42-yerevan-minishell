@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 17:15:44 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 21:52:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ typedef enum s_types
     UNDEFINED      // 13
 } t_type;
 
-<<<<<<< HEAD
-=======
 
 // typedef struct s_cmdline
 // {
@@ -67,7 +65,6 @@ typedef struct s_cmds
     struct  s_cmds *next;
 } t_cmds;
 
->>>>>>> master
 typedef struct s_env
 {
     char *key;
@@ -77,18 +74,6 @@ typedef struct s_env
 
 typedef struct s_tok
 {
-<<<<<<< HEAD
-	char *hd_term;
-    char *delimiter;
-	char *heredoc;
-} t_heredoc;
-
-typedef struct s_table{
-    char        **paths;
-    char        *cmdline;
-	t_heredoc   *heredoc;
-    t_env       *env;
-=======
     int     len;
     char    *tok;
     int     type;
@@ -103,7 +88,6 @@ typedef struct s_table{
     t_built     builtin[7];
     t_env       *env;
     t_tok       *token;
->>>>>>> master
 } t_table;
 
 #endif
