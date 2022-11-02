@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:17 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:31:30 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/11/02 22:02:02 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,6 @@ int	export_err(char *str)
 		}
 	}
 	return (0);
-}
-
-t_env *env_tokenizing_(char **envp)
-{
-    int i;
-    char **_tok;
-    t_env *t;
-    t_env *temp;
-    
-    i = -1;
-    t = malloc(sizeof(t_env));
-    temp = t;
-    while(envp[++i])
-    {
-        _tok = ft_split(envp[i], '=');
-        t->key = _tok[0];
-        t->val = _tok[1];
-		if (!envp[i + 1])
-			break;
-        t->next =  malloc(sizeof(t_env));
-        t = t->next;
-    }
-   return (temp);
 }
 
 int	check_key(t_env *env, char *str)
