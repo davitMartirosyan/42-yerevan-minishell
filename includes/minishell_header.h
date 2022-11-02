@@ -29,5 +29,6 @@
 #include "./lex.h"
 #include "./env.h"
 #include "./utilities.h"
+#include "./builtins.h"
 
 #endif

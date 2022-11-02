@@ -14,21 +14,37 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-    t_env   *env;
-    t_table     *table;
     char *cmd;
-    create(&env, envp, &table);
+    t_tab *tab;
+    
+    tab = create_tab(envp);
     while(1)
     {
-        cmd = readline("$: ");
-        lexical_analyze(cmd, &env, &table);
-        // parse_cmds();
-        // execute_line();
-        // if(is_exit())
-        //     exit(table->exit_status);
-        // printf("%s\n", cmd);
+        cmd = readline("minishell$: ");
+        ft_export(cmd, tab);
+        ft_unset(cmd, tab);
+        add_history(cmd);
     }
+    free(cmd);
 }
+
+// int main(int argc, char *argv[], char *envp[])
+// {
+//     t_env   *env;
+//     t_table     *table;
+//     char *cmd;
+//     create(&env, envp, &table);
+//     while(1)
+//     {
+//         cmd = readline("$: ");
+//         lexical_analyze(cmd, &env, &table);
+//         // parse_cmds();
+//         // execute_line();
+//         // if(is_exit())
+//         //     exit(table->exit_status);
+//         // printf("%s\n", cmd);
+//     }
+// }
 
 //I'm in Sirush_branch
 
