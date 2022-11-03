@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:17 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/02 22:02:02 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/03 13:42:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ t_tab	*create_tab(char **env)
 	t_tab *tab;
 
 	tab = malloc(sizeof(t_tab));
-	tab->env = env_tokenizing_(env);
+	tab->env = env_tokenizing(env);
 	return (tab);
 }
 

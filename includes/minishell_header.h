@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 21:41:33 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:02:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@
 /*******************Listing********************/
 /**********************************************/
 t_tok   *new_token(int len, char *token, int type);
-
 void	add(t_tok **lst, t_tok *new);
 
 
@@ -108,6 +107,6 @@ char	*word(char *cmdline, int len, int s_pos);
 /************Parsing (Parse Tree)**************/
 /**********************************************/
 
-void parse_tree(t_table *table, char **envp);
+t_cmds  *parse_tree(t_table *table, char **envp);
 
 #endif

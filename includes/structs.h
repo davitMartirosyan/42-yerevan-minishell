@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 21:59:37 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:56:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,20 @@ typedef enum s_types
 } t_type;
 
 
-// typedef struct s_cmdline
-// {
-//     t_list  *cmds;
-//     char    **env;
-//     pid_t   pid;
-// }   t_cmdline;
+typedef struct s_cmdline
+{
+    t_list  *cmds;
+    char    **env;
+    pid_t   pid;
+}   t_cmdline;
 
 typedef struct s_cmds
 {
-    pid_t   pid;
-    int     i_stream;
-    int     o_stream;
-    char    *cmd;
     char    **arg_pack;
     char    *path;
-    char    **env;
-    struct  s_cmds *next;
-} t_cmds;
+    int     i_stream;
+    int     o_stream;
+}   t_cmds;
 
 typedef struct s_env
 {
