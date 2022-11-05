@@ -33,8 +33,54 @@ if(ft_strchr(cmdline, '<'))
 	 printf("ok");
 }
 
+char *abc = echo                   hello                    world
+split(abc, ' '); -> ["echo", "hello", "world"]
+
+char *def = echo     hello         "$USER      world"        barev
+						echo     hello         userworld               barev
+split(def, ' '); -> ["echo", "hello", "userworld", "barev"];
+										token_replace(def[i], 3, ' ');
 
 
+<<<<<<< HEAD
+(*table)->heredoc = malloc(sizeof(t_heredoc));
+	if(contains("<<", cmdline, &pos))
+	{
+		int end;
+		
+		end = find_space_orpipe(cmdline+pos);
+		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
+	}
+=======
+Parsing steps
+
+Step 1: Check TYPE of token if WORD | SPACE | EXP_FIELD
+	Substep 1.0: Input -> echo user[hided spaces]helloworld
+	Substep 1.1: Count all characters of (WORD && SPACE && EXP_FIELD)
+	Substep 1.2: Join all WORD | SPACE | EXP_FIELD
+					if(token->type == WORD || token->type == EXP_FIELD || token->type == SEP)
+										join_tokens();
+	Substep 1.3: Output -> "echo userhelloworld"
+	Substep 1.4: Split by spaces
+						split = ["echo", "userhelloworld"]
+	Substep 1.5: replace hided spaces in exp_fields
+						token_replacment(split[i], 3, ' ');
+	Substep 1.6: Output -> split = ["echo", "user helloworld"]
+	
+>>>>>>> master
+
+
+echo "user hello"world
+
+	echo "userhello"world
+	echo userhelloworld
+	if(token->type == WORD || token->type == EXP_FIELD || token->type == SEP)
+		join_tokens();
+		echo userhelloworld
+
+			replace("userhello", 3, ' ');
+			
+		echo user helloworld
 			
 			# if(cmdline[i] == '|')
 			# 	cmdline[i] = 5;

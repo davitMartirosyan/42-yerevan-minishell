@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/29 21:30:46 by root             ###   ########.fr       */
+/*   Updated: 2022/11/03 19:30:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell_header.h"
+#include "minishell_header.h"
 
 int main(int argc, char *argv[], char *envp[])
 {
@@ -22,10 +22,21 @@ int main(int argc, char *argv[], char *envp[])
         cmdline = readline(SHELL);
         add_history(cmdline);
         lexical_analyzer(cmdline, table);
-        while(table->token != NULL)
-		{
-			printf("%s : %d\n", table->token->tok, table->token->type);
-			table->token = table->token->next;
-		}
+        parse_tree(table, envp);
     }
+    
+    t_cmdline   *command;
+    t_list      *list;
+    t_cmds      *cmd;
+    
+    command = malloc(sizeof(t_cmdline));
+    command->cmds = malloc(sizeof(t_list));
+    list = command->cmds;
+    command->cmds->content = malloc(sizeof(t_cmds));
+    
+    cmd = command->cmds->content;
+    
+    cmd->i_stream = 0;
+    
+    printf("%d\n", cmd->i_stream);
 }

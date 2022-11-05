@@ -6,11 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 18:15:32 by user             ###   ########.fr       */
+/*   Updated: 2022/11/02 17:18:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 int contains(char *tok, char *cmdline, int *pos)
 {
@@ -90,12 +90,12 @@ char *find_replace(char *cmdline, t_env *env)
 	while(cmdline[i])
 	{
 		if(cmdline[i] && cmdline[i] == '$' \
-			&& (ft_isalnum(cmdline[i+1])|| cmdline[i+1] == '_' \
-				|| cmdline[i+1] == '\"' || cmdline[i+1] == '\'' ))
+			&& (ft_iswordpart(cmdline[i+1])))
 		{
 			key = keyof(cmdline, i+1);
 			val = valueof(key, env);
 			cmdline = replace(cmdline, key, val, &i);
+			free(key);
 		}
 		i++;
 	}
@@ -129,10 +129,10 @@ char *valueof(char *key, t_env *env)
 	{
 		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0 && \
 			ft_strlen(t->key) == ft_strlen(key))
-			return(t->val);
+			break;
 		t = t->next;
 	}
-	return (NULL);
+	return (t->val);
 }
 
 char *replace(char *cmd, char *key, char *val, int *pos)

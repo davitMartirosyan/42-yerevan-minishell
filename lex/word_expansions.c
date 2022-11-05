@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:07:27 by root              #+#    #+#             */
-/*   Updated: 2022/10/27 17:39:10 by user             ###   ########.fr       */
+/*   Updated: 2022/11/01 13:16:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,43 @@ void add_word(char *cmdline, int *pos, t_tok **token)
 	*pos += len;
 }
 
-void expansion(char *cmdline, int *pos, int quote, t_tok **token)
+void space(char *cmdline, int *pos, char sep, t_tok **token)
 {
 	int i;
 	int len;
-	char *expansion;
-
+	char *separator;
+	
 	i = *pos;
-	len = 1;
-	while(cmdline[++i] && cmdline[i] != quote)
+	len = 0;
+	while(cmdline[++i])
+	{
+		if(!ft_isspace(cmdline[i]))
+			break;
 		++len;
-	expansion = word(cmdline, len+1, *pos);
-	printf("%s\n", expansion);
+	}
+	separator = word(cmdline, len, *pos);
+	add(token, new_token(len, separator, SEP));
+	*pos += len;
+}
+
+void expansion(char *cmdline, int *pos, int quote, t_tok **token)
+{
+	int i;
+	int flag;
+	int len;
+	char *exp;
+	
+	i = *pos;
+	len = 0;
+	while(cmdline[++i])
+	{
+		if(cmdline[i] == quote)
+			break;
+		++len;
+	}
+	exp = word(cmdline, len, *pos+1);
+	add(token, new_token(len, exp, EXP_FIELD));
+	free(exp);
 	*pos += len+1;
 }
+

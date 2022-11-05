@@ -6,21 +6,26 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/27 11:20:11 by user             ###   ########.fr       */
+/*   Updated: 2022/11/03 18:56:07 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
-
 /*  
-    < -> ?  -> 2
-    > -> ?  -> 3
+   ' '-> ?  -> 3
     $ -> ?  -> 4
     | -> ?  -> 5
     ' -> \a -> 7
     " -> \b -> 8
 */
+
+typedef struct s_table t_table;
+typedef struct s_cmdline t_cmdline;
+typedef struct s_env t_en;
+typedef struct s_tok t_tok;
+typedef struct s_cmds t_cmds;
+typedef int (*t_built)(t_cmds *, t_table *);
 
 typedef enum s_types
 {
@@ -31,13 +36,30 @@ typedef enum s_types
     WORD,          // 4  [A-Z_0-9]
     SGL,           // 5  '
     DBL,           // 6  "
-    REDIR_OUT,     // 7  >
-    REDIR_IN,      // 8  <
-    APPEND,        // 9  >>
-    HEREDOC,       // 10 <<
-    PIPE,          // 11 |
-    UNDEFINED      // 12
+    EXP_FIELD,     // 7  "..." || '...'
+    REDIR_OUT,     // 8  >
+    REDIR_IN,      // 9  <
+    APPEND,        // 10 >>
+    HEREDOC,       // 11 <<
+    PIPE,          // 12 |
+    UNDEFINED      // 13
 } t_type;
+
+
+typedef struct s_cmdline
+{
+    t_list  *cmds;
+    char    **env;
+    pid_t   pid;
+}   t_cmdline;
+
+typedef struct s_cmds
+{
+    char    **arg_pack;
+    char    *path;
+    int     i_stream;
+    int     o_stream;
+}   t_cmds;
 
 typedef struct s_env
 {
@@ -52,21 +74,16 @@ typedef struct s_tok
     char    *tok;
     int     type;
     struct  s_tok *next;
-    struct  s_tok *prev;
 } t_tok;
 
 typedef struct s_table{
-
+    char        **minienv;
     char        **paths;
     char        **reserved;
-    int         *fds;
-    char        **in_files;
-    char        **out_files;
     int         q_c[2];
+    t_built     builtin[7];
     t_env       *env;
     t_tok       *token;
 } t_table;
-
-typedef int (*t_builtin_ptr)(t_list *, t_table *);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/09/21 20:19:56 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/02 01:30:46 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 void free_environment(char **env_tokens)
 {

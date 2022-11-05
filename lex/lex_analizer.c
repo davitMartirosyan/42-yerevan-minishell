@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_analizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/10/29 21:30:35 by root             ###   ########.fr       */
+/*   Updated: 2022/11/02 17:36:43 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell_header.h"
 
 void lexical_analyzer(char *cmdline, t_table *table)
-{
+{	
 	openquotes(cmdline);
 	if(quote_syntax_analyzer(cmdline, table->q_c))
 	{
@@ -23,10 +23,6 @@ void lexical_analyzer(char *cmdline, t_table *table)
 		table->token = tokenization(cmdline);
 	}
 	else
-	{
-		printf("%s '%s'\n", QUOTE_SYNTAX_ERR, "\'");
-		return ;
-	}
+		printf("%s '%s'\n", TOKEN_SYNTAX_ERR, "\'");
+	free(cmdline);
 }
-
-	
