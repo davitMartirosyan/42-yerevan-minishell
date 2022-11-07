@@ -33,6 +33,11 @@ if(ft_strchr(cmdline, '<'))
 	 printf("ok");
 }
 
+   // if(typeis_pipe((*token)->type))
+        //     //do something
+        // if(typeis_redir((*token)->type))
+        //     //do something
+
 char *abc = echo                   hello                    world
 split(abc, ' '); -> ["echo", "hello", "world"]
 

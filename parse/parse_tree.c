@@ -6,71 +6,73 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 01:32:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/03 18:52:57 by user             ###   ########.fr       */
+/*   Updated: 2022/11/07 20:25:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-t_cmds *parsing(t_tok **token, t_table *table, int count, char **envp);
+t_cmdline   *parsing(t_tok **token, t_table *table, int count, char **envp);
+
 static char **args(t_tok **tokens);
-static int  typeis_arg(int type);
 static void put_arg(char *arg_place, char *arg);
-static int count_arguments(t_tok **tokens);
 
 
-t_cmds *parsing(t_tok **token, t_table *table, int count, char **envp)
+static void collect_args(t_tok **token, t_cmds *cmd);
+static int  arguments(t_tok **tokens);
+static int  pipes(t_tok *tokens);
+
+static int  typeis_arg(int type);
+static int  typeis_redirection(int type);
+
+t_cmdline *parsing(t_tok **token, t_table *table, int count, char **envp)
 {
-    int arg_count;
-    t_cmds *cmds;
-    /*
-    cmds -> pid_t   pid;
-    cmds -> int     i_stream;
-    cmds -> int     o_stream;
-    cmds -> char    *cmd;
-    cmds -> char    **arg_pack;
-    cmds -> char    *path;
-    cmds -> char    **env;
-    cmds -> struct  s_cmds *next;
-    */
-   
+    int pipe_count;
+    t_cmdline   *commands;
+    t_cmds      *cmds;
     
+    pipe_count = pipes(*token) + 1;
     cmds = malloc(sizeof(t_cmds));
     if(!cmds)
         return (NULL);
-    arg_count = 0;
-    cmds->arg_pack = malloc(sizeof(char *) * (count + 1));
-    while((*token)->type != PIPE)
+        printf("%d\n", pipe_count);
+    while(*token != NULL && pipe_count)
     {
-        if(typeis_arg((*token)->type))
+        if(*token && typeis_arg((*token)->type))
         {
-            count++;
-            token = &(*token)->next;
+            collect_args(token, cmds);
+            continue;
         }
-        token = &(*token)->next;
+        pipe_count--;
     }
     return (NULL);
 }
 
-t_cmds *parse_tree(t_table *table, char **envp)
+
+void collect_args(t_tok **token, t_cmds *cmd)
 {
-    int     cout;
-	t_tok   *from;
-    t_cmds  *cmds;
+    int count_args;
 
-    from = table->token;
-    if(from != NULL)
-    {
-        cout = count_arguments(&from);
-        if(cout)
-            cmds = parsing(&from, table, cout, envp);
-    }
-    else
-        printf("There are no argumetns\n");
-    return (NULL);
+    count_args = arguments(token);
+    printf("%d\n", count_args);
 }
 
-static int count_arguments(t_tok **tokens)
+int pipes(t_tok *tokens)
+{
+    int pip;
+
+    pip = 0;
+    while(tokens != NULL)
+    {
+        if(tokens->type == PIPE)
+            pip++;
+        tokens = tokens->next;
+    }
+    return (pip);
+}
+
+
+static int arguments(t_tok **tokens)
 {
     int count;
 
@@ -79,6 +81,10 @@ static int count_arguments(t_tok **tokens)
     {
         if(typeis_arg((*tokens)->type))
             count++;
+        if((*tokens)->type == PIPE)
+            break;
+        if(typeis_redirection((*tokens)->type))
+            break;
         tokens = &(*tokens)->next;
     }
     return (count);
@@ -90,6 +96,35 @@ static int typeis_arg(int type)
         return (1);
     return (0);
 }
+
+static int typeis_redirection(int type)
+{
+    if(type == REDIR_IN || type == REDIR_OUT || type == APPEND \
+        type == HEREDOC)
+        return (1);
+    return (0);
+}
+
+
+
+t_cmds *parse_tree(t_table *table, char **envp)
+{
+    int     cout;
+	t_tok   *from;
+    t_cmdline *commands;
+
+    from = table->token;
+    if(from != NULL)
+    {
+        // commands = parsing(&from, table, cout, envp);
+        cout = arguments()
+    }
+    return (NULL);
+}
+
+
+
+
 
 static char **args(t_tok **tokens)
 {
