@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/03 19:02:36 by user             ###   ########.fr       */
+/*   Updated: 2022/11/09 04:34:47 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,11 @@ char	*word(char *cmdline, int len, int s_pos);
 /**********************************************/
 /************Parsing (Parse Tree)**************/
 /**********************************************/
-
-t_cmds  *parse_tree(t_table *table, char **envp);
+t_cmdline	*parse_tree(t_table *table, char **envp);
+t_cmds		*parse(t_tok **token, t_table *table, char **envp);
+char		*join_arguments(char *s1, int delimiter, char *s2);
+int			pipes(t_tok **token);
+int			typeis_redirection(int type);
+int			typeis_arg(int type);
 
 #endif

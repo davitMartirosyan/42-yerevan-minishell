@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/03 18:56:07 by user             ###   ########.fr       */
+/*   Updated: 2022/11/09 04:06:54 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
 /*  
-   ' '-> ?  -> 3
-    $ -> ?  -> 4
-    | -> ?  -> 5
-    ' -> \a -> 7
-    " -> \b -> 8
+  [:] ->  ?  ->  1
+  ' ' ->  ?  ->  3
+   $  ->  ?  ->  4
+   |  ->  ?  ->  5
+   '  ->  \a ->  7
+   "  ->  \b ->  8
 */
 
 typedef struct s_table t_table;
@@ -48,7 +49,7 @@ typedef enum s_types
 
 typedef struct s_cmdline
 {
-    t_list  *cmds;
+    t_cmds  *cmds;
     char    **env;
     pid_t   pid;
 }   t_cmdline;
@@ -59,6 +60,7 @@ typedef struct s_cmds
     char    *path;
     int     i_stream;
     int     o_stream;
+    struct  t_cmds *next;
 }   t_cmds;
 
 typedef struct s_env
