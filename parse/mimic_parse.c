@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mimic_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 23:55:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/09 05:01:14 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:14:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int pipes(t_tok **token)
 	return count;
 }
 
-char		*join_arguments(char *s1, int delimiter, char *s2)
+char	*join_arguments(char *s1, int delimiter, char *s2)
 {
 	char *arguments;
 	int i;

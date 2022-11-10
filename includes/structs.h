@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/09 04:06:54 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:47:25 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
 typedef int (*t_built)(t_cmds *, t_table *);
+typedef struct s_handle t_handle;
+
+typedef struct s_handle
+{
+    int (*access)(char *);
+} t_handle;
 
 typedef enum s_types
 {
@@ -60,7 +66,7 @@ typedef struct s_cmds
     char    *path;
     int     i_stream;
     int     o_stream;
-    struct  t_cmds *next;
+    struct  s_cmds *next;
 }   t_cmds;
 
 typedef struct s_env
