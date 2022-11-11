@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/10 20:23:37 by user             ###   ########.fr       */
+/*   Updated: 2022/11/11 18:57:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@ t_cmds *parse(t_tok **token, t_table *table, char **envp)
 {
 	t_cmds *cmds;
 	int _pipe;
-
+	char *arguments;
+	
 	cmds = malloc(sizeof(t_cmds));
 	if(!cmds)
 		return (NULL);
 	cmds->i_stream = 0;
 	cmds->o_stream = 1;
 	_pipe = pipes(token) + 1;
-	cmds->arg_pack = NULL;
+	arguments = NULL;
 	while(*token != NULL)
 	{
 		if(typeis_arg((*token)->type))
-			cmds->arg_pack = join_arguments(cmds->arg_pack, 1, (*token)->tok);
+			arguments = join_arguments(arguments, 1, (*token)->tok);
 		if(typeis_redirection((*token)->type))
 		{
 			select_filename(*token, cmds);
@@ -45,8 +46,8 @@ t_cmds *parse(t_tok **token, t_table *table, char **envp)
 			break;
 		token = &(*token)->next;
 	}
-	write(cmds->o_stream, "dmartiro", 8);
-	return (NULL);
+	cmds->arg_pack = ft_split(arguments, 1);
+	return (cmds);
 }
 
 static void select_filename(t_tok *token, t_cmds *cmds)
@@ -98,12 +99,9 @@ t_cmdline  *parse_tree(t_table *table, char **envp)
 {
 	t_cmdline	*commands;
 	t_tok		*tokens;
-	t_cmds		*cmds;
 	
 	tokens = table->token;
 	if(tokens != NULL)
-	{
-		cmds = parse(&tokens, table, envp);
-	}	
-	return (NULL);
+		commands->cmds = parse(&tokens, table, envp);
+	return (commands);
 }
