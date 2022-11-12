@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/11 18:57:32 by user             ###   ########.fr       */
+/*   Updated: 2022/11/12 20:30:55 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_cmds *parse(t_tok **token, t_table *table, char **envp)
 	cmds->o_stream = 1;
 	_pipe = pipes(token) + 1;
 	arguments = NULL;
-	while(*token != NULL)
+	while(*token != NULL && _pipe)
 	{
 		if(typeis_arg((*token)->type))
 			arguments = join_arguments(arguments, 1, (*token)->tok);
@@ -37,16 +37,18 @@ t_cmds *parse(t_tok **token, t_table *table, char **envp)
 		{
 			select_filename(*token, cmds);
 			*token = (*token)->next;
+			continue;
 		}
-		if((*token)->type == PIPE)
-		{
-			cmds = cmds->next;
-		}
+		// if((*token)->type == PIPE)
+		// {
+		// 	// close_command(arguments, cmds);
+		// 	_pipe--;
+		// }
 		if((*token) == NULL)
 			break;
 		token = &(*token)->next;
 	}
-	cmds->arg_pack = ft_split(arguments, 1);
+	write(cmds->o_stream, "barev", 5);
 	return (cmds);
 }
 
@@ -62,20 +64,14 @@ static void select_filename(t_tok *token, t_cmds *cmds)
 
 static void open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
-	int fd;
+	int fd;	
 
 	if(type == REDIR_OUT)
-	{
 		fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	}
 	else if(type == REDIR_IN)
-	{
-		fd = open(filename, O_RDONLY, 0644);
-	}
+		fd = open(filename, O_RDONLY);
 	else if(type == APPEND)
-	{
 		fd = open(filename, O_CREAT | O_RDWR | O_APPEND, 0644);
-	}
 	check_type(fd, type, cmds);
 }
 
@@ -95,11 +91,14 @@ static void check_type(int fd, int type, t_cmds *cmds)
 	}
 }
 
-t_cmdline  *parse_tree(t_table *table, char **envp)
+t_cmdline * parse_tree(t_table *table, char **envp)
 {
 	t_cmdline	*commands;
 	t_tok		*tokens;
 	
+	commands = malloc(sizeof(t_cmdline));
+	if(!commands)
+		return (NULL);
 	tokens = table->token;
 	if(tokens != NULL)
 		commands->cmds = parse(&tokens, table, envp);
