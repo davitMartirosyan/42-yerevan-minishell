@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/12 20:16:45 by root             ###   ########.fr       */
+/*   Created: 2022/11/12 19:53:26 by root              #+#    #+#             */
+/*   Updated: 2022/11/12 19:54:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-int main(int argc, char *argv[], char *envp[])
+int syntax_handling(t_tok *tokens)
 {
-    t_table     *table;
-    t_cmdline   *tree;
-    char        *cmdline;
     
-    create_shell(envp, &table);
-    while(1)
-    {
-        cmdline = readline(SHELL);
-        add_history(cmdline);
-        lexical_analyzer(cmdline, table);
-        tree = parse_tree(table, envp);
-        // if(tree)
-        //     execute_command(tree, table, envp);
-    }
+    return (0);
 }

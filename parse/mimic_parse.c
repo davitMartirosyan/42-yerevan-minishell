@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mimic_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 23:55:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/10 20:14:34 by user             ###   ########.fr       */
+/*   Updated: 2022/11/12 20:40:42 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int typeis_arg(int type)
 int typeis_redirection(int type)
 {
 	if(type == REDIR_OUT || type == REDIR_IN \
-		|| type == APPEND || type == HEREDOC)
+		|| type == APPEND)
 		return (1);
 	return (0);
 }

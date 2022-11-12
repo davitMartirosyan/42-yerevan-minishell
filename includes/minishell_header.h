@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/12 19:31:43 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:54:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
-
+# define SHELLERR           "\033[31mMinishell-$\x1B[0m" 
 
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
@@ -107,11 +107,20 @@ char	*word(char *cmdline, int len, int s_pos);
 /**********************************************/
 /************Parsing (Parse Tree)**************/
 /**********************************************/
-t_cmdline	*parse_tree(t_table *table, char **envp);
-t_cmds		*parse(t_tok **token, t_table *table, char **envp);
-char		*join_arguments(char *s1, int delimiter, char *s2);
-int			pipes(t_tok **token);
-int			typeis_redirection(int type);
-int			typeis_arg(int type);
+t_cmdline   *parse_tree(t_table *table, char **envp);
+t_cmds  *parse(t_tok **token, t_table *table, char **envp);
+char    *join_arguments(char *s1, int delimiter, char *s2);
+void    select_filename(t_tok *token, t_cmds *cmds);
+void    open__file__check__type(int type, char *filename, t_cmds *cmds);
+void    check_type(int fd, int type, t_cmds *cmds);
+int     pipes(t_tok **token);
+int     typeis_redirection(int type);
+int     typeis_arg(int type);
+
+
+/**********************************************/
+/****************Err Handling******************/
+/**********************************************/
+int syntax_handling(t_tok *tokens);
 
 #endif
