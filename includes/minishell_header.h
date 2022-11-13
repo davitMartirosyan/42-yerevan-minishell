@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/12 19:54:52 by root             ###   ########.fr       */
+/*   Updated: 2022/11/13 10:50:42 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ char    *replace(char *cmdline, char *key, char *val, int *pos);
 /**********************************************/
 t_tok	*tokenization(char *cmdline);
 
+char	*word(char *cmdline, int len, int s_pos);
+
 int		wordlen(char *wordstart, int s_pos);
 int     typeface(int c, int len);
 
@@ -102,20 +104,23 @@ void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
 void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
 void    space(char *cmdline, int *pos, char sep, t_tok **token);
 
-char	*word(char *cmdline, int len, int s_pos);
 
 /**********************************************/
 /************Parsing (Parse Tree)**************/
 /**********************************************/
 t_cmdline   *parse_tree(t_table *table, char **envp);
 t_cmds  *parse(t_tok **token, t_table *table, char **envp);
+
 char    *join_arguments(char *s1, int delimiter, char *s2);
+
 void    select_filename(t_tok *token, t_cmds *cmds);
 void    open__file__check__type(int type, char *filename, t_cmds *cmds);
 void    check_type(int fd, int type, t_cmds *cmds);
+
 int     pipes(t_tok **token);
 int     typeis_redirection(int type);
 int     typeis_arg(int type);
+int		typeis_heredoc(int type);
 
 
 /**********************************************/

@@ -14,7 +14,7 @@ FLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@${CC} ${LINKS} -o $(NAME) $(OBJ)
+	@${CC} -I includes/ ${LINKS} -o $(NAME) $(OBJ)
 
 clean:
 	@rm -rf $(OBJ)
