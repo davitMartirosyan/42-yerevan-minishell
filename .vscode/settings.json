@@ -3,6 +3,7 @@
         "minishell_header.h": "c",
         "types.h": "c",
         "wait.h": "c",
-        "features.h": "c"
+        "features.h": "c",
+        "__config": "c"
     }
 }

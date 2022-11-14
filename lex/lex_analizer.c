@@ -6,12 +6,12 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/11/08 23:44:18 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/14 07:33:55 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "minishell_header.h"
+#include "../includes/minishell_header.h"
 
 void lexical_analyzer(char *cmdline, t_table *table)
 {	

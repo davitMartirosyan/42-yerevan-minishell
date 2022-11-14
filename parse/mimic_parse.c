@@ -6,11 +6,11 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 23:55:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/13 10:47:41 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/14 07:33:56 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell_header.h"
+#include "../includes/minishell_header.h"
 
 int typeis_arg(int type)
 {
