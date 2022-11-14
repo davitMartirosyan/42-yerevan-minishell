@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/14 05:41:41 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:10:40 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ void    space(char *cmdline, int *pos, char sep, t_tok **token);
 /************Parsing (Parse Tree)**************/
 /**********************************************/
 t_cmdline   *parse_tree(t_table *table, char **envp);
-t_cmds		*parse(t_tok *token, t_table *table, char **envp);
-
-char    *join_arguments(char *s1, int delimiter, char *s2);
-
+t_cmds  *parse(t_tok *token, t_table *table, char **envp);
+void    parse_to(t_tok *token, t_table *table, t_cmds *cmds, char **arguments);
 void    select_filename(t_tok **token, t_cmds *cmds);
 void    open__file__check__type(int type, char *filename, t_cmds *cmds);
 void    check_type(int fd, int type, t_cmds *cmds);
-
+void    heredoc(t_tok **token, t_cmds *cmds, t_table *table);
+void    open_heredoc_prompt(char *delim, int flag, t_cmds *cmds, t_table *table);
+char    *join_arguments(char *s1, int delimiter, char *s2);
 int     pipes(t_tok **token);
 int     typeis_redirection(int type);
 int     typeis_arg(int type);

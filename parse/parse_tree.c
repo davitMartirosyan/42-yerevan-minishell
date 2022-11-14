@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/14 08:11:00 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:11:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell_header.h"
-
-static void heredoc(t_tok **token, t_cmds *cmds);
-static void open_heredoc_prompt(char *delim, int flag, t_cmds *cmds);
 
 t_cmds *parse(t_tok *token, t_table *table, char **envp)
 {
@@ -26,13 +23,23 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 		return (NULL);
 	cmds->i_stream = 0;
 	cmds->o_stream = 1;
-	_pipe = pipes(&token) + 1;
 	arguments = NULL;
+	parse_to(token, table, cmds, &arguments);
+	printf("%s\n", arguments);
+	if(arguments)
+		cmds->arg_pack = ft_split(arguments, 1);
+	return (cmds);
+}
+
+void parse_to(t_tok *token, t_table *table, t_cmds *cmds, char **arguments)
+{
+	int _pipe;
 	
+	_pipe = pipes(&token) + 1;
 	while(token != NULL)
 	{
 		if(typeis_arg(token->type))
-			arguments = join_arguments(arguments, 1, token->tok);
+			*arguments = join_arguments(*arguments, 1, token->tok);
 		if(typeis_redirection(token->type))
 		{
 			select_filename(&token, cmds);
@@ -41,17 +48,12 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 		}
 		if(typeis_heredoc(token->type))
 		{
-			heredoc(&token, cmds);
+			heredoc(&token, cmds, table);
 			continue;
 		}
 		token = token->next;
 	}
-	// printf("[%s]\n", arguments);
-	if(arguments)
-		cmds->arg_pack = ft_split(arguments, 1);
-	return (cmds);
 }
-
 
 t_cmdline *parse_tree(t_table *table, char **envp)
 {
@@ -77,16 +79,17 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 	return (commands);
 }
 
-static void heredoc(t_tok **token, t_cmds *cmds)
+void heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 {
 	int flag;
 	char *delim;
 	int dob;
-	t_tok *tmp;
 	
 	delim = NULL;
 	flag = 0;
 	dob = 0;
+	while((*token)->type != WORD && (*token)->type != EXP_FIELD)
+		*token = (*token)->next;
 	while((*token) != NULL)
 	{
 		if((*token)->type == WORD || (*token)->type == EXP_FIELD)
@@ -97,15 +100,14 @@ static void heredoc(t_tok **token, t_cmds *cmds)
 		}
 		if((*token)->type == SEP)
 			dob++;
-		if(dob == 2)
+		if(dob == 1 || (*token)->next == NULL)
 			break;
 		*token = (*token)->next;
 	}
-	// printf("{%s}\n", delim);
-	open_heredoc_prompt(delim, flag, cmds);
+	open_heredoc_prompt(delim, flag, cmds, table);
 }
 
-static void open_heredoc_prompt(char *delim, int flag, t_cmds *cmds)
+void open_heredoc_prompt(char *delim, int flag, t_cmds *cmds, t_table *table)
 {
 	char *heredoc;
 	char *term;
@@ -119,7 +121,12 @@ static void open_heredoc_prompt(char *delim, int flag, t_cmds *cmds)
 				break;
 		term = join_arguments(term, '\n', heredoc);
 	}
-	printf("%s\n", term);
+	if(term)
+	{
+		if(!flag)
+			term = find_replace(term, table->env);
+		printf("%s\n", term);
+	}
 }
 
 //gcc -I includes */*.c minishell.c -lreadline -o minishell && ./minishell
