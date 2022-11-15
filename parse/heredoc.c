@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 19:38:48 by root             ###   ########.fr       */
+/*   Updated: 2022/11/15 20:20:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
     tmpfile = ft_strjoin(tmpfile, "/var/tmp/");
     tmpfile = ft_strjoin(tmpfile, "ayb");
     tmpfile = ft_strjoin(tmpfile, delim);
-    open__file__check__type(v->log, tmpfile, cmds);
-	write(cmds->i_stream, term, ft_strlen(term));
+	if(term)
+	{
+		open__file__check__type(v->log, tmpfile, cmds);
+		write(cmds->i_stream, term, ft_strlen(term));
+	}
 }
 
 char    *heredoc_delimiter(t_tok **token, t_vars **v)

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 20:10:40 by root             ###   ########.fr       */
+/*   Updated: 2022/11/15 20:14:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ void parse_to(t_tok *token, t_table *table, t_cmds *cmds, char **arguments)
 			token = token->next;
 			continue;
 		}
-		if(token->type == PIPE)
-		{
-			//Remove words from *arguments
-			//Next node in cmds struct
-			//check if _pipe is 0 or not
-			//token pointer move after pipe symbol token
-		}
+		// if(token->type == PIPE)
+		// {
+		// 	//Remove words from *arguments
+		// 	//Next node in cmds struct
+		// 	//check if _pipe is 0 or not
+		// 	//token pointer move after pipe symbol token
+		// 	//continue;
+		// }
 		token = token->next;
 	}
 }
