@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/14 14:53:11 by user             ###   ########.fr       */
+/*   Updated: 2022/11/15 12:12:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
    '  ->  \a ->  7
    "  ->  \b ->  8
 */
-
+typedef struct s_vars t_vars;
 typedef struct s_table t_table;
 typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
@@ -33,6 +33,21 @@ typedef struct s_handle
 {
     int (*access)(char *);
 } t_handle;
+
+typedef struct s_vars
+{
+    int var;
+    int let;
+    int def;
+    int log;
+    int cconst;
+    int ayb;
+    int ben;
+    int gim;
+    int da;
+    int ech;
+    int za;
+} t_vars;
 
 typedef enum s_types
 {

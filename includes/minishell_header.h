@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/14 15:10:40 by user             ###   ########.fr       */
+/*   Updated: 2022/11/15 12:30:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env   *env_tokenizing(char **envp);
-
 void    create_shell(char **envp, t_table **table);
 void    add_paths(t_env **env, t_table **table);
 void    free_environment(char **env_tokens);
@@ -76,12 +75,10 @@ int     check_quotes(char *cmdline, int *q_counts);
 int		quote_syntax_analyzer(char *cmdline, int *q_c);
 int     regexp(char *cmdline, char *regex);
 int     contains(char *tok, char *cmdline, int *pos);
-
 void	lexical_analyzer(char *cmdline, t_table *table);
 void    token_replacment(char *cmdline, char schr, char rchr);
 void    openquotes(char *cmdline);
 void    inside_quote(char *cmdline, int *pos, int find);
-
 char    *find_replace(char *cmdline, t_env *env);
 char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
@@ -92,12 +89,9 @@ char    *replace(char *cmdline, char *key, char *val, int *pos);
 /****************Tokenizing********************/
 /**********************************************/
 t_tok	*tokenization(char *cmdline);
-
 char	*word(char *cmdline, int len, int s_pos);
-
 int		wordlen(char *wordstart, int s_pos);
 int     typeface(int c, int len);
-
 void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
@@ -115,7 +109,8 @@ void    select_filename(t_tok **token, t_cmds *cmds);
 void    open__file__check__type(int type, char *filename, t_cmds *cmds);
 void    check_type(int fd, int type, t_cmds *cmds);
 void    heredoc(t_tok **token, t_cmds *cmds, t_table *table);
-void    open_heredoc_prompt(char *delim, int flag, t_cmds *cmds, t_table *table);
+char    *heredoc_delimiter(t_tok **token, t_vars **v);
+char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char    *join_arguments(char *s1, int delimiter, char *s2);
 int     pipes(t_tok **token);
 int     typeis_redirection(int type);
