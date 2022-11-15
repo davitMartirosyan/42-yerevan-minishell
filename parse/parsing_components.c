@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 15:19:16 by root             ###   ########.fr       */
+/*   Updated: 2022/11/15 20:00:18 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void select_filename(t_tok **token, t_cmds *cmds)
 void open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
 	int fd;	
-	
+
 	if(type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if(type == REDIR_IN)

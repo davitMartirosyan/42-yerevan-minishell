@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/15 12:12:24 by root             ###   ########.fr       */
+/*   Updated: 2022/11/15 19:41:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ typedef struct s_vars
     int def;
     int log;
     int cconst;
-    int ayb;
-    int ben;
-    int gim;
-    int da;
-    int ech;
-    int za;
 } t_vars;
 
 typedef enum s_types

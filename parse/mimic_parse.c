@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 23:55:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/15 11:44:50 by root             ###   ########.fr       */
+/*   Updated: 2022/11/15 20:03:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ char	*join_arguments(char *s1, int delimiter, char *s2)
 	while(s2[++c])
 		arguments[i++] = s2[c];
 	arguments[i] = '\0';
+	free(s1);//hishel
+	free(s2);//hishel
 	return (arguments);
 }
