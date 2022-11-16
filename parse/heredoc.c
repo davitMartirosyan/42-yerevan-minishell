@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 20:20:26 by root             ###   ########.fr       */
+/*   Updated: 2022/11/16 10:27:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	char *term;
 	char *tmpfile;
     
+	tmpfile = NULL;
     v = malloc(sizeof(t_vars));
     if(!v)
         return ;
@@ -74,10 +75,12 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 		if(ft_strncmp(heredoc, delim, ft_strlen(delim)) == 0 && \
 			ft_strlen(heredoc) == ft_strlen(delim))
 				break;
-		term = join_arguments(term, '\n', heredoc);
+		if(heredoc)
+			term = join_arguments(term, '\n', heredoc);
 	}
 	if(term)
 	{
+		
 		if(!flag)
 			term = find_replace(term, table->env);
         printf("%s\n", term);

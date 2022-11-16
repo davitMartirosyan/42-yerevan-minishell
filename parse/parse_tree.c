@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 20:14:57 by root             ###   ########.fr       */
+/*   Updated: 2022/11/16 10:25:54 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void parse_to(t_tok *token, t_table *table, t_cmds *cmds, char **arguments)
 		if(typeis_heredoc(token->type))
 		{
 			heredoc(&token, cmds, table);
-			token = token->next;
 			continue;
 		}
 		// if(token->type == PIPE)
