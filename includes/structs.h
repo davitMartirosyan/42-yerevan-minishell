@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/15 19:41:11 by root             ###   ########.fr       */
+/*   Updated: 2022/11/17 15:46:48 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
+
 /*  
   [:] ->  ?  ->  1
   ' ' ->  ?  ->  3
@@ -20,13 +21,14 @@
    '  ->  \a ->  7
    "  ->  \b ->  8
 */
+
 typedef struct s_vars t_vars;
 typedef struct s_table t_table;
 typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
-typedef int (*t_built)(t_cmds *, t_table *);
+typedef int (*t_built)(t_cmdline *, t_table *);
 typedef struct s_handle t_handle;
 
 typedef struct s_handle

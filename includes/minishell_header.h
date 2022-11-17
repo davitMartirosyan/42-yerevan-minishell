@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/15 12:30:52 by root             ###   ########.fr       */
+/*   Updated: 2022/11/17 15:57:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env   *env_tokenizing(char **envp);
+void    create_builtins(t_table *table);
 void    create_shell(char **envp, t_table **table);
 void    add_paths(t_env **env, t_table **table);
 void    free_environment(char **env_tokens);
@@ -112,6 +113,7 @@ void    heredoc(t_tok **token, t_cmds *cmds, t_table *table);
 char    *heredoc_delimiter(t_tok **token, t_vars **v);
 char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char    *join_arguments(char *s1, int delimiter, char *s2);
+int     syntax_handling(t_tok *tokens);
 int     pipes(t_tok **token);
 int     typeis_redirection(int type);
 int     typeis_arg(int type);
@@ -121,6 +123,18 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/
-int syntax_handling(t_tok *tokens);
+
+
+/**********************************************/
+/******************Builtins********************/
+/**********************************************/
+int find_in(char *builtin, char **reserved);
+int echo(t_cmdline *cmd, t_table *table);
+// int pwd(t_cmds *command, t_table *);
+// int cd(t_cmds *command, t_table *table);
+// int unset(t_cmds *command, t_table *table);
+// int export(t_cmds *command, t_table *table);
+// int exit_(t_cmds *command, t_table *table);
+// int env(t_cmds *command, t_table *table);
 
 #endif
