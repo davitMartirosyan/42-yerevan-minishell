@@ -6,14 +6,13 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:39:57 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/17 12:12:46 by user             ###   ########.fr       */
+/*   Updated: 2022/11/18 10:17:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 #define BUILTINS_H
 
-#define RESERVED			"echo pwd cd unset export exit env"
 #define TOKENS				"| < > ; &"
 
 typedef struct s_tab{

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:27:41 by user              #+#    #+#             */
-/*   Updated: 2022/11/17 15:43:21 by user             ###   ########.fr       */
+/*   Updated: 2022/11/18 10:53:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,16 @@ int echo(t_cmdline *command, t_table *table)
 {
     printf("%s\n", command->cmds->arg_pack[1]);
     return (1);
+}
+
+int builtin_execution(int k, t_cmdline *cmd, t_table *table)
+{
+    int execution;
+    
+    if(k != -1)
+    {
+        execution = table->builtin[k](cmd, table);
+        return (execution);
+    }
+    return (-1);
 }

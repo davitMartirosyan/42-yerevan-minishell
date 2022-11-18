@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/17 15:57:51 by user             ###   ########.fr       */
+/*   Updated: 2022/11/18 13:52:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 # include "../libft/libft.h"
 # include "./structs.h"
 # include "./builtins.h"
-
 
 /**********************************************/
 /*******************Listing********************/
@@ -105,7 +104,8 @@ void    space(char *cmdline, int *pos, char sep, t_tok **token);
 /**********************************************/
 t_cmdline   *parse_tree(t_table *table, char **envp);
 t_cmds  *parse(t_tok *token, t_table *table, char **envp);
-void    parse_to(t_tok *token, t_table *table, t_cmds *cmds, char **arguments);
+void    parse_to(t_tok *token, t_table *table, t_cmds **cmds, char **arguments);
+void    close_prev_command(char **arguments, t_cmds *cmds, int *_pipe);
 void    select_filename(t_tok **token, t_cmds *cmds);
 void    open__file__check__type(int type, char *filename, t_cmds *cmds);
 void    check_type(int fd, int type, t_cmds *cmds);
@@ -128,13 +128,14 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /******************Builtins********************/
 /**********************************************/
+int builtin_execution(int k, t_cmdline *cmd, t_table *table);
 int find_in(char *builtin, char **reserved);
 int echo(t_cmdline *cmd, t_table *table);
-// int pwd(t_cmds *command, t_table *);
-// int cd(t_cmds *command, t_table *table);
-// int unset(t_cmds *command, t_table *table);
-// int export(t_cmds *command, t_table *table);
-// int exit_(t_cmds *command, t_table *table);
-// int env(t_cmds *command, t_table *table);
+// int pwd    (t_cmdline *cmd, t_table *table);
+// int cd     (t_cmdline *cmd, t_table *table);
+// int unset  (t_cmdline *cmd, t_table *table);
+// int export (t_cmdline *cmd, t_table *table);
+// int exit_  (t_cmdline *cmd, t_table *table);
+// int env    (t_cmdline *cmd, t_table *table);
 
 #endif

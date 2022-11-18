@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/11/16 10:27:20 by user             ###   ########.fr       */
+/*   Updated: 2022/11/18 15:34:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 		
 		if(!flag)
 			term = find_replace(term, table->env);
-        printf("%s\n", term);
+        // printf("%s\n", term);
 		return (term);
 	}
 	else

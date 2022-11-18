@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/17 15:58:23 by user             ###   ########.fr       */
+/*   Updated: 2022/11/18 10:42:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,23 @@ void free_environment(char **env_tokens)
 
 int find_in(char *builtin, char **reserved)
 {
-    int i;
-    int builtin_len;
-    int reserve_len;
-
-    i = 0;
-    builtin_len = ft_strlen(builtin);
-    while(reserved[i])
+    t_vars v;
+    
+    v.let = -1;
+    v.var = 0;
+    v.def = ft_strlen(builtin);
+    while(reserved[++v.let]);
+    while(reserved[v.var])
     {
-        reserve_len = ft_strlen(reserved[i]);
-        if(ft_strncmp(builtin, reserved[i], reserve_len) == 0 \
-            && builtin_len == reserve_len)
+        v.log = ft_strlen(reserved[v.var]);
+        if(ft_strncmp(builtin, reserved[v.var], v.log) == 0 && \
+            v.def == v.log)
             break;
-        i++;
+        v.var++;
     }
-    return (i);
+    if(v.var == v.let && ft_strncmp(builtin, reserved[v.var-1], \
+        ft_strlen(reserved[v.var-1])) != 0)
+        return (-1);
+    return (v.var);
 }
+

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/17 15:57:18 by user             ###   ########.fr       */
+/*   Updated: 2022/11/18 13:17:08 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,12 @@ int main(int argc, char *argv[], char *envp[])
         add_history(cmdline);
         lexical_analyzer(cmdline, table);
         tree = parse_tree(table, envp);
-        // int indacy;
-        // indacy = find_in(tree->cmds->arg_pack[0], table->reserved);
-        // table->builtin[indacy](tree, table);
     }
     return (0);
 }
 
 
-// while(table->token != NULL)
-// {
-//     printf("[%s] : %d\n", table->token->tok, table->token->type);
-//     table->token = table->token->next;
-// }
- // printf("%s\n", tree->cmds->arg_pack[2]);
-        // if(tree)
-        //     execute_command(tree, table, envp);
+// int key;
+
+// key = find_in(tree->cmds->arg_pack[0], table->reserved);
+// builtin_execution(key, tree, table);
