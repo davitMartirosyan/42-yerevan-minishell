@@ -6,11 +6,11 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 07:19:03 by root              #+#    #+#             */
-/*   Updated: 2022/11/14 07:33:55 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 t_tok *new_token(int len, char *token, int type)
 {

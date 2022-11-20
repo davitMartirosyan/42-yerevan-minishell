@@ -3,11 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:32:49 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:32:52 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"

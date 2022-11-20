@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:53:26 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 11:08:40 by root             ###   ########.fr       */
+/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 int syntax_handling(t_tok *tokens)
 {

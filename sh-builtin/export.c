@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:17 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/03 13:42:32 by user             ###   ########.fr       */
+/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 /*char	*add_quotes(char *str)
 {
