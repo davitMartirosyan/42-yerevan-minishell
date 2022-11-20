@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_components.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/15 20:00:18 by root             ###   ########.fr       */
+/*   Updated: 2022/11/20 15:55:18 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 void select_filename(t_tok **token, t_cmds *cmds)
 {
@@ -52,3 +52,30 @@ void check_type(int fd, int type, t_cmds *cmds)
 		cmds->o_stream = fd;
 	}
 }
+
+int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
+{
+	if(typeis_heredoc((*token)->type))
+	{
+		heredoc(token, *(*cmds), table);
+		*token = (*token)->next;
+		return 0;
+	}
+	if((*token)->type == PIPE)
+	{
+		*cmds = &(*(*cmds))->next;
+		*(*cmds) = malloc(sizeof(t_cmds));
+		std(*cmds);	
+		*token = (*token)->next;
+		return 0;
+	}
+	return 1;
+}
+
+void    std(t_cmds **cmds)
+{
+	(*cmds)->arguments = NULL;
+	(*cmds)->i_stream = 0;
+	(*cmds)->o_stream = 1;
+}
+

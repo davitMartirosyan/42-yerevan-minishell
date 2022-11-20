@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/17 15:46:48 by user             ###   ########.fr       */
+/*   Updated: 2022/11/20 16:07:53 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define STRUCTS_H
 
 /*  
-  [:] ->  ?  ->  1
+  [nonprintable] ->  ?  ->  1
   ' ' ->  ?  ->  3
    $  ->  ?  ->  4
    |  ->  ?  ->  5
@@ -73,7 +73,7 @@ typedef struct s_cmdline
 
 typedef struct s_cmds
 {
-    char    **arg_pack;
+    char    *arguments;
     char    *path;
     char    **heredoc;
     int     i_stream;

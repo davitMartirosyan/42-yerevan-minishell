@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mimic_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 23:55:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/18 15:46:55 by user             ###   ########.fr       */
+/*   Updated: 2022/11/20 15:02:26 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell_header.h"
+#include "minishell_header.h"
 
 int typeis_arg(int type)
 {
