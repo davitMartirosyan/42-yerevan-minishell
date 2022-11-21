@@ -105,6 +105,8 @@ void    space(char *cmdline, int *pos, char sep, t_tok **token);
 t_cmdline   *parse_tree(t_table *table, char **envp);
 t_cmds  *parse(t_tok *token, t_table *table, char **envp);
 void    std(t_cmds **cmds);
+void    separate(t_cmds **commands);
+void    reduce(t_cmds **commands);
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds);
 void    select_filename(t_tok **token, t_cmds *cmds);
 void    open__file__check__type(int type, char *filename, t_cmds *cmds);

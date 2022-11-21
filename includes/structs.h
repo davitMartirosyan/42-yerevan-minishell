@@ -74,6 +74,7 @@ typedef struct s_cmdline
 typedef struct s_cmds
 {
     char    *arguments;
+    char    **arg_pack;
     char    *path;
     char    **heredoc;
     int     i_stream;
