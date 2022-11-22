@@ -6,11 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
-=======
 /*   Updated: 2022/11/02 22:01:44 by dmartiro         ###   ########.fr       */
->>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +28,10 @@ t_env *env_tokenizing(char **envp)
         t->key = _tok[0];
         t->val = _tok[1];
         if (!envp[i + 1])
-<<<<<<< HEAD
-			break;
-=======
         {
             t->next = NULL;
 			break;
         }
->>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
         t->next =  malloc(sizeof(t_env));
         t = t->next;
     }

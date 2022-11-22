@@ -1,14 +1,9 @@
-NAME=minishell
-CC=gcc
-CFLAGS= -Wall -Wextra -Werror
+NAME = minishell
+SRC = minishell.c \
+	  $(wildcard */*.c)
+OBJ = $(patsubst %.c, %.o, $(SRC))
+CHACHES = ~/Library/Caches
 
-<<<<<<< HEAD
-
-all: $(NAME)
-
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) 
-=======
 LINKS = -lreadline
 CC = cc
 FLAGS = -Wall -Werror -Wextra
@@ -34,4 +29,3 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
->>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2

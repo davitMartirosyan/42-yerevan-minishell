@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:18:16 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,10 @@ char *valueof(char *key, t_env *env)
 	{
 		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0 && \
 			ft_strlen(t->key) == ft_strlen(key))
-			return (t->val);
+			break;
 		t = t->next;
 	}
-	return (NULL);
+	return (t->val);
 }
 
 char *replace(char *cmd, char *key, char *val, int *pos)

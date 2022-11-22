@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:39:57 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/18 10:17:33 by user             ###   ########.fr       */
+/*   Updated: 2022/10/25 14:50:22 by sabazyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
-<<<<<<< HEAD
-#define BUILTINS_H
-
-#define TOKENS				"| < > ; &"
-
-typedef struct s_tab{
-    t_env       *env;
-} t_tab;
-=======
 # define BUILTINS_H
->>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 
 //main functions
 void	print_echo(char *cmd);

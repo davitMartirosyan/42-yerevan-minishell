@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 15:55:32 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:41:33 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
-<<<<<<< HEAD
-# define SHELLERR           "\033[31mMinishell-$\x1B[0m" 
-=======
->>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
@@ -44,7 +40,6 @@
 # include <unistd.h>
 # include <signal.h>
 # include <sys/types.h>
-# include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <readline/readline.h>
@@ -53,10 +48,12 @@
 # include "./structs.h"
 # include "./builtins.h"
 
+
 /**********************************************/
 /*******************Listing********************/
 /**********************************************/
 t_tok   *new_token(int len, char *token, int type);
+
 void	add(t_tok **lst, t_tok *new);
 
 
@@ -64,7 +61,7 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env   *env_tokenizing(char **envp);
-void    create_builtins(t_table *table);
+
 void    create_shell(char **envp, t_table **table);
 void    add_paths(t_env **env, t_table **table);
 void    free_environment(char **env_tokens);
@@ -78,10 +75,12 @@ int     check_quotes(char *cmdline, int *q_counts);
 int		quote_syntax_analyzer(char *cmdline, int *q_c);
 int     regexp(char *cmdline, char *regex);
 int     contains(char *tok, char *cmdline, int *pos);
+
 void	lexical_analyzer(char *cmdline, t_table *table);
 void    token_replacment(char *cmdline, char schr, char rchr);
 void    openquotes(char *cmdline);
 void    inside_quote(char *cmdline, int *pos, int find);
+
 char    *find_replace(char *cmdline, t_env *env);
 char    *keyof(char *cmdline, int pos);
 char    *valueof(char *key, t_env *env);
@@ -92,56 +91,22 @@ char    *replace(char *cmdline, char *key, char *val, int *pos);
 /****************Tokenizing********************/
 /**********************************************/
 t_tok	*tokenization(char *cmdline);
-char	*word(char *cmdline, int len, int s_pos);
+
 int		wordlen(char *wordstart, int s_pos);
 int     typeface(int c, int len);
+
 void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
 void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
 void    space(char *cmdline, int *pos, char sep, t_tok **token);
 
+char	*word(char *cmdline, int len, int s_pos);
 
 /**********************************************/
 /************Parsing (Parse Tree)**************/
 /**********************************************/
-t_cmdline   *parse_tree(t_table *table, char **envp);
-t_cmds  *parse(t_tok *token, t_table *table, char **envp);
-void    std(t_cmds **cmds);
-void    separate(t_cmds **commands);
-void    reduce(t_cmds **commands);
-void	parse_to(t_tok *token, t_table *table, t_cmds **cmds);
-void    select_filename(t_tok **token, t_cmds *cmds);
-void    open__file__check__type(int type, char *filename, t_cmds *cmds);
-void    check_type(int fd, int type, t_cmds *cmds);
-void    heredoc(t_tok **token, t_cmds *cmds, t_table *table);
-char    *heredoc_delimiter(t_tok **token, t_vars **v);
-char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
-char    *join_arguments(char *s1, int delimiter, char *s2);
-int     syntax_handling(t_tok *tokens);
-int     pipes(t_tok **token);
-int		type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table);
-int     typeis_redirection(int type);
-int     typeis_arg(int type);
-int		typeis_heredoc(int type);
 
-
-/**********************************************/
-/****************Err Handling******************/
-/**********************************************/
-
-
-/**********************************************/
-/******************Builtins********************/
-/**********************************************/
-int builtin_execution(int k, t_cmdline *cmd, t_table *table);
-int find_in(char *builtin, char **reserved);
-int echo(t_cmdline *cmd, t_table *table);
-// int pwd    (t_cmdline *cmd, t_table *table);
-// int cd     (t_cmdline *cmd, t_table *table);
-// int unset  (t_cmdline *cmd, t_table *table);
-// int export (t_cmdline *cmd, t_table *table);
-// int exit_  (t_cmdline *cmd, t_table *table);
-// int env    (t_cmdline *cmd, t_table *table);
+void parse_tree(t_table *table, char **envp);
 
 #endif

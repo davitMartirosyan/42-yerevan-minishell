@@ -36,11 +36,6 @@ if(ft_strchr(cmdline, '<'))
 	 printf("ok");
 }
 
-   // if(typeis_pipe((*token)->type))
-        //     //do something
-        // if(typeis_redir((*token)->type))
-        //     //do something
-
 char *abc = echo                   hello                    world
 split(abc, ' '); -> ["echo", "hello", "world"]
 
@@ -50,28 +45,7 @@ split(def, ' '); -> ["echo", "hello", "userworld", "barev"];
 										token_replace(def[i], 3, ' ');
 
 
-
-
-
-
-
-// while(table->token != NULL)
-// {
-//     printf("[%s] : %d\n", table->token->tok, table->token->type);
-//     table->token = table->token->next;
-// }
- // printf("%s\n", tree->cmds->arg_pack[2]);
-        // if(tree)
-        //     execute_command(tree, table, envp);
-
-
-
-
-
-
-
-
-
+<<<<<<< HEAD
 (*table)->heredoc = malloc(sizeof(t_heredoc));
 	if(contains("<<", cmdline, &pos))
 	{
@@ -80,6 +54,7 @@ split(def, ' '); -> ["echo", "hello", "userworld", "barev"];
 		end = find_space_orpipe(cmdline+pos);
 		(*table)->heredoc->delimiter = ft_substr(cmdline, pos, end);
 	}
+=======
 Parsing steps
 
 Step 1: Check TYPE of token if WORD | SPACE | EXP_FIELD
@@ -95,6 +70,7 @@ Step 1: Check TYPE of token if WORD | SPACE | EXP_FIELD
 						token_replacment(split[i], 3, ' ');
 	Substep 1.6: Output -> split = ["echo", "user helloworld"]
 	
+>>>>>>> master
 
 
 echo "user hello"world
