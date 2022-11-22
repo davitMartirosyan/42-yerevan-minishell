@@ -19,17 +19,15 @@ int main(int argc, char *argv[], char *envp[])
     char        *cmdline;
     
     create_shell(envp, &table);
-    // while(1)
-    // {
-    //     cmdline = readline(SHELL);
-    //     add_history(cmdline);
-    //     lexical_analyzer(cmdline, table);
-    //     tree = parse_tree(table, envp);
-    // }
-    print_echo("echo $USER");
+    while(1)
+    {
+        cmdline = readline(SHELL);
+        add_history(cmdline);
+        lexical_analyzer(cmdline, table);
+        tree = parse_tree(table, envp);
+    }
     return (0);
 }
-
 
 // int key;
 

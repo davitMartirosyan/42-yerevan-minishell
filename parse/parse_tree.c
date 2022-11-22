@@ -74,15 +74,12 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 			if(!commands)
 				return (NULL);
 			commands->cmds = parse(tokens, table, envp);
+			if(commands->cmds)
+				return (commands);
 		}
 		else
-		{
-			printf("%s - %s\n", SHELLERR, table->err_handling);
 			return (NULL);
-		}
 	}
-	if(commands->cmds)
-		return (commands);
 	return (NULL);
 }
 
@@ -99,10 +96,10 @@ void reduce(t_cmds **commands)
 {
 	int i;
 
-	while((*commands) != NULL && (*commands)->arg_pack[i] != NULL)
+	while((*commands) != NULL && (*commands)->arguments != NULL)
 	{
 		i = -1;
-		while((*commands)->arg_pack[++i])
+		while((*commands)->arg_pack[++i] && (*commands)->arg_pack[i] != NULL)
 			token_replacment((*commands)->arg_pack[i], 3, ' ');
 		commands = &(*commands)->next;
 	}

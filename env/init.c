@@ -20,7 +20,7 @@ void create_shell(char **envp, t_table **table)
 	(*table)->reserved = ft_split(RESERVED, ' ');
 	add_paths(&(*table)->env, table);
 	// "echo pwd cd unset export exit env";
-	(*table)->builtin[0] = echo;
+	// (*table)->builtin[0] = echo;
 	// (*table)->builtin[1] = pwd;
 	// (*table)->builtin[2] = cd;
 	// (*table)->builtin[3] = unset;

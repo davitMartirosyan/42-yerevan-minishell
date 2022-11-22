@@ -131,14 +131,6 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /******************Builtins********************/
 /**********************************************/
-int builtin_execution(int k, t_cmdline *cmd, t_table *table);
-int find_in(char *builtin, char **reserved);
-int echo(t_cmdline *cmd, t_table *table);
-// int pwd    (t_cmdline *cmd, t_table *table);
-// int cd     (t_cmdline *cmd, t_table *table);
-// int unset  (t_cmdline *cmd, t_table *table);
-// int export (t_cmdline *cmd, t_table *table);
-// int exit_  (t_cmdline *cmd, t_table *table);
-// int env    (t_cmdline *cmd, t_table *table);
+
 
 #endif

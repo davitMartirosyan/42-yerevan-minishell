@@ -1,44 +1,52 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:39:57 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/18 10:17:33 by user             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef BUILTINS_H
-#define BUILTINS_H
-
-#define TOKENS				"| < > ; &"
-
-typedef struct s_tab{
-    t_env       *env;
-} t_tab;
+# define BUILTINS_H
 
 //main functions
-void    print_echo(char *cmd);
-void    print_pwd(char *cmd);
-void    print_cd(char *cmd);
-void    ft_export(char *cmd, t_tab *tab);
-void    ft_unset(char *cmd, t_tab *tab);
-void    print_env(char *cmd, char **env);
+void	print_echo(char *cmd);
+void	print_pwd(char *cmd);
+void	print_cd(char *cmd, t_table *tab);
+void	ft_export(char *cmd, t_table *tab);
+void	ft_unset(char *cmd, t_table *tab);
+void	ft_exit(char *cmd);
+void	print_env(char *cmd, t_table *table);
+void	builtins(char *cmdline, t_table *table);
 //echo utils
-int     is_keyword(char *str);
-int     is_token(char *str);
+int		is_keyword(char *str);
+int		is_token(char *str);
+void	with_flag(char **matrix, int i);
 //export utils
-char	*add_quotes(char *str);
-int     export_err(char *str);
-void	print_list_export(t_tab *tab);
-t_tab	*create_tab(char **env);
-void	add_node(t_tab *tab, char *str);
-int     check_var(char *str);
-int     check_key(t_env *env, char *str);
+int		export_err(char *str);
+t_table	*create_tab(char **env);
+int		check_plus_equal(char *str);
+int		check_key(char *str, t_table *tab);
+void	create_key_value(char *str, t_table *tab);
+void	create_key(char *str, t_table *tab);
+void	create_key_new_value(char *str, t_table *tab);
+int		create_key_new_value2(char *str, t_table *tab, int index, int len);
+void	create_key_plus_value(char *str, t_table *tab);
+void	loop_plus_value(char *str, t_env *temp, int index, int len);
+char	**create_export_matrix(t_table *tab, int count);
+void	sorting(char **arr);
+int		key_count(t_table *tab);
+void	print_export(t_table *tab);
 //unset utils
-int     unset_err(char *str);
-void	remove_node(t_tab *tab, char *str);
+int		unset_err(char *str);
+void	remove_node(t_table *tab, char *str);
+//cd utils
+void	change_path(t_table *tab, char *old_path);
+void	change_path_to_home(t_table *tab, int res, char *old_path);
+//exit utils
+int		ft_isnumeric(char **s);
 
+
+
+int builtin_execution(int k, t_cmdline *cmd, t_table *table);
+int find_in(char *builtin, char **reserved);
+int echo(t_cmdline *cmd, t_table *table);
+// int pwd    (t_cmdline *cmd, t_table *table);
+// int cd     (t_cmdline *cmd, t_table *table);
+// int unset  (t_cmdline *cmd, t_table *table);
+// int export (t_cmdline *cmd, t_table *table);
+// int exit_  (t_cmdline *cmd, t_table *table);
+// int env    (t_cmdline *cmd, t_table *table);
 #endif
