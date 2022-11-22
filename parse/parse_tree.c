@@ -6,11 +6,13 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/20 16:05:43 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/22 20:36:54 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
+
+static void print_arguments(t_cmds **commands);
 
 t_cmds *parse(t_tok *token, t_table *table, char **envp)
 {
@@ -26,13 +28,26 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 	return (commands);
 }
 
+static void print_arguments(t_cmds **commands)
+{
+	while(*commands != NULL)
+	{
+		printf("%s\n", (*commands)->arguments);
+		commands = &(*commands)->next;
+	}
+}
+
 void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
 	while(token != NULL)
 	{
 		if(typeis_arg(token->type))
+		{
 			(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, \
 			token->tok);
+			token = token->next;
+			continue;
+		}
 		if(typeis_redirection(token->type))
 		{
 			select_filename(&token, *cmds);
@@ -73,10 +88,10 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 
 void separate(t_cmds **commands)
 {
-	while((*commands) != NULL)
+	while((*commands) != NULL && (*commands)->arguments != NULL)
 	{
 		(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
-		commands = &(*commands)->next;
+		commands = &((*commands)->next);
 	}
 }
 
