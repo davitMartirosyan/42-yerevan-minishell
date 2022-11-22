@@ -24,7 +24,8 @@ fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(CHACHES)
 
-re: fclean all 
+re: fclean all
+
 
 .PHONY: all clean fclean re
 
