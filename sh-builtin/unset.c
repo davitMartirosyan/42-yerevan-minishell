@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:54 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:07:18 by sabazyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	unset_err(char *str)
 	return (0);
 }
 
-void	remove_node(t_tab *tab, char *str)
+void	remove_node(t_table *tab, char *str)
 {
 	t_env	*temp;
 
@@ -45,28 +45,28 @@ void	remove_node(t_tab *tab, char *str)
 			if (ft_strcmp(temp->next->key, str) == 0)
 			{
 				temp->next = temp->next->next;
-				free(temp->next);
-				break;
+				break ;
 			}
 			temp = temp->next;
 		}
 	}
 }
 
-void ft_unset(char *cmd, t_tab *tab)
+void	ft_unset(char *cmd, t_table *tab)
 {
-    char    **matrix;
-    int     i;
+	char	**matrix;
+	int		i;
 
-    i = 0;
-    matrix = ft_split(cmd, ' ');
+	i = 0;
+	matrix = ft_split(cmd, ' ');
 	if (matrix[0] && ft_strcmp(matrix[0], "unset") == 0 && matrix[1])
 	{
 		while (matrix[++i])
 		{
 			if (unset_err(matrix[i]))
 			{
-				printf("-minishell: export: `%s': not a valid identifier\n", matrix[i]);
+				printf("-minishell: export: `%s': not a valid identifier\n",
+					matrix[i]);
 				continue ;
 			}
 			remove_node(tab, matrix[i]);

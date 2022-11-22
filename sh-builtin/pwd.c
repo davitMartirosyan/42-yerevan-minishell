@@ -3,23 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:41 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:30:52 by sabazyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-void print_pwd(char *cmd)
+void	print_pwd(char *cmd)
 {
-    char    **matrix;
-    char    cwd[256];
+	char	**matrix;
+	char	cwd[256];
 
-    matrix = ft_split(cmd, ' ');
-    // if (matrix[0] && is_keyword(matrix[0]) == 0)
-    //     printf("-minishell: %s: command not found\n", matrix[0]);
-    if (matrix[0] && ft_strcmp(matrix[0], "pwd") == 0)
-        printf("%s\n", getcwd(cwd, 256));
+	matrix = ft_split(cmd, ' ');
+	if (matrix[0] && ft_strcmp(matrix[0], "pwd") == 0)
+		printf("%s\n", getcwd(cwd, 256));
+}
+
+void	builtins(char *cmdline, t_table *table)
+{
+	char	**matrix;
+
+	matrix = ft_split(cmdline, ' ');
+	if (!cmdline || !table || !matrix[0])
+		return ;
+	else if (!ft_strcmp(matrix[0], "export"))
+		ft_export(cmdline, table);
+	else if (!ft_strcmp(matrix[0], "unset"))
+		ft_unset(cmdline, table);
+	else if (!ft_strcmp(matrix[0], "env"))
+		print_env(cmdline, table);
+	else if (!ft_strcmp(matrix[0], "pwd"))
+		print_pwd(cmdline);
+	else if (!ft_strcmp(matrix[0], "cd"))
+		print_cd(cmdline, table);
+	else if (!ft_strcmp(matrix[0], "echo"))
+		print_echo(cmdline);
+	else if (!ft_strcmp(matrix[0], "exit"))
+		ft_exit(cmdline);
+	else
+		printf("minishell: %s: command not found\n", cmdline);
 }
