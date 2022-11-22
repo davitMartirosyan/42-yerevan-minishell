@@ -99,7 +99,7 @@ void reduce(t_cmds **commands)
 {
 	int i;
 
-	while((*commands) != NULL)
+	while((*commands) != NULL && (*commands)->arg_pack[i] != NULL)
 	{
 		i = -1;
 		while((*commands)->arg_pack[++i])
