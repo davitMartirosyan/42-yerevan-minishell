@@ -21,6 +21,8 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 		return (NULL);
 	std(&commands);
 	parse_to(token, table, &commands);
+	separate(&commands);
+	reduce(&commands);
 	return (commands);
 }
 
@@ -67,6 +69,28 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 	if(commands->cmds)
 		return (commands);
 	return (NULL);
+}
+
+void separate(t_cmds **commands)
+{
+	while((*commands) != NULL)
+	{
+		(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
+		commands = &(*commands)->next;
+	}
+}
+
+void reduce(t_cmds **commands)
+{
+	int i;
+
+	while((*commands) != NULL)
+	{
+		i = -1;
+		while((*commands)->arg_pack[++i])
+			token_replacment((*commands)->arg_pack[i], 3, ' ');
+		commands = &(*commands)->next;
+	}
 }
 
 //gcc -I includes */*.c minishell.c -lreadline -o minishell && ./minishell
