@@ -16,6 +16,7 @@ if(ft_strchr(cmdline, '<'))
 	int main(void)
 {
 	 id1 = fork(){
+    
 		 id1 = ?
 		 main = parentProcessId
 		 id2 = fork(){
