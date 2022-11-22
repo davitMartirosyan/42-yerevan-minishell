@@ -12,16 +12,17 @@
 
 #include "minishell_header.h"
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
-    t_table     *table;
-    char        *cmdline;
-    create_shell(envp, &table);
-    while(1)
-    {
-        cmdline = readline(SHELL);
-        add_history(cmdline);
-        lexical_analyzer(cmdline, table);
-        parse_tree(table, envp);
-    }
+	t_table		*table;
+	char		*cmdline;
+
+	table = create_tab(envp);
+	while (1)
+	{
+		cmdline = readline("Minishell-$ ");
+		builtins(cmdline, table);
+		add_history(cmdline);
+	}
+	//free(cmdline);
 }

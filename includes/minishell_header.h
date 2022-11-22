@@ -20,7 +20,6 @@
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
 
-
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
 # define SYNTAX_ERR          2

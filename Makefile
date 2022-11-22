@@ -7,14 +7,15 @@ CHACHES = ~/Library/Caches
 LINKS = -lreadline
 CC = cc
 FLAGS = -Wall -Werror -Wextra
+INCLUDES = -I./includes
 
 %.o: %.c
-	@$(CC) -c $< -o $@
+	@$(CC) $(INCLUDES) -fsanitize=address -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@${CC} ${LINKS} -o $(NAME) $(OBJ)
+	@${CC} $(INCLUDES) -fsanitize=address ${LINKS} -o $(NAME) $(OBJ)
 
 clean:
 	@rm -rf $(OBJ)

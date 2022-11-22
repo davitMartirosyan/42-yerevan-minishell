@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 21:52:30 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:59:37 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
-typedef int (*t_built)(t_list *, t_table *);
+typedef int (*t_built)(t_cmds *, t_table *);
 
 typedef enum s_types
 {
@@ -59,7 +59,7 @@ typedef struct s_cmds
     int     i_stream;
     int     o_stream;
     char    *cmd;
-    char    **arg_pack;
+    char    **arg_pack; //
     char    *path;
     char    **env;
     struct  s_cmds *next;
