@@ -1,9 +1,15 @@
 NAME=minishell
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror
-OBJECTS=obj/
-SRC=$(wildcard */*.c)
+OBJECTS=objs/
+COMPONENTS=$(wildcard env/*.c) $(wildcard errno/*.c) $(wildcard listing/*.c) $(wildcard utils/*.c)
+LEXER=$(wildcard lex/*.c)
+PARSER=$(wildcard parse/*.c)
+BUILTINS=$(wildcard sh-builtin/*.c)
+
+OBJ_COMPONENTS=$(patsubst %.c,%.o, $(COMPONENTS))
+
 
 all: 
-	@echo $(SRC)
+	@echo $(OBJ_COMPONENTS)
 

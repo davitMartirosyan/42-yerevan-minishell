@@ -23,8 +23,8 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 		return (NULL);
 	std(&commands);
 	parse_to(token, table, &commands);
-	separate(&commands);
-	reduce(&commands);
+	// separate(&commands);
+	// reduce(&commands);
 	return (commands);
 }
 
