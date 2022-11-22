@@ -28,8 +28,3 @@ int main(int argc, char *argv[], char *envp[])
     }
     return (0);
 }
-
-// int key;
-
-// key = find_in(tree->cmds->arg_pack[0], table->reserved);
-// builtin_execution(key, tree, table);

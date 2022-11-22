@@ -7,7 +7,7 @@ LEXER=$(wildcard lex/*.c)
 PARSER=$(wildcard parse/*.c)
 BUILTINS=$(wildcard sh-builtin/*.c)
 
-OBJ_COMPONENTS=$(patsubst %.c,%.o, $(COMPONENTS))
+OBJ_COMPONENTS=$(patsubst $(OBJECTS)=%.o)
 
 
 all: 
