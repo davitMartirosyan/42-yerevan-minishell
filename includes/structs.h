@@ -6,26 +6,44 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/02 21:59:37 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:07:53 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
+
 /*  
-   ' '-> ?  -> 3
-    $ -> ?  -> 4
-    | -> ?  -> 5
-    ' -> \a -> 7
-    " -> \b -> 8
+  [nonprintable] ->  ?  ->  1
+  ' ' ->  ?  ->  3
+   $  ->  ?  ->  4
+   |  ->  ?  ->  5
+   '  ->  \a ->  7
+   "  ->  \b ->  8
 */
 
+typedef struct s_vars t_vars;
 typedef struct s_table t_table;
 typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
-typedef int (*t_built)(t_cmds *, t_table *);
+typedef int (*t_built)(t_cmdline *, t_table *);
+typedef struct s_handle t_handle;
+
+typedef struct s_handle
+{
+    int (*access)(char *);
+} t_handle;
+
+typedef struct s_vars
+{
+    int var;
+    int let;
+    int def;
+    int log;
+    int cconst;
+} t_vars;
 
 typedef enum s_types
 {
@@ -46,24 +64,23 @@ typedef enum s_types
 } t_type;
 
 
-// typedef struct s_cmdline
-// {
-//     t_list  *cmds;
-//     char    **env;
-//     pid_t   pid;
-// }   t_cmdline;
+typedef struct s_cmdline
+{
+    t_cmds  *cmds;
+    char    **env;
+    pid_t   pid;
+}   t_cmdline;
 
 typedef struct s_cmds
 {
-    pid_t   pid;
+    char    *arguments;
+    char    **arg_pack;
+    char    *path;
+    char    **heredoc;
     int     i_stream;
     int     o_stream;
-    char    *cmd;
-    char    **arg_pack; //
-    char    *path;
-    char    **env;
     struct  s_cmds *next;
-} t_cmds;
+}   t_cmds;
 
 typedef struct s_env
 {
@@ -84,6 +101,7 @@ typedef struct s_table{
     char        **minienv;
     char        **paths;
     char        **reserved;
+    char        *err_handling;
     int         q_c[2];
     t_built     builtin[7];
     t_env       *env;
