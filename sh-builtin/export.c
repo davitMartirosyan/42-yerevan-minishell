@@ -6,11 +6,16 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:17 by sabazyan          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/18 12:30:33 by sabazyan         ###   ########.fr       */
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
+<<<<<<< HEAD
 
 /*char	*add_quotes(char *str)
 {
@@ -59,6 +64,8 @@
 		i++;
 	}
 }*/
+=======
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 
 int	export_err(char *str)
 {
@@ -66,10 +73,12 @@ int	export_err(char *str)
 	char	**key_val;
 
 	i = 0;
-	if (check_var(str))
+	if (check_plus_equal(str))
 	{
-		key_val = ft_split(str, '=');
-		str = key_val[0];
+		key_val = ft_split(str, '+');
+		if (!key_val[0])
+			return (1);
+		str = ft_split(key_val[0], '=')[0];
 	}
 	while (str[i])
 	{
@@ -77,59 +86,36 @@ int	export_err(char *str)
 			return (1);
 		while (str[++i])
 		{
-			if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
+			if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
 				return (1);
 		}
 	}
 	return (0);
 }
 
+<<<<<<< HEAD
 int	check_key(t_env *env, char *str)
+=======
+int	check_key(char *str, t_table *tab)
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 {
 	t_env	*temp;
-	char	**key_val;
 
-	temp = env;
-	key_val = ft_split(str, '=');
-	if (check_var(str))
-		str = key_val[0];
+	temp = tab->env;
 	while (temp)
 	{
-		if (ft_strcmp(temp->key, str) == 0)
+		if (!ft_strcmp(temp->key, str))
 			return (1);
 		temp = temp->next;
 	}
 	return (0);
 }
 
-void	add_node(t_tab *tab, char *str)
+t_table	*create_tab(char **env)
 {
-	t_env	*temp;
-	char	**key_val;
+	t_table	*tab;
 
-	temp = tab->env;
-	if (check_key(temp, str))
-		return ;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = malloc(sizeof(t_env));
-	if (!check_var(str))
-		temp->next->key = str;
-	else {
-		key_val = ft_split(str, '=');
-		temp->next->key = key_val[0];
-		if (key_val[1] == NULL)
-			temp->next->val = "";
-		else
-			temp->next->val = ft_strtrim(key_val[1], "\"");
-	}
-	temp->next->next = NULL;
-}
-
-void	print_list_export(t_tab *tab)
-{
-	t_env	*temp;
-
+<<<<<<< HEAD
 	temp = tab->env;
 	while (temp)
 	{
@@ -146,42 +132,39 @@ t_tab	*create_tab(char **env)
 	t_tab *tab;
 
 	tab = malloc(sizeof(t_tab));
+=======
+	tab = malloc(sizeof(t_table));
+	if (!tab || !env)
+		return (NULL);
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 	tab->env = env_tokenizing(env);
 	return (tab);
 }
 
-int	check_var(char *str)
+int	check_plus_equal(char *str)
 {
 	int	i;
 
 	i = -1;
 	while (str[++i])
 	{
+		if (str[i] == '+' && str[i + 1] && str[i + 1] == '=')
+			return (-i);
 		if (str[i] == '=')
-			return (1);
+			return (i);
 	}
 	return (0);
 }
 
-void ft_export(char *cmd, t_tab *tab)
+void	loop_plus_value(char *str, t_env *temp, int index, int len)
 {
-    char    **matrix;
-    int     i;
-
-    i = 0;
-    matrix = ft_split(cmd, ' ');
-	if (matrix[0] && ft_strcmp(matrix[0], "export") == 0 && !matrix[1])
-		print_list_export(tab);
-	else if (matrix[0] && ft_strcmp(matrix[0], "export") == 0 && matrix[1])
+	while (temp)
 	{
-		while (matrix[++i])
+		if (!ft_strcmp(temp->key, ft_substr(str, 0, index)))
 		{
-			if (export_err(matrix[i]))
-			{
-				printf("-minishell: export: `%s': not a valid identifier\n", matrix[i]);
-				continue ;
-			}
-			add_node(tab, matrix[i]);
+			temp->val = ft_strjoin(ft_strtrim(temp->val, "\""),
+					ft_strtrim(ft_substr(str, index + 2, len), "\""));
 		}
+		temp = temp->next;
 	}
 }

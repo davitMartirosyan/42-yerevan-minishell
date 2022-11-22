@@ -12,8 +12,9 @@
 
 #include "includes/minishell_header.h"
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
+<<<<<<< HEAD
     t_table     *table;
     t_cmdline   *tree;
     char        *cmdline;
@@ -34,3 +35,17 @@ int main(int argc, char *argv[], char *envp[])
 
 // key = find_in(tree->cmds->arg_pack[0], table->reserved);
 // builtin_execution(key, tree, table);
+=======
+	t_table		*table;
+	char		*cmdline;
+
+	table = create_tab(envp);
+	while (1)
+	{
+		cmdline = readline("Minishell-$ ");
+		builtins(cmdline, table);
+		add_history(cmdline);
+	}
+	//free(cmdline);
+}
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2

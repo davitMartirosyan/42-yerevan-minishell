@@ -6,7 +6,11 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/20 16:07:53 by dmartiro         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/02 21:59:37 by dmartiro         ###   ########.fr       */
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +32,7 @@ typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
+<<<<<<< HEAD
 typedef int (*t_built)(t_cmdline *, t_table *);
 typedef struct s_handle t_handle;
 
@@ -44,6 +49,9 @@ typedef struct s_vars
     int log;
     int cconst;
 } t_vars;
+=======
+typedef int (*t_built)(t_cmds *, t_table *);
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 
 typedef enum s_types
 {
@@ -73,8 +81,16 @@ typedef struct s_cmdline
 
 typedef struct s_cmds
 {
+<<<<<<< HEAD
     char    *arguments;
     char    **arg_pack;
+=======
+    pid_t   pid;
+    int     i_stream;
+    int     o_stream;
+    char    *cmd;
+    char    **arg_pack; //
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
     char    *path;
     char    **heredoc;
     int     i_stream;

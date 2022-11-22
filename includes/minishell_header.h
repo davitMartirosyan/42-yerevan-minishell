@@ -19,7 +19,10 @@
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
+<<<<<<< HEAD
 # define SHELLERR           "\033[31mMinishell-$\x1B[0m" 
+=======
+>>>>>>> 7325c1f35339612c6dc4e302bd1f51c1b89138d2
 
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
