@@ -17,6 +17,7 @@ int	unset_err(char *str)
 	int		i;
 	char	**key_val;
 
+	(void)key_val;
 	i = 0;
 	while (str[i])
 	{

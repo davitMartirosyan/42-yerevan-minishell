@@ -14,6 +14,9 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
+    (void)argv;
+    (void)envp;
+    (void)argc;
     t_table     *table;
     t_cmdline   *tree;
     char        *cmdline;

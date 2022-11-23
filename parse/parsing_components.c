@@ -74,6 +74,7 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
 
 void    std(t_cmds **cmds)
 {
+	(*cmds)->arg_pack = NULL;
 	(*cmds)->arguments = NULL;
 	(*cmds)->i_stream = 0;
 	(*cmds)->o_stream = 1;

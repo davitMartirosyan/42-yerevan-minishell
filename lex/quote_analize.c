@@ -15,8 +15,6 @@
 void openquotes(char *cmdline)
 {
 	int i;
-	int dbl;
-	int sgl;
 
 	i = -1;
 	while(cmdline[++i])

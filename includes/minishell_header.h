@@ -96,7 +96,7 @@ void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
 void    add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
 void    expansion(char *cmdline, int *pos, int quote, t_tok **token);
-void    space(char *cmdline, int *pos, char sep, t_tok **token);
+void    space(char *cmdline, int *pos, t_tok **token);
 
 
 /**********************************************/

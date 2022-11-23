@@ -68,6 +68,8 @@ void	print_cd(char *cmd, t_table *tab)
 	char	*old_path;
 	int		res;
 
+	res = 0;
+	(void)temp;
 	matrix = ft_split(cmd, ' ');
 	temp = tab->env;
 	old_path = getcwd(cwd, 10000);

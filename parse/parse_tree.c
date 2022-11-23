@@ -12,10 +12,9 @@
 
 #include "minishell_header.h"
 
-static void print_arguments(t_cmds **commands);
-
 t_cmds *parse(t_tok *token, t_table *table, char **envp)
 {
+	(void)envp;
 	t_cmds *commands;
 	
 	commands = malloc(sizeof(t_cmds));
@@ -23,18 +22,10 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 		return (NULL);
 	std(&commands);
 	parse_to(token, table, &commands);
-	// separate(&commands);
-	// reduce(&commands);
+	separate(&commands);
+	reduce(&commands);
+	printf("%s\n", commands->arg_pack[0]);
 	return (commands);
-}
-
-static void print_arguments(t_cmds **commands)
-{
-	while(*commands != NULL)
-	{
-		printf("%s\n", (*commands)->arguments);
-		commands = &(*commands)->next;
-	}
 }
 
 void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
@@ -85,10 +76,11 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 
 void separate(t_cmds **commands)
 {
-	while((*commands) != NULL && (*commands)->arguments != NULL)
+	while((*commands) != NULL)
 	{
-		(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
-		commands = &((*commands)->next);
+		if((*commands)->arguments != NULL)
+			(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
+		commands = &(*commands)->next;
 	}
 }
 
@@ -96,13 +88,16 @@ void reduce(t_cmds **commands)
 {
 	int i;
 
-	while((*commands) != NULL && (*commands)->arguments != NULL)
+	i = -1;
+	while((*commands) != NULL)
 	{
-		i = -1;
-		while((*commands)->arg_pack[++i] && (*commands)->arg_pack[i] != NULL)
-			token_replacment((*commands)->arg_pack[i], 3, ' ');
+		if((*commands)->arg_pack != NULL)
+			while((*commands)->arg_pack[++i])
+				token_replacment((*commands)->arg_pack[i], 3, ' ');
 		commands = &(*commands)->next;
 	}
 }
+
+// "echo $USER" | > file
 
 //gcc -I includes */*.c minishell.c -lreadline -o minishell && ./minishell

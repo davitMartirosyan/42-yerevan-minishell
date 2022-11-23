@@ -12,7 +12,7 @@
 
 #include "minishell_header.h"
 
-int syntax_handling(t_tok *tokens)
-{
-    return (1);
-}
+// int syntax_handling(t_tok *tokens)
+// {
+//     return (1);
+// }

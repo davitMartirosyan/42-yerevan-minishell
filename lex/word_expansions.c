@@ -54,7 +54,7 @@ void add_word(char *cmdline, int *pos, t_tok **token)
 	*pos += len;
 }
 
-void space(char *cmdline, int *pos, char sep, t_tok **token)
+void space(char *cmdline, int *pos, t_tok **token)
 {
 	int i;
 	int len;
@@ -76,7 +76,6 @@ void space(char *cmdline, int *pos, char sep, t_tok **token)
 void expansion(char *cmdline, int *pos, int quote, t_tok **token)
 {
 	int i;
-	int flag;
 	int len;
 	char *exp;
 	

@@ -37,7 +37,6 @@ t_env *env_tokenizing(char **envp)
 
 void add_paths(t_env **env, t_table **table)
 {
-    char **abs;
     t_env *tmp;
 
     tmp = *env;
