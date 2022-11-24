@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 15:55:32 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:01:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ t_cmdline   *parse_tree(t_table *table, char **envp);
 t_cmds  *parse(t_tok *token, t_table *table, char **envp);
 void    std(t_cmds **cmds);
 void    separate(t_cmds **commands);
-void    reduce(t_cmds **commands);
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds);
 void    select_filename(t_tok **token, t_cmds *cmds);
 void    open__file__check__type(int type, char *filename, t_cmds *cmds);

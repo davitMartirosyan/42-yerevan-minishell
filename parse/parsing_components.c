@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_components.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/22 20:15:55 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:20:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void    std(t_cmds **cmds)
 {
 	(*cmds)->arg_pack = NULL;
 	(*cmds)->arguments = NULL;
-	(*cmds)->i_stream = 0;
-	(*cmds)->o_stream = 1;
+	(*cmds)->i_stream = STDIN;
+	(*cmds)->o_stream = STDOUT;
+	(*cmds)->e_stream = STDERR;
 }
 

@@ -12,7 +12,19 @@ if(ft_strchr(cmdline, '<'))
 		}
 		printf("%s\n", hd->heredoc); 
 	}
-
+/////////////////////////////////////////////////
+if(syntax_handling(tokens))
+		{
+			commands = malloc(sizeof(t_cmdline));
+			if(!commands)
+				return (NULL);
+			commands->cmds = parse(tokens, table, envp);
+			if(commands->cmds)
+				return (commands);
+		}
+		else
+			return (NULL);
+/////////////////////////////////////////////////
 	int main(void)
 {
 	 id1 = fork(){

@@ -4,9 +4,9 @@ CFLAGS= -Wall -Wextra -Werror
 HEADER_FLAGS= -I includes/
 MINISHELL_HEADER=includes/minishell_header.h
 READLINE=-lreadline
-MAIN=minishell.c
 LIBFT_ARCHIVE=libft.a
 LIBFT=./libft/libft.a
+MINI=./minishell.c
 COMPONENTS=$(wildcard env/*.c) $(wildcard errno/*.c) $(wildcard listing/*.c) $(wildcard utils/*.c)
 LEXER=$(wildcard lex/*.c)
 PARSER=$(wildcard parse/*.c)
@@ -17,16 +17,15 @@ BUILTINS=$(wildcard sh-builtin/*.c)
 # PARSER_COMPONENTS=$(patsubst %c, %o, $(PARSER))
 # BUILTINS_COMPONENTS=$(patsubst %c, %o, $(BUILTINS))
 
-OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS))
+OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS), $(MINI))
 
-all: $(NAME)
+all: 
+	$(CC) $(MINI)
+# $(NAME) : $(OBJECTS)
+# 	$(CC) $(LIBFT) $(OBJECTS) -o $(NAME)
 
-$(NAME) :  $(OBJECTS) $(MINISHELL_HEADER) $(LIBFT_ARCHIVE)
-	$(CC) $(CFLAGS) $(READLINE) $(HEADER_FLAGS) \
-	$(OBJECTS) $(LIBFT) -o $(NAME)
+# $(OBJECTS) : $(COMPONENTS) $(LEXER) $(PARSER) $(BUILTINS)
+# 	$(CC) $(CFLAGS) $(HEADER_FLAGS) $< -o $@
 
-$(LIBFT_ARCHIVE) :
-	@cd ./libft && make
 
-%.o : %.c
-	@$(CC) $(CFLAGS) $(HEADER_FLAGS) -c $< -o $@
+gcc -Wall -Wextra -Werror -I includes/ */*.c -lreadline -o */*.o 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 16:07:53 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:21:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
 typedef int (*t_built)(t_cmdline *, t_table *);
-typedef struct s_handle t_handle;
-
-typedef struct s_handle
-{
-    int (*access)(char *);
-} t_handle;
 
 typedef struct s_vars
 {
@@ -61,7 +55,7 @@ typedef enum s_types
     HEREDOC,       // 11 <<
     PIPE,          // 12 |
     UNDEFINED      // 13
-} t_type;
+} t_types;
 
 
 typedef struct s_cmdline
@@ -76,10 +70,12 @@ typedef struct s_cmds
     char    *arguments;
     char    **arg_pack;
     char    *path;
-    char    **heredoc;
+    char    *err;
     int     i_stream;
     int     o_stream;
+    int     e_stream;
     struct  s_cmds *next;
+    struct  s_cmds *prev;
 }   t_cmds;
 
 typedef struct s_env

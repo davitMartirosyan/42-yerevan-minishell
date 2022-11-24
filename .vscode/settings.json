@@ -4,6 +4,7 @@
         "types.h": "c",
         "wait.h": "c",
         "features.h": "c",
-        "__config": "c"
+        "__config": "c",
+        "stdio.h": "c"
     }
 }

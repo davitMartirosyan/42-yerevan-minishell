@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/22 20:36:54 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:17:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 	std(&commands);
 	parse_to(token, table, &commands);
 	separate(&commands);
-	reduce(&commands);
-	printf("%s\n", commands->arg_pack[0]);
+	// printf("%s\n", commands->next->arg_pack[0]);
 	return (commands);
 }
 
@@ -59,45 +58,38 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 	tokens = table->token;
 	if(tokens != NULL)
 	{
-		if(syntax_handling(tokens))
-		{
-			commands = malloc(sizeof(t_cmdline));
-			if(!commands)
-				return (NULL);
-			commands->cmds = parse(tokens, table, envp);
-			if(commands->cmds)
-				return (commands);
-		}
-		else
+		commands = malloc(sizeof(t_cmdline));
+		if(!commands)
 			return (NULL);
+		commands->cmds = parse(tokens, table, envp);
+		if(commands->cmds)
+			syntax_handling(&tokens, &cmdline);
 	}
 	return (NULL);
 }
 
 void separate(t_cmds **commands)
 {
+	t_cmds *tmp;
+	int i;
+
+	tmp = *commands;
 	while((*commands) != NULL)
 	{
 		if((*commands)->arguments != NULL)
 			(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
 		commands = &(*commands)->next;
 	}
-}
-
-void reduce(t_cmds **commands)
-{
-	int i;
-
-	i = -1;
-	while((*commands) != NULL)
+	
+	while(tmp != NULL)
 	{
-		if((*commands)->arg_pack != NULL)
-			while((*commands)->arg_pack[++i])
-				token_replacment((*commands)->arg_pack[i], 3, ' ');
-		commands = &(*commands)->next;
+		i = -1;
+		if(tmp != NULL && tmp->arguments != NULL)
+			while(tmp->arg_pack[++i])
+				token_replacment(tmp->arg_pack[i], 3, ' ');
+		tmp = tmp->next;
 	}
 }
-
 // "echo $USER" | > file
 
 //gcc -I includes */*.c minishell.c -lreadline -o minishell && ./minishell
