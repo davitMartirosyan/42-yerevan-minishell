@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/24 17:17:39 by codespace        ###   ########.fr       */
+/*   Updated: 2022/11/26 21:01:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 	std(&commands);
 	parse_to(token, table, &commands);
 	separate(&commands);
-	// printf("%s\n", commands->next->arg_pack[0]);
 	return (commands);
 }
 
@@ -63,7 +62,8 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 			return (NULL);
 		commands->cmds = parse(tokens, table, envp);
 		if(commands->cmds)
-			syntax_handling(&tokens, &cmdline);
+			return (commands);
+			// syntax_handling(&tokens, &commands);
 	}
 	return (NULL);
 }

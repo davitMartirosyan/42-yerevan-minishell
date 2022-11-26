@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/24 16:48:55 by codespace        ###   ########.fr       */
+/*   Updated: 2022/11/26 20:41:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int main(int argc, char *argv[], char *envp[])
         add_history(cmdline);
         lexical_analyzer(cmdline, table);
         tree = parse_tree(table, envp);
+        execution(&tree, &table, envp);
     }
     return (0);
 }

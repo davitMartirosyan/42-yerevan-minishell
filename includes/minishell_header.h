@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/24 17:01:05 by codespace        ###   ########.fr       */
+/*   Updated: 2022/11/26 20:36:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void    heredoc(t_tok **token, t_cmds *cmds, t_table *table);
 char    *heredoc_delimiter(t_tok **token, t_vars **v);
 char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char    *join_arguments(char *s1, int delimiter, char *s2);
-int     syntax_handling(t_tok *tokens);
 int     pipes(t_tok **token);
 int		type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table);
 int     typeis_redirection(int type);
@@ -125,11 +124,19 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/
+int     syntax_handling(t_tok **tokens, t_cmdline **cmdline);
 
 
 /**********************************************/
 /******************Builtins********************/
 /**********************************************/
 
+
+
+
+/**********************************************/
+/*****************Execution********************/
+/**********************************************/
+void execution(t_cmdline **commands, t_table **table, char **envp);
 
 #endif
