@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/11/27 18:53:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,10 @@ int find_in(char *builtin, char **reserved)
     return (v.var);
 }
 
+
+if(find_in("echo", ["echo", "cd", "pwd"]) != -1)
+    //do builtin
+else if(cmd_check(&cmd, ["/usr/bin", "/bin", "/usr/sbin"]) == 0)
+    //do command
+else
+    //error
