@@ -42,7 +42,7 @@ int		ft_isnumeric(char **s);
 
 int builtin_execution(int k, t_cmdline *cmd, t_table *table);
 int find_in(char *builtin, char **reserved);
-int echo(t_cmdline *cmd, t_table *table);
+int echo(t_cmdline *commands, t_table *table);
 // int pwd    (t_cmdline *cmd, t_table *table);
 // int cd     (t_cmdline *cmd, t_table *table);
 // int unset  (t_cmdline *cmd, t_table *table);

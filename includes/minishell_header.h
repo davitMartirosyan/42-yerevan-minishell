@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/26 20:36:45 by codespace        ###   ########.fr       */
+/*   Updated: 2022/11/28 14:55:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define TOKENS				"| < > ; &"
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
-# define SHELL 				"\033[0;33mMinishell-$\x1B[0m "
+# define SHELL 				"Minishell-$ "
 # define SHELLERR           "\033[31mMinishell-$\x1B[0m" 
 
 /*Error Handlers*/

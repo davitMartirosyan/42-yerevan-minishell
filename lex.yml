@@ -312,3 +312,29 @@ int contains(char *tok, char *cmdline, int *pos)
 	}
 	return (0);
 }
+
+
+		int built;
+    int executable;
+    pid_t pid;
+
+    pid = fork();
+    if(pid == 0)
+    {
+        executable = cmd_check((*commands)->cmds, (*table)->paths);
+        built = find_in((*commands)->cmds->arg_pack[0], (*table)->reserved);
+        if(built != -1)
+        {
+            (*table)->builtin[built](*commands, *table);
+            exit(1);
+        }
+        else if(executable != -1)
+        {
+            execve((*commands)->cmds->path, (*commands)->cmds->arg_pack, 0);
+            exit(1);
+        }
+        else
+            printf("Command %s : Not Found\n",(*commands)->cmds->arg_pack[0]);
+            exit (1);
+    }
+    waitpid(-1, 0, 0);
