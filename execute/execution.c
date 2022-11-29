@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/11/29 15:31:33 by user             ###   ########.fr       */
+/*   Updated: 2022/11/29 21:55:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ void execution(t_cmdline **commands, t_table **table, char **envp)
     pid = fork();
     if(pid == 0)
     {
-        // if((*commands)->cmds->o_stream != 1)
-        // {
-            dup2((*commands)->cmds->o_stream, STDOUT);
-            // close((*commands)->cmds->o_stream);
-        // }
-        (*table)->builtin[0]((*commands)->cmds, *table);
+        cmd_check((*commands)->cmds, (*table)->paths);
+        dup2((*commands)->cmds->i_stream, 0);
+        execve((*commands)->cmds->path, (*commands)->cmds->arg_pack, 0);
         exit(1);
     }
     waitpid(-1, 0, 0);
-    return ;
 }
 
 static int cmd_check(t_cmds *cmd, char **paths)
