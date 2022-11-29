@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/26 20:38:54 by codespace        ###   ########.fr       */
+/*   Updated: 2022/11/29 11:42:21 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
-typedef int (*t_built)(t_cmdline *, t_table *);
+typedef int (*t_built)(t_cmds *, t_table *);
 
 typedef struct s_vars
 {

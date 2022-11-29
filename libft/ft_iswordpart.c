@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_iswordpart.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 07:03:19 by root              #+#    #+#             */
-/*   Updated: 2022/10/23 08:14:39 by root             ###   ########.fr       */
+/*   Updated: 2022/11/29 15:34:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_iswordpart(int ch)
 {
-    if(!ft_isspace(ch) && !ft_isspecial(ch))
+    if(!ft_isspace(ch) && !ft_isspecial(ch) && !(ch >= 9 && ch <= 13))
         return (1);
     else
         return (0);

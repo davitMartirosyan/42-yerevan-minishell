@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/11/28 15:55:31 by user             ###   ########.fr       */
+/*   Updated: 2022/11/29 15:31:33 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,21 @@ static int cmd_check(t_cmds *cmd, char **paths);
 
 void execution(t_cmdline **commands, t_table **table, char **envp)
 {
-    int i;
-    t_cmds *cmd;
     pid_t pid;
-    int builtin;
-    int executable;
 
-    cmd = (*commands)->cmds;
-    while(cmd != NULL)
+    pid = fork();
+    if(pid == 0)
     {
-        
-        pid = fork();
-        if(pid == 0)
-        {
-            builtin = find_in(cmd->arg_pack[0], (*table)->reserved);
-            executable = cmd_check(cmd, (*table)->paths);
-            if(builtin != -1)
-            {
-                printf("inside : %s\n", cmd->arg_pack[1]);
-                (*table)->builtin[builtin](*commands, *table);
-                exit(1);
-            }
-            else if(executable != -1)
-            {
-                execve(cmd->path, cmd->arg_pack, 0);
-                exit(1);   
-            }
-            else
-            {
-                printf("Command: %s Not found", cmd->arg_pack[0]);
-                exit(1);
-            }
-        }
-        waitpid(-1, 0, 0);
-        cmd = cmd->next;
+        // if((*commands)->cmds->o_stream != 1)
+        // {
+            dup2((*commands)->cmds->o_stream, STDOUT);
+            // close((*commands)->cmds->o_stream);
+        // }
+        (*table)->builtin[0]((*commands)->cmds, *table);
+        exit(1);
     }
+    waitpid(-1, 0, 0);
+    return ;
 }
 
 static int cmd_check(t_cmds *cmd, char **paths)

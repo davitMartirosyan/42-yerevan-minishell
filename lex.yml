@@ -313,28 +313,38 @@ int contains(char *tok, char *cmdline, int *pos)
 	return (0);
 }
 
-
-		int built;
-    int executable;
+ 		int i;
+    t_cmds *cmd;
     pid_t pid;
+    int builtin;
+    int executable;
 
-    pid = fork();
-    if(pid == 0)
+    cmd = (*commands)->cmds;
+    while(cmd != NULL)
     {
-        executable = cmd_check((*commands)->cmds, (*table)->paths);
-        built = find_in((*commands)->cmds->arg_pack[0], (*table)->reserved);
-        if(built != -1)
+        
+        pid = fork();
+        if(pid == 0)
         {
-            (*table)->builtin[built](*commands, *table);
-            exit(1);
+            builtin = find_in(cmd->arg_pack[0], (*table)->reserved);
+            executable = cmd_check(cmd, (*table)->paths);
+            if(builtin != -1)
+            {
+                printf("inside : %s\n", cmd->arg_pack[1]);
+                (*table)->builtin[builtin](*commands, *table);
+                exit(1);
+            }
+            else if(executable != -1)
+            {
+                execve(cmd->path, cmd->arg_pack, 0);
+                exit(1);   
+            }
+            else
+            {
+                printf("Command: %s Not found", cmd->arg_pack[0]);
+                exit(1);
+            }
         }
-        else if(executable != -1)
-        {
-            execve((*commands)->cmds->path, (*commands)->cmds->arg_pack, 0);
-            exit(1);
-        }
-        else
-            printf("Command %s : Not Found\n",(*commands)->cmds->arg_pack[0]);
-            exit (1);
+        waitpid(-1, 0, 0);
+        cmd = cmd->next;
     }
-    waitpid(-1, 0, 0);
