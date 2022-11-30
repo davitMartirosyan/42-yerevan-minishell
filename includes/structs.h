@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/29 11:42:21 by user             ###   ########.fr       */
+/*   Updated: 2022/11/30 16:32:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_vars
     int def;
     int log;
     int cconst;
+    int built;
+    int binar;
 } t_vars;
 
 typedef enum s_types

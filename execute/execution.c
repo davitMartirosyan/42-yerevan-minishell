@@ -3,32 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/11/29 21:55:31 by codespace        ###   ########.fr       */
+/*   Updated: 2022/11/30 18:23:03 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
 static int cmd_check(t_cmds *cmd, char **paths);
+static void execute(t_cmdline **cmd, t_table **table, char **envp);
+static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp);
 
 void execution(t_cmdline **commands, t_table **table, char **envp)
 {
+    int pip;
+
+    pip = pipes(&((*table)->token));
+    if(pip == 0)
+        execute(commands, table, envp);
+    else if(pip > 0)
+        combined_execution(pip, commands, table, envp);
+    else
+        return ;
+}
+
+static void execute(t_cmdline **cmd, t_table **table, char **envp)
+{
     pid_t pid;
+    int built;
+    int binary;
 
     pid = fork();
     if(pid == 0)
     {
-        cmd_check((*commands)->cmds, (*table)->paths);
-        dup2((*commands)->cmds->i_stream, 0);
-        execve((*commands)->cmds->path, (*commands)->cmds->arg_pack, 0);
+        built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
+        binary = cmd_check((*cmd)->cmds, (*table)->paths);
+        dup2((*cmd)->cmds->i_stream, 0);
+        dup2((*cmd)->cmds->o_stream, 1);
+        if(built != -1)
+            (*table)->builtin[built]((*cmd)->cmds, *table);
+        else if(binary != -1)
+            execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
+        else
+            printf("%s: %s : Command Not found\n", SHELLERR, (*cmd)->cmds->arg_pack[0]);
         exit(1);
     }
     waitpid(-1, 0, 0);
 }
 
+static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp)
+{
+    t_vars  v;
+    int (*pips)[2];
+    pid_t pid;
+    
+    pips = malloc(sizeof(*pips) * pip);
+    if(!pips)
+        return ;
+    v.let = -1;
+    while(++v.let < pip)
+        pipe(pips[v.let]);
+    v.let = -1;
+}
+//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
 static int cmd_check(t_cmds *cmd, char **paths)
 {
     int i;

@@ -348,3 +348,29 @@ int contains(char *tok, char *cmdline, int *pos)
         waitpid(-1, 0, 0);
         cmd = cmd->next;
     }
+
+
+
+		  while(++v.let < pip)
+    {
+        // printf("%d : %d\n", pips[v.let][0], pips[v.let][1]);
+        pid = fork();
+        if(pid == 0)
+        {
+            v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
+            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
+            dup2(pips[v.let][0], (*cmd)->cmds->o_stream);
+            if((*cmd)->cmds->next != NULL)
+                dup2(pips[v.let][1], (*cmd)->cmds->next->i_stream);
+            if(v.built != -1)
+                (*table)->builtin[v.built]((*cmd)->cmds, *table);
+            else if(v.binar != -1)
+                execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
+            else
+                printf("%s: %s : Command Not found\n", SHELLERR, (*cmd)->cmds->arg_pack[0]);
+            exit(1);
+        }
+        (*cmd)->cmds = (*cmd)->cmds->next;
+        waitpid(-1, 0, 0);
+    }
+		
