@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/01 12:34:23 by user             ###   ########.fr       */
+/*   Updated: 2022/12/01 23:43:36 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
     int built;
     int binary;
 
+	if(!cmd && !*cmd && !table && !*table && !envp && !*envp)
+		return ;
     pid = fork();
     if(pid == 0)
     {
@@ -58,6 +60,7 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
     t_vars  v;
     int (*pips)[2];
     pid_t pid;
+	int	i;
     
     pips = malloc(sizeof(*pips) * pip);
     if(!pips)
@@ -65,34 +68,39 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
     v.let = -1;
     while(++v.let < pip)
         pipe(pips[v.let]);
-    v.let = -1;
+    v.let = 0;
     v.log = dup(STDIN);
     v.def = dup(STDOUT);
-    while(++v.let < pip)
+	i = 0;
+    while((*cmd)->cmds != NULL)
     {
-        pid = fork();
-        if(pid == 0)
-        {
-            dup2(pips[v.let][1], (*cmd)->cmds->o_stream);
-            close(pips[v.let][0]);
-            v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
-            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
-            if(v.built != -1)
-                (*table)->builtin[v.built]((*cmd)->cmds, *table);
-            else if(v.binar != -1)
-                execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
-            else
-            {
-                printf("%s: %s : Command Not found\n", SHELLERR, (*cmd)->cmds->arg_pack[0]);
-                exit(EXIT_FAILURE);
-            }
-            exit(EXIT_SUCCESS);
-        }
-        else
-        {
-         
-        }
+		pid = fork();
+		if(pid == 0)
+		{
+			if(i == 0)
+			{
+			
+				dup2(pips[i][1], STDOUT_FILENO);
+				//close ()
+			}
+			else if(i < pip+1)
+			{
+				dup2(pips[i][1], 1);
+				dup2(pips[i - 1][0], 0);
+				close (pips[i][1]);
+				close (pips[i - 1][0]);
+			}else
+			{
+				dup2(pips[i - 1][0], 0);
+				close (pips[i - 1][0]);
+			}
+			
+		}
+			i++;
+		(*cmd)->cmds = (*cmd)->cmds->next;
+		
     }
+	
 }
 static int cmd_check(t_cmds *cmd, char **paths)
 {

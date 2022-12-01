@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:00:39 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/01 23:36:02 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_tok *tokenization(char *cmdline)
 
 	tokens = NULL;
 	i = 0;
-	while (cmdline[i])
+	while (cmdline && cmdline[i])
 	{
 		if (cmdline[i] && ft_iswordpart(cmdline[i]) && \
 			(int)ft_strlen(cmdline) > i)

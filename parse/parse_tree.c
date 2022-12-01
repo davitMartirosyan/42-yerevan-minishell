@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 18:27:49 by root              #+#    #+#             */
-/*   Updated: 2022/11/26 21:01:52 by codespace        ###   ########.fr       */
+/*   Created: 2022/12/02 00:36:43 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/12/02 00:36:44 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell_header.h"
 
@@ -16,12 +17,13 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 {
 	(void)envp;
 	t_cmds *commands;
-	
+
 	commands = malloc(sizeof(t_cmds));
 	if(!commands)
 		return (NULL);
 	std(&commands);
-	parse_to(token, table, &commands);
+	if(token && table)
+		parse_to(token, table, &commands);
 	separate(&commands);
 	return (commands);
 }
@@ -47,13 +49,14 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 			continue;
 		token = token->next;
 	}
+	(*cmds)->next = NULL;
 }
 		
 t_cmdline *parse_tree(t_table *table, char **envp)
 {
 	t_cmdline	*commands;
 	t_tok		*tokens;
-	
+
 	tokens = table->token;
 	if(tokens != NULL)
 	{
@@ -63,7 +66,6 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 		commands->cmds = parse(tokens, table, envp);
 		if(commands->cmds)
 			return (commands);
-			// syntax_handling(&tokens, &commands);
 	}
 	return (NULL);
 }
@@ -73,14 +75,15 @@ void separate(t_cmds **commands)
 	t_cmds *tmp;
 	int i;
 
+	if(!commands &&  !*commands)
+		return ;
 	tmp = *commands;
 	while((*commands) != NULL)
 	{
 		if((*commands)->arguments != NULL)
 			(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
 		commands = &(*commands)->next;
-	}
-	
+	}	
 	while(tmp != NULL)
 	{
 		i = -1;
