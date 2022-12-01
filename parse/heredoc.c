@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/01 11:52:48 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	char *delim;
 	char *term;
 	char *tmpfile;
-    
+    int	fd;
+	
 	tmpfile = NULL;
     v = malloc(sizeof(t_vars));
     if(!v)
@@ -31,11 +32,12 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
     tmpfile = ft_strjoin(tmpfile, "/var/tmp/");
     tmpfile = ft_strjoin(tmpfile, "ayb");
     tmpfile = ft_strjoin(tmpfile, delim);
+	open__file__check__type(v->log, tmpfile, cmds);
 	if(term)
-	{
-		open__file__check__type(v->log, tmpfile, cmds);
 		write(cmds->i_stream, term, ft_strlen(term));
-	}
+	close(cmds->i_stream);
+	fd = open(tmpfile, O_RDONLY);
+	cmds->i_stream = fd;
 }
 
 char    *heredoc_delimiter(t_tok **token, t_vars **v)
@@ -72,18 +74,16 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	while(1)
 	{
 		heredoc = readline("heredoc> ");
+		if(heredoc)
+			term = join_arguments(term, '\n', heredoc);
 		if(ft_strncmp(heredoc, delim, ft_strlen(delim)) == 0 && \
 			ft_strlen(heredoc) == ft_strlen(delim))
 				break;
-		if(heredoc)
-			term = join_arguments(term, '\n', heredoc);
 	}
 	if(term)
 	{
-		
 		if(!flag)
 			term = find_replace(term, table->env);
-        // printf("%s\n", term);
 		return (term);
 	}
 	else

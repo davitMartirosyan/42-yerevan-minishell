@@ -20,7 +20,7 @@ BUILTINS=$(wildcard sh-builtin/*.c)
 OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS), $(MINI))
 
 all: 
-	$(CC) $(MINI)
+	@echo "hello"
 # $(NAME) : $(OBJECTS)
 # 	$(CC) $(LIBFT) $(OBJECTS) -o $(NAME)
 
@@ -28,4 +28,4 @@ all:
 # 	$(CC) $(CFLAGS) $(HEADER_FLAGS) $< -o $@
 
 
-gcc -Wall -Wextra -Werror -I includes/ */*.c -lreadline -o */*.o 
+# gcc -Wall -Wextra -Werror -I includes/ */*.c -lreadline -o */*.o 

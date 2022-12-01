@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/11/30 18:23:03 by user             ###   ########.fr       */
+/*   Updated: 2022/12/01 12:34:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,34 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
     while(++v.let < pip)
         pipe(pips[v.let]);
     v.let = -1;
+    v.log = dup(STDIN);
+    v.def = dup(STDOUT);
+    while(++v.let < pip)
+    {
+        pid = fork();
+        if(pid == 0)
+        {
+            dup2(pips[v.let][1], (*cmd)->cmds->o_stream);
+            close(pips[v.let][0]);
+            v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
+            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
+            if(v.built != -1)
+                (*table)->builtin[v.built]((*cmd)->cmds, *table);
+            else if(v.binar != -1)
+                execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
+            else
+            {
+                printf("%s: %s : Command Not found\n", SHELLERR, (*cmd)->cmds->arg_pack[0]);
+                exit(EXIT_FAILURE);
+            }
+            exit(EXIT_SUCCESS);
+        }
+        else
+        {
+         
+        }
+    }
 }
-//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
 static int cmd_check(t_cmds *cmd, char **paths)
 {
     int i;
@@ -83,7 +109,7 @@ static int cmd_check(t_cmds *cmd, char **paths)
         free(path);
         i++;
     }
-    if(access(path, F_OK) == 0)
+    if(access(path, F_OK | X_OK) == 0)
     {
         cmd->path = ft_strdup(path);
         free(path);
