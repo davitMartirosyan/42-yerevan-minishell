@@ -20,7 +20,7 @@ BUILTINS=$(wildcard sh-builtin/*.c)
 OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS), $(MINI))
 
 all: 
-	@echo "hello"
+	gcc -I includes/ */*.c minishell.c -lreadline -o minishell && ./minishell
 # $(NAME) : $(OBJECTS)
 # 	$(CC) $(LIBFT) $(OBJECTS) -o $(NAME)
 
