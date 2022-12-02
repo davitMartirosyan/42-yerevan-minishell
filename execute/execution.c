@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/02 07:27:15 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/02 07:27:49 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,3 @@ int find_in(char *builtin, char **reserved)
         return (-1);
     return (v.var);
 }
-
-
-// if(find_in("echo", ["echo", "cd", "pwd"]) != -1)
-//     //do builtin
-// else if(cmd_check(&cmd, ["/usr/bin", "/bin", "/usr/sbin"]) == 0)
-//     //do command
-// else
-//     //error
