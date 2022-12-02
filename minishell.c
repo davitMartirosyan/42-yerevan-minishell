@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/02 07:17:30 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/02 07:36:42 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int main(int argc, char *argv[], char *envp[])
     while(1)
     {
         cmdline = readline("Minishell-$ ");
+		if(ft_strncmp(cmdline, "exit", ft_strlen("exit")) == 0)
+			exit(1);
         add_history(cmdline);
         lexical_analyzer(cmdline, table);
         tree = parse_tree(table, envp);
