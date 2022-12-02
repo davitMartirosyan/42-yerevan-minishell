@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/02 00:00:53 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/02 07:17:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,5 @@ int main(int argc, char *argv[], char *envp[])
         tree = parse_tree(table, envp);
         execution(&tree, &table, envp);
     }
-
-    // int fd = open("file.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
-    // dup2(fd, STDOUT);
-    // printf("hello world");
     return (0);
 }

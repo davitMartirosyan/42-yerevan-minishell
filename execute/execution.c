@@ -6,27 +6,27 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/01 23:43:36 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/02 07:27:15 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-static int cmd_check(t_cmds *cmd, char **paths);
-static void execute(t_cmdline **cmd, t_table **table, char **envp);
-static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp);
+static int	cmd_check(t_cmds *cmd, char **paths);
+static void	execute(t_cmdline **cmd, t_table **table, char **envp);
+static void	combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp);
 
-void execution(t_cmdline **commands, t_table **table, char **envp)
+void	execution(t_cmdline **commands, t_table **table, char **envp)
 {
-    int pip;
+	int	pip;
 
-    pip = pipes(&((*table)->token));
-    if(pip == 0)
-        execute(commands, table, envp);
-    else if(pip > 0)
-        combined_execution(pip, commands, table, envp);
-    else
-        return ;
+	pip = pipes(&((*table)->token));
+	if (pip == 0)
+		execute(commands, table, envp);
+	else if (pip > 0)
+		combined_execution(pip, commands, table, envp);
+	else
+		return ;
 }
 
 static void execute(t_cmdline **cmd, t_table **table, char **envp)
@@ -102,28 +102,32 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
     }
 	
 }
-static int cmd_check(t_cmds *cmd, char **paths)
-{
-    int i;
-    char *path;
 
-    i = 0;
-    path = NULL;
-    while(paths[i])
-    {
-        path = join_arguments(paths[i], '/', cmd->arg_pack[0]);
-        if(access(path, F_OK) == 0)
-            break;
-        free(path);
-        i++;
-    }
-    if(access(path, F_OK | X_OK) == 0)
-    {
-        cmd->path = ft_strdup(path);
-        free(path);
-        return (0);
-    }
-    return (-1);
+static int	cmd_check(t_cmds *cmd, char **paths)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
+	path = NULL;
+	while (paths[i])
+	{
+		path = join_arguments(paths[i], '/', cmd->arg_pack[0]);
+		if (access(path, F_OK & X_OK) == 0)
+		{
+			cmd->path = ft_strdup(path);
+			free(path);
+			return (0);
+		}
+		free(path);
+		i++;
+	}
+	if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
+	{
+		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		return (0);
+	}
+	return (-1);
 }
 
 int find_in(char *builtin, char **reserved)

@@ -1,5 +1,5 @@
 #include <stdio.h>
 int main(void)
 {
-    printf("echo\n");
+    printf("es a.out-ic em\n");
 }
