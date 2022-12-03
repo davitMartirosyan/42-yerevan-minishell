@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/02 07:34:52 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/03 07:41:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"Minishell-$ "
-# define SHELLERR           "\033[31mMinishell-$\x1B[0m" 
+# define SHELLERR           "Minishell-$: " 
+
 
 /*Error Handlers*/
-# define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
+# define TOKEN_SYNTAX_ERR 	" : Syntax error near unexpected token\n"
 # define SYNTAX_ERR          2
 
-# define CMD_NOT_FOUND_ERR   "Command not found"
+# define COMMANDERR         " : Command Not Found\n"
 # define CMD_ERR             127
 
-# define PATH_SYNTAX_ERR     "No such file or directory"
+# define FILEERR            " : No Such file or directory\n"
 # define PATH_ERR            1
 
 # define HEREDOC_SYNTAX_WARNING    "Warning: HEREDOC (wanted ${hd})"
@@ -102,6 +103,7 @@ t_cmds	*parse(t_tok *token, t_table *table, char **envp);
 void	std(t_cmds **cmds);
 void	separate(t_cmds **commands);
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds);
+char    *new_file(char *delim);
 void	select_filename(t_tok **token, t_cmds *cmds);
 void	open__file__check__type(int type, char *filename, t_cmds *cmds);
 void	check_type(int fd, int type, t_cmds *cmds);
@@ -123,10 +125,18 @@ int		syntax_handling(t_tok **tokens, t_cmdline **cmdline);
 /**********************************************/
 /******************Builtins********************/
 /**********************************************/
+int builtin_execution(int k, t_cmdline *cmd, t_table *table);
+int find_in(char *builtin, char **reserved);
+int echo(t_cmds *cmd, t_table *table);
+// int pwd    (t_cmdline *cmd, t_table *table);
+// int cd     (t_cmdline *cmd, t_table *table);
+// int unset  (t_cmdline *cmd, t_table *table);
+// int export (t_cmdline *cmd, t_table *table);
+// int exit_  (t_cmdline *cmd, t_table *table);
+// int env    (t_cmdline *cmd, t_table *table);
 
 /**********************************************/
 /*****************Execution********************/
 /**********************************************/
 void	execution(t_cmdline **commands, t_table **table, char **envp);
-
 #endif

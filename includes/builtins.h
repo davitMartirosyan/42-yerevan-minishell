@@ -38,15 +38,4 @@ void	change_path_to_home(t_table *tab, int res, char *old_path);
 //exit utils
 int		ft_isnumeric(char **s);
 
-
-
-int builtin_execution(int k, t_cmdline *cmd, t_table *table);
-int find_in(char *builtin, char **reserved);
-int echo(t_cmds *cmd, t_table *table);
-// int pwd    (t_cmdline *cmd, t_table *table);
-// int cd     (t_cmdline *cmd, t_table *table);
-// int unset  (t_cmdline *cmd, t_table *table);
-// int export (t_cmdline *cmd, t_table *table);
-// int exit_  (t_cmdline *cmd, t_table *table);
-// int env    (t_cmdline *cmd, t_table *table);
 #endif

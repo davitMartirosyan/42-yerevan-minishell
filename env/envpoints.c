@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envpoints.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/03 05:18:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,17 @@ t_env *env_tokenizing(char **envp)
         t->val = _tok[1];
         if (!envp[i + 1])
 			break;
-        t->next =  malloc(sizeof(t_env));
+        t->next = malloc(sizeof(t_env));
+        if(!t->next)
+            return (NULL);
         t = t->next;
     }
+    t = malloc(sizeof(t_env));
+    if(!t)
+        return (NULL);
+    t->key = "CLEAR";
+    t->val = "\e[1;1H\e[2J";
+    t->next = NULL;
    return (temp);
 }
 

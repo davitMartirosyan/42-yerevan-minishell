@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/02 07:27:49 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/03 07:52:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
     {
         built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
         binary = cmd_check((*cmd)->cmds, (*table)->paths);
+		if((*cmd)->cmds->err != NULL)
+		{
+			printf("%s %d", (*cmd)->cmds->err);
+			exit(1);
+		}
         dup2((*cmd)->cmds->i_stream, 0);
         dup2((*cmd)->cmds->o_stream, 1);
         if(built != -1)
@@ -49,7 +54,7 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
         else if(binary != -1)
             execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
         else
-            printf("%s: %s : Command Not found\n", SHELLERR, (*cmd)->cmds->arg_pack[0]);
+            printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR);
         exit(1);
     }
     waitpid(-1, 0, 0);
@@ -57,50 +62,7 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
 
 static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp)
 {
-    t_vars  v;
-    int (*pips)[2];
-    pid_t pid;
-	int	i;
-    
-    pips = malloc(sizeof(*pips) * pip);
-    if(!pips)
-        return ;
-    v.let = -1;
-    while(++v.let < pip)
-        pipe(pips[v.let]);
-    v.let = 0;
-    v.log = dup(STDIN);
-    v.def = dup(STDOUT);
-	i = 0;
-    while((*cmd)->cmds != NULL)
-    {
-		pid = fork();
-		if(pid == 0)
-		{
-			if(i == 0)
-			{
-			
-				dup2(pips[i][1], STDOUT_FILENO);
-				//close ()
-			}
-			else if(i < pip+1)
-			{
-				dup2(pips[i][1], 1);
-				dup2(pips[i - 1][0], 0);
-				close (pips[i][1]);
-				close (pips[i - 1][0]);
-			}else
-			{
-				dup2(pips[i - 1][0], 0);
-				close (pips[i - 1][0]);
-			}
-			
-		}
-			i++;
-		(*cmd)->cmds = (*cmd)->cmds->next;
-		
-    }
-	
+
 }
 
 static int	cmd_check(t_cmds *cmd, char **paths)
@@ -116,6 +78,7 @@ static int	cmd_check(t_cmds *cmd, char **paths)
 		if (access(path, F_OK & X_OK) == 0)
 		{
 			cmd->path = ft_strdup(path);
+			cmd->exit_status = EXIT_SUCCESS;
 			free(path);
 			return (0);
 		}
@@ -125,6 +88,7 @@ static int	cmd_check(t_cmds *cmd, char **paths)
 	if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
 	{
 		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		cmd->exit_status = EXIT_SUCCESS;
 		return (0);
 	}
 	return (-1);

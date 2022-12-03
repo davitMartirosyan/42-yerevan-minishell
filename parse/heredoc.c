@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/12/01 11:52:48 by user             ###   ########.fr       */
+/*   Updated: 2022/12/03 07:18:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	char *tmpfile;
     int	fd;
 	
-	tmpfile = NULL;
     v = malloc(sizeof(t_vars));
     if(!v)
         return ;
@@ -29,15 +28,25 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 		*token = (*token)->next;
     delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);
-    tmpfile = ft_strjoin(tmpfile, "/var/tmp/");
-    tmpfile = ft_strjoin(tmpfile, "ayb");
-    tmpfile = ft_strjoin(tmpfile, delim);
+	tmpfile = new_file(delim);
 	open__file__check__type(v->log, tmpfile, cmds);
 	if(term)
 		write(cmds->i_stream, term, ft_strlen(term));
 	close(cmds->i_stream);
 	fd = open(tmpfile, O_RDONLY);
 	cmds->i_stream = fd;
+}
+
+char *new_file(char *delim)
+{
+	static int tail = 1234;
+	char *tmpfile;
+	
+	tmpfile = "/var/tmp/";
+	tmpfile = ft_strjoin(tmpfile, delim);
+	tmpfile = ft_strjoin(tmpfile, ft_itoa(tail));
+	tail++;
+	return (tmpfile);
 }
 
 char    *heredoc_delimiter(t_tok **token, t_vars **v)
