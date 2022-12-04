@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/03 07:43:36 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/04 20:12:10 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_table{
     char        **reserved;
     char        *err_handling;
     int         q_c[2];
-    t_built     builtin[7];
+    t_built     builtin[8];
     t_env       *env;
     t_tok       *token;
 } t_table;

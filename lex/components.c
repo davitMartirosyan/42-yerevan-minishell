@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/05 00:05:32 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,23 @@ char *find_replace(char *cmdline, t_env *env)
 	char *key;
 	char *val;
 	int i;
+	int hdflag;
 
 	i = 0;
+	hdflag = 0;
 	while(cmdline[i])
 	{
-		if(cmdline[i] && cmdline[i] == '$' \
-			&& (ft_iswordpart(cmdline[i+1])))
+		if(cmdline[i] && cmdline[i] == '<' && cmdline[i+1] == '<')
+			hdflag = 1;
+		if(cmdline[i] && cmdline[i] == '$')
 		{
-			key = keyof(cmdline, i+1);
-			val = valueof(key, env);
-			cmdline = replace(cmdline, key, val, &i);
-			free(key);
+			if(hdflag == 0)
+			{
+				key = keyof(cmdline, i + 1);
+				val = valueof(key, env);
+				cmdline = replace(cmdline, key, val, &i);
+				free(key);	
+			}
 		}
 		i++;
 	}

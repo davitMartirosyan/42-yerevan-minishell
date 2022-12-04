@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 03:09:29 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/03 05:15:14 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/04 20:11:56 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void create_shell(char **envp, t_table **table)
 	
 	// "echo pwd cd unset export exit env";
 	(*table)->builtin[0] = echo;
+	(*table)->builtin[7] = clear;
 	// (*table)->builtin[1] = pwd;
 	// (*table)->builtin[2] = cd;
 	// (*table)->builtin[3] = unset;

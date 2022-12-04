@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/03 07:52:21 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/04 20:20:48 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
     {
         built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
         binary = cmd_check((*cmd)->cmds, (*table)->paths);
-		if((*cmd)->cmds->err != NULL)
-		{
-			printf("%s %d", (*cmd)->cmds->err);
-			exit(1);
-		}
         dup2((*cmd)->cmds->i_stream, 0);
         dup2((*cmd)->cmds->o_stream, 1);
         if(built != -1)

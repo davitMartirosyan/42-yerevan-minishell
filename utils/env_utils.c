@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/03 05:24:34 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/04 22:08:32 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void free_environment(char **env_tokens)
 int echo(t_cmds *cmd, t_table *table)
 {
     int i;
+	int flag;
 
+	flag = 0;
     i = 0;
     if(!cmd->arg_pack[1])
         write(1, "\n", 1);
@@ -33,10 +35,21 @@ int echo(t_cmds *cmd, t_table *table)
     {
         write(1, cmd->arg_pack[i], \
             ft_strlen(cmd->arg_pack[i]));
-        if(cmd->arg_pack[i+1])
-            write(1, " ", 1);
-        else
-            write(1, "\n", 1);
+		if(!cmd->arg_pack[i+1])
+		{
+			flag = 1;
+			break;
+		}
     }
+	if(flag == 1)
+		write(1, "\n", 1);
     return (1);
+}
+
+int clear(t_cmds *cmd, t_table *table)
+{
+	(void)cmd;
+	(void)table;
+	printf("\e[1;1H\e[2J");
+	return (1);
 }

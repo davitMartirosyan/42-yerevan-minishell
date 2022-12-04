@@ -21,6 +21,11 @@ OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS), $(
 
 all: 
 	gcc -I includes/ */*.c minishell.c -lreadline -o minishell && ./minishell
+
+re:
+	cd libft/ && make re
+	cd ../
+	gcc -I includes/ */*.c minishell.c -lreadline -o minishell && ./minishell
 # $(NAME) : $(OBJECTS)
 # 	$(CC) $(LIBFT) $(OBJECTS) -o $(NAME)
 

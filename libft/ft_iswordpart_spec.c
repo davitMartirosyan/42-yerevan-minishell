@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_analizer.c                                     :+:      :+:    :+:   */
+/*   ft_iswordpart_spec.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/12/05 00:00:42 by dmartiro         ###   ########.fr       */
+/*   Created: 2022/12/04 23:26:47 by dmartiro          #+#    #+#             */
+/*   Updated: 2022/12/04 23:27:51 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "minishell_header.h"
+#include "libft.h"
 
-void lexical_analyzer(char *cmdline, t_table *table)
-{	
-	openquotes(cmdline);
-	if(quote_syntax_analyzer(cmdline, table->q_c))
-	{
-		cmdline = find_replace(cmdline, table->env);
-		token_replacment(cmdline, 4, '$');
-		table->token = tokenization(cmdline);
-	}
-	else
-		printf("%s '%s'\n", TOKEN_SYNTAX_ERR, "\'");
-	free(cmdline);
+int ft_iswordpart_spec(int ch)
+{
+    if(!ft_isspace(ch) && !ft_isspecial_spec(ch))
+        return (1);
+    else
+        return (0);
 }

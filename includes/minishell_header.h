@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/03 07:41:14 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/04 19:56:38 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #	ifndef MINISHELL_HEADER_H
 # define MINISHELL_HEADER_H
 
-# define RESERVED			"echo pwd cd unset export exit env"
+# define RESERVED			"echo pwd cd unset export exit env clear"
 # define TOKENS				"| < > ; &"
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
@@ -128,6 +128,7 @@ int		syntax_handling(t_tok **tokens, t_cmdline **cmdline);
 int builtin_execution(int k, t_cmdline *cmd, t_table *table);
 int find_in(char *builtin, char **reserved);
 int echo(t_cmds *cmd, t_table *table);
+int clear(t_cmds *cmd, t_table *table);
 // int pwd    (t_cmdline *cmd, t_table *table);
 // int cd     (t_cmdline *cmd, t_table *table);
 // int unset  (t_cmdline *cmd, t_table *table);

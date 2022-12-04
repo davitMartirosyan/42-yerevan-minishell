@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:22:35 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/10/23 07:40:11 by root             ###   ########.fr       */
+/*   Updated: 2022/12/04 23:30:18 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int		ft_atoi(const char *nptr);
 int		ft_isalnum(int an);
 int		ft_isalpha(int c);
 int		ft_iswordpart(int ch);
+int		ft_iswordpart_spec(int ch);
 int		ft_isspecial(int ch);
+int		ft_isspecial_spec(int ch);
 int		ft_isspace(int ch);
 int		ft_isascii(int ascii);
 int		ft_isdigit(int i);

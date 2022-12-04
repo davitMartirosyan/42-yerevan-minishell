@@ -6,12 +6,14 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 00:36:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/02 00:36:44 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/04 23:00:50 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell_header.h"
+
+static char *word_expansions(t_tok **token);
 
 t_cmds *parse(t_tok *token, t_table *table, char **envp)
 {
@@ -30,13 +32,14 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 
 void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
+	char	*expansions;
+
+	expansions = NULL;
 	while(token != NULL)
 	{
 		if(typeis_arg(token->type))
 		{
-			(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, \
-			token->tok);
-			token = token->next;
+			(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, word_expansions(&token));
 			continue;
 		}
 		if(typeis_redirection(token->type))
@@ -50,6 +53,21 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 		token = token->next;
 	}
 	(*cmds)->next = NULL;
+}
+
+static char *word_expansions(t_tok **token)
+{
+	char *word_exps;
+	
+	word_exps = NULL;
+	while((*token) != NULL)
+	{
+		word_exps = ft_strjoin(word_exps, (*token)->tok);
+		*token = (*token)->next;
+		if((*token) != NULL && !typeis_arg((*token)->type))
+			break;
+	}
+	return (word_exps);
 }
 		
 t_cmdline *parse_tree(t_table *table, char **envp)
