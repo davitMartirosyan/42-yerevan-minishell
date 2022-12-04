@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/05 00:25:38 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/04 23:16:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,12 @@ int clear(t_cmds *cmd, t_table *table);
 /*****************Execution********************/
 /**********************************************/
 void	execution(t_cmdline **commands, t_table **table, char **envp);
+
+
+/**********************************************/
+/****************Free Resources****************/
+/**********************************************/
+void    free_tokens(t_tok **token);
+void    reset_update_table(t_table **table, t_cmdline **tree);
+void    print_tokens(t_tok **token);
 #endif
