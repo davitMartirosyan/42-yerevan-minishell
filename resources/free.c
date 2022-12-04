@@ -6,11 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 23:15:51 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/04 23:16:59 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/04 23:19:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell_header.h"
+#include "minishell_header.h"
 
 
 void    print_tokens(t_tok **token)
