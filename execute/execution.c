@@ -45,8 +45,8 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
         (*table)->builtin[v.built]((*cmd)->cmds, *table);
     else if(v.binar != -1)
     {
-        (*cmd)->pid = fork(); 
-        if((*cmd)->pid == 0)
+        (*cmd)->cmds->pid = fork(); 
+        if((*cmd)->cmds->pid == 0)
         {
             execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
             exit(1);
@@ -77,25 +77,27 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
     i = 0;
     while((*cmd)->cmds != NULL)
     {
-        (*cmd)->pid = fork();
-        if((*cmd)->pid == 0)
-        {
+        (*cmd)->cmds->pid = fork();
+        if((*cmd)->cmds->pid == 0)
+        {      
             v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
-            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);        
+            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
             if(i == 0)
             {
-                dup2(pips[i][0], (*cmd)->cmds->o_stream);
-                printf("It is a first pipe\n");
+                dup2(pips[i][1], (*cmd)->cmds->o_stream);
+                close(pips[i][1]);
             }
             else if(i > 0 && i < pip)
             {
-                dup2(pips[i-1][1], (*cmd)->cmds->i_stream);
-                printf("In the middle\n");
+                dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
+                dup2(pips[i][1], (*cmd)->cmds->o_stream);
+                close(pips[i-1][0]);
+                close(pips[i][1]);
             }
             else
             {
-                dup2(pips[i][1], (*cmd)->cmds->i_stream);
-                printf("Last pipe\n");
+                dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
+                close(pips[i-1][0]);
             }
             if(v.built != -1)
                 (*table)->builtin[v.built]((*cmd)->cmds, *table);

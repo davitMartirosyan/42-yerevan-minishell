@@ -66,7 +66,6 @@ typedef struct s_cmdline
 {
     t_cmds  *cmds;
     char    **env;
-    pid_t   pid;
 }   t_cmdline;
 
 typedef struct s_cmds
@@ -79,6 +78,7 @@ typedef struct s_cmds
     int     i_stream;
     int     o_stream;
     int     e_stream;
+    pid_t   pid;
     struct  s_cmds *next;
     struct  s_cmds *prev;
 }   t_cmds;

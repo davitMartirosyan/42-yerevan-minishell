@@ -374,3 +374,64 @@ int contains(char *tok, char *cmdline, int *pos)
         waitpid(-1, 0, 0);
     }
 		
+
+		(*cmd)->pid = fork();
+        if((*cmd)->pid == 0)
+        {
+            v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
+            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);        
+            if(i == 0)
+            {
+                dup2(pips[i][0], (*cmd)->cmds->o_stream);
+                printf("It is a first pipe\n");
+            }
+            else if(i > 0 && i < pip)
+            {
+                dup2(pips[i-1][1], (*cmd)->cmds->i_stream);
+                printf("In the middle\n");
+            }
+            else
+            {
+                dup2(pips[i][1], (*cmd)->cmds->i_stream);
+                printf("Last pipe\n");
+            }
+            if(v.built != -1)
+                (*table)->builtin[v.built]((*cmd)->cmds, *table);
+            else if(v.binar != -1)
+                execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
+            else
+                printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR);
+            exit(1);
+        }
+        else
+            waitpid(-1, 0, 0);
+        i++;
+        (*cmd)->cmds = (*cmd)->cmds->next;
+
+
+
+
+//second 
+
+v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
+            v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
+            if(i == 0)
+            {
+                dup2(pips[i][0], (*cmd)->cmds->o_stream);
+            }
+            else if(i > 0 && i < pip)
+            {
+                dup2(pips[i-1][1], (*cmd)->cmds->i_stream);
+                dup2(pips[i][0], (*cmd)->cmds->o_stream);
+            }
+            else
+            {
+                dup2(pips[i-1][1], (*cmd)->cmds->i_stream);
+            }
+            if(v.built != -1)
+                (*table)->builtin[v.built]((*cmd)->cmds, *table);
+            else if(v.binar != -1)
+                execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
+            else
+                printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR);
+            exit(1);
