@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/07 18:31:49 by user             ###   ########.fr       */
+/*   Updated: 2022/12/07 18:34:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
         i++;
         (*cmd)->cmds = (*cmd)->cmds->next;
     }
-    // printf("%d : %d\n", pips[i][0], pips[i][1]);
 }
 
 static int	cmd_check(t_cmds *cmd, char **paths)
