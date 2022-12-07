@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/04 23:21:00 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/07 10:28:04 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char *argv[], char *envp[])
     
     (void)tree;
 	tree = NULL;
-    create_shell(envp, &table);    
+    create_shell(envp, &table);
     while(1)
     {
         cmdline = readline("Minishell-$ ");
