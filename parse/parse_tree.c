@@ -32,9 +32,6 @@ t_cmds *parse(t_tok *token, t_table *table, char **envp)
 
 void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
-	char	*expansions;
-
-	expansions = NULL;
 	while(token != NULL)
 	{
 		if(typeis_arg(token->type))
@@ -85,7 +82,8 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 		if(commands->cmds)
 			return (commands);
 	}
-	return (NULL);
+	else
+		return (NULL);
 }
 
 void separate(t_cmds **commands)

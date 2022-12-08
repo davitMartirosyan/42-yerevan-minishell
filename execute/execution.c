@@ -19,7 +19,7 @@ static void	combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
 void	execution(t_cmdline **commands, t_table **table, char **envp)
 {
 	int pip;
-    
+
 	pip = pipes(&((*table)->token));
 	if (pip == 0)
 		execute(commands, table, envp);
