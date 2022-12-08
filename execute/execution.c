@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/08 19:40:45 by user             ###   ########.fr       */
+/*   Updated: 2022/12/08 22:29:17 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ void	execution(t_cmdline **commands, t_table **table, char **envp)
 static void execute(t_cmdline **cmd, t_table **table, char **envp)
 {
     t_vars  v;
-    
 	if(!cmd && !*cmd && !table && !*table && !envp && !*envp)
+		return ;
+	else if((*cmd)->cmds->arguments == NULL)	
 		return ;
     v.dupcopy = dup(0);
     v.dupcopy2 = dup(1);
     v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
     v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
-    dup2((*cmd)->cmds->i_stream, 0);
+	dup2((*cmd)->cmds->i_stream, 0);
     dup2((*cmd)->cmds->o_stream, 1);
     if(v.built != -1)
         (*table)->builtin[v.built]((*cmd)->cmds, *table);
@@ -110,7 +111,7 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
             (*cmd)->cmds = (*cmd)->cmds->next;
         }
     }
-    
+    waitpid(-1, 0, 0);
 }
 
 static int	cmd_check(t_cmds *cmd, char **paths)

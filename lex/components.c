@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/05 00:05:32 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/08 22:05:31 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int contains(char *tok, char *cmdline, int *pos)
 	len = ft_strlen(tok);
 	count = 0;
 	while(cmdline[++i])
-	{
-		
+	{	
 		c = 0;
 		j = i;
 		if(cmdline[j] == tok[c])
@@ -66,6 +65,7 @@ int contains(char *tok, char *cmdline, int *pos)
 	}
 	return (0);
 }
+
 
 void token_replacment(char *cmdline, char schr, char rchr)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/07 10:28:04 by user             ###   ########.fr       */
+/*   Updated: 2022/12/08 22:18:17 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[], char *envp[])
         lexical_analyzer(cmdline, table);
         tree = parse_tree(table, envp);
         execution(&tree, &table, envp);
-        reset_update_table(&table, &tree);
+        //reset_update_table(&table, &tree);
     }
     return (0);
 }
