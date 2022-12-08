@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/07 18:34:01 by user             ###   ########.fr       */
+/*   Updated: 2022/12/08 19:40:45 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,45 +73,44 @@ static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char *
     i = -1;
     while(++i < pip)
         pipe(pips[i]);
-    
     i = 0;
     while((*cmd)->cmds != NULL)
     {
         (*cmd)->cmds->pid = fork();
         if((*cmd)->cmds->pid == 0)
-        {      
+        {
             v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
             v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
             if(i == 0)
             {
                 dup2(pips[i][1], (*cmd)->cmds->o_stream);
-                close(pips[i][1]);
+                close(pips[i][0]);
             }
             else if(i > 0 && i < pip)
             {
                 dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
                 dup2(pips[i][1], (*cmd)->cmds->o_stream);
-                close(pips[i-1][0]);
-                close(pips[i][1]);
+                close(pips[i-1][1]);
+                close(pips[i][0]);
             }
             else
             {
                 dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
-                close(pips[i-1][0]);
+                close(pips[i-1][1]);
             }
             if(v.built != -1)
                 (*table)->builtin[v.built]((*cmd)->cmds, *table);
-            else if(v.binar != -1)
+            else if(v.binar != -1)  
                 execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
-            else
-                printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR);
             exit(1);
         }
         else
-            waitpid(-1, 0, 0);
-        i++;
-        (*cmd)->cmds = (*cmd)->cmds->next;
+        {
+            i++;
+            (*cmd)->cmds = (*cmd)->cmds->next;
+        }
     }
+    
 }
 
 static int	cmd_check(t_cmds *cmd, char **paths)
