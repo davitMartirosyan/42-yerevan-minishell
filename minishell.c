@@ -30,8 +30,7 @@ int main(int argc, char *argv[], char *envp[])
         add_history(cmdline);
         lexical_analyzer(cmdline, table);
         tree = parse_tree(table, envp);
-        if(tree)
-            execution(&tree, &table, envp);
+        execution(&tree, &table, envp);
         reset_update_table(&table, &tree);
     }
     return (0);

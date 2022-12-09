@@ -34,25 +34,20 @@ t_env *env_tokenizing(char **envp)
             return (NULL);
         t = t->next;
     }
-    t = malloc(sizeof(t_env));
-    if(!t)
-        return (NULL);
     t->next = NULL;
    return (temp);
 }
 
 void add_paths(t_env **env, t_table **table)
 {
-    t_env *tmp;
-
-    tmp = *env;
-    while(tmp)
+    while((*env) != NULL)
     {
-        if(!ft_strncmp(tmp->key, "PATH", ft_strlen(tmp->key)))
+        if(!ft_strncmp((*env)->key, "PATH", ft_strlen((*env)->key)))
         {
-            (*table)->paths = ft_split(tmp->val, ':');
+            (*table)->paths = ft_split((*env)->val, ':');
             return ;
         }
-        tmp = tmp->next;
+        env = &(*env)->next;
     }
+    return ;
 }

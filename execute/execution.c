@@ -20,13 +20,16 @@ void	execution(t_cmdline **commands, t_table **table, char **envp)
 {
 	int pip;
 
-	pip = pipes(&((*table)->token));
-	if (pip == 0)
-		execute(commands, table, envp);
-	else if (pip > 0)
-		combined_execution(pip, commands, table, envp);
-	else
-		return ;
+    if(commands && *commands)
+    {
+        pip = pipes(&((*table)->token));
+        if (pip == 0)
+            execute(commands, table, envp);
+        else if (pip > 0)
+            combined_execution(pip, commands, table, envp);
+        else
+            return ;
+    }
 }
 
 static void execute(t_cmdline **cmd, t_table **table, char **envp)
@@ -44,7 +47,7 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
     dup2((*cmd)->cmds->o_stream, 1);
     if(v.built != -1)
         (*table)->builtin[v.built]((*cmd)->cmds, *table);
-    else if(v.binar != -1)
+    else if(!v.binar)
     {
         (*cmd)->cmds->pid = fork(); 
         if((*cmd)->cmds->pid == 0)
@@ -55,6 +58,8 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
         else
             waitpid(-1, 0, 0);
     }
+    else if(v.binar == -2)
+        printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], FILEERR);
     else
         printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR);
     dup2(v.dupcopy, 0);
@@ -121,6 +126,14 @@ static int	cmd_check(t_cmds *cmd, char **paths)
 
 	i = 0;
 	path = NULL;
+    if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
+	{
+		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		cmd->exit_status = EXIT_SUCCESS;
+		return (0);
+	}
+    if(paths == NULL)
+        return (-2);
 	while (paths[i])
 	{
 		path = join_arguments(paths[i], '/', cmd->arg_pack[0]);
@@ -133,12 +146,6 @@ static int	cmd_check(t_cmds *cmd, char **paths)
 		}
 		free(path);
 		i++;
-	}
-	if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
-	{
-		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		cmd->exit_status = EXIT_SUCCESS;
-		return (0);
 	}
 	return (-1);
 }
