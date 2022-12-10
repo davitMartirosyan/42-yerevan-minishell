@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/04 23:16:44 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/10 22:41:35 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -98,8 +99,8 @@ void	space(char *cmdline, int *pos, t_tok **token);
 /**********************************************/
 /************Parsing (Parse Tree)**************/
 /**********************************************/
-t_cmdline	*parse_tree(t_table *table, char **envp);
-t_cmds	*parse(t_tok *token, t_table *table, char **envp);
+t_cmdline	*parse_tree(t_table *table);
+t_cmds	*parse(t_tok *token, t_table *table);
 void	std(t_cmds **cmds);
 void	separate(t_cmds **commands);
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds);
@@ -139,13 +140,15 @@ int clear(t_cmds *cmd, t_table *table);
 /**********************************************/
 /*****************Execution********************/
 /**********************************************/
-void	execution(t_cmdline **commands, t_table **table, char **envp);
+void	execution(t_cmdline **commands, t_table **table);
 
 
 /**********************************************/
 /****************Free Resources****************/
 /**********************************************/
-void    free_tokens(t_tok **token);
-void    reset_update_table(t_table **table, t_cmdline **tree);
 void    print_tokens(t_tok **token);
+void    reset_update_table(t_table **table, t_cmdline *tree);
+void    free_tokens(t_tok **token);
+void	free_cmdline(t_cmdline *tree);
+void	free_arg_pack(char **arg_pack);
 #endif

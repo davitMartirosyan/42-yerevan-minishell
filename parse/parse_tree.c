@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 00:36:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/08 22:17:34 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:42:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 static char *word_expansions(t_tok **token);
 
-t_cmds *parse(t_tok *token, t_table *table, char **envp)
+t_cmds *parse(t_tok *token, t_table *table)
 {
-	(void)envp;
 	t_cmds *commands;
 
 	commands = malloc(sizeof(t_cmds));
@@ -67,7 +66,7 @@ static char *word_expansions(t_tok **token)
 	return (word_exps);
 }
 		
-t_cmdline *parse_tree(t_table *table, char **envp)
+t_cmdline *parse_tree(t_table *table)
 {
 	t_cmdline	*commands;
 	t_tok		*tokens;
@@ -78,12 +77,11 @@ t_cmdline *parse_tree(t_table *table, char **envp)
 		commands = malloc(sizeof(t_cmdline));
 		if(!commands)
 			return (NULL);
-		commands->cmds = parse(tokens, table, envp);
+		commands->cmds = parse(tokens, table);
 		if(commands->cmds)
 			return (commands);
 	}
-	else
-		return (NULL);
+	return (NULL);
 }
 
 void separate(t_cmds **commands)

@@ -6,17 +6,17 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/08 22:29:17 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/10 22:42:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
 static int	cmd_check(t_cmds *cmd, char **paths);
-static void	execute(t_cmdline **cmd, t_table **table, char **envp);
-static void	combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp);
+static void	execute(t_cmdline **cmd, t_table **table);
+static void	combined_execution(int pip, t_cmdline **cmd, t_table **table);
 
-void	execution(t_cmdline **commands, t_table **table, char **envp)
+void	execution(t_cmdline **commands, t_table **table)
 {
 	int pip;
 
@@ -24,18 +24,18 @@ void	execution(t_cmdline **commands, t_table **table, char **envp)
     {
         pip = pipes(&((*table)->token));
         if (pip == 0)
-            execute(commands, table, envp);
+            execute(commands, table);
         else if (pip > 0)
-            combined_execution(pip, commands, table, envp);
+            combined_execution(pip, commands, table);
         else
             return ;
     }
 }
 
-static void execute(t_cmdline **cmd, t_table **table, char **envp)
+static void execute(t_cmdline **cmd, t_table **table)
 {
     t_vars  v;
-	if(!cmd && !*cmd && !table && !*table && !envp && !*envp)
+	if(!cmd && !*cmd && !table && !*table)
 		return ;
 	else if((*cmd)->cmds->arguments == NULL)	
 		return ;
@@ -67,7 +67,7 @@ static void execute(t_cmdline **cmd, t_table **table, char **envp)
     return ;
 }
 
-static void combined_execution(int pip, t_cmdline **cmd, t_table **table, char **envp)
+static void combined_execution(int pip, t_cmdline **cmd, t_table **table)
 {
     t_vars v;
     int i;
