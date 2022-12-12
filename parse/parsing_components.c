@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_components.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
-/*   Updated: 2022/12/03 07:44:41 by codespace        ###   ########.fr       */
+/*   Updated: 2022/12/12 14:52:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 	else if(type == REDIR_IN)
 	{
 		fd = open(filename, O_RDONLY);
-		cmds->err = ft_strjoin(SHELLERR, filename);
-		cmds->err = ft_strjoin(cmds->err, FILEERR);
-		cmds->exit_status = PATH_ERR;
+		cmds->err = filename;
 	}
 	else if(type == APPEND)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/10 22:41:35 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:00:36 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 
 /*Error Handlers*/
-# define TOKEN_SYNTAX_ERR 	" : Syntax error near unexpected token\n"
+# define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
 # define SYNTAX_ERR          2
 
 # define COMMANDERR         " : Command Not Found\n"
@@ -61,20 +61,17 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
-void	create_builtins(t_table *table);
 void	create_shell(char **envp, t_table **table);
 void	add_paths(t_env **env, t_table **table);
 void	free_environment(char **env_tokens);
-void	destruct_shell(t_table **table);
 
 /**********************************************/
 /**************Lexical Analyzing***************/
 /**********************************************/
 int		check_quotes(char *cmdline, int *q_counts);
 int		quote_syntax_analyzer(char *cmdline, int *q_c);
-int		regexp(char *cmdline, char *regex);
 int		contains(char *tok, char *cmdline, int *pos);
-void	lexical_analyzer(char *cmdline, t_table *table);
+int     lexical_analyzer(char *cmdline, t_table *table);
 void	token_replacment(char *cmdline, char schr, char rchr);
 void	openquotes(char *cmdline);
 void	inside_quote(char *cmdline, int *pos, int find);
@@ -121,13 +118,11 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/
-int		syntax_handling(t_tok **tokens, t_cmdline **cmdline);
+int     syntax_handling(char *cmdline, t_table *table);
 
 /**********************************************/
 /******************Builtins********************/
 /**********************************************/
-int builtin_execution(int k, t_cmdline *cmd, t_table *table);
-int find_in(char *builtin, char **reserved);
 int echo(t_cmds *cmd, t_table *table);
 int clear(t_cmds *cmd, t_table *table);
 // int pwd    (t_cmdline *cmd, t_table *table);
@@ -141,6 +136,8 @@ int clear(t_cmds *cmd, t_table *table);
 /*****************Execution********************/
 /**********************************************/
 void	execution(t_cmdline **commands, t_table **table);
+int     cmd_check(t_cmds *cmd, char **paths);
+int     find_in(char *builtin, char **reserved);
 
 
 /**********************************************/

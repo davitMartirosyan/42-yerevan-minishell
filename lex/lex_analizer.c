@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   lex_analizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/12/05 00:00:42 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:29:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell_header.h"
 
-void lexical_analyzer(char *cmdline, t_table *table)
+int lexical_analyzer(char *cmdline, t_table *table)
 {	
 	openquotes(cmdline);
-	if(quote_syntax_analyzer(cmdline, table->q_c))
+	if(syntax_handling(cmdline, table))
 	{
 		cmdline = find_replace(cmdline, table->env);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);
+		return (1);
 	}
-	else
-		printf("%s '%s'\n", TOKEN_SYNTAX_ERR, "\'");
-	free(cmdline);
+	return (0);
+	
 }

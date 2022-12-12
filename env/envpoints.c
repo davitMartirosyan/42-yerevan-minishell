@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envpoints.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/04 20:03:04 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:35:41 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ t_env *env_tokenizing(char **envp)
     while(envp[++i])
     {
         _tok = ft_split(envp[i], '=');
-        t->key = _tok[0];
-        t->val = _tok[1];
+        t->key = ft_strdup(_tok[0]);
+        free(_tok[0]);
+        t->val = ft_strdup(_tok[1]);
+        free(_tok[1]);
+        free(_tok);
         if (!envp[i + 1])
 			break;
         t->next = malloc(sizeof(t_env));

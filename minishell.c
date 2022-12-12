@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/10 22:41:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:58:18 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell_header.h"
+
+static char *ft_readline(void);
+
+static char *ft_readline(void)
+{
+    char *cmd;
+    
+    cmd = readline("Minishell-$: ");
+    if(cmd[0])
+        add_history(cmd);
+    return (cmd);
+}
 
 int main(int argc, char *argv[], char *envp[])
 {
@@ -25,26 +37,13 @@ int main(int argc, char *argv[], char *envp[])
     create_shell(envp, &table);
     while(1)
     {
-        cmdline = readline("Minishell-$: ");
-        add_history(cmdline);
-        lexical_analyzer(cmdline, table);
-        tree = parse_tree(table);
-        execution(&tree, &table);
-        reset_update_table(&table, tree);
+        cmdline = ft_readline();
+        if(lexical_analyzer(cmdline, table))
+        {
+            tree = parse_tree(table);
+            execution(&tree, &table);
+        }
+        free(cmdline);
     }
     return (0);
 }
-
-//if (!cmdline || cmdline[0] == '\0')
-//{
-//	struct termios term;
-//	tcgetattr(fileno(stdin), &term);
-
-//	term.c_lflag &= ~ECHO;
-//	tcsetattr(fileno(stdin), 0, &term);
-
-//	ft_exit("exit 0");
-//	//printf("\n");
-//	//rl_replace_line("", 0);
-//	//return 0;
-//}
