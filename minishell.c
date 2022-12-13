@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/12 15:58:18 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 11:54:34 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int main(int argc, char *argv[], char *envp[])
             tree = parse_tree(table);
             execution(&tree, &table);
         }
-        free(cmdline);
     }
     return (0);
 }

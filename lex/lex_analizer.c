@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:06:07 by root              #+#    #+#             */
-/*   Updated: 2022/12/12 15:29:42 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 10:59:32 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int lexical_analyzer(char *cmdline, t_table *table)
 		table->token = tokenization(cmdline);
 		return (1);
 	}
+
 	return (0);
 	
 }

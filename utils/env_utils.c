@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/04 22:08:32 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:21:29 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int echo(t_cmds *cmd, t_table *table)
         write(1, "\n", 1);
     while(cmd->arg_pack[++i])
     {
-        write(1, cmd->arg_pack[i], \
-            ft_strlen(cmd->arg_pack[i]));
+        ft_putstr_fd(cmd->arg_pack[i], 1);
+        if(cmd->arg_pack[i + 1])
+            ft_putchar_fd(' ', 1);
 		if(!cmd->arg_pack[i+1])
 		{
 			flag = 1;

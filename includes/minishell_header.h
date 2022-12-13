@@ -6,14 +6,14 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/12 16:00:36 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 11:54:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #	ifndef MINISHELL_HEADER_H
 # define MINISHELL_HEADER_H
 
-# define RESERVED			"echo pwd cd unset export exit env clear"
+# define RESERVED			"echo pwd cd unset export exit env"
 # define TOKENS				"| < > ; &"
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
@@ -61,6 +61,8 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
+char    **const create_envp(t_env **env);
+char    *join_env(char *key, char eq, char *value);
 void	create_shell(char **envp, t_table **table);
 void	add_paths(t_env **env, t_table **table);
 void	free_environment(char **env_tokens);

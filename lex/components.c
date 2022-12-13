@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/08 22:05:31 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:01:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char *find_replace(char *cmdline, t_env *env)
 	{
 		if(cmdline[i] && cmdline[i] == '<' && cmdline[i+1] == '<')
 			hdflag = 1;
-		if(cmdline[i] && cmdline[i] == '$')
+		if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] != '?')
 		{
 			if(hdflag == 0)
 			{
@@ -102,6 +102,10 @@ char *find_replace(char *cmdline, t_env *env)
 				cmdline = replace(cmdline, key, val, &i);
 				free(key);	
 			}
+		}
+		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
+		{
+			printf("exit status\n");
 		}
 		i++;
 	}

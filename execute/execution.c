@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/12 14:58:29 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 11:56:23 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void execute(t_cmdline **cmd, t_table **table)
         (*cmd)->cmds->pid = fork(); 
         if((*cmd)->cmds->pid == 0)
         {
-            execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, 0);
+            execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv);
             exit(1);
         }
         else
