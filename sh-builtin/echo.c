@@ -54,11 +54,14 @@ void	with_flag(char **matrix, int i)
 	}
 }
 
-void	without_flag(char **matrix, int i)
+void	without_flag(char **matrix, t_table *tab, int i)
 {
 	while (matrix[i] && is_token(matrix[i]) == 0)
 	{
-		printf("%s", matrix[i]);
+		if (ft_strcmp(matrix[i], "$?") == 0)
+			printf("tab->status");//tab->status
+		else
+			printf("%s", matrix[i]);
 		if (matrix[i + 1])
 			printf(" ");
 		i++;
@@ -66,12 +69,12 @@ void	without_flag(char **matrix, int i)
 	printf("\n");
 }
 
-void	print_echo(char *cmd)
+void	print_echo(t_cmdline *cmd, t_table *tab)
 {
 	char	**matrix;
 	int		i;
 
-	matrix = ft_split(cmd, ' ');
+	matrix = cmd->cmds->arg_pack;
 	i = 1;
 	if (matrix[0] && is_keyword(matrix[0]) == 0)
 		printf("-minishell: %s: command not found\n", matrix[0]);
@@ -81,9 +84,12 @@ void	print_echo(char *cmd)
 			printf("\n");
 		else if (ft_strcmp(matrix[0], "echo") == 0 && matrix[1]
 			&& ft_strcmp(matrix[1], "-n") != 0)
-			without_flag(matrix, i);
+			without_flag(matrix, tab, i);
 		else if (ft_strcmp(matrix[0], "echo") == 0
 			&& matrix[1] && ft_strcmp(matrix[1], "-n") == 0)
+		{
 			with_flag(matrix, i);
+			exit(0);
+		}
 	}
 }

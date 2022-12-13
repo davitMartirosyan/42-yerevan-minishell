@@ -43,7 +43,7 @@ void execute(t_cmdline **cmd, t_table **table)
 	dup2((*cmd)->cmds->i_stream, 0);
     dup2((*cmd)->cmds->o_stream, 1);
     if(v.built != -1)
-        (*table)->builtin[v.built]((*cmd)->cmds, *table);
+        (*table)->builtin[v.built](*cmd, *table);
     else if(!v.binar && (*cmd)->cmds->i_stream != -1 && (*cmd)->cmds->o_stream != -1)
     {
         (*cmd)->cmds->pid = fork(); 

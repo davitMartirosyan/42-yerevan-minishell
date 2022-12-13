@@ -17,7 +17,6 @@ int	unset_err(char *str)
 	int		i;
 	char	**key_val;
 
-	(void)key_val;
 	i = 0;
 	while (str[i])
 	{
@@ -53,13 +52,13 @@ void	remove_node(t_table *tab, char *str)
 	}
 }
 
-void	ft_unset(char *cmd, t_table *tab)
+void	ft_unset(t_cmdline *cmd, t_table *tab)
 {
 	char	**matrix;
 	int		i;
 
 	i = 0;
-	matrix = ft_split(cmd, ' ');
+	matrix = cmd->cmds->arg_pack;
 	if (matrix[0] && ft_strcmp(matrix[0], "unset") == 0 && matrix[1])
 	{
 		while (matrix[++i])

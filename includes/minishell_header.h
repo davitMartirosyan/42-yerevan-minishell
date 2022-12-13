@@ -124,18 +124,6 @@ int		typeis_heredoc(int type);
 int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 
 /**********************************************/
-/******************Builtins********************/
-/**********************************************/
-int echo(t_cmds *cmd, t_table *table);
-int clear(t_cmds *cmd, t_table *table);
-// int pwd    (t_cmdline *cmd, t_table *table);
-// int cd     (t_cmdline *cmd, t_table *table);
-// int unset  (t_cmdline *cmd, t_table *table);
-// int export (t_cmdline *cmd, t_table *table);
-// int exit_  (t_cmdline *cmd, t_table *table);
-// int env    (t_cmdline *cmd, t_table *table);
-
-/**********************************************/
 /*****************Execution********************/
 /**********************************************/
 void	execution(t_cmdline **commands, t_table **table);

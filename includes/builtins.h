@@ -2,14 +2,14 @@
 # define BUILTINS_H
 
 //main functions
-void	print_echo(char *cmd);
-void	print_pwd(char *cmd);
-void	print_cd(char *cmd, t_table *tab);
-void	ft_export(char *cmd, t_table *tab);
-void	ft_unset(char *cmd, t_table *tab);
-void	ft_exit(char *cmd);
-void	print_env(char *cmd, t_table *table);
-void	builtins(char *cmdline, t_table *table);
+void	print_echo(t_cmdline *cmd, t_table *tab);
+void	print_pwd(t_cmdline *cmd, t_table *tab);
+void	print_cd(t_cmdline *cmd, t_table *tab);
+void	ft_export(t_cmdline *cmd, t_table *tab);
+void	ft_unset(t_cmdline *cmd, t_table *tab);
+void	ft_exit(t_cmdline *cmd, t_table *tab);
+void	print_env(t_cmdline *cmd, t_table *tab);
+void	builtins(t_cmdline *cmd, t_table *tab);
 //echo utils
 int		is_keyword(char *str);
 int		is_token(char *str);
@@ -37,5 +37,9 @@ void	change_path(t_table *tab, char *old_path);
 void	change_path_to_home(t_table *tab, int res, char *old_path);
 //exit utils
 int		ft_isnumeric(char **s);
+void	exit_cases(char **matrix, t_table *tab);
+unsigned long long int	ft_atoi_(char *nptr);
 
+//signals
+void	signals(int state);
 #endif

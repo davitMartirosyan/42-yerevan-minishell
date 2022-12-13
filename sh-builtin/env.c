@@ -12,12 +12,12 @@
 
 #include "minishell_header.h"
 
-void	print_env(char *cmd, t_table *table)
+void	print_env(t_cmdline *cmd, t_table *table)
 {
 	char	**matrix;
 	t_env	*temp;
 
-	matrix = ft_split(cmd, ' ');
+	matrix = cmd->cmds->arg_pack;
 	temp = table->env;
 	if (matrix[0] && ft_strcmp(matrix[0], "env") == 0 && !matrix[1])
 	{

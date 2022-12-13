@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell_header.h"
+#include <limits.h>
 
 int	ft_isnumeric(char **s)
 {
@@ -37,29 +38,68 @@ int	ft_isnumeric(char **s)
 	return (1);
 }
 
-void	ft_exit(char *cmd)
+unsigned long long int	ft_atoi_(char *str)
 {
-	int		status;
-	char	**matrix;
+	int						i;
+	int						syb;
+	unsigned long long int	counter;
 
-	status = 0;
-	matrix = ft_split(cmd, ' ');
-	if (matrix[1] && ft_isnumeric(matrix) == 0)
+	i = 0;
+	syb = 1;
+	counter = 0;
+	if (str == (void *)0)
+		return (0);
+	if (str[i] == '-')
+		syb = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		counter = counter * 10 + str[i] - '0';
+		i++;
+	}
+	return (syb * counter);
+}
+
+void	exit_cases(char **matrix, t_table *tab)
+{
+	unsigned long long int	check;
+
+	check = 9223372036854775807;
+	if (matrix[1] && (ft_isnumeric(matrix) == 0
+			|| ft_atoi_(matrix[1]) > check))
 	{
 		printf("exit\n");
 		printf("bash: exit: %s: numeric argument required\n", matrix[1]);
-		status = ft_atoi(matrix[1]);
-		exit(status);
+		//exit(tab->status);
+	}
+	else if (matrix[1] && !matrix[2])
+	{
+		printf("exit\n");
+		// tab->status = ft_atoi_(matrix[1]) % 256;
+		// //printf("status = %d, atoi = %llu\n", tab->status, ft_atoi_(matrix[1]));
+		// exit(tab->status);
+	}
+}
+
+void	ft_exit(t_cmdline *cmd, t_table *tab)
+{
+	char	**matrix;
+
+	matrix = cmd->cmds->arg_pack;
+	if (!matrix[1])
+	{
+		printf("exit\n");
+		// exit(tab->status);
 	}
 	else if (matrix[1] && matrix[2])
 	{
 		printf("exit\n");
 		printf("minishell: exit: too many arguments\n");
+		// tab->status = 1;
 	}
-	else if (matrix[1] && !matrix[2])
-	{
-		printf("exit\n");
-		status = ft_atoi(matrix[1]);
-		exit(status);
-	}
+	else
+		exit_cases(matrix, tab);
 }
+
+// > 9223372036854775807 error

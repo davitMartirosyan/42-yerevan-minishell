@@ -21,14 +21,12 @@ void create_shell(char **envp, t_table **table)
     (*table)->env = env_tokenizing(envp);
 	(*table)->minienv = create_envp(&(*table)->env);
 	add_paths(&(*table)->env, table);
-	
-	//builtins
 	(*table)->reserved = ft_split(RESERVED, ' ');
-	(*table)->builtin[0] = echo;
-	// (*table)->builtin[1] = pwd;
-	// (*table)->builtin[2] = cd;
-	// (*table)->builtin[3] = unset;
-	// (*table)->builtin[4] = export;
-	// (*table)->builtin[5] = exit_;
-	// (*table)->builtin[6] = env;
+	(*table)->builtin[0] = print_echo;
+	(*table)->builtin[1] = print_pwd;
+	(*table)->builtin[2] = print_cd;
+	(*table)->builtin[3] = ft_unset;
+	(*table)->builtin[4] = ft_export;
+	(*table)->builtin[5] = ft_exit;
+	(*table)->builtin[6] = print_env;
 }

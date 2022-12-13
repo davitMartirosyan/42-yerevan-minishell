@@ -16,26 +16,26 @@ static char *ft_readline(void);
 
 static char *ft_readline(void)
 {
-    char *cmd;
-    
+    char	*cmd;
+
     cmd = readline(SHELL);
-    if(cmd[0])
-        add_history(cmd);
-    return (cmd);
+	if (cmd[0])
+		add_history(cmd);
+	return (cmd);
 }
 
 int main(int argc, char *argv[], char *envp[])
 {
-    (void)argv;
-    (void)envp;
-    (void)argc;
-    t_table *table;
-    t_cmdline   *tree;
-    char    *cmdline;
-    
+	t_table	*table;
+	t_cmdline	*tree;
+	char    *cmdline;
+	(void)argv;
+	(void)envp;
+	(void)argc;
 	tree = NULL;
+	signals(1);
     create_shell(envp, &table);
-    while(1)
+    while (1)
     {
         cmdline = ft_readline();
         if(lexical_analyzer(cmdline, table))

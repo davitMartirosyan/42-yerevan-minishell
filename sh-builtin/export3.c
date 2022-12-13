@@ -12,7 +12,7 @@
 
 #include "minishell_header.h"
 
-void	ft_export(char *cmd, t_table *tab)
+void	ft_export(t_cmdline *cmd, t_table *tab)
 {
 	char	**matrix;
 	int		i;
@@ -20,7 +20,7 @@ void	ft_export(char *cmd, t_table *tab)
 	if (!cmd || !tab)
 		return ;
 	i = 0;
-	matrix = ft_split(cmd, ' ');
+	matrix = cmd->cmds->arg_pack;
 	if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && !matrix[1])
 		print_export(tab);
 	else if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && matrix[1])

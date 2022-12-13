@@ -28,7 +28,7 @@ typedef struct s_cmdline t_cmdline;
 typedef struct s_env t_en;
 typedef struct s_tok t_tok;
 typedef struct s_cmds t_cmds;
-typedef int (*t_built)(t_cmds *, t_table *);
+typedef void (*t_built)(t_cmdline *, t_table *);
 
 typedef struct s_vars
 {
@@ -104,7 +104,7 @@ typedef struct s_table{
     char        **reserved;
     char        *err_handling;
     int         q_c[2];
-    t_built     builtin[8];
+    t_built     builtin[7];
     t_env       *env;
     t_tok       *token;
 } t_table;

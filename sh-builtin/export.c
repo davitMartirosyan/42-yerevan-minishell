@@ -59,6 +59,7 @@ t_table	*create_tab(char **env)
 	tab = malloc(sizeof(t_table));
 	if (!tab || !env)
 		return (NULL);
+	//tab->status = 0;
 	tab->env = env_tokenizing(env);
 	return (tab);
 }

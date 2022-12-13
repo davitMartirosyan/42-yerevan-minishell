@@ -60,7 +60,7 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 		printf("minishell: cd: HOME not set\n");
 }
 
-void	print_cd(char *cmd, t_table *tab)
+void	print_cd(t_cmdline *cmd, t_table *tab)
 {
 	char	**matrix;
 	t_env	*temp;
@@ -68,9 +68,7 @@ void	print_cd(char *cmd, t_table *tab)
 	char	*old_path;
 	int		res;
 
-	res = 0;
-	(void)temp;
-	matrix = ft_split(cmd, ' ');
+	matrix = cmd->cmds->arg_pack;
 	temp = tab->env;
 	old_path = getcwd(cwd, 10000);
 	if (matrix[0] && ft_strcmp(matrix[0], "cd") == 0
