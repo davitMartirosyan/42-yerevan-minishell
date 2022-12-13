@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/13 11:54:34 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 14:30:05 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char *ft_readline(void)
 {
     char *cmd;
     
-    cmd = readline("Minishell-$: ");
+    cmd = readline(SHELL);
     if(cmd[0])
         add_history(cmd);
     return (cmd);
@@ -29,9 +29,9 @@ int main(int argc, char *argv[], char *envp[])
     (void)argv;
     (void)envp;
     (void)argc;
-    t_table     *table;
+    t_table *table;
     t_cmdline   *tree;
-    char        *cmdline;
+    char    *cmdline;
     
 	tree = NULL;
     create_shell(envp, &table);

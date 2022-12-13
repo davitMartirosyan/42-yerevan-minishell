@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 00:36:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/10 20:42:30 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:43:55 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell_header.h"
-
-static char *word_expansions(t_tok **token);
 
 t_cmds *parse(t_tok *token, t_table *table)
 {
@@ -51,7 +48,7 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 	(*cmds)->next = NULL;
 }
 
-static char *word_expansions(t_tok **token)
+char *word_expansions(t_tok **token)
 {
 	char *word_exps;
 	
@@ -65,7 +62,7 @@ static char *word_expansions(t_tok **token)
 	}
 	return (word_exps);
 }
-		
+
 t_cmdline *parse_tree(t_table *table)
 {
 	t_cmdline	*commands;
@@ -79,7 +76,8 @@ t_cmdline *parse_tree(t_table *table)
 			return (NULL);
 		commands->cmds = parse(tokens, table);
 		if(commands->cmds)
-			return (commands);
+			if(syntax_handling(NULL, table, commands))
+				return (commands);
 	}
 	return (NULL);
 }

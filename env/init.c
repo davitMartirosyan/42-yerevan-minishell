@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 03:09:29 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/13 11:55:09 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 12:05:28 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void create_shell(char **envp, t_table **table)
     (*table)->env = env_tokenizing(envp);
 	(*table)->minienv = create_envp(&(*table)->env);
 	add_paths(&(*table)->env, table);
+	
 	//builtins
 	(*table)->reserved = ft_split(RESERVED, ' ');
 	(*table)->builtin[0] = echo;

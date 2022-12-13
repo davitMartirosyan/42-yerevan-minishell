@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 03:00:39 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/01 23:36:02 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/13 12:35:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-t_tok *tokenization(char *cmdline)
+t_tok	*tokenization(char *cmdline)
 {
 	t_tok *tokens;
 	int i;
@@ -35,4 +35,25 @@ t_tok *tokenization(char *cmdline)
 		i++;
 	}
 	return (tokens);
+}
+
+t_tok *new_token(int len, char *token, int type)
+{
+    t_tok *tok;
+
+    tok = malloc(sizeof(t_tok));
+    if(!tok)
+        return (NULL);
+    tok->len  = len;
+    tok->tok  = ft_strdup(token);
+    tok->type = type;
+    tok->next = NULL;
+    return (tok);
+}
+
+void	add(t_tok **lst, t_tok *new)
+{
+	while(*lst)
+		lst = &(*lst)->next;
+	*lst = new;	
 }

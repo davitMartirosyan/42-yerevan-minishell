@@ -6,11 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/13 11:54:55 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 15:50:20 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	ifndef MINISHELL_HEADER_H
+# ifndef MINISHELL_HEADER_H
 # define MINISHELL_HEADER_H
 
 # define RESERVED			"echo pwd cd unset export exit env"
@@ -18,21 +18,21 @@
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"Minishell-$ "
-# define SHELLERR           "-sadm: " 
+# define SHELLERR           "-sadm: "
 
 
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
-# define SYNTAX_ERR          2
+# define SYNTAX_ERR         2
 
 # define COMMANDERR         " : Command Not Found\n"
-# define CMD_ERR             127
+# define CMD_ERR            127
 
 # define FILEERR            " : No Such file or directory\n"
-# define PATH_ERR            1
+# define PATH_ERR           1
 
 # define HEREDOC_SYNTAX_WARNING    "Warning: HEREDOC (wanted ${hd})"
-# define HEREDOC_WARNING     0
+# define HEREDOC_WARNING    0
 
 # include <stdio.h>
 # include <string.h>
@@ -61,7 +61,7 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
-char    **const create_envp(t_env **env);
+char    **create_envp(t_env **env);
 char    *join_env(char *key, char eq, char *value);
 void	create_shell(char **envp, t_table **table);
 void	add_paths(t_env **env, t_table **table);
@@ -103,14 +103,15 @@ t_cmds	*parse(t_tok *token, t_table *table);
 void	std(t_cmds **cmds);
 void	separate(t_cmds **commands);
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds);
-char    *new_file(char *delim);
 void	select_filename(t_tok **token, t_cmds *cmds);
 void	open__file__check__type(int type, char *filename, t_cmds *cmds);
 void	check_type(int fd, int type, t_cmds *cmds);
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table);
+char    *new_file(char *delim);
 char	*heredoc_delimiter(t_tok **token, t_vars **v);
 char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char	*join_arguments(char *s1, int delimiter, char *s2);
+char    *word_expansions(t_tok **token);
 int		pipes(t_tok **token);
 int		type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table);
 int		typeis_redirection(int type);
@@ -120,7 +121,7 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/
-int     syntax_handling(char *cmdline, t_table *table);
+int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 
 /**********************************************/
 /******************Builtins********************/
@@ -138,9 +139,10 @@ int clear(t_cmds *cmd, t_table *table);
 /*****************Execution********************/
 /**********************************************/
 void	execution(t_cmdline **commands, t_table **table);
+void	execute(t_cmdline **cmd, t_table **table);
+void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
 int     cmd_check(t_cmds *cmd, char **paths);
 int     find_in(char *builtin, char **reserved);
-
 
 /**********************************************/
 /****************Free Resources****************/

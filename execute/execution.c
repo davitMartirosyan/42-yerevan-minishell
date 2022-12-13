@@ -6,14 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/13 11:56:23 by user             ###   ########.fr       */
+/*   Updated: 2022/12/13 12:18:52 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-
-static void	execute(t_cmdline **cmd, t_table **table);
-static void	combined_execution(int pip, t_cmdline **cmd, t_table **table);
 
 void	execution(t_cmdline **commands, t_table **table)
 {
@@ -31,7 +28,7 @@ void	execution(t_cmdline **commands, t_table **table)
     }
 }
 
-static void execute(t_cmdline **cmd, t_table **table)
+void execute(t_cmdline **cmd, t_table **table)
 {
     t_vars  v;
     
@@ -69,7 +66,7 @@ static void execute(t_cmdline **cmd, t_table **table)
     return ;
 }
 
-static void combined_execution(int pip, t_cmdline **cmd, t_table **table)
+void combined_execution(int pip, t_cmdline **cmd, t_table **table)
 {
   
 }
