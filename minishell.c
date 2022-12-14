@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/14 07:57:05 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:15:59 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int main(int argc, char *argv[], char *envp[])
         cmdline = ft_readline();
         if(lexical_analyzer(cmdline, table))
         {
+			// printf("%s\n", table->token->next->next->tok);
             tree = parse_tree(table);
             execution(&tree, &table);
         }

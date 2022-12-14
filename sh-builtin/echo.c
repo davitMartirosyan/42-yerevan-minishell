@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:29:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/07 19:02:58 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:19:11 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	without_flag(char **matrix, t_table *tab, int i)
 	while (matrix[i] && is_token(matrix[i]) == 0)
 	{
 		if (ft_strcmp(matrix[i], "$?") == 0)
-			printf("tab->status");//tab->status
+			printf("tab->status");
 		else
 			printf("%s", matrix[i]);
 		if (matrix[i + 1])
@@ -87,9 +87,6 @@ void	print_echo(t_cmdline *cmd, t_table *tab)
 			without_flag(matrix, tab, i);
 		else if (ft_strcmp(matrix[0], "echo") == 0
 			&& matrix[1] && ft_strcmp(matrix[1], "-n") == 0)
-		{
 			with_flag(matrix, i);
-			exit(0);
-		}
 	}
 }

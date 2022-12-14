@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/07 15:26:44 by user             ###   ########.fr       */
+/*   Updated: 2022/12/14 11:30:01 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_table{
     char        **paths;
     char        **reserved;
     char        *err_handling;
+    int         status;
     int         q_c[2];
     t_built     builtin[7];
     t_env       *env;
