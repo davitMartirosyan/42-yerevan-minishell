@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:05:55 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/14 04:13:46 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/14 07:35:34 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	new_prompt(int sig)
 {
-	printf("\n");
 	rl_on_new_line();
 	// rl_replace_line("", 0);
 	rl_redisplay();
@@ -22,11 +21,14 @@ void	new_prompt(int sig)
 
 void	signals(int state)
 {
-	struct termios	term;
+	struct termios	old;
+	struct termios	nw;
+	tcgetattr(0, &old);
 
-	tcgetattr(0, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, 0, &term);
+	nw = old;
+	nw.c_cc[VEOF] = 3;
+	nw.c_cc[VINTR] = 4;
+	tcsetattr(0, TCSANOW, &nw);
 	signal(SIGINT, new_prompt);
 	signal(SIGQUIT, SIG_IGN);
 }

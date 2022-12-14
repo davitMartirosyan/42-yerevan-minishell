@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:53:26 by root              #+#    #+#             */
-/*   Updated: 2022/12/13 15:53:56 by user             ###   ########.fr       */
+/*   Updated: 2022/12/14 08:06:04 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,28 @@ int syntax_handling(char *cmdline, t_table *table, t_cmdline *commands)
 {
     static int syn = 0;
     
-    if(syn == 0)
+    if(syn == 0 && cmdline)
     {
-        if(quote_syntax_analyzer(cmdline, table->q_c))
+        if(!quote_syntax_analyzer(cmdline, table->q_c))
         {
-            syn++;
-            return (1);
+			printf("%s%s '%s'\n", SHELLERR, TOKEN_SYNTAX_ERR, "\'");
+            return (0);
         }
-        printf("%s%s '%s'\n", SHELLERR, TOKEN_SYNTAX_ERR, "\'");
-        return (0);   
+        syn++;
+        return (1);   
     }
     else
     {
-        if(token_syntax_analyzer(table, commands))
+        if(!token_syntax_analyzer(table, commands))
         {
-            syn = 0;
-            return (1);
+			printf("Token error\n");
+			syn--;
+            return (0);
         }
-        return (0);
+		syn--;
+        return (1);
     }
-    return (1);
+    return (0);
 }
 
 static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
@@ -47,6 +49,7 @@ static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
 
     toks = table->token;
     cmd = commands->cmds;
-    
-    return (1);
+	if(cmd != NULL)
+		return (1);
+	return (0);
 }

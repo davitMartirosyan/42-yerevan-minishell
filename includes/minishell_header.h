@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/14 04:11:24 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/14 06:42:59 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
 # define SYNTAX_ERR         2
 
-# define COMMANDERR         " : Command Not Found\n"
+# define COMMANDERR         ": Command Not Found\n"
 # define CMD_ERR            127
 
-# define FILEERR            " : No Such file or directory\n"
+# define FILEERR            ": No Such file or directory\n"
 # define PATH_ERR           1
 
 # define HEREDOC_SYNTAX_WARNING    "Warning: HEREDOC (wanted ${hd})"
@@ -45,12 +45,12 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include "./structs.h"
 # include "./builtins.h"
-
 
 char	*ft_readline(void);
 /**********************************************/
