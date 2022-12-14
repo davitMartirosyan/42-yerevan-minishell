@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 10:35:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/14 10:35:37 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:40:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ft_export(t_cmdline *cmd, t_table *tab)
 		{
 			if (export_err(matrix[i]))
 			{
-				printf("-minishell: export: `%s': not a valididentifier\n",
-					matrix[i]);
+				printf("%s export: `%s': not a valididentifier\n",
+					SHELLERR, matrix[i]);
 				continue ;
 			}
 			create_key_value(matrix[i], tab);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/07 19:06:07 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:42:36 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 		{
 			res = chdir(temp->val);
 			if (res == -1)
-				printf("minishell: cd: %s: No such file or directory\n",
-					temp->val);
+				printf("%scd: %s: No such file or directory\n",
+					SHELLERR, temp->val);
 			else if (res == 0)
 				change_path(tab, old_path);
 			check = 0;
@@ -57,7 +57,7 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 		temp = temp->next;
 	}
 	if (check)
-		printf("minishell: cd: HOME not set\n");
+		printf("%scd: HOME not set\n", SHELLERR);
 }
 
 void	print_cd(t_cmdline *cmd, t_table *tab)
@@ -78,7 +78,7 @@ void	print_cd(t_cmdline *cmd, t_table *tab)
 	{
 		res = chdir(matrix[1]);
 		if (res == -1)
-			printf("minishell: cd: %s: No such file or directory\n", matrix[1]);
+			printf("%scd: %s: No such file or directory\n", SHELLERR, matrix[1]);
 		else if (res == 0)
 			change_path(tab, old_path);
 	}

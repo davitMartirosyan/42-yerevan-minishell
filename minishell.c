@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/13 14:30:05 by user             ###   ########.fr       */
+/*   Updated: 2022/12/14 04:41:04 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell_header.h"
 
-static char *ft_readline(void);
-
-static char *ft_readline(void)
+char *ft_readline(void)
 {
     char	*cmd;
 
+	signals(1);
     cmd = readline(SHELL);
+	if(!cmd)
+	{
+		ft_putstr_fd("exit\n", 1);
+		//exit(0);
+	}
 	if (cmd[0])
 		add_history(cmd);
 	return (cmd);
@@ -33,7 +37,6 @@ int main(int argc, char *argv[], char *envp[])
 	(void)envp;
 	(void)argc;
 	tree = NULL;
-	signals(1);
     create_shell(envp, &table);
     while (1)
     {

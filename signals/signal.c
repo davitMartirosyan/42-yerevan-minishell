@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:05:55 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/07 12:06:56 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/14 04:13:46 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-#include <termios.h>
 
 void	new_prompt(int sig)
 {

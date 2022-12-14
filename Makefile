@@ -20,12 +20,12 @@ BUILTINS=$(wildcard sh-builtin/*.c)
 OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS), $(MINI))
 
 all: 
-	gcc -I includes/ */*.c minishell.c -lreadline -o minishell
+	gcc -I includes/ */*.c minishell.c -lreadline -I .brew/opt/readline/include -o minishell
 
 re:
 	cd libft/ && make re
 	cd ../
-	gcc -I includes/ */*.c minishell.c -lreadline -o minishell
+	gcc -I includes/ */*.c minishell.c -lreadline -I .brew/opt/readline/include -o minishell
 # $(NAME) : $(OBJECTS)
 # 	$(CC) $(LIBFT) $(OBJECTS) -o $(NAME)
 
