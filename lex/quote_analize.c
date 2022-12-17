@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 10:43:47 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void inside_quote(char *cmdline, int *pos, int find)
 				break;
 			if(cmdline[i] == '\'')
 				cmdline[i] = 7;
-			if(cmdline[i] == ' ')
-				cmdline[i] = 3;
 		}
 	}
 	else if(find == DBL)
@@ -77,8 +75,6 @@ void inside_quote(char *cmdline, int *pos, int find)
 				cmdline[i] = 8;
 			if(cmdline[i] == '$')
 				cmdline[i] = 4;
-			if(cmdline[i] == ' ')
-				cmdline[i] = 3;
 		}
 	}
 	*pos = i;
