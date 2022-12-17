@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/17 15:46:47 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 16:01:05 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int main(int argc, char *argv[], char *envp[])
             execution(&tree, &table);
         }
 		destruct_shell(&table, &tree);
-		//free(cmdline);
     }
     return (0);
 }

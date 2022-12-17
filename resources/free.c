@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 23:15:51 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/17 15:59:47 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 16:02:12 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void    print_tokens(t_tok **token)
 void destruct_shell(t_table **table, t_cmdline **tree)
 {
 	(void)tree;
-	free_env(table);
+	(void)table;
+	//free_env(table);
 }
 
 
