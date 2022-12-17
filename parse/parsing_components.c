@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_components.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
-/*   Updated: 2022/12/12 14:52:44 by user             ###   ########.fr       */
+/*   Updated: 2022/12/17 14:31:56 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
 	int fd;	
 
+	fd = 0;
 	if(type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if(type == REDIR_IN)

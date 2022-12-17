@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:32:49 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/10/25 14:32:52 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:29:27 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ void	exit_cases(char **matrix, t_table *tab)
 	else if (matrix[1] && !matrix[2])
 	{
 		printf("exit\n");
+		exit(1);
 		// tab->status = ft_atoi_(matrix[1]) % 256;
 		// //printf("status = %d, atoi = %llu\n", tab->status, ft_atoi_(matrix[1]));
-		// exit(tab->status);
+		exit(tab->status);
 	}
 }
 

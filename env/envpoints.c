@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/13 11:54:17 by user             ###   ########.fr       */
+/*   Updated: 2022/12/14 12:33:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char    **create_envp(t_env **env)
 		i++;
 		env = &(*env)->next;
 	}
-        // ft_putstr_fd(minienv->key, 1);
     envp = malloc(sizeof(char *) * (i + 1));
     if(!envp)
         return (NULL);

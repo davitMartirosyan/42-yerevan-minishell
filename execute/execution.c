@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/14 06:27:53 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:34:19 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,14 @@ void execute(t_cmdline **cmd, t_table **table)
 
 void combined_execution(int pip, t_cmdline **cmd, t_table **table)
 {
-  
+	(void)(pip);
+	(void)(cmd);
+	(void)(table);
+	//int (*fds)[2];
+
+	//fds = malloc(sizeof(*fds) * pip);
+	//if(!fds)
+	//	return ;
+	//	if(i_stream > 0 || o_stream > 1) 
+	
 }

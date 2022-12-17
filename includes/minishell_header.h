@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/14 06:42:59 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:56:12 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@
 # include "./builtins.h"
 
 char	*ft_readline(void);
+void	inthandle(int sig);
+void	handleterm(int sig);
+void	ft_signal(void);
 /**********************************************/
 /*******************Listing********************/
 /**********************************************/
@@ -63,11 +66,13 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
-char    **create_envp(t_env **env);
 char    *join_env(char *key, char eq, char *value);
+char    **create_envp(t_env **env);
 void	create_shell(char **envp, t_table **table);
+void	bash_setup(t_table **table);
 void	add_paths(t_env **env, t_table **table);
-void	free_environment(char **env_tokens);
+void	destruct_shell(t_table **table, t_cmdline **tree);
+void	free_env(t_table **table);
 
 /**********************************************/
 /**************Lexical Analyzing***************/

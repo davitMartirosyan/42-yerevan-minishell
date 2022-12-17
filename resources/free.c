@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 23:15:51 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/14 07:56:27 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:59:47 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@ void    print_tokens(t_tok **token)
 		token = &(*token)->next;
 	}
 }
+
+void destruct_shell(t_table **table, t_cmdline **tree)
+{
+	(void)tree;
+	free_env(table);
+}
+
+
+void free_env(t_table **table)
+{
+	int i;
+
+	i = -1;
+	while((*table)->minienv[++i])
+		free((*table)->minienv[i]);
+	(*table)->minienv = NULL;
+}
+
+
 
 void    reset_update_table(t_table **table, t_cmdline *tree)
 {

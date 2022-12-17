@@ -1,36 +1,75 @@
-NAME=minishell
-CC=gcc
-CFLAGS= -Wall -Wextra -Werror
-HEADER_FLAGS= -I includes/
-MINISHELL_HEADER=includes/minishell_header.h
-READLINE=-lreadline
-LIBFT_ARCHIVE=libft.a
-LIBFT=./libft/libft.a
-MINI=./minishell.c
-COMPONENTS=$(wildcard env/*.c) $(wildcard errno/*.c) $(wildcard listing/*.c) $(wildcard utils/*.c)
-LEXER=$(wildcard lex/*.c)
-PARSER=$(wildcard parse/*.c)
-BUILTINS=$(wildcard sh-builtin/*.c)
-
-# OBJ_COMPONENTS=$(patsubst %c, %o, $(COMPONENTS))
-# LEXER_COMPONENTS=$(patsubst %c, %o, $(LEXER))
-# PARSER_COMPONENTS=$(patsubst %c, %o, $(PARSER))
-# BUILTINS_COMPONENTS=$(patsubst %c, %o, $(BUILTINS))
-
-OBJECTS=$(patsubst %.c, %.o, $(COMPONENTS), $(LEXER), $(PARSER), $(BUILTINS), $(MINI))
-
-all: 
-	gcc -I includes/ */*.c minishell.c -lreadline -I .brew/opt/readline/include -o minishell
-
-re:
-	cd libft/ && make re
-	cd ../
-	gcc -I includes/ */*.c minishell.c -lreadline -I .brew/opt/readline/include -o minishell
-# $(NAME) : $(OBJECTS)
-# 	$(CC) $(LIBFT) $(OBJECTS) -o $(NAME)
-
-# $(OBJECTS) : $(COMPONENTS) $(LEXER) $(PARSER) $(BUILTINS)
-# 	$(CC) $(CFLAGS) $(HEADER_FLAGS) $< -o $@
+NONE='\033[0m'
+GREEN='\033[3;32m'
+GRAY='\033[2;37m'
+RED="\033[1;31m"
+YELLOW="\033[1;33m"
 
 
-# gcc -Wall -Wextra -Werror -I includes/ */*.c -lreadline -o */*.o 
+NAME = minishell
+
+PREFIX = $(shell find ${HOME} -name readline-dmartiro 2>/dev/null)
+
+CC = cc -I includes/
+
+RM = rm -rf
+
+FLAGS = -Wall -Wextra -Werror
+
+MKDIR = mkdir -p
+
+OBJS_DIR = OBJS
+
+SRCS = $(wildcard *.c) $(wildcard env/*.c)  $(wildcard execute/*.c)  \
+$(wildcard lex/*.c)  $(wildcard libft/*.c)  $(wildcard parse/*.c) $(wildcard resources/*.c ) \
+$(wildcard signals/*.c) $(wildcard syntax/*.c) $(wildcard sh-builtin/*.c) $(wildcard utils/*.c)
+
+_OBJS = $(patsubst %.c, %.o, $(SRCS))
+
+OBJS = $(patsubst %.o, $(OBJS_DIR)/%.o, $(_OBJS))
+
+INCLUDES = -I./readline-dmartiro/include
+
+LINKERS	= -L./readline-dmartiro/lib -lreadline
+
+$(OBJS_DIR)/%.o: %.c
+	@ $(MKDIR) $(OBJS_DIR)/env
+	@ $(MKDIR) $(OBJS_DIR)/execute
+	@ $(MKDIR) $(OBJS_DIR)/lex
+	@ $(MKDIR) $(OBJS_DIR)/libft
+	@ $(MKDIR) $(OBJS_DIR)/signals
+	@ $(MKDIR) $(OBJS_DIR)/parse
+	@ $(MKDIR) $(OBJS_DIR)/resources
+	@ $(MKDIR) $(OBJS_DIR)/syntax
+	@ $(MKDIR) $(OBJS_DIR)/sh-builtin
+	@ $(MKDIR) $(OBJS_DIR)/utils
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	@echo $(NONE)$(YELLOW) "- Compiling $(NAME)..." $(NONE)
+	@$(CC) $(FLAGS) $(OBJS) $(LINKERS) $(INCLUDES) -o $(NAME)
+	@echo $(NONE)$(GREEN)" - Compiled  $(NAME)\n"$(NONE)
+
+clean:
+	@echo $(RED) "- Removing  object files..." $(NONE)
+	@ $(RM) $(OBJS_DIR)
+
+fclean: clean
+	@echo $(RED) "- Removing  $(NAME)..." $(NONE)
+	@ $(RM) $(NAME)
+
+re: fclean all
+
+readline:
+	cd readline-master && make clean && ./configure --prefix=$(PREFIX) && make && make install
+
+norm:
+	clear
+	norminette $(SRCS)
+
+wc:
+	clear
+	wc -l $(SRCS)
+
+.PHONY: all clean fclean re readline norm wc
