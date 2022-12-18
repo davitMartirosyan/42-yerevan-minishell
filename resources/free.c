@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 23:15:51 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/17 16:02:12 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:50:38 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void destruct_shell(t_table **table, t_cmdline **tree)
 	(void)tree;
 	(void)table;
 	//free_env(table);
+	//table->env
+	
 }
 
 

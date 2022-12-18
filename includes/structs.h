@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/17 15:39:43 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:32:14 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ typedef struct s_tok
 
 typedef struct s_table{
     char        **minienv;
-    char        **paths;
-    char        **reserved;
+    char        *reserved[7];
     char        *err_handling;
     int         status;
     int         q_c[2];

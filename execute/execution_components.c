@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   execution_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 14:57:58 by user              #+#    #+#             */
-/*   Updated: 2022/12/13 11:14:41 by user             ###   ########.fr       */
+/*   Updated: 2022/12/18 14:54:26 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-int	cmd_check(t_cmds *cmd, char **paths)
+static void free_char_pp(char **paths);
+
+int	cmd_check(t_cmds *cmd, t_table **table)
 {
 	int		i;
 	char	*path;
-
+	char	**paths;
+	
 	i = 0;
+	paths = add_paths(&(*table)->env);
 	path = NULL;
     if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
 	{
 		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		cmd->exit_status = EXIT_SUCCESS;
 		return (0);
 	}
     if(paths == NULL)
@@ -35,12 +38,26 @@ int	cmd_check(t_cmds *cmd, char **paths)
 			cmd->path = ft_strdup(path);
 			cmd->exit_status = EXIT_SUCCESS;
 			free(path);
+			free_char_pp(paths);
 			return (0);
 		}
 		free(path);
 		i++;
 	}
+	free_char_pp(paths);
 	return (-1);
+}
+
+static void free_char_pp(char **paths)
+{
+	int i;
+
+	i = -1;
+	if(!*paths && !paths)
+		return ;
+	while(paths[++i])
+		free(paths[i]);
+	*paths = NULL;
 }
 
 int find_in(char *builtin, char **reserved)
@@ -65,4 +82,19 @@ int find_in(char *builtin, char **reserved)
         ft_strlen(builtin)) != 0)
         return (-1);
     return (v.var);
+}
+
+void print_err(t_table **table, t_cmdline **cmd, t_vars *v)
+{
+	if((*table)->status == 1)
+        printf("%s%s%s", SHELLERR, (*cmd)->cmds->err, FILEERR); // no such file or direcotry
+	else if((*table)->status == 127)
+	{
+		if(v->binar == -2)
+			printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], FILEERR); // no such file or direcotry
+		else
+        	printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
+	}
+	else
+		return ;
 }

@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 03:09:29 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/17 16:02:45 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:00:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,14 @@
 
 void reserved(t_table **table);
 
-void create_shell(char **envp, t_table **table)
+void bash_setup(t_table **table, char **envp)
 {
-	if((*table)->minienv)
-		(*table)->env = env_tokenizing((*table)->minienv);
-	else
-    	(*table)->env = env_tokenizing(envp);
-	(*table)->minienv = create_envp(&(*table)->env);
-	add_paths(&(*table)->env, table);
-}
-
-void bash_setup(t_table **table)
-{
+	(void)envp;
 	*table = malloc(sizeof(t_table));
 	if(!table)
 		return ;
-	(*table)->minienv = NULL;
-	(*table)->paths = NULL;
+    (*table)->env = env_tokenizing(envp);
+	(*table)->status = 0;
 	reserved(table);
 	(*table)->builtin[0] = print_echo;
 	(*table)->builtin[1] = print_pwd;

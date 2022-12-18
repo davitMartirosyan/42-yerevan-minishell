@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/17 15:56:12 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:05:23 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ t_env	*env_tokenizing(char **envp);
 char    *join_env(char *key, char eq, char *value);
 char    **create_envp(t_env **env);
 void	create_shell(char **envp, t_table **table);
-void	bash_setup(t_table **table);
-void	add_paths(t_env **env, t_table **table);
+void	bash_setup(t_table **table, char **envp);
 void	destruct_shell(t_table **table, t_cmdline **tree);
 void	free_env(t_table **table);
 
@@ -84,7 +83,7 @@ int     lexical_analyzer(char *cmdline, t_table *table);
 void	token_replacment(char *cmdline, char schr, char rchr);
 void	openquotes(char *cmdline);
 void	inside_quote(char *cmdline, int *pos, int find);
-char	*find_replace(char *cmdline, t_env *env);
+char	*find_replace(char *cmdline, t_table *table);
 char	*keyof(char *cmdline, int pos);
 char	*valueof(char *key, t_env *env);
 char	*replace(char *cmdline, char *key, char *val, int *pos);
@@ -133,11 +132,13 @@ int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 /**********************************************/
 /*****************Execution********************/
 /**********************************************/
+char	**add_paths(t_env **env);
+int		cmd_check(t_cmds *cmd, t_table **table);
+int     find_in(char *builtin, char **reserved);
 void	execution(t_cmdline **commands, t_table **table);
 void	execute(t_cmdline **cmd, t_table **table);
 void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
-int     cmd_check(t_cmds *cmd, char **paths);
-int     find_in(char *builtin, char **reserved);
+void	print_err(t_table **table, t_cmdline **cmd, t_vars *v);
 
 /**********************************************/
 /****************Free Resources****************/

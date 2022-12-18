@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/12/08 22:35:02 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:06:43 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	if(term)
 	{
 		if(!flag)
-			term = find_replace(term, table->env);
+			term = find_replace(term, table);
 		return (term);
 	}
 	else

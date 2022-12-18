@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/13 11:01:58 by user             ###   ########.fr       */
+/*   Updated: 2022/12/18 15:11:15 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int contains(char *tok, char *cmdline, int *pos)
 	return (0);
 }
 
+char *exit_status_code(char *cmd, t_table *table);
 
 void token_replacment(char *cmdline, char schr, char rchr)
 {
@@ -80,7 +81,7 @@ void token_replacment(char *cmdline, char schr, char rchr)
 	}
 }
 
-char *find_replace(char *cmdline, t_env *env)
+char *find_replace(char *cmdline, t_table *table)
 {
 	char *key;
 	char *val;
@@ -98,18 +99,28 @@ char *find_replace(char *cmdline, t_env *env)
 			if(hdflag == 0)
 			{
 				key = keyof(cmdline, i + 1);
-				val = valueof(key, env);
+				val = valueof(key, table->env);
 				cmdline = replace(cmdline, key, val, &i);
-				free(key);	
+				free(key);
 			}
 		}
 		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
 		{
-			printf("exit status\n");
+			cmdline = exit_status_code(cmdline, table);
 		}
 		i++;
 	}
 	return (cmdline);
+}
+
+char *exit_status_code(char *cmd, t_table *table)
+{
+	char *status;
+
+	(void)cmd;
+	status = ft_itoa(table->status);
+	printf("%s", status);
+	return (cmd);
 }
 
 char *keyof(char *cmdline, int pos)

@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/17 16:01:05 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:32:33 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,17 @@ int main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	tree = NULL;
 	table = NULL;
-	bash_setup(&table);
+	bash_setup(&table, envp);
     while (1)
     {
 		ft_signal();
         cmdline = ft_readline();
-    	create_shell(envp, &table);
         if(lexical_analyzer(cmdline, table))
         {
             tree = parse_tree(table);
             execution(&tree, &table);
         }
-		destruct_shell(&table, &tree);
+		//destruct_shell(&table, &tree);
     }
     return (0);
 }

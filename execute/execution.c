@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/17 14:34:19 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:54:50 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	execution(t_cmdline **commands, t_table **table)
     }
 }
 
-void execute(t_cmdline **cmd, t_table **table)
+void	execute(t_cmdline **cmd, t_table **table)
 {
     t_vars  v;
     
@@ -39,7 +39,8 @@ void execute(t_cmdline **cmd, t_table **table)
     v.dupcopy = dup(0);
     v.dupcopy2 = dup(1);
     v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
-    v.binar = cmd_check((*cmd)->cmds, (*table)->paths);
+    v.binar = cmd_check((*cmd)->cmds, table);
+	(*table)->status = 0;
 	dup2((*cmd)->cmds->i_stream, 0);
     dup2((*cmd)->cmds->o_stream, 1);
     if(v.built != -1)
@@ -49,33 +50,29 @@ void execute(t_cmdline **cmd, t_table **table)
         (*cmd)->cmds->pid = fork(); 
         if((*cmd)->cmds->pid == 0)
         {
+			(*table)->minienv = create_envp(&(*table)->env);
             execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv);
             exit(1);
         }
         else
-            waitpid(-1, 0, 0);
+			wait(&(*table)->status);
     }
     else if((*cmd)->cmds->i_stream == -1 || (*cmd)->cmds->o_stream == -1)
-        printf("%s%s%s", SHELLERR, (*cmd)->cmds->err, FILEERR);
+		(*table)->status = 1;
     else if(v.binar == -2)
-        printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], FILEERR);
+		(*table)->status = 127;
     else
-        printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR);
+		(*table)->status = 127;
+	free((*cmd)->cmds->path);
     dup2(v.dupcopy, 0);
     dup2(v.dupcopy2, 1);
+	print_err(table, cmd, &v);
     return ;
 }
 
-void combined_execution(int pip, t_cmdline **cmd, t_table **table)
+void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
 {
 	(void)(pip);
 	(void)(cmd);
 	(void)(table);
-	//int (*fds)[2];
-
-	//fds = malloc(sizeof(*fds) * pip);
-	//if(!fds)
-	//	return ;
-	//	if(i_stream > 0 || o_stream > 1) 
-	
 }
