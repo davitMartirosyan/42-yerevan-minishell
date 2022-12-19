@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/dmartiro/Desktop/minishell/readline-master
+BUILD_DIR = /Users/tumolabs/Desktop/minishell/readline-master
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/dmartiro/Desktop/minishell/readline-dmartiro
+prefix = /Users/tumolabs/Desktop/minishell/readline-dmartiro
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

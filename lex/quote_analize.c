@@ -95,3 +95,20 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 		return (0);
 	}
 }
+
+char	*exit_status_code(char *cmd, t_table *table, int *pos)
+{
+	char *status;
+	char *left;
+	char *newpoint;
+
+	(void)table;
+	(void)pos;
+	status = ft_itoa(table->status);
+	left = ft_substr(cmd, 0, *pos);
+	newpoint = ft_strjoin(left, status);
+	newpoint = ft_strjoin(newpoint, cmd+(*pos+2));
+	free(left);
+	free(cmd);
+	return (newpoint);
+}

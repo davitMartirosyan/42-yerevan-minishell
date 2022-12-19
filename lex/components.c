@@ -66,8 +66,6 @@ int contains(char *tok, char *cmdline, int *pos)
 	return (0);
 }
 
-char	*exit_status_code(char *cmd, t_table *table, int *pos);
-
 void	token_replacment(char *cmdline, char schr, char rchr)
 {
 	int i;
@@ -105,24 +103,10 @@ char	*find_replace(char *cmdline, t_table *table)
 			}
 		}
 		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
-		{
 			cmdline = exit_status_code(cmdline, table, &i);
-		}
 		i++;
 	}
 	return (cmdline);
-}
-
-char	*exit_status_code(char *cmd, t_table *table, int *pos)
-{
-	char *status;
-
-	(void)cmd;
-	(void)table;
-	(void)pos;
-	status = ft_itoa(table->status);
-	printf("%c : %c\n", cmd[*pos], cmd[*pos+1]);
-	return (cmd);
 }
 
 char	*keyof(char *cmdline, int pos)
@@ -143,7 +127,7 @@ char	*keyof(char *cmdline, int pos)
 	return (var);
 }
 
-char *valueof(char *key, t_env *env)
+char	*valueof(char *key, t_env *env)
 {
 	t_env *t;
 
@@ -158,7 +142,7 @@ char *valueof(char *key, t_env *env)
 	return (NULL);
 }
 
-char *replace(char *cmd, char *key, char *val, int *pos)
+char	*replace(char *cmd, char *key, char *val, int *pos)
 {
 	char *newpoint;
 	int i;

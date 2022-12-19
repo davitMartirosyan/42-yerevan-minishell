@@ -30,5 +30,5 @@ void add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token)
 		type = PIPE;
 	add(token, new_token(_p, pipe, type));
 	free(pipe);
-	*pos += _p;
+	*pos += _p-1;
 }

@@ -78,7 +78,67 @@ void	execute(t_cmdline **cmd, t_table **table)
 
 void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
 {
-	(void)(pip);
-	(void)(cmd);
-	(void)(table);
+    t_vars v;
+    int i;
+    int (*pips)[2];
+
+    pips = malloc(sizeof(*pips) * pip);
+    if(!pips)
+        return ;
+    i = -1;
+    while(++i < pip)
+        pipe(pips[i]);
+    i = 0;
+    while((*cmd)->cmds != NULL)
+    {
+        v.built = find_in((*cmd)->cmds->arg_pack[0], (*table)->reserved);
+        v.binar = cmd_check((*cmd)->cmds, table);
+        (*cmd)->pid = fork();
+        if((*cmd)->pid == 0)
+        {
+            if(i == 0)
+            {
+                dup2(pips[i][1], (*cmd)->cmds->o_stream);
+                    int a = -1; 
+                while(++a < pip)
+                {
+                    close(pips[a][1]);
+                    close(pips[a][0]);
+                }
+                printf("okay\n");
+            }
+            else
+            {
+                dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
+                int a = -1; 
+                while(++a < pip)
+                {
+                    close(pips[a][1]);
+                    close(pips[a][0]);
+                }
+            }
+            if(v.built != -1)
+                (*table)->builtin[v.built](*cmd, *table);
+            else if(v.binar != -1)
+            {
+                (*table)->minienv = create_envp(&(*table)->env);
+                execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv);
+            }
+            exit(1);
+        }
+        i++;
+        v.let++;
+        (*cmd)->cmds = (*cmd)->cmds->next;
+    }
+    if((*cmd)->pid != 0)
+    {
+        int a = -1;
+        while(++a < pip)
+        {
+            close(pips[a][1]);
+            close(pips[a][0]);
+        }
+        while(v.let--)
+            wait(&(*table)->status);
+    }
 }

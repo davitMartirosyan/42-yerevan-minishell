@@ -87,6 +87,7 @@ char	*find_replace(char *cmdline, t_table *table);
 char	*keyof(char *cmdline, int pos);
 char	*valueof(char *key, t_env *env);
 char	*replace(char *cmdline, char *key, char *val, int *pos);
+char	*exit_status_code(char *cmd, t_table *table, int *pos);
 
 /**********************************************/
 /****************Tokenizing********************/

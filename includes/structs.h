@@ -65,6 +65,7 @@ typedef enum s_types
 typedef struct s_cmdline
 {
     t_cmds  *cmds;
+    pid_t   pid;
     char    **env;
 }   t_cmdline;
 
