@@ -142,3 +142,5 @@ void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
             wait(&(*table)->status);
     }
 }
+
+// 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
