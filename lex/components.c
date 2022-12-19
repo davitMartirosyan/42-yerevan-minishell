@@ -92,7 +92,7 @@ char	*find_replace(char *cmdline, t_table *table)
 	{
 		if(cmdline[i] && cmdline[i] == '<' && cmdline[i+1] == '<')
 			hdflag = 1;
-		if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] != '?')
+		if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] != '?' && cmdline[i+1] != '\0')
 		{
 			if(hdflag == 0)
 			{

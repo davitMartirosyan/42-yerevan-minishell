@@ -39,6 +39,7 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 {
 	t_env	*temp;
 	int		check;
+	char	cwd[10000];
 
 	temp = tab->env;
 	check = 1;
@@ -51,7 +52,14 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 				printf("%scd: %s: No such file or directory\n",
 					SHELLERR, temp->val);
 			else if (res == 0)
+			{
+				if (!getcwd(cwd, 10000))
+				{
+					printf("yesim inch\n");
+					return ;
+				}
 				change_path(tab, old_path);
+			}
 			check = 0;
 		}
 		temp = temp->next;
@@ -74,13 +82,27 @@ void	print_cd(t_cmdline *cmd, t_table *tab)
 	old_path = getcwd(cwd, 10000);
 	if (matrix[0] && ft_strcmp(matrix[0], "cd") == 0
 		&& (!matrix[1] || ft_strcmp(matrix[1], "~") == 0))
+	{
+		if (!getcwd(cwd, 10000))
+		{
+			printf("yesim inch\n");
+			return ;
+		}
 		change_path_to_home(tab, res, old_path);
+	}
 	else if (matrix[0] && ft_strcmp(matrix[0], "cd") == 0 && matrix[1])
 	{
 		res = chdir(matrix[1]);
 		if (res == -1)
 			printf("%scd: %s: No such file or directory\n", SHELLERR, matrix[1]);
 		else if (res == 0)
+		{
+			if (!getcwd(cwd, 10000))
+			{
+				printf("yesim inch\n");
+				return ;
+			}
 			change_path(tab, old_path);
+		}
 	}
 }

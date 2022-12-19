@@ -99,13 +99,23 @@ void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
             if(i == 0)
             {
                 dup2(pips[i][1], (*cmd)->cmds->o_stream);
-                    int a = -1; 
+                int a = -1; 
                 while(++a < pip)
                 {
                     close(pips[a][1]);
                     close(pips[a][0]);
                 }
-                printf("okay\n");
+            }
+            else if(i > 0 && i < pip)
+            {
+                dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
+                dup2(pips[i][1], (*cmd)->cmds->o_stream);
+                int a = -1; 
+                while(++a < pip)
+                {
+                    close(pips[a][1]);
+                    close(pips[a][0]);
+                }
             }
             else
             {
@@ -117,6 +127,7 @@ void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
                     close(pips[a][0]);
                 }
             }
+
             if(v.built != -1)
                 (*table)->builtin[v.built](*cmd, *table);
             else if(v.binar != -1)
