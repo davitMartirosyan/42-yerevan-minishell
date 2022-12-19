@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/18 14:54:50 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:37:09 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	execute(t_cmdline **cmd, t_table **table)
         }
         else
 			wait(&(*table)->status);
+			if(WIFEXITED((*table)->status))
+				(*table)->status = WEXITSTATUS((*table)->status);
+			else if(WIFSIGNALED((*table)->status))
+				(*table)->status = WTERMSIG((*table)->status);
+			else if(WIFSTOPPED((*table)->status))
+				(*table)->status = WIFSTOPPED((*table)->status);
     }
     else if((*cmd)->cmds->i_stream == -1 || (*cmd)->cmds->o_stream == -1)
 		(*table)->status = 1;

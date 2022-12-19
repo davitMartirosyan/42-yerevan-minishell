@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/18 15:11:15 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:45:37 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int contains(char *tok, char *cmdline, int *pos)
 	return (0);
 }
 
-char *exit_status_code(char *cmd, t_table *table);
+char	*exit_status_code(char *cmd, t_table *table, int *pos);
 
-void token_replacment(char *cmdline, char schr, char rchr)
+void	token_replacment(char *cmdline, char schr, char rchr)
 {
 	int i;
 
@@ -81,7 +81,7 @@ void token_replacment(char *cmdline, char schr, char rchr)
 	}
 }
 
-char *find_replace(char *cmdline, t_table *table)
+char	*find_replace(char *cmdline, t_table *table)
 {
 	char *key;
 	char *val;
@@ -106,24 +106,26 @@ char *find_replace(char *cmdline, t_table *table)
 		}
 		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
 		{
-			cmdline = exit_status_code(cmdline, table);
+			cmdline = exit_status_code(cmdline, table, &i);
 		}
 		i++;
 	}
 	return (cmdline);
 }
 
-char *exit_status_code(char *cmd, t_table *table)
+char	*exit_status_code(char *cmd, t_table *table, int *pos)
 {
 	char *status;
 
 	(void)cmd;
+	(void)table;
+	(void)pos;
 	status = ft_itoa(table->status);
-	printf("%s", status);
+	printf("%c : %c\n", cmd[*pos], cmd[*pos+1]);
 	return (cmd);
 }
 
-char *keyof(char *cmdline, int pos)
+char	*keyof(char *cmdline, int pos)
 {
 	char *var;
 	int varlen;
