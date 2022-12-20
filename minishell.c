@@ -45,7 +45,6 @@ int main(int argc, char *argv[], char *envp[])
         cmdline = ft_readline();
         if(lexical_analyzer(cmdline, table))
         {
-			// print_tokens(&(table)->token);
             tree = parse_tree(table);
             execution(&tree, &table);
         }

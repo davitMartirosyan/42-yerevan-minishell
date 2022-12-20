@@ -139,7 +139,7 @@ int     find_in(char *builtin, char **reserved);
 void	execution(t_cmdline **commands, t_table **table);
 void	execute(t_cmdline **cmd, t_table **table);
 void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
-void	print_err(t_table **table, t_cmdline **cmd, t_vars *v);
+// void	print_err(t_table **table, t_cmdline **cmd, t_vars *v);
 
 /**********************************************/
 /****************Free Resources****************/

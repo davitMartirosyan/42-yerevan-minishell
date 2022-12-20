@@ -12,6 +12,8 @@
 
 #include "minishell_header.h"
 
+static void close_all_pipes(int pips[][2], int pip);
+
 void	execution(t_cmdline **commands, t_table **table)
 {
 	int pip;
@@ -51,8 +53,8 @@ void	execute(t_cmdline **cmd, t_table **table)
         if((*cmd)->cmds->pid == 0)
         {
 			(*table)->minienv = create_envp(&(*table)->env);
-            execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv);
-            exit(1);
+            if(execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv) < 0)
+                exit(1);
         }
         else
 			wait(&(*table)->status);
@@ -64,15 +66,23 @@ void	execute(t_cmdline **cmd, t_table **table)
 				(*table)->status = WIFSTOPPED((*table)->status);
     }
     else if((*cmd)->cmds->i_stream == -1 || (*cmd)->cmds->o_stream == -1)
+    {
 		(*table)->status = 1;
+        printf("%s%s%s", SHELLERR, (*cmd)->cmds->err, FILEERR); // no such file or direcotry
+    }
     else if(v.binar == -2)
+    {
 		(*table)->status = 127;
+        printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], FILEERR); // no such file or direcotry
+    }
     else
+    {
 		(*table)->status = 127;
+        printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
+    }
 	free((*cmd)->cmds->path);
     dup2(v.dupcopy, 0);
     dup2(v.dupcopy2, 1);
-	print_err(table, cmd, &v);
     return ;
 }
 
@@ -99,33 +109,18 @@ void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
             if(i == 0)
             {
                 dup2(pips[i][1], (*cmd)->cmds->o_stream);
-                int a = -1; 
-                while(++a < pip)
-                {
-                    close(pips[a][1]);
-                    close(pips[a][0]);
-                }
+                close_all_pipes(pips, pip);
             }
             else if(i > 0 && i < pip)
             {
                 dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
                 dup2(pips[i][1], (*cmd)->cmds->o_stream);
-                int a = -1; 
-                while(++a < pip)
-                {
-                    close(pips[a][1]);
-                    close(pips[a][0]);
-                }
+                close_all_pipes(pips, pip);
             }
             else
             {
                 dup2(pips[i-1][0], (*cmd)->cmds->i_stream);
-                int a = -1; 
-                while(++a < pip)
-                {
-                    close(pips[a][1]);
-                    close(pips[a][0]);
-                }
+                close_all_pipes(pips, pip);
             }
 
             if(v.built != -1)
@@ -134,6 +129,22 @@ void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
             {
                 (*table)->minienv = create_envp(&(*table)->env);
                 execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv);
+                printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
+            }
+            else if((*cmd)->cmds->i_stream == -1 || (*cmd)->cmds->o_stream == -1)
+            {
+                (*table)->status = 1;
+                printf("%s%s%s", SHELLERR, (*cmd)->cmds->err, FILEERR); // no such file or direcotry
+            }
+            else if(v.binar == -2)
+            {
+                (*table)->status = 127;
+                printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], FILEERR); // no such file or direcotry
+            }
+            else
+            {
+                (*table)->status = 127;
+                printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
             }
             exit(1);
         }
@@ -151,6 +162,18 @@ void	combined_execution(int pip, t_cmdline **cmd, t_table **table)
         }
         while(v.let--)
             wait(&(*table)->status);
+    }
+}
+
+static void close_all_pipes(int pips[][2], int pip)
+{
+    int a;
+
+    a = -1; 
+    while(++a < pip)
+    {
+        close(pips[a][1]);
+        close(pips[a][0]);
     }
 }
 

@@ -14,12 +14,14 @@
 
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 {
+	static int hd = 0;
 	t_vars *v;
 	char *delim;
 	char *term;
 	char *tmpfile;
     int	fd;
 	
+	(void)hd;
     v = malloc(sizeof(t_vars));
     if(!v)
         return ;
@@ -33,20 +35,17 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	if(term)
 		write(cmds->i_stream, term, ft_strlen(term));
 	close(cmds->i_stream);
-	fd = open(tmpfile, O_RDONLY);
+	fd = open(tmpfile, O_RDONLY, 0644);
 	cmds->i_stream = fd;
 }
 
 char	*new_file(char *delim)
 {
-	static int tail = 1234;
 	char *tmpfile;
-	
-	tmpfile = "/var/tmp/";
-	tmpfile = ft_strjoin(tmpfile, "ayb");
+
+	tmpfile = ft_strjoin("/var/tmp/", "ayb");
 	tmpfile = ft_strjoin(tmpfile, delim);
-	tmpfile = ft_strjoin(tmpfile, ft_itoa(tail));
-	tail++;
+	printf("%s\n", tmpfile);
 	return (tmpfile);
 }
 
@@ -63,7 +62,7 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 				(*v)->var = 1;
 			delim = ft_strjoin(delim, (*token)->tok);
 		}
-		if((*token)->type == SEP)
+		if((*token)->type == SEP || (*token)->type == HEREDOC)
 			(*v)->let++;
 		if((*v)->let == 1 || (*token)->next == NULL)
 			break;

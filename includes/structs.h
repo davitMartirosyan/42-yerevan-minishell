@@ -105,6 +105,7 @@ typedef struct s_table{
     char        *err_handling;
     int         status;
     int         q_c[2];
+    int         hdocs;
     t_built     builtin[7];
     t_env       *env;
     t_tok       *token;

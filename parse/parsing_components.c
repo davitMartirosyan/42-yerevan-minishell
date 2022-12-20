@@ -62,7 +62,6 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
 	if(typeis_heredoc((*token)->type))
 	{
 		heredoc(token, *(*cmds), table);
-		*token = (*token)->next;
 		return 0;
 	}
 	if((*token)->type == PIPE)

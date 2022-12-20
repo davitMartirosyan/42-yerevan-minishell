@@ -25,8 +25,12 @@ int	cmd_check(t_cmds *cmd, t_table **table)
 	path = NULL;
     if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
 	{
-		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		return (0);
+		if(ft_strcmp(cmd->arg_pack[0], "minishell") == 0 || \
+			ft_strcmp(cmd->arg_pack[0], "./minishell") == 0)
+		{
+			cmd->path = ft_strdup(cmd->arg_pack[0]);
+			return (0);
+		}
 	}
     if(paths == NULL)
         return (-2);
@@ -82,19 +86,4 @@ int find_in(char *builtin, char **reserved)
         ft_strlen(builtin)) != 0)
         return (-1);
     return (v.var);
-}
-
-void print_err(t_table **table, t_cmdline **cmd, t_vars *v)
-{
-	if((*table)->status == 1)
-        printf("%s%s%s", SHELLERR, (*cmd)->cmds->err, FILEERR); // no such file or direcotry
-	else if((*table)->status == 127)
-	{
-		if(v->binar == -2)
-			printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], FILEERR); // no such file or direcotry
-		else
-        	printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
-	}
-	else
-		return ;
 }
