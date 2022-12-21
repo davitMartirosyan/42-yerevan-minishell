@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/12/18 15:06:43 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:37:44 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 			delim = ft_strjoin(delim, (*token)->tok);
 		}
 		if((*token)->type == SEP || (*token)->type == HEREDOC)
-			(*v)->let++;
-		if((*v)->let == 1 || (*token)->next == NULL)
 			break;
+		if((*token)->next == NULL)
+		{
+			*token = (*token)->next;
+			break;
+		}
 		*token = (*token)->next;
 	}
+	// printf("%s\n", delim);
     if(delim)
         return (delim);
     else

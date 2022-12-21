@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/17 14:32:24 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/21 00:23:20 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	print_cd(t_cmdline *cmd, t_table *tab)
 	char	*old_path;
 	int		res;
 
+	(void)temp;
 	res = 0;
 	matrix = cmd->cmds->arg_pack;
 	temp = tab->env;

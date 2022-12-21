@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/18 14:35:09 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/21 00:35:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ t_env   *env_tokenizing(char **envp)
     
     i = -1;
     t = malloc(sizeof(t_env));
+    if(!t)
+        return (NULL);    
     temp = t;
     while(envp[++i])
     {
         _tok = ft_split(envp[i], '=');
         t->key = ft_strdup(_tok[0]);
         free(_tok[0]);
-        t->val = ft_strdup(_tok[1]);
+        if(_tok[1])
+            t->val = ft_strdup(_tok[1]);
         free(_tok[1]);
         free(_tok);
         if (!envp[i + 1])
