@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:00:41 by root              #+#    #+#             */
-/*   Updated: 2022/12/21 23:37:44 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:43:43 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*new_file(char *delim)
 
 	tmpfile = ft_strjoin("/var/tmp/", "ayb");
 	tmpfile = ft_strjoin(tmpfile, delim);
-	printf("%s\n", tmpfile);
 	return (tmpfile);
 }
 
@@ -71,7 +70,6 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 		}
 		*token = (*token)->next;
 	}
-	// printf("%s\n", delim);
     if(delim)
         return (delim);
     else

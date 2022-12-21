@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/21 23:20:04 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:43:11 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[], char *envp[])
         cmdline = ft_readline();
         if(lexical_analyzer(cmdline, table))
         {
-			print_tokens(&table->token);
+			// print_tokens(&table->token);
             tree = parse_tree(table);
             execution(&tree, &table);
         }
