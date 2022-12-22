@@ -33,9 +33,7 @@ int	cmd_check(t_cmds *cmd, t_table **table)
 		}
 	}
     if(paths == NULL)
-    {
         return (-2);
-     }
 	while (paths[i])
 	{
 		path = join_arguments(paths[i], '/', cmd->arg_pack[0]);

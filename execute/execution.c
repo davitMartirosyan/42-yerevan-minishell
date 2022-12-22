@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/21 23:14:15 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:37:09 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void	execute(t_cmdline **cmd, t_table **table)
 	dup2((*cmd)->cmds->i_stream, 0);
     dup2((*cmd)->cmds->o_stream, 1);
     if(v.built != -1)
-        (*table)->builtin[v.built](*cmd, *table);   
+        (*table)->builtin[v.built](*cmd, *table);
     else if(!v.binar && (*cmd)->cmds->i_stream != -1 && (*cmd)->cmds->o_stream != -1)
     {
         (*cmd)->cmds->pid = fork(); 
         if((*cmd)->cmds->pid == 0)
         {
 			(*table)->minienv = create_envp(&(*table)->env);
-           execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv);
+            if(execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv) < 0)
+                exit(1);
         }
         else
-	    {
 			wait(&(*table)->status);
 			if(WIFEXITED((*table)->status))
 				(*table)->status = WEXITSTATUS((*table)->status);
@@ -64,8 +64,7 @@ void	execute(t_cmdline **cmd, t_table **table)
 				(*table)->status = WTERMSIG((*table)->status);
 			else if(WIFSTOPPED((*table)->status))
 				(*table)->status = WIFSTOPPED((*table)->status);
-	    }
-    }	
+    }
     else if((*cmd)->cmds->i_stream == -1 || (*cmd)->cmds->o_stream == -1)
     {
 		(*table)->status = 1;
@@ -81,6 +80,7 @@ void	execute(t_cmdline **cmd, t_table **table)
 		(*table)->status = 127;
         printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
     }
+	free((*cmd)->cmds->path);
     dup2(v.dupcopy, 0);
     dup2(v.dupcopy2, 1);
     return ;

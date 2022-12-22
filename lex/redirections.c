@@ -44,6 +44,7 @@ void	redirection(char *cmdline, int *pos, int io, t_tok **token)
 	
 	i = *pos;
 	_io = 0;
+	reddir = NULL;
 	while(cmdline[++i] && cmdline[i] == io)
 		_io++;
 	reddir = word(cmdline, _io+1, *pos);

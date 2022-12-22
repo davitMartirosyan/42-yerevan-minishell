@@ -12,15 +12,21 @@
 
 #include "minishell_header.h"
 
-int lexical_analyzer(char *cmdline, t_table *table)
+int lexical_analyzer(char *newpoint, t_table *table)
 {
+	char *cmdline;
+
+	cmdline = NULL;
+	cmdline = ft_strdup(newpoint);
 	openquotes(cmdline);
 	if(syntax_handling(cmdline, table, NULL))
 	{
 		cmdline = find_replace(cmdline, table);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);
+		free(cmdline);
 		return (1);
 	}
+	free(cmdline);
 	return (0);
 }

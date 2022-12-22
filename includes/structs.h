@@ -81,7 +81,6 @@ typedef struct s_cmds
     int     e_stream;
     pid_t   pid;
     struct  s_cmds *next;
-    struct  s_cmds *prev;
 }   t_cmds;
 
 typedef struct s_env

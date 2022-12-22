@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:53:26 by root              #+#    #+#             */
-/*   Updated: 2022/12/21 00:22:47 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/17 11:03:55 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int syntax_handling(char *cmdline, t_table *table, t_cmdline *commands)
             return (0);
         }
         syn++;
-        return (1);   
+        return (1);
     }
     else
     {
@@ -48,11 +48,12 @@ static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
     t_tok *toks;
     t_cmds *cmd;
 
-    (void)cmd;
-    toks = table->token;
-    cmd = commands->cmds;
-	if(toks != NULL)
+    toks = NULL;
+    cmd = NULL;
+	if(toks != NULL && commands != NULL)
     {
+        toks = table->token;
+        cmd = commands->cmds;
         //while(toks != NULL)
         //{
         //    if(toks->type == UNDEFINED)
@@ -73,3 +74,5 @@ static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
     }
     return (0);
 }
+
+//valgrind -leak-check=full

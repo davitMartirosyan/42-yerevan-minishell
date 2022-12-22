@@ -146,7 +146,6 @@ void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
 /**********************************************/
 void    print_tokens(t_tok **token);
 void    reset_update_table(t_table **table, t_cmdline *tree);
-void    free_tokens(t_tok **token);
 void	free_cmdline(t_cmdline *tree);
 void	free_arg_pack(char **arg_pack);
 #endif

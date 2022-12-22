@@ -3,72 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   envpoints.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/22 18:51:03 by user             ###   ########.fr       */
+/*   Updated: 2022/12/18 14:35:09 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-// t_env   *env_tokenizing(char **envp)
-// {
-//     int i;
-//     char **_tok;
-//     t_env *t;
-//     t_env *temp;
-    
-//     i = -1;
-//     t = NULL;
-//     if(!t)
-//         return (NULL);    
-//     temp = t;
-//     while(envp[++i])
-//     {
-//         t = malloc(sizeof(t_env));
-        
-//         _tok = ft_split(envp[i], '=');
-//         t->key = ft_strdup(_tok[0]);
-//         free(_tok[0]);
-//         if(_tok[1])
-//             t->val = ft_strdup(_tok[1]);
-//         free(_tok[1]);
-//         free(_tok);
-        
-//         if (!envp[i + 1])
-// 			break;
-//         t = t->next;
-//     }
-//     t = NULL;
-//     return (temp);
-// }
-
-
-t_env *env_tokenizing(char **envp)
+t_env   *env_tokenizing(char **envp)
 {
     int i;
     char **_tok;
     t_env *t;
+    t_env *temp;
     
     i = -1;
-    t = NULL;
+    t = malloc(sizeof(t_env));
+    temp = t;
     while(envp[++i])
     {
-        // *t = malloc(sizeof(t_env));
         _tok = ft_split(envp[i], '=');
         t->key = ft_strdup(_tok[0]);
         free(_tok[0]);
-        if(_tok[1])
-            t->val = ft_strdup(_tok[1]);
+        t->val = ft_strdup(_tok[1]);
         free(_tok[1]);
         free(_tok);
+        if (!envp[i + 1])
+			break;
+        t->next = malloc(sizeof(t_env));
+        if(!t->next)
+            return (NULL);
         t = t->next;
-        if(!envp[i + 1])
-            break;
-        printf("%s : %s\n", _tok[0], _tok[1]);
     }
-    return (t);
+    t->next = NULL;
+   return (temp);
 }
 
 char	**add_paths(t_env **env)

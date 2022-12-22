@@ -87,6 +87,8 @@ char	*find_replace(char *cmdline, t_table *table)
 	int hdflag;
 
 	i = 0;
+	key = NULL;
+	val = NULL;
 	hdflag = 0;
 	while(cmdline[i])
 	{
@@ -99,7 +101,6 @@ char	*find_replace(char *cmdline, t_table *table)
 				key = keyof(cmdline, i + 1);
 				val = valueof(key, table->env);
 				cmdline = replace(cmdline, key, val, &i);
-				free(key);
 			}
 		}
 		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
@@ -136,7 +137,7 @@ char	*valueof(char *key, t_env *env)
 	{
 		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0 && \
 			ft_strlen(t->key) == ft_strlen(key))
-			return (t->val);
+			return (ft_strdup(t->val));
 		t = t->next;
 	}
 	return (NULL);
@@ -147,6 +148,7 @@ char	*replace(char *cmd, char *key, char *val, int *pos)
 	char *newpoint;
 	int i;
 
+	newpoint = NULL;
 	i = -1;
 	while(++i < *pos);
 	newpoint = malloc(sizeof(char) * (i + 1));
@@ -156,6 +158,8 @@ char	*replace(char *cmd, char *key, char *val, int *pos)
 	newpoint[i] = '\0';
 	newpoint = ft_strjoin(newpoint, val);
 	newpoint = ft_strjoin(newpoint, cmd+i + 1 + ft_strlen(key));
+	free(val);
+	free(key);
 	free(cmd);
 	return (newpoint);
 }

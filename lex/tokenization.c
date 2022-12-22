@@ -21,8 +21,7 @@ t_tok	*tokenization(char *cmdline)
 	i = 0;
 	while (cmdline && cmdline[i])
 	{
-		if (cmdline[i] && ft_iswordpart(cmdline[i]) && \
-			(int)ft_strlen(cmdline) > i)
+		if (cmdline[i] && ft_iswordpart(cmdline[i]) && (int)ft_strlen(cmdline) > i)
 			add_word(cmdline, &i, &tokens);
 		if(cmdline[i] && ft_isspace(cmdline[i]))
 			space(cmdline, &i, &tokens);
@@ -41,19 +40,23 @@ t_tok *new_token(int len, char *token, int type)
 {
     t_tok *tok;
 
+	tok = NULL;
     tok = malloc(sizeof(t_tok));
     if(!tok)
         return (NULL);
+	tok->len = 0;
+	tok->tok = NULL;
+	tok->type = 0;
     tok->len  = len;
     tok->tok  = ft_strdup(token);
     tok->type = type;
     tok->next = NULL;
-    return (tok);
+	return (tok);
 }
 
 void	add(t_tok **lst, t_tok *new)
 {
 	while(*lst)
 		lst = &(*lst)->next;
-	*lst = new;	
+	*lst = new;
 }

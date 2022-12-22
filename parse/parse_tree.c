@@ -16,6 +16,10 @@ t_cmds *parse(t_tok *token, t_table *table)
 {
 	t_cmds *commands;
 
+	(void)commands;
+	(void)table;
+	(void)token;
+	commands = NULL;
 	commands = malloc(sizeof(t_cmds));
 	if(!commands)
 		return (NULL);
@@ -30,11 +34,11 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
 	while(token != NULL)
 	{
-		if(typeis_arg(token->type))
-		{
-			(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, word_expansions(&token));
-			continue;
-		}
+		// if(typeis_arg(token->type))
+		// {
+		// 	(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, word_expansions(&token));
+		// 	continue;
+		// }
 		if(typeis_redirection(token->type))
 		{
 			select_filename(&token, *cmds);
@@ -75,9 +79,11 @@ t_cmdline *parse_tree(t_table *table)
 		if(!commands)
 			return (NULL);
 		commands->cmds = parse(tokens, table);
-		if(commands->cmds)
+		if(commands != NULL && commands->cmds != NULL)
 			if(syntax_handling(NULL, table, commands))
 				return (commands);
+		free(commands);
+		return (NULL);
 	}
 	return (NULL);
 }

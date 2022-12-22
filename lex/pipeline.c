@@ -21,6 +21,7 @@ void add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token)
 	
 	i = *pos;
 	_p = 1;
+	pipe = NULL;
 	while(cmdline[++i] && cmdline[i] == _p_ch)
 		++_p;
 	pipe = word(cmdline, _p, *pos);
