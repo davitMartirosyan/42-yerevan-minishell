@@ -18,9 +18,6 @@ char *ft_readline(char *line)
 
 	cmd = NULL;
     cmd = readline(line);
-	if(ft_strcmp(line, "> ") == 0)
-		if(!cmd)
-			return (NULL);
 	if(!cmd)
 	{
 		ft_putstr_fd("exit\n", 1);
@@ -50,15 +47,13 @@ int main(int argc, char *argv[], char *envp[])
         {
             tree = parse_tree(table);
 		    execution(&tree, &table);
-			free_tokens(table->token);
+			update_table(table);
 			free_parse_tree(tree);
         }
 		free(cmdline);
     }
     return (0);
 }
-
-
 /*
 signals
 	in child process

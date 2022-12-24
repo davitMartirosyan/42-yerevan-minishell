@@ -106,6 +106,7 @@ typedef struct s_table{
     int         status;
     int         q_c[2];
     int         hdocs;
+    int         get_pid;
     t_built     builtin[7];
     t_env       *env;
     t_tok       *token;

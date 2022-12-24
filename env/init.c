@@ -12,8 +12,6 @@
 
 #include "minishell_header.h"
 
-void reserved(t_table **table);
-
 void bash_setup(t_table **table, char **envp)
 {
 	(void)envp;
@@ -22,6 +20,7 @@ void bash_setup(t_table **table, char **envp)
 		return ;
     (*table)->env = env_tokenizing(envp);
 	(*table)->hdocs = 0;
+	(*table)->get_pid = get_pid();
 	(*table)->status = 0;
 	reserved(table);
 	(*table)->builtin[0] = print_echo;
@@ -44,3 +43,15 @@ void reserved(t_table **table)
 	(*table)->reserved[6] = "env";
 }
 
+int get_pid()
+{
+	pid_t pid;
+	int status;
+	
+	pid =  fork();
+	if(pid == 0)
+		exit(0);
+	else
+		wait(&status);
+	return ((int)pid-1);
+}

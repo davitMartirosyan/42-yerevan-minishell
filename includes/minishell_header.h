@@ -66,10 +66,12 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
+int     get_pid();
 char    *join_env(char *key, char eq, char *value);
 char    **create_envp(t_env **env);
 void	create_shell(char **envp, t_table **table);
 void	bash_setup(t_table **table, char **envp);
+void    reserved(t_table **table);
 void	destruct_shell(t_table **table, t_cmdline **tree);
 void	free_env(t_table **table);
 
@@ -149,4 +151,5 @@ void    print_tokens(t_tok **token);
 void    free_tokens(t_tok *token);
 void    free_parse_tree(t_cmdline *tree);
 void    free_char_pp(char **pp);
+void    update_table(t_table *table);
 #endif

@@ -34,35 +34,33 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	open__file__check__type(v->log, tmpfile, cmds);
 	if(term)
 		write(cmds->i_stream, term, ft_strlen(term));
-	free(term);
-	free(delim);
 	close(cmds->i_stream);
 	v->fd = open(tmpfile, O_RDONLY, 0644);
 	free(tmpfile);
 	cmds->i_stream = v->fd;
 	free(v);
+	free(term);
+	free(delim);
 }
 
 char	*new_file(t_table *table)
 {
 	char *tmpfile;
-	pid_t pid;
-	int status;
-	
-	pid = fork();
-	if(pid == 0)
-		exit(0);
-	else
-	{
-		wait(&status);
+	char *tmp;
 
-		tmpfile = ft_strdup("/var/tmp/");
-		tmpfile = ft_strjoin(tmpfile, ".minishell-");
-		tmpfile = ft_strjoin(tmpfile, ft_itoa((int)pid-1));
-		tmpfile = ft_strjoin(tmpfile, ft_itoa(table->hdocs));
-		table->hdocs++;
-	}
-	return (printf("%s\n", tmpfile), tmpfile);
+	tmp = NULL;
+	tmp = ft_itoa(table->get_pid);
+	tmpfile = ft_strdup("/var/tmp/");
+	tmpfile = ft_strjoin(tmpfile, ".minishell-");
+	tmpfile = ft_strjoin(tmpfile, tmp);
+	free(tmp);
+	tmp = NULL;
+	tmp = ft_itoa(table->hdocs);
+	tmpfile = ft_strjoin(tmpfile, tmp);
+	free(tmp);
+	tmp = NULL;
+	table->hdocs++;
+	return ( tmpfile);
 }
 
 char	*heredoc_delimiter(t_tok **token, t_vars **v)

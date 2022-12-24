@@ -52,7 +52,7 @@ void	execute(t_cmdline **cmd, t_table **table)
         (*cmd)->cmds->pid = fork(); 
         if((*cmd)->cmds->pid == 0)
         {
-			(*table)->minienv = create_envp(&(*table)->env);
+	        (*table)->minienv = create_envp(&(*table)->env);
             if(execve((*cmd)->cmds->path, (*cmd)->cmds->arg_pack, (*table)->minienv) < 0)
                 exit(1);
         }

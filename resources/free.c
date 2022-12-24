@@ -25,7 +25,7 @@ void    free_char_pp(char **pp)
 	*pp = NULL;
 }
 
-void free_tokens(t_tok *token)
+void	free_tokens(t_tok *token)
 {
 	t_tok *fre;
 
@@ -39,7 +39,7 @@ void free_tokens(t_tok *token)
 	}
 }
 
-void free_parse_tree(t_cmdline *tree)
+void	free_parse_tree(t_cmdline *tree)
 {
 	(void)tree;
 
@@ -65,4 +65,13 @@ void free_parse_tree(t_cmdline *tree)
 	free(cmd);
 	free(tree);
 	tree = NULL;
+}
+
+void	update_table(t_table *table)
+{
+	table->err_handling = 0;
+	table->q_c[0] = 0;
+	table->q_c[1] = 0;
+	table->hdocs = 0;
+	free_tokens(table->token);
 }
