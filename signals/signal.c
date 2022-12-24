@@ -14,11 +14,6 @@
 
 void inthandle(int sig)
 {
-	if(g_var == 1)
-	{
-		g_var = 2;
-		return;
-	}
 	if(sig == SIGINT)
 	{
 		write(1, "\n", 1);

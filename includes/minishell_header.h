@@ -52,8 +52,6 @@
 # include "./structs.h"
 # include "./builtins.h"
 
-extern int g_var;
-
 char    *ft_readline(char *line);
 void	inthandle(int sig);
 void	handleterm(int sig);
@@ -116,7 +114,7 @@ void	select_filename(t_tok **token, t_cmds *cmds);
 void	open__file__check__type(int type, char *filename, t_cmds *cmds);
 void	check_type(int fd, int type, t_cmds *cmds);
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table);
-char    *new_file(char *delim);
+char    *new_file(t_table *table);
 char	*heredoc_delimiter(t_tok **token, t_vars **v);
 char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char	*join_arguments(char *s1, int delimiter, char *s2);

@@ -21,6 +21,7 @@ void bash_setup(t_table **table, char **envp)
 	if(!table)
 		return ;
     (*table)->env = env_tokenizing(envp);
+	(*table)->hdocs = 0;
 	(*table)->status = 0;
 	reserved(table);
 	(*table)->builtin[0] = print_echo;

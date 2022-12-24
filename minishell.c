@@ -12,8 +12,6 @@
 
 #include "includes/minishell_header.h"
 
-int g_var = 0;
-
 char *ft_readline(char *line)
 {
     char	*cmd;

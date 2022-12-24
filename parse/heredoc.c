@@ -19,7 +19,6 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	char *term;
 	char *tmpfile;
 	
-	g_var = 1;
 	delim = NULL;
 	term = NULL;
 	tmpfile = NULL;
@@ -31,7 +30,7 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 		*token = (*token)->next;
     delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);
-	tmpfile = new_file(delim);
+	tmpfile = new_file(table);
 	open__file__check__type(v->log, tmpfile, cmds);
 	if(term)
 		write(cmds->i_stream, term, ft_strlen(term));
@@ -44,15 +43,26 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	free(v);
 }
 
-char	*new_file(char *delim)
+char	*new_file(t_table *table)
 {
 	char *tmpfile;
+	pid_t pid;
+	int status;
+	
+	pid = fork();
+	if(pid == 0)
+		exit(0);
+	else
+	{
+		wait(&status);
 
-	tmpfile = NULL;
-	tmpfile = ft_strjoin(tmpfile, "/var/tmp/");
-	tmpfile = ft_strjoin(tmpfile, "ayb");
-	tmpfile = ft_strjoin(tmpfile, delim);
-	return (tmpfile);
+		tmpfile = ft_strdup("/var/tmp/");
+		tmpfile = ft_strjoin(tmpfile, ".minishell-");
+		tmpfile = ft_strjoin(tmpfile, ft_itoa((int)pid-1));
+		tmpfile = ft_strjoin(tmpfile, ft_itoa(table->hdocs));
+		table->hdocs++;
+	}
+	return (printf("%s\n", tmpfile), tmpfile);
 }
 
 char	*heredoc_delimiter(t_tok **token, t_vars **v)
@@ -89,7 +99,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	heredoc = NULL;
 	while(1)
 	{
-		heredoc = ft_readline("> ");
+		heredoc = readline("> ");
 		if(heredoc == NULL)
 			break;
 		if(heredoc && ft_strcmp(heredoc, delim) != 0)
