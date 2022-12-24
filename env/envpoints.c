@@ -27,7 +27,8 @@ t_env   *env_tokenizing(char **envp)
         _tok = ft_split(envp[i], '=');
         t->key = ft_strdup(_tok[0]);
         free(_tok[0]);
-        t->val = ft_strdup(_tok[1]);
+        if(_tok[1])
+            t->val = ft_strdup(_tok[1]);
         free(_tok[1]);
         free(_tok);
         if (!envp[i + 1])
