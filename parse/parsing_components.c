@@ -32,7 +32,7 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 	else if(type == REDIR_IN)
 	{
 		fd = open(filename, O_RDONLY);
-		cmds->err = filename;
+		cmds->err = ft_strdup(filename);
 	}
 	else if(type == APPEND)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -62,6 +62,8 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
 	if(typeis_heredoc((*token)->type))
 	{
 		heredoc(token, *(*cmds), table);
+		if(typeis_arg((*token)->type))
+			*token = (*token)->next;
 		return 0;
 	}
 	if((*token)->type == PIPE)
@@ -77,8 +79,10 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
 
 void    std(t_cmds **cmds)
 {
-	(*cmds)->arg_pack = NULL;
 	(*cmds)->arguments = NULL;
+	(*cmds)->arg_pack = NULL;
+	(*cmds)->path = NULL;
+	(*cmds)->err = NULL;
 	(*cmds)->i_stream = STDIN;
 	(*cmds)->o_stream = STDOUT;
 	(*cmds)->e_stream = STDERR;

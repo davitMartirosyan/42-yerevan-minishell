@@ -46,6 +46,7 @@ void	print_export(t_table *tab)
 
 	j = -1;
 	count = key_count(tab);
+	printf("b\n");
 	export_matrix = create_export_matrix(tab, count);
 	sorting(export_matrix);
 	while (export_matrix[++j] != NULL)
@@ -69,7 +70,7 @@ char	**create_export_matrix(t_table *tab, int count)
 			if (ft_strchr(temp->val, '"'))
 				val = temp->val;
 			else
-				val = ft_strjoin(ft_strjoin("\"", temp->val), "\"");
+				val = ft_strjoin(ft_strjoin(ft_strdup("\""), temp->val), "\"");
 			matrix[i] = ft_strjoin(ft_strjoin(temp->key, "="), val);
 		}
 		else

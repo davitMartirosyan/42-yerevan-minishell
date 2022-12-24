@@ -108,7 +108,7 @@ char	*exit_status_code(char *cmd, t_table *table, int *pos)
 	left = ft_substr(cmd, 0, *pos);
 	newpoint = ft_strjoin(left, status);
 	newpoint = ft_strjoin(newpoint, cmd+(*pos+2));
-	free(left);
 	free(cmd);
+	free(status);
 	return (newpoint);
 }

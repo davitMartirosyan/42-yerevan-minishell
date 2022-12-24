@@ -80,7 +80,6 @@ void	execute(t_cmdline **cmd, t_table **table)
 		(*table)->status = 127;
         printf("%s%s%s", SHELLERR, (*cmd)->cmds->arg_pack[0], COMMANDERR); // command not found
     }
-	free((*cmd)->cmds->path);
     dup2(v.dupcopy, 0);
     dup2(v.dupcopy2, 1);
     return ;

@@ -52,10 +52,12 @@
 # include "./structs.h"
 # include "./builtins.h"
 
-char	*ft_readline(void);
+extern int g_var;
+
+char    *ft_readline(char *line);
 void	inthandle(int sig);
 void	handleterm(int sig);
-void	ft_signal(void);
+void    ft_signal(int handle);
 /**********************************************/
 /*******************Listing********************/
 /**********************************************/
@@ -134,6 +136,7 @@ int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 /*****************Execution********************/
 /**********************************************/
 char	**add_paths(t_env **env);
+char	*join_paths(char *s1, int delimiter, char *s2);
 int		cmd_check(t_cmds *cmd, t_table **table);
 int     find_in(char *builtin, char **reserved);
 void	execution(t_cmdline **commands, t_table **table);
@@ -145,7 +148,7 @@ void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
 /****************Free Resources****************/
 /**********************************************/
 void    print_tokens(t_tok **token);
-void    reset_update_table(t_table **table, t_cmdline *tree);
-void	free_cmdline(t_cmdline *tree);
-void	free_arg_pack(char **arg_pack);
+void    free_tokens(t_tok *token);
+void    free_parse_tree(t_cmdline *tree);
+void    free_char_pp(char **pp);
 #endif

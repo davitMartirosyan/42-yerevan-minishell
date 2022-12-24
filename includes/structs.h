@@ -32,6 +32,7 @@ typedef void (*t_built)(t_cmdline *, t_table *);
 
 typedef struct s_vars
 {
+    int fd;
     int var;
     int let;
     int def;

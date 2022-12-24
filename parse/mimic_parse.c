@@ -71,5 +71,7 @@ char	*join_arguments(char *s1, int delimiter, char *s2)
 	while(s2[++c])
 		arguments[i++] = s2[c];
 	arguments[i] = '\0';
+	free(s1);
+	s1 = 0;
 	return (arguments);
 }

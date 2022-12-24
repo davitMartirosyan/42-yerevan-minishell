@@ -13,7 +13,7 @@ CC = cc -I includes/
 
 RM = rm -rf
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 MKDIR = mkdir -p
 

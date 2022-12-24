@@ -50,10 +50,10 @@ static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
 
     toks = NULL;
     cmd = NULL;
-	if(toks != NULL && commands != NULL)
+	toks = table->token;
+    cmd = commands->cmds;
+    if(toks != NULL && commands != NULL)
     {
-        toks = table->token;
-        cmd = commands->cmds;
         //while(toks != NULL)
         //{
         //    if(toks->type == UNDEFINED)

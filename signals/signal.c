@@ -14,6 +14,11 @@
 
 void inthandle(int sig)
 {
+	if(g_var == 1)
+	{
+		g_var = 2;
+		return;
+	}
 	if(sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -34,9 +39,9 @@ void handleterm(int sig)
 	}
 }
 
-void ft_signal(void)
+void ft_signal(int handle)
 {
-	handleterm(0);
+	handleterm(handle);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, inthandle);
 }

@@ -12,15 +12,17 @@
 
 #include "includes/minishell_header.h"
 
-static void free_tokens(t_tok *token);
-static void free_parse_tree(t_cmdline *tree);
+int g_var = 0;
 
-char *ft_readline(void)
+char *ft_readline(char *line)
 {
     char	*cmd;
 
 	cmd = NULL;
-    cmd = readline(SHELL);
+    cmd = readline(line);
+	if(ft_strcmp(line, "> ") == 0)
+		if(!cmd)
+			return (NULL);
 	if(!cmd)
 	{
 		ft_putstr_fd("exit\n", 1);
@@ -38,19 +40,18 @@ int main(int argc, char *argv[], char *envp[])
 	char		*cmdline;
 	
 	(void)argv;
-	(void)envp;
 	(void)argc;
 	tree = NULL;
 	table = NULL;
 	bash_setup(&table, envp);
     while (1)
     {
-		ft_signal();
-        cmdline = ft_readline();
+		ft_signal(1);
+        cmdline = ft_readline("Minishell-$ ");
         if(lexical_analyzer(cmdline, table))
         {
             tree = parse_tree(table);
-            // execution(&tree, &table);
+		    execution(&tree, &table);
 			free_tokens(table->token);
 			free_parse_tree(tree);
         }
@@ -59,38 +60,13 @@ int main(int argc, char *argv[], char *envp[])
     return (0);
 }
 
-static void free_tokens(t_tok *token)
-{
-	t_tok *fre;
 
-	fre = token;
-	while(token != NULL)
-	{
-		fre = token->next;
-		free(token->tok);
-		free(token);
-		token = fre;
-	}
-}
-
-static void free_parse_tree(t_cmdline *tree)
-{
-	(void)tree;
-	
-	// t_cmds *cmd;
-	// t_cmds *cmdtmp;
-	
-	// cmd = tree->cmds;
-	// cmdtmp = cmd;
-	// while(cmd != NULL)
-	// {
-	// 	cmdtmp = cmd->next;
-	// 	free(cmd->arguments);
-	// 	if(cmd->path != NULL)
-	// 		free(cmd->path);
-	// 	if(cmd->err != NULL)
-	// 		free(cmd->path);
-	// 	free(cmd);
-	// 	cmd = cmdtmp;
-	// }
-}
+/*
+signals
+	in child process
+	in heredocs
+leaks
+	echo
+	cd
+	export
+*/

@@ -14,14 +14,15 @@
 
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 {
-	static int hd = 0;
 	t_vars *v;
 	char *delim;
 	char *term;
 	char *tmpfile;
-    int	fd;
 	
-	(void)hd;
+	g_var = 1;
+	delim = NULL;
+	term = NULL;
+	tmpfile = NULL;
     v = malloc(sizeof(t_vars));
     if(!v)
         return ;
@@ -34,18 +35,23 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	open__file__check__type(v->log, tmpfile, cmds);
 	if(term)
 		write(cmds->i_stream, term, ft_strlen(term));
+	free(term);
+	free(delim);
 	close(cmds->i_stream);
-	fd = open(tmpfile, O_RDONLY, 0644);
-	cmds->i_stream = fd;
+	v->fd = open(tmpfile, O_RDONLY, 0644);
+	free(tmpfile);
+	cmds->i_stream = v->fd;
+	free(v);
 }
 
 char	*new_file(char *delim)
 {
 	char *tmpfile;
 
-	tmpfile = ft_strjoin("/var/tmp/", "ayb");
+	tmpfile = NULL;
+	tmpfile = ft_strjoin(tmpfile, "/var/tmp/");
+	tmpfile = ft_strjoin(tmpfile, "ayb");
 	tmpfile = ft_strjoin(tmpfile, delim);
-	printf("%s\n", tmpfile);
 	return (tmpfile);
 }
 
@@ -54,7 +60,7 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
     char *delim;
     
     delim = NULL;
-    while((*token) != NULL)
+	while(*token != NULL)
 	{
 		if((*token)->type == WORD || (*token)->type == EXP_FIELD)
 		{
@@ -78,17 +84,25 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 {
 	char *heredoc;
 	char *term;
-	
+
 	term = NULL;
+	heredoc = NULL;
 	while(1)
 	{
-		heredoc = readline("heredoc> ");
-		if(heredoc && ft_strncmp(heredoc, delim, ft_strlen(delim)) != 0)
+		heredoc = ft_readline("> ");
+		if(heredoc == NULL)
+			break;
+		if(heredoc && ft_strcmp(heredoc, delim) != 0)
 			term = join_arguments(term, '\n', heredoc);
-		if(ft_strncmp(heredoc, delim, ft_strlen(delim)) == 0 && \
+		if(ft_strcmp(heredoc, delim) == 0 && \
 			ft_strlen(heredoc) == ft_strlen(delim))
-				break;
+		{
+			term = ft_strjoin(term, "\n");
+			break;
+		}
+		free(heredoc);
 	}
+	free(heredoc);
 	if(term)
 	{
 		if(!flag)
