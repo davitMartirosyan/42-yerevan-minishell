@@ -36,7 +36,8 @@ void handleterm(int sig)
 
 void ft_signal(int handle)
 {
-	handleterm(handle);
+	if(handle == 0)
+		handleterm(handle);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, inthandle);
 }

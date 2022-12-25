@@ -12,7 +12,6 @@
 
 #include "minishell_header.h"
 
-
 static void handle_status__and_wait(int *status);
 static void close_all_pipes(int pips[][2], int pip);
 static void execute(t_cmdline *cmds, t_table *table);
@@ -65,7 +64,7 @@ static void _execute(t_vars *v, t_cmdline *cmd, t_table *table)
         }
         else
             handle_status__and_wait(&table->status);
-        ft_signal(0);
+        signal(SIGINT, SIG_DFL);
     }
     else
     {
@@ -76,8 +75,8 @@ static void _execute(t_vars *v, t_cmdline *cmd, t_table *table)
 
 static void handle_status__and_wait(int *status)
 {
-     wait(status);
-    // waitpid(-1, 0, WUNTRACED);
+    //  wait(status);
+    waitpid(-1, 0, WUNTRACED);
     if(WIFEXITED(*status))
         *status = WEXITSTATUS(*status);
     else if(WIFSIGNALED(*status))
