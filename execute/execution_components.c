@@ -12,27 +12,27 @@
 
 #include "minishell_header.h"
 
-int	cmd_check(t_cmds *cmd, t_table **table)
+int	cmd_check(t_cmds *cmd, t_table *table)
 {
 	int		i;
 	char	*path;
 	char	**paths;
 	
 	i = 0;
-	paths = add_paths(&(*table)->env);
+	paths = add_paths(&table->env);
     if(paths == NULL)
         return (-2);
 	path = NULL;
-    if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
-	{
-		if(ft_strcmp(cmd->arg_pack[0], "minishell") == 0 || \
-			ft_strcmp(cmd->arg_pack[0], "./minishell") == 0)
-		{
-			free_char_pp(paths);
-			cmd->path = ft_strdup(cmd->arg_pack[0]);
-			return (0);
-		}
-	}
+    // if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
+	// {
+	// 	if(ft_strcmp(cmd->arg_pack[0], "minishell") == 0 || \
+	// 		ft_strcmp(cmd->arg_pack[0], "./minishell") == 0)
+	// 	{
+	// 		free_char_pp(&paths);
+	// 		cmd->path = ft_strdup(cmd->arg_pack[0]);
+	// 		return (0);
+	// 	}
+	// }
 	while (paths[i])
 	{
 		path = join_paths(paths[i], '/', cmd->arg_pack[0]);
@@ -41,14 +41,14 @@ int	cmd_check(t_cmds *cmd, t_table **table)
 			cmd->path = ft_strdup(path);
 			cmd->exit_status = EXIT_SUCCESS;
 			free(path);
-			free_char_pp(paths);
+			free_char_pp(&paths);
 			return (0);
 		}
 		free(path);
 		path = 0;
 		i++;
 	}
-	free_char_pp(paths);
+	free_char_pp(&paths);
 	return (-1);
 }
 

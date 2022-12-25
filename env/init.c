@@ -23,6 +23,10 @@ void bash_setup(t_table **table, char **envp)
 	(*table)->get_pid = get_pid();
 	(*table)->status = 0;
 	reserved(table);
+}
+
+void reserved(t_table **table)
+{
 	(*table)->builtin[0] = print_echo;
 	(*table)->builtin[1] = print_pwd;
 	(*table)->builtin[2] = print_cd;
@@ -30,10 +34,6 @@ void bash_setup(t_table **table, char **envp)
 	(*table)->builtin[4] = ft_export;
 	(*table)->builtin[5] = ft_exit;
 	(*table)->builtin[6] = print_env;
-}
-
-void reserved(t_table **table)
-{
 	(*table)->reserved[0] = "echo";
 	(*table)->reserved[1] = "pwd";
 	(*table)->reserved[2] = "cd";
@@ -41,6 +41,7 @@ void reserved(t_table **table)
 	(*table)->reserved[4] = "export";
 	(*table)->reserved[5] = "exit";
 	(*table)->reserved[6] = "env";
+	(*table)->reserved[7] = NULL;
 }
 
 int get_pid()

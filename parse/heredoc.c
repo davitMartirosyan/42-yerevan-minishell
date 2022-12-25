@@ -30,6 +30,8 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 		*token = (*token)->next;
     delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);
+	if(!term)
+		return ;
 	tmpfile = new_file(table);
 	open__file__check__type(v->log, tmpfile, cmds);
 	if(term)
@@ -99,7 +101,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	{
 		heredoc = readline("> ");
 		if(heredoc == NULL)
-			break;
+			return (NULL);
 		if(heredoc && ft_strcmp(heredoc, delim) != 0)
 			term = join_arguments(term, '\n', heredoc);
 		if(ft_strcmp(heredoc, delim) == 0 && \

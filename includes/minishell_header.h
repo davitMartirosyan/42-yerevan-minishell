@@ -137,19 +137,17 @@ int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 /**********************************************/
 char	**add_paths(t_env **env);
 char	*join_paths(char *s1, int delimiter, char *s2);
-int		cmd_check(t_cmds *cmd, t_table **table);
+int		cmd_check(t_cmds *cmd, t_table *table);
 int     find_in(char *builtin, char **reserved);
-void	execution(t_cmdline **commands, t_table **table);
-void	execute(t_cmdline **cmd, t_table **table);
-void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
+void	execution(t_cmdline **cmdline, t_table **table);
+// void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
 // void	print_err(t_table **table, t_cmdline **cmd, t_vars *v);
 
 /**********************************************/
 /****************Free Resources****************/
 /**********************************************/
-void    print_tokens(t_tok **token);
 void    free_tokens(t_tok *token);
 void    free_parse_tree(t_cmdline *tree);
-void    free_char_pp(char **pp);
-void    update_table(t_table *table);
+void    free_char_pp(char ***pp);
+void    update_table(t_cmdline *tree, t_table *table);
 #endif

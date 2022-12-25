@@ -101,13 +101,16 @@ typedef struct s_tok
 
 typedef struct s_table{
     char        **minienv;
-    char        *reserved[7];
+    char        *reserved[8];
     char        *err_handling;
+    int         type;
     int         status;
     int         q_c[2];
     int         hdocs;
+    int         dup0;
+    int         dup1;
     int         get_pid;
-    t_built     builtin[7];
+    t_built     builtin[8];
     t_env       *env;
     t_tok       *token;
 } t_table;

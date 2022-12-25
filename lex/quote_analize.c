@@ -37,9 +37,9 @@ int check_quotes(char *cmdline, int *q_c)
 	i = -1;
 	while(cmdline[++i])
 	{
-		if(cmdline[i] == '\"')
+		if(cmdline[i] && cmdline[i] == '\"')
 			dbl++;
-		else if(cmdline[i] == '\'')
+		else if(cmdline[i] && cmdline[i] == '\'')
 			sgl++;
 	}
 	q_c[0] = dbl;
@@ -59,9 +59,9 @@ void inside_quote(char *cmdline, int *pos, int find)
 	{
 		while(cmdline[++i])
 		{
-			if(cmdline[i] == '\"')
+			if(cmdline[i] && cmdline[i] == '\"')
 				break;
-			if(cmdline[i] == '\'')
+			if(cmdline[i] && cmdline[i] == '\'')
 				cmdline[i] = 7;
 		}
 	}
@@ -69,11 +69,11 @@ void inside_quote(char *cmdline, int *pos, int find)
 	{
 		while(cmdline[++i])
 		{
-			if(cmdline[i] == '\'')
+			if(cmdline[i] && cmdline[i] == '\'')
 				break;
-			if(cmdline[i] == '\"')
+			if(cmdline[i] && cmdline[i] == '\"')
 				cmdline[i] = 8;
-			if(cmdline[i] == '$')
+			if(cmdline[i] && cmdline[i] == '$')
 				cmdline[i] = 4;
 		}
 	}

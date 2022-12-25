@@ -46,13 +46,16 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 		}
 		if(typeis_redirection(token->type))
 		{
+			table->type = token->type;
 			select_filename(&token, *cmds);
-			token = token->next;
+			if(table->type == REDIR_OUT)
+				token = token->next;
 			continue;
 		}
 		if(!type_is_p_h(&token, &cmds, table))
 			continue;
-		token = token->next;
+		if(token->next != NULL)
+			token = token->next;
 	}
 	(*cmds)->next = NULL;
 }

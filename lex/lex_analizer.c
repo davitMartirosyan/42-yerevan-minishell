@@ -21,7 +21,6 @@ int lexical_analyzer(char *newpoint, t_table *table)
 	openquotes(cmdline);
 	if(syntax_handling(cmdline, table, NULL))
 	{
-		table->hdocs = 0;
 		cmdline = find_replace(cmdline, table);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);

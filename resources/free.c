@@ -12,17 +12,17 @@
 
 #include "minishell_header.h"
 
-void    free_char_pp(char **pp)
+void    free_char_pp(char ***pp)
 {
 	int i;
 
 	i = -1;
-	if(!pp && !*pp)
+	if(!(*pp) && !*(*pp))
 		return ;
-	while(pp[++i])
-		free(pp[i]);
-	free(pp);
-	*pp = NULL;
+	while((*pp)[++i])
+		free((*pp)[i]);
+	free((*pp));
+	(*pp) = NULL;
 }
 
 void	free_tokens(t_tok *token)
@@ -51,6 +51,12 @@ void	free_parse_tree(t_cmdline *tree)
 	while(cmd != NULL)
 	{
 		cmdtmp = cmd->next;
+		if(cmd->i_stream != 0)
+			close(cmd->i_stream);
+		if(cmd->o_stream != 1)
+			close(cmd->o_stream);
+		cmd->i_stream = 0;
+		cmd->o_stream = 1;
 		if(cmd->arguments != NULL)
 			free(cmd->arguments);
 		if(cmd->path != NULL)
@@ -58,7 +64,7 @@ void	free_parse_tree(t_cmdline *tree)
 		if(cmd->err && cmd->err != NULL)
 			free(cmd->err);
         if(cmd->arg_pack != NULL)
-		    free_char_pp(cmd->arg_pack);
+		    free_char_pp(&cmd->arg_pack);
 		free(cmd);
 		cmd = cmdtmp;
 	}
@@ -67,11 +73,12 @@ void	free_parse_tree(t_cmdline *tree)
 	tree = NULL;
 }
 
-void	update_table(t_table *table)
+void	update_table(t_cmdline *tree, t_table *table)
 {
 	table->err_handling = 0;
 	table->q_c[0] = 0;
 	table->q_c[1] = 0;
 	table->hdocs = 0;
 	free_tokens(table->token);
+	free_parse_tree(tree);
 }
