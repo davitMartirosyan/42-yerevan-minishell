@@ -62,6 +62,14 @@ typedef enum s_types
     UNDEFINED      // 13
 } t_types;
 
+typedef enum s_status
+{
+    SYNTAX_ERR_STATUS = 258,
+    CMD_ERR_STATUS = 127,
+    PATH_ERR_STATUS = 1,
+    HEREDOC_WARNING_STATUS = 1,
+    HEREDOC_LIMIT_ERR_STATUS = 2
+} t_status;
 
 typedef struct s_cmdline
 {

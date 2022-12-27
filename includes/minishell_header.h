@@ -22,17 +22,11 @@
 
 
 /*Error Handlers*/
-# define TOKEN_SYNTAX_ERR 	"Syntax error near unexpected token"
-# define SYNTAX_ERR         2
-
-# define COMMANDERR         ": Command Not Found\n"
-# define CMD_ERR            127
-
-# define FILEERR            ": No Such file or directory\n"
-# define PATH_ERR           1
-
-# define HEREDOC_SYNTAX_WARNING    "Warning: HEREDOC (wanted ${hd})"
-# define HEREDOC_WARNING    0
+# define TOKEN_SYNTAX_ERR "Syntax error near unexpected token"
+# define COMMANDERR "Command Not Found\n"
+# define FILEERR "No Such file or directory\n"
+# define HEREDOC_SYNTAX_WARNING "Warning: HEREDOC (wanted ${"
+# define HEREDOC_LIMIT_ERR  ""
 
 # include <stdio.h>
 # include <string.h>

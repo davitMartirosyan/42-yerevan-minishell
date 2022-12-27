@@ -12,6 +12,7 @@
 
 #include "minishell_header.h"
 
+static void unlink_heredocuments(int limit, int pid);
 void    free_char_pp(char ***pp)
 {
 	int i;
@@ -55,8 +56,8 @@ void	free_parse_tree(t_cmdline *tree)
 			close(cmd->i_stream);
 		if(cmd->o_stream != 1)
 			close(cmd->o_stream);
-		cmd->i_stream = 0;
-		cmd->o_stream = 1;
+		cmd->i_stream = STDIN;
+		cmd->o_stream = STDOUT;
 		if(cmd->arguments != NULL)
 			free(cmd->arguments);
 		if(cmd->path != NULL)
@@ -75,10 +76,34 @@ void	free_parse_tree(t_cmdline *tree)
 
 void	update_table(t_cmdline *tree, t_table *table)
 {
+	unlink_heredocuments(table->hdocs, table->get_pid);
 	table->err_handling = 0;
 	table->q_c[0] = 0;
 	table->q_c[1] = 0;
 	table->hdocs = 0;
 	free_tokens(table->token);
 	free_parse_tree(tree);
+}
+
+static void unlink_heredocuments(int limit, int pid)
+{
+	int i;
+	char *path;
+	char *pid_;
+
+	path = NULL;
+	pid_ = NULL;
+	i = -1;
+	while(++i < limit)
+	{
+		pid_ = ft_itoa(pid); 
+		path = ft_strdup("/var/tmp/.minishell-");
+		path = ft_strjoin(path, pid_);
+		free(pid_);
+		pid_ = ft_itoa(i);
+		path = ft_strjoin(path, pid_);
+		free(pid_);
+		unlink(path);
+		free(path);
+	}
 }

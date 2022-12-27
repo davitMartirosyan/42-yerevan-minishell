@@ -33,6 +33,8 @@ static void execute(t_cmdline *cmd, t_table *table)
 {
     t_vars v;
 
+    if(!cmd->cmds->arg_pack)
+        return;
     table->dup0 = dup(0);
     table->dup1 = dup(1);
     v.built = find_in(cmd->cmds->arg_pack[0], table->reserved);
