@@ -26,6 +26,7 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
 	int fd;	
 
+	printf("%d\n", type);
 	fd = 0;
 	if(type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -40,13 +41,25 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 
 void check_type(int fd, int type, t_cmds *cmds)
 {
-	if(type == REDIR_IN || type == HEREDOC)
+	if(type == REDIR_IN)
 	{
 		if(cmds->i_stream != 0)
 			close(cmds->i_stream);
 		cmds->i_stream = fd;
 	}
-	else if(type == REDIR_OUT || type == APPEND)
+	else if(type == HEREDOC)
+	{
+		if(cmds->i_stream != 0)
+			close(cmds->i_stream);
+		cmds->i_stream = fd;
+	}
+	else if(type == REDIR_OUT)
+	{
+		if(cmds->o_stream != 1)
+			close(cmds->o_stream);
+		cmds->o_stream = fd;
+	}
+	else if(type == APPEND)
 	{
 		if(cmds->o_stream != 1)
 			close(cmds->o_stream);

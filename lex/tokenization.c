@@ -12,6 +12,8 @@
 
 #include "minishell_header.h"
 
+static void check_heredoc_count(t_tok *tokens);
+
 t_tok	*tokenization(char *cmdline)
 {
 	t_tok *tokens;
@@ -33,6 +35,7 @@ t_tok	*tokenization(char *cmdline)
 			add_pipe(cmdline, &i, cmdline[i], &tokens);
 		i++;
 	}
+	check_heredoc_count(tokens);
 	return (tokens);
 }
 
@@ -59,4 +62,24 @@ void	add(t_tok **lst, t_tok *new)
 	while(*lst)
 		lst = &(*lst)->next;
 	*lst = new;
+}
+
+static void check_heredoc_count(t_tok *tokens)
+{
+	int i;
+	t_tok *toks;
+
+	i = 0;
+	toks = tokens;
+	while(toks != NULL)
+	{
+		if(toks->type == HEREDOC)
+			i++;
+		toks = toks->next;
+	}
+	if(i > 16)
+	{
+		printf("%s: %s\n", SHELLERR, HEREDOC_LIMIT_ERR);
+		exit(2);
+	}
 }

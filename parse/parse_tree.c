@@ -48,14 +48,16 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 		{
 			table->type = token->type;
 			select_filename(&token, *cmds);
-			if(table->type == REDIR_OUT)
+			if(table->type == REDIR_OUT || table->type == APPEND || table->type == HEREDOC)
+			{
 				token = token->next;
+				continue;
+			}
 			continue;
 		}
 		if(!type_is_p_h(&token, &cmds, table))
 			continue;
-		if(token->next != NULL)
-			token = token->next;
+		token = token->next;
 	}
 	(*cmds)->next = NULL;
 }

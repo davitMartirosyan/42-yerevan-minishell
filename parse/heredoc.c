@@ -23,8 +23,6 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	term = NULL;
 	tmpfile = NULL;
     v = malloc(sizeof(t_vars));
-    if(!v)
-        return ;
     v->log = (*token)->type;
 	while((*token)->type != WORD && (*token)->type != EXP_FIELD)
 		*token = (*token)->next;
@@ -62,7 +60,7 @@ char	*new_file(t_table *table)
 	free(tmp);
 	tmp = NULL;
 	table->hdocs++;
-	return ( tmpfile);
+	return (tmpfile);
 }
 
 char	*heredoc_delimiter(t_tok **token, t_vars **v)
@@ -104,8 +102,8 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 			return (NULL);
 		if(heredoc && ft_strcmp(heredoc, delim) != 0)
 			term = join_arguments(term, '\n', heredoc);
-		if(ft_strcmp(heredoc, delim) == 0 && \
-			ft_strlen(heredoc) == ft_strlen(delim))
+		if(ft_strlen(heredoc) == ft_strlen(delim) && \
+			ft_strcmp(heredoc, delim) == 0)
 		{
 			term = ft_strjoin(term, "\n");
 			break;
@@ -115,7 +113,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	free(heredoc);
 	if(term)
 	{
-		if(!flag)
+		if(flag != 1)
 			term = find_replace(term, table);
 		return (term);
 	}

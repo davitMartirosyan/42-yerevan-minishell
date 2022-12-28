@@ -76,13 +76,14 @@ void	free_parse_tree(t_cmdline *tree)
 
 void	update_table(t_cmdline *tree, t_table *table)
 {
+	free_tokens(table->token);
 	unlink_heredocuments(table->hdocs, table->get_pid);
+	free_parse_tree(tree);
 	table->err_handling = 0;
 	table->q_c[0] = 0;
 	table->q_c[1] = 0;
 	table->hdocs = 0;
-	free_tokens(table->token);
-	free_parse_tree(tree);
+	table->get_heredoc_flag = 0;
 }
 
 static void unlink_heredocuments(int limit, int pid)

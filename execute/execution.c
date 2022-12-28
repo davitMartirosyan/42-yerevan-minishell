@@ -62,7 +62,8 @@ static void _execute(t_vars *v, t_cmdline *cmd, t_table *table)
             signal(SIGINT, SIG_DFL);
             signal(SIGQUIT, SIG_DFL);
             table->minienv = create_envp(&table->env);
-            execve(cmd->cmds->path, cmd->cmds->arg_pack, table->minienv);
+            if(execve(cmd->cmds->path, cmd->cmds->arg_pack, table->minienv) == -1)
+                exit(0);
         }
         else
             handle_status__and_wait(&table->status);

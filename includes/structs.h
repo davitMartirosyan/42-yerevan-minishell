@@ -108,6 +108,7 @@ typedef struct s_tok
 } t_tok;
 
 typedef struct s_table{
+    char        cwd[10000];
     char        **minienv;
     char        *reserved[8];
     char        *err_handling;
@@ -115,6 +116,7 @@ typedef struct s_table{
     int         status;
     int         q_c[2];
     int         hdocs;
+    int         get_heredoc_flag;
     int         dup0;
     int         dup1;
     int         get_pid;

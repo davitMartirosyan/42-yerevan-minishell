@@ -18,7 +18,7 @@
 # define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
 # define SHELL 				"Minishell-$ "
-# define SHELLERR           "-sadm: "
+# define SHELLERR           "-sadm"
 
 
 /*Error Handlers*/
@@ -26,7 +26,7 @@
 # define COMMANDERR "Command Not Found\n"
 # define FILEERR "No Such file or directory\n"
 # define HEREDOC_SYNTAX_WARNING "Warning: HEREDOC (wanted ${"
-# define HEREDOC_LIMIT_ERR  ""
+# define HEREDOC_LIMIT_ERR  "maximum here-document count exceeded"
 
 # include <stdio.h>
 # include <string.h>
