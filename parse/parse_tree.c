@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 00:36:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/14 07:40:20 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:44:56 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,9 @@ void parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 		}
 		if(typeis_redirection(token->type))
 		{
-			table->type = token->type;
 			select_filename(&token, *cmds);
-			if(table->type == REDIR_OUT || table->type == APPEND || table->type == HEREDOC)
-			{
 				token = token->next;
 				continue;
-			}
-			continue;
 		}
 		if(!type_is_p_h(&token, &cmds, table))
 			continue;

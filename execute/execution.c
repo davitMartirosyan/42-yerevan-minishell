@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/19 10:37:09 by dmartiro         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:44:37 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void _execute(t_vars *v, t_cmdline *cmd, t_table *table)
         }
         else
             handle_status__and_wait(&table->status);
-        signal(SIGINT, SIG_DFL);
+        ft_signal(0);
     }
     else
     {
