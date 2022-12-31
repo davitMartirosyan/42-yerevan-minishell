@@ -24,9 +24,8 @@ void select_filename(t_tok **token, t_cmds *cmds)
 
 void open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
-	int fd;	
-
-	printf("%d\n", type);
+	int fd;
+	
 	fd = 0;
 	if(type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -93,8 +92,8 @@ void    std(t_cmds **cmds)
 	(*cmds)->arg_pack = NULL;
 	(*cmds)->path = NULL;
 	(*cmds)->err = NULL;
-	(*cmds)->i_stream = STDIN;
-	(*cmds)->o_stream = STDOUT;
-	(*cmds)->e_stream = STDERR;
+	(*cmds)->i_stream = STDIN_FILENO;
+	(*cmds)->o_stream = STDOUT_FILENO;
+	(*cmds)->e_stream = STDERR_FILENO;
 }
 

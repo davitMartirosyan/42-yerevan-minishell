@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:34:37 by codespace         #+#    #+#             */
-/*   Updated: 2022/12/28 12:44:37 by user             ###   ########.fr       */
+/*   Updated: 2022/12/19 10:37:09 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static void handle_status__and_wait(int *status);
 static void close_all_pipes(int pips[][2], int pip);
-static void execute(t_cmdline *cmds, t_table *table);
+static void execute(t_cmdline *cmd, t_table *table);
 static void _execute(t_vars *v, t_cmdline *cmd, t_table *table);
+static void piping_execution(int pip, t_cmdline *cmd, t_table *table);
+static void piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip);
 
 void    execution(t_cmdline **commands, t_table **table)
 {
@@ -26,6 +28,8 @@ void    execution(t_cmdline **commands, t_table **table)
         pip = pipes(&((*table)->token));
         if (pip == 0)
             execute(*commands, *table);
+        else if(pip > 0)
+            piping_execution(pip, *commands, *table);
     }
 }
 
@@ -67,7 +71,7 @@ static void _execute(t_vars *v, t_cmdline *cmd, t_table *table)
         }
         else
             handle_status__and_wait(&table->status);
-        ft_signal(0);
+       ft_signal(0);
     }
     else
     {
@@ -75,6 +79,77 @@ static void _execute(t_vars *v, t_cmdline *cmd, t_table *table)
         table->status = 1;
     }
 }
+
+static void piping_execution(int pip, t_cmdline *cmd, t_table *table)
+{
+    //fd[0] - read end
+    //fd[1] - write end
+    t_vars v;
+    int (*pip_ptr)[2];
+    int i;
+    int ccount;
+
+    table->status = 0;
+    pip_ptr = malloc(sizeof(*pip_ptr) * pip);
+    if(!pip_ptr)
+        return ;
+    i = -1;
+    while(++i < pip)
+        pipe(pip_ptr[i]);
+    i = 0;
+    ccount = 0;
+    while(cmd->cmds != NULL)
+    {
+        v.built = find_in(cmd->cmds->arg_pack[0], table->reserved);
+        v.binar = cmd_check(cmd->cmds, table);
+        if(!cmd->cmds->arg_pack)
+        {
+            cmd->cmds = cmd->cmds->next;
+            continue;
+        }
+        cmd->cmds->pid = fork();
+        if(cmd->cmds->pid == 0)
+        {
+            piping(cmd->cmds, pip_ptr, i, pip);
+            if(v.built != -1)
+                table->builtin[v.built](cmd, table);
+            else if(v.binar != -1)
+            {
+                table->minienv = create_envp(&table->env);
+                if(execve(cmd->cmds->path, cmd->cmds->arg_pack, table->minienv) == -1)
+                    exit(EXIT_FAILURE);
+            }
+        }
+        ccount++;
+        i++;
+        cmd->cmds = cmd->cmds->next;
+    }
+    close_all_pipes(pip_ptr, pip);
+    i = -1;
+    while(++i < ccount)
+        wait(&table->status);
+}
+
+static void piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip)
+{
+     if(i == 0)
+    {
+        dup2(pip_ptr[i][1], cmd->o_stream);
+        close_all_pipes(pip_ptr, pip);
+    }
+    else if(i > 0 && i < pip)
+    {
+        dup2(pip_ptr[i - 1][0], cmd->i_stream);
+        dup2(pip_ptr[i][1], cmd->o_stream);
+        close_all_pipes(pip_ptr, pip);
+    }
+    else
+    {
+        dup2(pip_ptr[i - 1][0], cmd->i_stream);
+        close_all_pipes(pip_ptr, pip);
+    }
+}
+
 
 static void handle_status__and_wait(int *status)
 {
