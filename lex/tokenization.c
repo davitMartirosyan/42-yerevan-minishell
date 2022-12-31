@@ -12,6 +12,11 @@
 
 #include "minishell_header.h"
 
+<<<<<<< HEAD
+=======
+static void check_heredoc_count(t_tok *tokens);
+
+>>>>>>> master
 t_tok	*tokenization(char *cmdline)
 {
 	t_tok *tokens;
@@ -21,8 +26,12 @@ t_tok	*tokenization(char *cmdline)
 	i = 0;
 	while (cmdline && cmdline[i])
 	{
+<<<<<<< HEAD
 		if (cmdline[i] && ft_iswordpart(cmdline[i]) && \
 			(int)ft_strlen(cmdline) > i)
+=======
+		if (cmdline[i] && ft_iswordpart(cmdline[i]) && (int)ft_strlen(cmdline) > i)
+>>>>>>> master
 			add_word(cmdline, &i, &tokens);
 		if(cmdline[i] && ft_isspace(cmdline[i]))
 			space(cmdline, &i, &tokens);
@@ -34,6 +43,7 @@ t_tok	*tokenization(char *cmdline)
 			add_pipe(cmdline, &i, cmdline[i], &tokens);
 		i++;
 	}
+	check_heredoc_count(tokens);
 	return (tokens);
 }
 
@@ -41,19 +51,58 @@ t_tok *new_token(int len, char *token, int type)
 {
     t_tok *tok;
 
+<<<<<<< HEAD
     tok = malloc(sizeof(t_tok));
     if(!tok)
         return (NULL);
+=======
+	tok = NULL;
+    tok = malloc(sizeof(t_tok));
+    if(!tok)
+        return (NULL);
+	tok->len = 0;
+	tok->tok = NULL;
+	tok->type = 0;
+>>>>>>> master
     tok->len  = len;
     tok->tok  = ft_strdup(token);
     tok->type = type;
     tok->next = NULL;
+<<<<<<< HEAD
     return (tok);
+=======
+	return (tok);
+>>>>>>> master
 }
 
 void	add(t_tok **lst, t_tok *new)
 {
 	while(*lst)
 		lst = &(*lst)->next;
+<<<<<<< HEAD
 	*lst = new;	
 }
+=======
+	*lst = new;
+}
+
+static void check_heredoc_count(t_tok *tokens)
+{
+	int i;
+	t_tok *toks;
+
+	i = 0;
+	toks = tokens;
+	while(toks != NULL)
+	{
+		if(toks->type == HEREDOC)
+			i++;
+		toks = toks->next;
+	}
+	if(i > 16)
+	{
+		printf("%s: %s\n", SHELLERR, HEREDOC_LIMIT_ERR);
+		exit(2);
+	}
+}
+>>>>>>> master

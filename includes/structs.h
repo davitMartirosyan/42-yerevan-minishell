@@ -6,7 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 00:36:09 by dmartiro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/07 15:26:44 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/12/18 14:32:14 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +36,10 @@ typedef void (*t_built)(t_cmdline *, t_table *);
 
 typedef struct s_vars
 {
+<<<<<<< HEAD
+=======
+    int fd;
+>>>>>>> master
     int var;
     int let;
     int def;
@@ -61,10 +69,22 @@ typedef enum s_types
     UNDEFINED      // 13
 } t_types;
 
+typedef enum s_status
+{
+    SYNTAX_ERR_STATUS = 258,
+    CMD_ERR_STATUS = 127,
+    PATH_ERR_STATUS = 1,
+    HEREDOC_WARNING_STATUS = 1,
+    HEREDOC_LIMIT_ERR_STATUS = 2
+} t_status;
 
 typedef struct s_cmdline
 {
     t_cmds  *cmds;
+<<<<<<< HEAD
+=======
+    pid_t   pid;
+>>>>>>> master
     char    **env;
 }   t_cmdline;
 
@@ -80,7 +100,10 @@ typedef struct s_cmds
     int     e_stream;
     pid_t   pid;
     struct  s_cmds *next;
+<<<<<<< HEAD
     struct  s_cmds *prev;
+=======
+>>>>>>> master
 }   t_cmds;
 
 typedef struct s_env
@@ -99,13 +122,28 @@ typedef struct s_tok
 } t_tok;
 
 typedef struct s_table{
+    char        cwd[10000];
     char        **minienv;
+<<<<<<< HEAD
     char        **paths;
     char        **reserved;
     char        *err_handling;
     int         q_c[2];
 	int			status;
     t_built     builtin[7];
+=======
+    char        *reserved[8];
+    char        *err_handling;
+    int         type;
+    int         status;
+    int         q_c[2];
+    int         hdocs;
+    int         get_heredoc_flag;
+    int         dup0;
+    int         dup1;
+    int         get_pid;
+    t_built     builtin[8];
+>>>>>>> master
     t_env       *env;
     t_tok       *token;
 } t_table;

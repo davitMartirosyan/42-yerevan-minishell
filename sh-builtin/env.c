@@ -12,6 +12,7 @@
 
 #include "minishell_header.h"
 
+<<<<<<< HEAD
 int	check_env(char **matrix)
 {
 	int	i;
@@ -26,13 +27,21 @@ int	check_env(char **matrix)
 }
 
 void	print_env(t_cmdline *cmd, t_table *tab)
+=======
+void	print_env(t_cmdline *cmd, t_table *table)
+>>>>>>> master
 {
 	char	**matrix;
 	t_env	*temp;
 
 	matrix = cmd->cmds->arg_pack;
+<<<<<<< HEAD
 	temp = tab->env;
 	if (check_env(matrix))
+=======
+	temp = table->env;
+	if (matrix[0] && ft_strcmp(matrix[0], "env") == 0 && !matrix[1])
+>>>>>>> master
 	{
 		while (temp)
 		{

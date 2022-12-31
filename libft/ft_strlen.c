@@ -17,7 +17,11 @@ size_t	ft_strlen(const char *c)
 	size_t	i;
 
 	i = 0;
+<<<<<<< HEAD
 	while (c[i] != '\0')
+=======
+	while (c && c[i] != '\0')
+>>>>>>> master
 		i++;
 	return (i);
 }

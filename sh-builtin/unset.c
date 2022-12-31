@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:54 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/07 19:07:18 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:33:13 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	unset_err(char *str)
 {
 	int		i;
-	char	**key_val;
 
 	i = 0;
 	while (str[i])
@@ -58,7 +57,10 @@ void	ft_unset(t_cmdline *cmd, t_table *tab)
 	int		i;
 
 	i = 0;
+<<<<<<< HEAD
 	tab->status = 0;
+=======
+>>>>>>> master
 	matrix = cmd->cmds->arg_pack;
 	if (matrix[0] && ft_strcmp(matrix[0], "unset") == 0 && matrix[1])
 	{

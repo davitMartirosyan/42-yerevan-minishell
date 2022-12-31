@@ -6,7 +6,11 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/20 16:10:29 by dmartiro         ###   ########.fr       */
+=======
+/*   Updated: 2022/12/17 10:59:20 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +41,9 @@ int check_quotes(char *cmdline, int *q_c)
 	i = -1;
 	while(cmdline[++i])
 	{
-		if(cmdline[i] == '\"')
+		if(cmdline[i] && cmdline[i] == '\"')
 			dbl++;
-		else if(cmdline[i] == '\'')
+		else if(cmdline[i] && cmdline[i] == '\'')
 			sgl++;
 	}
 	q_c[0] = dbl;
@@ -59,26 +63,22 @@ void inside_quote(char *cmdline, int *pos, int find)
 	{
 		while(cmdline[++i])
 		{
-			if(cmdline[i] == '\"')
+			if(cmdline[i] && cmdline[i] == '\"')
 				break;
-			if(cmdline[i] == '\'')
+			if(cmdline[i] && cmdline[i] == '\'')
 				cmdline[i] = 7;
-			if(cmdline[i] == ' ')
-				cmdline[i] = 3;
 		}
 	}
 	else if(find == DBL)
 	{
 		while(cmdline[++i])
 		{
-			if(cmdline[i] == '\'')
+			if(cmdline[i] && cmdline[i] == '\'')
 				break;
-			if(cmdline[i] == '\"')
+			if(cmdline[i] && cmdline[i] == '\"')
 				cmdline[i] = 8;
-			if(cmdline[i] == '$')
+			if(cmdline[i] && cmdline[i] == '$')
 				cmdline[i] = 4;
-			if(cmdline[i] == ' ')
-				cmdline[i] = 3;
 		}
 	}
 	*pos = i;
@@ -98,4 +98,21 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 		token_replacment(cmdline, 8, '\"');
 		return (0);
 	}
+}
+
+char	*exit_status_code(char *cmd, t_table *table, int *pos)
+{
+	char *status;
+	char *left;
+	char *newpoint;
+
+	(void)table;
+	(void)pos;
+	status = ft_itoa(table->status);
+	left = ft_substr(cmd, 0, *pos);
+	newpoint = ft_strjoin(left, status);
+	newpoint = ft_strjoin(newpoint, cmd+(*pos+2));
+	free(cmd);
+	free(status);
+	return (newpoint);
 }

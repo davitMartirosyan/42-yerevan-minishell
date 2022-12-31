@@ -12,13 +12,19 @@
 
 #include "minishell_header.h"
 
+<<<<<<< HEAD
 void	print_pwd(t_cmdline *cmd, t_table *tab)
+=======
+void	print_pwd(t_cmdline *cmd, t_table *table)
+>>>>>>> master
 {
+	(void)table;
 	char	**matrix;
 	char	cwd[256];
 
 	matrix = cmd->cmds->arg_pack;
 	if (matrix[0] && ft_strcmp(matrix[0], "pwd") == 0)
+<<<<<<< HEAD
 	{
 		if (getcwd(cwd, 256))
 			printf("%s\n", getcwd(cwd, 256));
@@ -52,3 +58,7 @@ void	no_pwd(t_table *tab)
 		}
 	}
 }
+=======
+		printf("%s\n", getcwd(cwd, 256));
+}
+>>>>>>> master

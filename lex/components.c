@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:49:58 by dmartiro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/13 11:01:58 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/12/19 10:45:37 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +70,12 @@ int contains(char *tok, char *cmdline, int *pos)
 	return (0);
 }
 
+<<<<<<< HEAD
 
 void token_replacment(char *cmdline, char schr, char rchr)
+=======
+void	token_replacment(char *cmdline, char schr, char rchr)
+>>>>>>> master
 {
 	int i;
 
@@ -80,7 +88,7 @@ void token_replacment(char *cmdline, char schr, char rchr)
 	}
 }
 
-char *find_replace(char *cmdline, t_env *env)
+char	*find_replace(char *cmdline, t_table *table)
 {
 	char *key;
 	char *val;
@@ -88,11 +96,17 @@ char *find_replace(char *cmdline, t_env *env)
 	int hdflag;
 
 	i = 0;
+<<<<<<< HEAD
+=======
+	key = NULL;
+	val = NULL;
+>>>>>>> master
 	hdflag = 0;
 	while(cmdline[i])
 	{
 		if(cmdline[i] && cmdline[i] == '<' && cmdline[i+1] == '<')
 			hdflag = 1;
+<<<<<<< HEAD
 		if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] != '?')
 		{
 			if(hdflag == 0)
@@ -106,13 +120,25 @@ char *find_replace(char *cmdline, t_env *env)
 		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
 		{
 			printf("exit status\n");
+=======
+		if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] != '?' && cmdline[i+1] != '\0')
+		{
+			if(hdflag == 0)
+			{
+				key = keyof(cmdline, i + 1);
+				val = valueof(key, table->env);
+				cmdline = replace(cmdline, key, val, &i);
+			}
+>>>>>>> master
 		}
+		else if(cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
+			cmdline = exit_status_code(cmdline, table, &i);
 		i++;
 	}
 	return (cmdline);
 }
 
-char *keyof(char *cmdline, int pos)
+char	*keyof(char *cmdline, int pos)
 {
 	char *var;
 	int varlen;
@@ -130,7 +156,7 @@ char *keyof(char *cmdline, int pos)
 	return (var);
 }
 
-char *valueof(char *key, t_env *env)
+char	*valueof(char *key, t_env *env)
 {
 	t_env *t;
 
@@ -139,17 +165,22 @@ char *valueof(char *key, t_env *env)
 	{
 		if(ft_strncmp(t->key, key, ft_strlen(key)) == 0 && \
 			ft_strlen(t->key) == ft_strlen(key))
+<<<<<<< HEAD
 			return (t->val);
+=======
+			return (ft_strdup(t->val));
+>>>>>>> master
 		t = t->next;
 	}
 	return (NULL);
 }
 
-char *replace(char *cmd, char *key, char *val, int *pos)
+char	*replace(char *cmd, char *key, char *val, int *pos)
 {
 	char *newpoint;
 	int i;
 
+	newpoint = NULL;
 	i = -1;
 	while(++i < *pos);
 	newpoint = malloc(sizeof(char) * (i + 1));
@@ -159,6 +190,8 @@ char *replace(char *cmd, char *key, char *val, int *pos)
 	newpoint[i] = '\0';
 	newpoint = ft_strjoin(newpoint, val);
 	newpoint = ft_strjoin(newpoint, cmd+i + 1 + ft_strlen(key));
+	free(val);
+	free(key);
 	free(cmd);
 	return (newpoint);
 }

@@ -6,11 +6,16 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:19:55 by dmartiro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/13 11:21:29 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/12/17 15:56:28 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
+<<<<<<< HEAD
 
 void free_environment(char **env_tokens)
 {
@@ -54,3 +59,5 @@ int clear(t_cmds *cmd, t_table *table)
 	printf("\e[1;1H\e[2J");
 	return (1);
 }
+=======
+>>>>>>> master

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:29:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/07 19:02:58 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:32:53 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,17 @@ void	with_flag(char **matrix, int i)
 
 void	without_flag(char **matrix, t_table *tab, int i)
 {
+<<<<<<< HEAD
 	while (matrix[i])
+=======
+	(void)tab;
+	while (matrix[i] && is_token(matrix[i]) == 0)
+>>>>>>> master
 	{
-		printf("%s", matrix[i]);
+		if (ft_strcmp(matrix[i], "$?") == 0)
+			printf("tab->status");
+		else
+			printf("%s", matrix[i]);
 		if (matrix[i + 1])
 			printf(" ");
 		i++;
@@ -46,6 +54,7 @@ void	without_flag(char **matrix, t_table *tab, int i)
 	printf("\n");
 }
 
+<<<<<<< HEAD
 int	check_flag(char *str)
 {
 	int	i;
@@ -61,6 +70,8 @@ int	check_flag(char *str)
 	return (0);
 }
 
+=======
+>>>>>>> master
 void	print_echo(t_cmdline *cmd, t_table *tab)
 {
 	char	**matrix;
@@ -68,6 +79,7 @@ void	print_echo(t_cmdline *cmd, t_table *tab)
 
 	matrix = cmd->cmds->arg_pack;
 	i = 1;
+<<<<<<< HEAD
 	if (ft_strcmp(matrix[0], "echo") == 0 && !matrix[1])
 		printf("\n");
 	else if (ft_strcmp(matrix[0], "echo") == 0 && matrix[1]
@@ -77,4 +89,19 @@ void	print_echo(t_cmdline *cmd, t_table *tab)
 		&& matrix[1] && check_flag(matrix[1]) == 0)
 		with_flag(matrix, i);
 	tab->status = 0;
+=======
+	if (matrix[0] && is_keyword(matrix[0]) == 0)
+		printf("-minishell: %s: command not found\n", matrix[0]);
+	else if (matrix[0] && is_keyword(matrix[0]) == 1)
+	{
+		if (ft_strcmp(matrix[0], "echo") == 0 && !matrix[1])
+			printf("\n");
+		else if (ft_strcmp(matrix[0], "echo") == 0 && matrix[1]
+			&& ft_strcmp(matrix[1], "-n") != 0)
+			without_flag(matrix, tab, i);
+		else if (ft_strcmp(matrix[0], "echo") == 0
+			&& matrix[1] && ft_strcmp(matrix[1], "-n") == 0)
+			with_flag(matrix, i);
+	}
+>>>>>>> master
 }

@@ -6,7 +6,11 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:20:03 by dmartiro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/13 11:54:17 by user             ###   ########.fr       */
+=======
+/*   Updated: 2022/12/18 14:35:09 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +29,18 @@ t_env   *env_tokenizing(char **envp)
     while(envp[++i])
     {
         _tok = ft_split(envp[i], '=');
+<<<<<<< HEAD
 		// if (!ft_strcmp(_tok[0], "OLDPWD"))
 		// 	continue;
         t->key = ft_strdup(_tok[0]);
         free(_tok[0]);
         t->val = ft_strdup(_tok[1]);
+=======
+        t->key = ft_strdup(_tok[0]);
+        free(_tok[0]);
+        if(_tok[1])
+            t->val = ft_strdup(_tok[1]);
+>>>>>>> master
         free(_tok[1]);
         free(_tok);
         if (!envp[i + 1])
@@ -43,18 +54,34 @@ t_env   *env_tokenizing(char **envp)
    return (temp);
 }
 
+<<<<<<< HEAD
 void    add_paths(t_env **env, t_table **table)
 {
+=======
+char	**add_paths(t_env **env)
+{
+	char	**paths;
+	
+>>>>>>> master
     while((*env) != NULL)
     {
         if(!ft_strncmp((*env)->key, "PATH", ft_strlen((*env)->key)))
         {
+<<<<<<< HEAD
             (*table)->paths = ft_split((*env)->val, ':');
             return ;
         }
         env = &(*env)->next;
     }
     return ;
+=======
+            paths = ft_split((*env)->val, ':');
+            return (paths);
+        }
+        env = &(*env)->next;
+    }
+    return (NULL);
+>>>>>>> master
 }
 
 char    **create_envp(t_env **env)
@@ -71,7 +98,10 @@ char    **create_envp(t_env **env)
 		i++;
 		env = &(*env)->next;
 	}
+<<<<<<< HEAD
         // ft_putstr_fd(minienv->key, 1);
+=======
+>>>>>>> master
     envp = malloc(sizeof(char *) * (i + 1));
     if(!envp)
         return (NULL);

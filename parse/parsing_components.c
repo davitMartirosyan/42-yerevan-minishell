@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_components.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
 /*   Updated: 2022/12/12 14:52:44 by user             ###   ########.fr       */
+=======
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/12 19:29:49 by root              #+#    #+#             */
+/*   Updated: 2022/12/17 14:31:56 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +31,7 @@ void select_filename(t_tok **token, t_cmds *cmds)
 
 void open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
+<<<<<<< HEAD
 	int fd;	
 
 	if(type == REDIR_OUT)
@@ -33,6 +41,15 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 		fd = open(filename, O_RDONLY);
 		cmds->err = filename;
 	}
+=======
+	int fd;
+	
+	fd = 0;
+	if(type == REDIR_OUT)
+		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else if(type == REDIR_IN)
+		fd = open(filename, O_RDONLY);
+>>>>>>> master
 	else if(type == APPEND)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if(type == HEREDOC)
@@ -42,13 +59,33 @@ void open__file__check__type(int type, char *filename, t_cmds *cmds)
 
 void check_type(int fd, int type, t_cmds *cmds)
 {
+<<<<<<< HEAD
 	if(type == REDIR_IN || type == HEREDOC)
+=======
+	if(type == REDIR_IN)
 	{
 		if(cmds->i_stream != 0)
 			close(cmds->i_stream);
 		cmds->i_stream = fd;
 	}
+	else if(type == HEREDOC)
+>>>>>>> master
+	{
+		if(cmds->i_stream != 0)
+			close(cmds->i_stream);
+		cmds->i_stream = fd;
+	}
+<<<<<<< HEAD
 	else if(type == REDIR_OUT || type == APPEND)
+=======
+	else if(type == REDIR_OUT)
+	{
+		if(cmds->o_stream != 1)
+			close(cmds->o_stream);
+		cmds->o_stream = fd;
+	}
+	else if(type == APPEND)
+>>>>>>> master
 	{
 		if(cmds->o_stream != 1)
 			close(cmds->o_stream);
@@ -61,7 +98,12 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
 	if(typeis_heredoc((*token)->type))
 	{
 		heredoc(token, *(*cmds), table);
+<<<<<<< HEAD
 		*token = (*token)->next;
+=======
+		if(typeis_arg((*token)->type))
+			*token = (*token)->next;
+>>>>>>> master
 		return 0;
 	}
 	if((*token)->type == PIPE)
@@ -77,10 +119,20 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
 
 void    std(t_cmds **cmds)
 {
+<<<<<<< HEAD
 	(*cmds)->arg_pack = NULL;
 	(*cmds)->arguments = NULL;
 	(*cmds)->i_stream = STDIN;
 	(*cmds)->o_stream = STDOUT;
 	(*cmds)->e_stream = STDERR;
+=======
+	(*cmds)->arguments = NULL;
+	(*cmds)->arg_pack = NULL;
+	(*cmds)->path = NULL;
+	(*cmds)->err = NULL;
+	(*cmds)->i_stream = STDIN_FILENO;
+	(*cmds)->o_stream = STDOUT_FILENO;
+	(*cmds)->e_stream = STDERR_FILENO;
+>>>>>>> master
 }
 

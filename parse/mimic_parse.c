@@ -6,7 +6,11 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 23:55:38 by dmartiro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/04 23:58:33 by dmartiro         ###   ########.fr       */
+=======
+/*   Updated: 2022/12/18 13:43:09 by dmartiro         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +75,10 @@ char	*join_arguments(char *s1, int delimiter, char *s2)
 	while(s2[++c])
 		arguments[i++] = s2[c];
 	arguments[i] = '\0';
+<<<<<<< HEAD
+=======
+	free(s1);
+	s1 = 0;
+>>>>>>> master
 	return (arguments);
 }

@@ -74,6 +74,21 @@ int	check_key(char *str, t_table *tab)
 	return (0);
 }
 
+<<<<<<< HEAD
+=======
+t_table	*create_tab(char **env)
+{
+	t_table	*tab;
+
+	tab = malloc(sizeof(t_table));
+	if (!tab || !env)
+		return (NULL);
+	//tab->status = 0;
+	tab->env = env_tokenizing(env);
+	return (tab);
+}
+
+>>>>>>> master
 int	check_plus_equal(char *str)
 {
 	int	i;

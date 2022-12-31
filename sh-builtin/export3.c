@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 10:35:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/14 10:35:37 by sabazyan         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:40:29 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	ft_export(t_cmdline *cmd, t_table *tab)
 	int		i;
 
 	i = 0;
+<<<<<<< HEAD
 	tab->status = 0;
+=======
+>>>>>>> master
 	matrix = cmd->cmds->arg_pack;
 	if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && !matrix[1])
 		print_export(tab);
@@ -28,9 +31,14 @@ void	ft_export(t_cmdline *cmd, t_table *tab)
 		{
 			if (export_err(matrix[i]))
 			{
+<<<<<<< HEAD
 				printf("-minishell: export: `%s': not a valididentifier\n",
 					matrix[i]);
 				tab->status = 1;
+=======
+				printf("%s export: `%s': not a valididentifier\n",
+					SHELLERR, matrix[i]);
+>>>>>>> master
 				continue ;
 			}
 			create_key_value(matrix[i], tab);
@@ -46,6 +54,7 @@ void	print_export(t_table *tab)
 
 	j = -1;
 	count = key_count(tab);
+	printf("b\n");
 	export_matrix = create_export_matrix(tab, count);
 	sorting(export_matrix);
 	while (export_matrix[++j] != NULL)
@@ -69,7 +78,7 @@ char	**create_export_matrix(t_table *tab, int count)
 			if (ft_strchr(temp->val, '"'))
 				val = temp->val;
 			else
-				val = ft_strjoin(ft_strjoin("\"", temp->val), "\"");
+				val = ft_strjoin(ft_strjoin(ft_strdup("\""), temp->val), "\"");
 			matrix[i] = ft_strjoin(ft_strjoin(temp->key, "="), val);
 		}
 		else
