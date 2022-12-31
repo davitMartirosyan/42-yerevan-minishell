@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:29:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/17 14:32:53 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   echo.c											 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/10/25 14:29:34 by sabazyan		  #+#	#+#			 */
+/*   Updated: 2022/12/17 14:32:53 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -70,12 +70,12 @@ void	without_flag(char **matrix, t_table *tab, int i)
 	printf("\n");
 }
 
-void	print_echo(t_cmdline *cmd, t_table *tab)
+void	print_echo(t_cmds *cmd, t_table *tab)
 {
 	char	**matrix;
 	int		i;
 
-	matrix = cmd->cmds->arg_pack;
+	matrix = cmd->arg_pack;
 	i = 1;
 	if (matrix[0] && is_keyword(matrix[0]) == 0)
 		printf("-minishell: %s: command not found\n", matrix[0]);

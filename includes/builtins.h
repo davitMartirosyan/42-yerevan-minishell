@@ -2,14 +2,14 @@
 # define BUILTINS_H
 
 //main functions
-void	print_echo(t_cmdline *cmd, t_table *tab);
-void	print_pwd(t_cmdline *cmd, t_table *tab);
-void	print_cd(t_cmdline *cmd, t_table *tab);
-void	ft_export(t_cmdline *cmd, t_table *tab);
-void	ft_unset(t_cmdline *cmd, t_table *tab);
-void	ft_exit(t_cmdline *cmd, t_table *tab);
-void	print_env(t_cmdline *cmd, t_table *tab);
-void	builtins(t_cmdline *cmd, t_table *tab);
+void	print_echo(t_cmds *cmd, t_table *tab);
+void	print_pwd(t_cmds *cmd, t_table *tab);
+void	print_cd(t_cmds *cmd, t_table *tab);
+void	ft_export(t_cmds *cmd, t_table *tab);
+void	ft_unset(t_cmds *cmd, t_table *tab);
+void	ft_exit(t_cmds *cmd, t_table *tab);
+void	print_env(t_cmds *cmd, t_table *tab);
+void	builtins(t_cmds *cmd, t_table *tab);
 //echo utils
 int		is_keyword(char *str);
 int		is_token(char *str);

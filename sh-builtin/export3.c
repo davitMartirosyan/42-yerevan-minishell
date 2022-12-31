@@ -1,18 +1,18 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export3.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 10:35:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/14 03:40:29 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   export3.c										  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/11/14 10:35:34 by sabazyan		  #+#	#+#			 */
+/*   Updated: 2022/12/14 03:40:29 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-void	ft_export(t_cmdline *cmd, t_table *tab)
+void	ft_export(t_cmds *cmd, t_table *tab)
 {
 	char	**matrix;
 	int		i;
@@ -20,7 +20,7 @@ void	ft_export(t_cmdline *cmd, t_table *tab)
 	if (!cmd || !tab)
 		return ;
 	i = 0;
-	matrix = cmd->cmds->arg_pack;
+	matrix = cmd->arg_pack;
 	if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && !matrix[1])
 		print_export(tab);
 	else if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && matrix[1])

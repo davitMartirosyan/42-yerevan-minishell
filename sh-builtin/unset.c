@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:31:54 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/17 14:33:13 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   unset.c											:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/10/25 14:31:54 by sabazyan		  #+#	#+#			 */
+/*   Updated: 2022/12/17 14:33:13 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -51,13 +51,13 @@ void	remove_node(t_table *tab, char *str)
 	}
 }
 
-void	ft_unset(t_cmdline *cmd, t_table *tab)
+void	ft_unset(t_cmds *cmd, t_table *tab)
 {
 	char	**matrix;
 	int		i;
 
 	i = 0;
-	matrix = cmd->cmds->arg_pack;
+	matrix = cmd->arg_pack;
 	if (matrix[0] && ft_strcmp(matrix[0], "unset") == 0 && matrix[1])
 	{
 		while (matrix[++i])

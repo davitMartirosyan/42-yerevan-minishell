@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   word_expansions.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 20:07:27 by root              #+#    #+#             */
-/*   Updated: 2022/12/14 13:18:53 by user             ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   word_expansions.c								  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: user <user@student.42.fr>				  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/10/15 20:07:27 by root			  #+#	#+#			 */
+/*   Updated: 2022/12/14 13:18:53 by user			 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -17,7 +17,7 @@ int wordlen(char *wordstart, int s_pos)
 	int i;
 
 	i = 0;
-	while(wordstart[s_pos] && ft_iswordpart(wordstart[s_pos]))
+	while (wordstart[s_pos] && ft_iswordpart(wordstart[s_pos]))
 	{
 		s_pos++;
 		i++;
@@ -33,7 +33,7 @@ char *word(char *cmdline, int len, int s_pos)
 	i = 0;
 	word = NULL;
 	word = malloc(sizeof(char) * (len + 1));
-	while(i < len)
+	while (i < len)
 	{
 		word[i] = cmdline[s_pos];
 		s_pos++;
@@ -43,7 +43,7 @@ char *word(char *cmdline, int len, int s_pos)
 	return (word);
 }
 
-void add_word(char *cmdline, int *pos, t_tok **token)
+void	add_word(char *cmdline, int *pos, t_tok **token)
 {
 	int len;
 	char *wordpart;
@@ -57,7 +57,7 @@ void add_word(char *cmdline, int *pos, t_tok **token)
 	*pos += len;
 }
 
-void space(char *cmdline, int *pos, t_tok **token)
+void	space(char *cmdline, int *pos, t_tok **token)
 {
 	int i;
 	int len;
@@ -66,9 +66,9 @@ void space(char *cmdline, int *pos, t_tok **token)
 	i = *pos;
 	len = 0;
 	separator = NULL;
-	while(cmdline[++i])
+	while (cmdline[++i])
 	{
-		if(!ft_isspace(cmdline[i]))
+		if (!ft_isspace(cmdline[i]))
 			break;
 		++len;
 	}
@@ -78,7 +78,7 @@ void space(char *cmdline, int *pos, t_tok **token)
 	*pos += len;
 }
 
-void expansion(char *cmdline, int *pos, int quote, t_tok **token)
+void	expansion(char *cmdline, int *pos, int quote, t_tok **token)
 {
 	int i;
 	int len;
@@ -87,9 +87,9 @@ void expansion(char *cmdline, int *pos, int quote, t_tok **token)
 	i = *pos;
 	len = 0;
 	expo = NULL;
-	while(cmdline[++i])
+	while (cmdline[++i])
 	{
-		if(cmdline[i] == quote)
+		if (cmdline[i] == quote)
 			break;
 		++len;
 	}

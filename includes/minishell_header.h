@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell_header.h                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:20:22 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/18 15:05:23 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   minishell_header.h								 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/09/21 20:20:22 by dmartiro		  #+#	#+#			 */
+/*   Updated: 2022/12/18 15:05:23 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 # ifndef MINISHELL_HEADER_H
@@ -15,10 +15,10 @@
 
 # define RESERVED			"echo pwd cd unset export exit env"
 # define TOKENS				"| < > ; &"
-# define CMD_REGEX         	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
-# define HEREDOC_REGEX    	"[[<<][A-Za-z]]*"
+# define CMD_REGEX		 	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
+# define HEREDOC_REGEX		"[[<<][A-Za-z]]*"
 # define SHELL 				"Minishell-$ "
-# define SHELLERR           "-sadm"
+# define SHELLERR		   "-sadm"
 
 
 /*Error Handlers*/
@@ -46,10 +46,10 @@
 # include "./structs.h"
 # include "./builtins.h"
 
-char    *ft_readline(char *line);
+char	*ft_readline(char *line);
 void	inthandle(int sig);
 void	handleterm(int sig);
-void    ft_signal(int handle);
+void	ft_signal(int handle);
 /**********************************************/
 /*******************Listing********************/
 /**********************************************/
@@ -60,12 +60,12 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
-int     get_pid();
-char    *join_env(char *key, char eq, char *value);
-char    **create_envp(t_env **env);
+int	 get_pid();
+char	*join_env(char *key, char eq, char *value);
+char	**create_envp(t_env **env);
 void	create_shell(char **envp, t_table **table);
 void	bash_setup(t_table **table, char **envp);
-void    reserved(t_table **table);
+void	reserved(t_table **table);
 void	destruct_shell(t_table **table, t_cmdline **tree);
 void	free_env(t_table **table);
 
@@ -75,7 +75,7 @@ void	free_env(t_table **table);
 int		check_quotes(char *cmdline, int *q_counts);
 int		quote_syntax_analyzer(char *cmdline, int *q_c);
 int		contains(char *tok, char *cmdline, int *pos);
-int     lexical_analyzer(char *cmdline, t_table *table);
+int	 lexical_analyzer(char *cmdline, t_table *table);
 void	token_replacment(char *cmdline, char schr, char rchr);
 void	openquotes(char *cmdline);
 void	inside_quote(char *cmdline, int *pos, int find);
@@ -110,11 +110,11 @@ void	select_filename(t_tok **token, t_cmds *cmds);
 void	open__file__check__type(int type, char *filename, t_cmds *cmds);
 void	check_type(int fd, int type, t_cmds *cmds);
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table);
-char    *new_file(t_table *table);
+char	*new_file(t_table *table);
 char	*heredoc_delimiter(t_tok **token, t_vars **v);
 char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char	*join_arguments(char *s1, int delimiter, char *s2);
-char    *word_expansions(t_tok **token);
+char	*word_expansions(t_tok **token);
 int		pipes(t_tok **token);
 int		type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table);
 int		typeis_redirection(int type);
@@ -124,7 +124,7 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/
-int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
+int	 syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 
 /**********************************************/
 /*****************Execution********************/
@@ -132,16 +132,16 @@ int     syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 char	**add_paths(t_env **env);
 char	*join_paths(char *s1, int delimiter, char *s2);
 int		cmd_check(t_cmds *cmd, t_table *table);
-int     find_in(char *builtin, char **reserved);
+int	 find_in(char *builtin, char **reserved);
 void	execution(t_cmdline **cmdline, t_table **table);
-// void    combined_execution(int pip, t_cmdline **cmd, t_table **table);
+// void	combined_execution(int pip, t_cmdline **cmd, t_table **table);
 // void	print_err(t_table **table, t_cmdline **cmd, t_vars *v);
 
 /**********************************************/
 /****************Free Resources****************/
 /**********************************************/
-void    free_tokens(t_tok *token);
-void    free_parse_tree(t_cmdline *tree);
-void    free_char_pp(char ***pp);
-void    update_table(t_cmdline *tree, t_table *table);
+void	free_tokens(t_tok *token);
+void	free_parse_tree(t_cmdline *tree);
+void	free_char_pp(char ***pp);
+void	update_table(t_cmdline *tree, t_table *table);
 #endif

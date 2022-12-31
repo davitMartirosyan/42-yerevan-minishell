@@ -1,27 +1,27 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   quote_analize.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 20:05:04 by root              #+#    #+#             */
-/*   Updated: 2022/12/17 10:59:20 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   quote_analize.c									:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/10/15 20:05:04 by root			  #+#	#+#			 */
+/*   Updated: 2022/12/17 10:59:20 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-void openquotes(char *cmdline)
+void	openquotes(char *cmdline)
 {
 	int i;
 
 	i = -1;
-	while(cmdline[++i])
+	while (cmdline[++i])
 	{
-		if(cmdline[i] == '\'')
+		if (cmdline[i] == '\'')
 			inside_quote(cmdline, &i, DBL);
-		if(cmdline[i] == '\"')
+		if (cmdline[i] == '\"')
 			inside_quote(cmdline, &i, SGL);
 	}
 }
@@ -35,45 +35,45 @@ int check_quotes(char *cmdline, int *q_c)
 	dbl = 0;
 	sgl = 0;
 	i = -1;
-	while(cmdline[++i])
+	while (cmdline[++i])
 	{
-		if(cmdline[i] && cmdline[i] == '\"')
+		if (cmdline[i] && cmdline[i] == '\"')
 			dbl++;
-		else if(cmdline[i] && cmdline[i] == '\'')
+		else if (cmdline[i] && cmdline[i] == '\'')
 			sgl++;
 	}
 	q_c[0] = dbl;
 	q_c[1] = sgl;
-	if((dbl % 2 != 0) || (sgl % 2 != 0))
+	if ((dbl % 2 != 0) || (sgl % 2 != 0))
 		return (0);
 	else 
 		return (1);
 }
 
-void inside_quote(char *cmdline, int *pos, int find)
+void	inside_quote(char *cmdline, int *pos, int find)
 {
 	int i;
 
 	i = *pos;
-	if(find == SGL)
+	if (find == SGL)
 	{
-		while(cmdline[++i])
+		while (cmdline[++i])
 		{
-			if(cmdline[i] && cmdline[i] == '\"')
+			if (cmdline[i] && cmdline[i] == '\"')
 				break;
-			if(cmdline[i] && cmdline[i] == '\'')
+			if (cmdline[i] && cmdline[i] == '\'')
 				cmdline[i] = 7;
 		}
 	}
-	else if(find == DBL)
+	else if (find == DBL)
 	{
-		while(cmdline[++i])
+		while (cmdline[++i])
 		{
-			if(cmdline[i] && cmdline[i] == '\'')
+			if (cmdline[i] && cmdline[i] == '\'')
 				break;
-			if(cmdline[i] && cmdline[i] == '\"')
+			if (cmdline[i] && cmdline[i] == '\"')
 				cmdline[i] = 8;
-			if(cmdline[i] && cmdline[i] == '$')
+			if (cmdline[i] && cmdline[i] == '$')
 				cmdline[i] = 4;
 		}
 	}
@@ -82,7 +82,7 @@ void inside_quote(char *cmdline, int *pos, int find)
 
 int quote_syntax_analyzer(char *cmdline, int *q_c)
 {
-	if(check_quotes(cmdline, q_c))
+	if (check_quotes(cmdline, q_c))
 	{
 		token_replacment(cmdline, 7, '\'');
 		token_replacment(cmdline, 8, '\"');

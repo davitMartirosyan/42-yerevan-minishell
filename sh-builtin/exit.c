@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:32:49 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/14 11:29:27 by user             ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   exit.c											 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: user <user@student.42.fr>				  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/10/25 14:32:49 by sabazyan		  #+#	#+#			 */
+/*   Updated: 2022/12/14 11:29:27 by user			 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -47,7 +47,7 @@ unsigned long long int	ft_atoi_(char *str)
 	i = 0;
 	syb = 1;
 	counter = 0;
-	if (str == (void *)0)
+	if (str == (void	*)0)
 		return (0);
 	if (str[i] == '-')
 		syb = -1;
@@ -83,11 +83,11 @@ void	exit_cases(char **matrix, t_table *tab)
 	}
 }
 
-void	ft_exit(t_cmdline *cmd, t_table *tab)
+void	ft_exit(t_cmds *cmd, t_table *tab)
 {
 	char	**matrix;
 
-	matrix = cmd->cmds->arg_pack;
+	matrix = cmd->arg_pack;
 	if (!matrix[1])
 	{
 		printf("exit\n");

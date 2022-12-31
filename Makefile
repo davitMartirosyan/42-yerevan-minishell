@@ -29,7 +29,7 @@ OBJS = $(patsubst %.o, $(OBJS_DIR)/%.o, $(_OBJS))
 
 INCLUDES = -I./readline-dmartiro/include
 
-LINKERS	= -L./readline-dmartiro/lib -lreadline
+LINKERS	= -lreadline #-L./readline-dmartiro/lib 
 
 $(OBJS_DIR)/%.o: %.c
 	@ $(MKDIR) $(OBJS_DIR)/env

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 03:09:29 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/18 15:00:30 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   init.c											 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/09/27 03:09:29 by dmartiro		  #+#	#+#			 */
+/*   Updated: 2022/12/18 15:00:30 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-void bash_setup(t_table **table, char **envp)
+void	bash_setup(t_table **table, char **envp)
 {
 	(void)envp;
 	*table = malloc(sizeof(t_table));
-	if(!table)
+	if (!table)
 		return ;
-    (*table)->env = env_tokenizing(envp);
+	(*table)->env = env_tokenizing(envp);
 	(*table)->hdocs = 0;
 	(*table)->get_heredoc_flag = 0;
 	(*table)->get_pid = get_pid();
@@ -26,7 +26,7 @@ void bash_setup(t_table **table, char **envp)
 	reserved(table);
 }
 
-void reserved(t_table **table)
+void	reserved(t_table **table)
 {
 	(*table)->builtin[0] = print_echo;
 	(*table)->builtin[1] = print_pwd;
@@ -51,7 +51,7 @@ int get_pid()
 	int status;
 	
 	pid =  fork();
-	if(pid == 0)
+	if (pid == 0)
 		exit(0);
 	else
 		wait(&status);

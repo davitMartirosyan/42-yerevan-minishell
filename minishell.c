@@ -1,24 +1,24 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 20:19:57 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/12/18 14:32:33 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   minishell.c										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/09/21 20:19:57 by dmartiro		  #+#	#+#			 */
+/*   Updated: 2022/12/18 14:32:33 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "includes/minishell_header.h"
 
 char *ft_readline(char *line)
 {
-    char	*cmd;
+	char	*cmd;
 
 	cmd = NULL;
-    cmd = readline(line);
-	if(!cmd)
+	cmd = readline(line);
+	if (!cmd)
 	{
 		ft_putstr_fd("exit\n", 1);
 		exit(0);
@@ -39,28 +39,20 @@ int main(int argc, char *argv[], char *envp[])
 	tree = NULL;
 	table = NULL;
 	bash_setup(&table, envp);
-    ft_signal(0);
+	ft_signal(0);
 	while (1)
-    {
-        cmdline = ft_readline("Minishell-$ ");
-		if(!cmdline)
+	{
+		cmdline = ft_readline("Minishell-$ ");
+		if (!cmdline)
 			handleterm(0);
-        if(lexical_analyzer(cmdline, table))
-        {
-            tree = parse_tree(table);
-		    execution(&tree, &table);
+		if (lexical_analyzer(cmdline, table))
+		{
+			tree = parse_tree(table);
+			execution(&tree, &table);
+			// printf("%s\n", tree->cmds->next->arg_pack[0]);
 			update_table(tree, table);
-        }
+		}
 		free(cmdline);
-    }
-    return (0);
+	}
+	return (0);
 }
-/*
-signals
-	in child process
-	in heredocs
-leaks
-	echo
-	cd
-	export
-*/

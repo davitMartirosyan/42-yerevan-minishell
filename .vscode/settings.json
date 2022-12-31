@@ -1,5 +1,5 @@
 {
-    "files.associations": {
+	"files.associations": {
 		"minishell_header.h": "c",
 		"types.h": "c",
 		"wait.h": "c",
@@ -23,5 +23,7 @@
 		"stdbool.h": "c",
 		"errno.h": "c",
 		"readline.h": "c"
-	}
+	},
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false
 }

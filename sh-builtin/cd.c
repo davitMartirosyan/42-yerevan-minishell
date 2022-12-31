@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/12/17 14:32:24 by dmartiro         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   cd.c											   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2022/10/25 14:30:20 by sabazyan		  #+#	#+#			 */
+/*   Updated: 2022/12/17 14:32:24 by dmartiro		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -68,7 +68,7 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 		printf("%scd: HOME not set\n", SHELLERR);
 }
 
-void	print_cd(t_cmdline *cmd, t_table *tab)
+void	print_cd(t_cmds *cmd, t_table *tab)
 {
 	char	**matrix;
 	t_env	*temp;
@@ -77,7 +77,7 @@ void	print_cd(t_cmdline *cmd, t_table *tab)
 	int		res;
 
 	res = 0;
-	matrix = cmd->cmds->arg_pack;
+	matrix = cmd->arg_pack;
 	temp = tab->env;
 	old_path = getcwd(cwd, 10000);
 	if (matrix[0] && ft_strcmp(matrix[0], "cd") == 0
