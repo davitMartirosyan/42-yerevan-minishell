@@ -102,13 +102,18 @@ static void	piping_execution(int pip, t_cmdline *cmd, t_table *table)
 	ccount = 0;
 	while (cmds != NULL)
 	{
-		v.built = find_in(cmds->arg_pack[0], table->reserved);
-		v.binar = cmd_check(cmds, table);
+		// signal(SIGINT, SIG_IGN);
+		table->dup0 = dup(0);
+		table->dup1 = dup(1);
 		if (!cmds->arg_pack)
 		{
 			cmds = cmds->next;
 			continue;
 		}
+		dup2(cmd->cmds->i_stream, STDIN_FILENO);
+		dup2(cmd->cmds->o_stream, STDOUT_FILENO);
+		v.built = find_in(cmds->arg_pack[0], table->reserved);
+		v.binar = cmd_check(cmds, table);
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
@@ -122,15 +127,18 @@ static void	piping_execution(int pip, t_cmdline *cmd, t_table *table)
 					exit(EXIT_FAILURE);
 			}
 		}
+		dup2(table->dup0, 0);
+		dup2(table->dup1, 1);
+		close(table->dup0);
+		close(table->dup1);
 		ccount++;
 		i++;
 		cmds = cmds->next;
 	}
-	close_all_pipes(pip_ptr, pip);
 	i = -1;
+	close_all_pipes(pip_ptr, pip);
 	while (ccount--)
 		wait(&table->status);
-	close_all_pipes(pip_ptr, pip);
 	free(pip_ptr);
 }
 
@@ -171,8 +179,8 @@ static void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip)
 		i_stream = istream(cmd, pip_ptr, i);
 		dup2(i_stream, STDIN_FILENO);
 	}
-	close(o_stream);
-	close(i_stream);
+	// close(o_stream);
+	// close(i_stream);
 	close_all_pipes(pip_ptr, pip);
 }
 
