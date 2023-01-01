@@ -110,13 +110,13 @@ static void	piping_execution(int pip, t_cmdline *cmd, t_table *table)
 			cmds = cmds->next;
 			continue;
 		}
-		dup2(cmd->cmds->i_stream, STDIN_FILENO);
-		dup2(cmd->cmds->o_stream, STDOUT_FILENO);
 		v.built = find_in(cmds->arg_pack[0], table->reserved);
 		v.binar = cmd_check(cmds, table);
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
+			dup2(cmd->cmds->i_stream, STDIN_FILENO);
+			dup2(cmd->cmds->o_stream, STDOUT_FILENO);
 			piping(cmds, pip_ptr, i, pip);
 			if (v.built != -1)
 				table->builtin[v.built](cmds, table);
@@ -127,10 +127,6 @@ static void	piping_execution(int pip, t_cmdline *cmd, t_table *table)
 					exit(EXIT_FAILURE);
 			}
 		}
-		dup2(table->dup0, 0);
-		dup2(table->dup1, 1);
-		close(table->dup0);
-		close(table->dup1);
 		ccount++;
 		i++;
 		cmds = cmds->next;
