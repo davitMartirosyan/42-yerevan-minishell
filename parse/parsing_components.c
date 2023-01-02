@@ -30,7 +30,11 @@ void	open__file__check__type(int type, char *filename, t_cmds *cmds)
 	if (type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (type == REDIR_IN)
+	{
 		fd = open(filename, O_RDONLY);
+		if(fd == -1)
+			cmds->patherr = ft_strdup(filename);
+	}
 	else if (type == APPEND)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (type == HEREDOC)
@@ -79,7 +83,7 @@ void	std(t_cmds **cmds)
 	(*cmds)->arguments = NULL;
 	(*cmds)->arg_pack = NULL;
 	(*cmds)->path = NULL;
-	(*cmds)->err = NULL;
+	(*cmds)->patherr = NULL;
 	(*cmds)->i_stream = STDIN_FILENO;
 	(*cmds)->o_stream = STDOUT_FILENO;
 	(*cmds)->e_stream = STDERR_FILENO;

@@ -83,7 +83,7 @@ typedef struct s_cmds
 	char	*arguments;
 	char	**arg_pack;
 	char	*path;
-	char	*err;
+	char	*patherr;
 	int	 exit_status;
 	int	 i_stream;
 	int	 o_stream;

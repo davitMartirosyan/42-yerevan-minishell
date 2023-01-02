@@ -49,7 +49,7 @@ void	execute(t_cmdline *cmd, t_table *table)
 void	_execute(t_vars *v, t_cmdline *cmd, t_table *table)
 {
 	if (v->built != -1)
-	table->builtin[v->built](cmd->cmds, table);
+		table->builtin[v->built](cmd->cmds, table);
 	else if (v->binar != -1)
 	{
 		signal(SIGINT, SIG_IGN);
@@ -66,10 +66,17 @@ void	_execute(t_vars *v, t_cmdline *cmd, t_table *table)
 			handle_status__and_wait(&table->status);
 	   ft_signal(0);
 	}
-	else
+	else if(cmd->cmds->i_stream == -1)
 	{
-		printf("error\n");
-		table->status = 1;
+		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->cmds->patherr, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	}
+	else if(v->binar == -1)
+	{
+		ft_putstr_fd("-sadm: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->cmds->arg_pack[0], STDERR_FILENO);
+		ft_putstr_fd(": Command not found\n", STDERR_FILENO);
 	}
 }
 
@@ -108,11 +115,25 @@ void	piping_execution(int pip, t_cmdline *cmd, t_table *table)
 			piping(cmds, pip_ptr, i, pip);
 			if (v.built != -1)
 				table->builtin[v.built](cmds, table);
-			else if (v.binar != -1)
+			else if (v.binar != -1 && cmds->i_stream != -1)
 			{
 				table->minienv = create_envp(&table->env);
 				if (execve(cmds->path, cmds->arg_pack, table->minienv) == -1)
 					exit(EXIT_FAILURE);
+			}
+			else if(cmds->i_stream == -1)
+			{
+				ft_putstr_fd("bash: ", STDERR_FILENO);
+				ft_putstr_fd(cmds->patherr, STDERR_FILENO);
+				ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+				exit(1);
+			}
+			else if(v.binar == -1)
+			{
+				ft_putstr_fd("-sadm: ", STDERR_FILENO);
+				ft_putstr_fd(cmds->arg_pack[0], STDERR_FILENO);
+				ft_putstr_fd(": Command not found\n", STDERR_FILENO);
+				exit(1);
 			}
 			dup2(cmds->i_stream, STDIN_FILENO);
 		}

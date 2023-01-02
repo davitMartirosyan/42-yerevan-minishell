@@ -60,7 +60,7 @@ void	free_parse_tree(t_cmdline *tree)
 		cmd->o_stream = STDOUT;
 		free(cmd->arguments);
 		free(cmd->path);
-		free(cmd->err);
+		free(cmd->patherr);
 		if (cmd->arg_pack != NULL)
 			free_char_pp(&cmd->arg_pack);
 		free(cmd);
