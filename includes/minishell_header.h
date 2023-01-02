@@ -20,7 +20,6 @@
 # define SHELL 				"Minishell-$ "
 # define SHELLERR		   "-sadm"
 
-
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR "Syntax error near unexpected token"
 # define COMMANDERR "Command Not Found\n"
@@ -34,6 +33,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <stdarg.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -50,6 +50,7 @@ char	*ft_readline(char *line);
 void	inthandle(int sig);
 void	handleterm(int sig);
 void	ft_signal(int handle);
+int     ft_fprintf(int fd, const char *placeholder, ...);
 /**********************************************/
 /*******************Listing********************/
 /**********************************************/
@@ -132,10 +133,13 @@ int		cmd_check(t_cmds *cmd, t_table *table);
 int     find_in(char *builtin, char **reserved);
 int     istream(t_cmds *cmd, int (*pipe)[2], int i);
 int     ostream(t_cmds *cmd, int (*pipe)[2], int i);
+int     check_command(t_cmds *cmds, t_vars *v, t_table *table);
 void	execution(t_cmdline **cmdline, t_table **table);
 void	execute(t_cmdline *cmd, t_table *table);
 void	_execute(t_vars *v, t_cmdline *cmd, t_table *table);
-void	piping_execution(int pip, t_cmdline *cmd, t_table *table);
+int     _execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2]);
+void	piping_execute(int pip, t_cmdline *cmd, t_table *table);
+void    execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table);
 void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip);
 void	handle_status__and_wait(int *status);
 void	close_all_pipes(int pips[][2], int pip);

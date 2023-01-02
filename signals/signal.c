@@ -14,6 +14,7 @@
 
 void	inthandle(int sig)
 {
+	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
@@ -33,7 +34,7 @@ void	handleterm(int sig)
 
 void	ft_signal(int handle)
 {
-	// handleterm(handle);
+	handleterm(handle);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, inthandle);
 }

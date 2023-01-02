@@ -23,6 +23,7 @@ void	bash_setup(t_table **table, char **envp)
 	(*table)->get_heredoc_flag = 0;
 	(*table)->get_pid = get_pid();
 	(*table)->status = 0;
+	getcwd((*table)->cwd, 10000);
 	reserved(table);
 }
 

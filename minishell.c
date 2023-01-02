@@ -49,7 +49,6 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			tree = parse_tree(table);
 			execution(&tree, &table);
-			// printf("%s\n", tree->cmds->next->arg_pack[0]);
 			update_table(tree, table);
 		}
 		free(cmdline);

@@ -48,28 +48,14 @@ static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
 	t_tok *toks;
 	t_cmds *cmd;
 
+	(void)cmd;
+	(void)toks;
 	toks = NULL;
 	cmd = NULL;
 	toks = table->token;
 	cmd = commands->cmds;
 	if (toks != NULL && commands != NULL)
 	{
-		//while (toks != NULL)
-		//{
-		//	if (toks->type == UNDEFINED)
-		//	{
-		//		printf("%s%s '%s'\n", SHELLERR, TOKEN_SYNTAX_ERR, toks->tok);
-		//		return (0);
-		//	}
-		//	else if (typeis_redirection(toks->type))
-		//	{
-		//		if (!find_delim(&toks))
-		//			printf("%s%s '%s'\n", SHELLERR, TOKEN_SYNTAX_ERR, toks->tok);
-		//		else
-		//			continue;
-		//	}
-		//	toks = toks->next;
-		//}
 		return (1);
 	}
 	return (0);

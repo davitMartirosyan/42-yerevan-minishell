@@ -20,19 +20,16 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 	
 	i = 0;
 	paths = add_paths(&table->env);
+	path = NULL;
 	if (paths == NULL)
 		return (-2);
-	path = NULL;
-	// if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
-	// {
-	// 	if (ft_strcmp(cmd->arg_pack[0], "minishell") == 0 || \
-	// 		ft_strcmp(cmd->arg_pack[0], "./minishell") == 0)
-	// 	{
-	// 		free_char_pp(&paths);
-	// 		cmd->path = ft_strdup(cmd->arg_pack[0]);
-	// 		return (0);
-	// 	}
-	// }
+	if(ft_strcmp(cmd->arg_pack[0], "minishell") == 0)
+	{
+		cmd->path = join_paths(ft_strdup(table->cwd), '/', cmd->arg_pack[0]);
+		printf("%s\n", cmd->path);
+		free_char_pp(&paths);
+		return (0);
+	}
 	while (paths[i])
 	{
 		path = join_paths(paths[i], '/', cmd->arg_pack[0]);

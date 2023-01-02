@@ -76,6 +76,7 @@ void	print_cd(t_cmds *cmd, t_table *tab)
 	char	*old_path;
 	int		res;
 
+	(void)temp;
 	res = 0;
 	matrix = cmd->arg_pack;
 	temp = tab->env;
