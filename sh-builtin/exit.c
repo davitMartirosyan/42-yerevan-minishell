@@ -70,8 +70,7 @@ void	exit_cases(char **matrix, t_table *tab)
 			|| ft_atoi_(matrix[1]) > check))
 	{
 		printf("exit\n");
-		printf("bash: exit: %s: numeric argument required\n", matrix[1]);
-		//exit(tab->status);
+		ft_fprintf(STDERR_FILENO, "-sadm: exit: %s: numeric argument required\n", matrix[1]);
 	}
 	else if (matrix[1] && !matrix[2])
 	{
@@ -91,13 +90,12 @@ void	ft_exit(t_cmds *cmd, t_table *tab)
 	if (!matrix[1])
 	{
 		printf("exit\n");
-		// exit(tab->status);
+		exit(tab->status);
 	}
 	else if (matrix[1] && matrix[2])
 	{
 		printf("exit\n");
-		printf("minishell: exit: too many arguments\n");
-		// tab->status = 1;
+		ft_fprintf(STDERR_FILENO, "-sadm: exit: too many arguments\n");
 	}
 	else
 		exit_cases(matrix, tab);

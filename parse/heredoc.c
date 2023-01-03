@@ -78,7 +78,7 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 		}
 		if ((*token)->type == SEP || (*token)->type == HEREDOC)
 			(*v)->let++;
-		if ((*v)->let == 1 || (*token)->next == NULL)
+		if ((*v)->let == 1 || (*token)->next == NULL || (*token)->type == PIPE)
 			break;
 		*token = (*token)->next;
 	}

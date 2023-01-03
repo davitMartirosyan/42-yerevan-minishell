@@ -23,13 +23,19 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 	path = NULL;
 	if (paths == NULL)
 		return (-2);
-	if(ft_strcmp(cmd->arg_pack[0], "minishell") == 0)
-	{
-		cmd->path = join_paths(ft_strdup(table->cwd), '/', cmd->arg_pack[0]);
-		printf("%s\n", cmd->path);
-		free_char_pp(&paths);
+	if(check_executables(cmd, table, paths))
 		return (0);
-	}
+	if(check_in_paths(cmd, paths, path))
+		return (0);
+	free_char_pp(&paths);
+	return (-1);
+}
+
+int check_in_paths(t_cmds *cmd, char **paths, char *path)
+{
+	int i;
+
+	i = 0;
 	while (paths[i])
 	{
 		path = join_paths(paths[i], '/', cmd->arg_pack[0]);
@@ -39,14 +45,34 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 			cmd->exit_status = EXIT_SUCCESS;
 			free(path);
 			free_char_pp(&paths);
-			return (0);
+			return (1);
 		}
 		free(path);
 		path = 0;
 		i++;
 	}
-	free_char_pp(&paths);
-	return (-1);
+	return (0);
+}
+
+int check_executables(t_cmds *cmd, t_table *table, char **paths)
+{
+	if(ft_strcmp(cmd->arg_pack[0], "minishell") == 0)
+	{
+		cmd->path = join_paths(table->cwd, '/', cmd->arg_pack[0]);
+		free_char_pp(&paths);
+		return (1);
+	}
+	if(ft_strncmp(cmd->arg_pack[0], "./", 2) == 0)
+	{
+		if(access(cmd->arg_pack[0], F_OK & X_OK) == 0)
+		{
+			cmd->path = getcwd(cmd->path, 10000);
+			cmd->path = join_arguments(cmd->path, '/', cmd->arg_pack[0]);
+			free_char_pp(&paths);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 int find_in(char *builtin, char **reserved)

@@ -53,10 +53,10 @@ void	close_all_pipes(int pips[][2], int pip)
 	}
 }
 
-void	handle_status__and_wait(int *status)
+void	handle_status__and_wait(int pid, int *status)
 {
-	//  wait(status);
-	waitpid(-1, 0, WUNTRACED);
+	waitpid(pid, status, 0);
+
 	if (WIFEXITED(*status))
 		*status = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))

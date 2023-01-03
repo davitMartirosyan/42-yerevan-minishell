@@ -33,15 +33,15 @@ void	execute(t_cmdline *cmd, t_table *table)
 	if (!cmd->cmds->arg_pack)
 		return;
 	table->status = 0;
-	table->dup0 = dup(0);
-	table->dup1 = dup(1);
+	table->dup0 = dup(STDIN_FILENO);
+	table->dup1 = dup(STDOUT_FILENO);
 	v.built = find_in(cmd->cmds->arg_pack[0], table->reserved);
 	v.binar = cmd_check(cmd->cmds, table);
-	dup2(cmd->cmds->i_stream, 0);
-	dup2(cmd->cmds->o_stream, 1);
+	dup2(cmd->cmds->i_stream, STDIN_FILENO);
+	dup2(cmd->cmds->o_stream, STDOUT_FILENO);
 	_execute(&v, cmd, table);
-	dup2(table->dup0, 0);
-	dup2(table->dup1, 1);
+	dup2(table->dup0, STDIN_FILENO);
+	dup2(table->dup1, STDOUT_FILENO);
 	close(table->dup0);
 	close(table->dup1);
 }

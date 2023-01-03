@@ -61,7 +61,7 @@ void	add(t_tok **lst, t_tok *new);
 /****************Initializing******************/
 /**********************************************/
 t_env	*env_tokenizing(char **envp);
-int	 get_pid();
+int		get_pid();
 char	*join_env(char *key, char eq, char *value);
 char	**create_envp(t_env **env);
 void	bash_setup(t_table **table, char **envp);
@@ -130,6 +130,8 @@ int	 syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
 char	**add_paths(t_env **env);
 char	*join_paths(char *s1, int delimiter, char *s2);
 int		cmd_check(t_cmds *cmd, t_table *table);
+int		check_executables(t_cmds *cmd, t_table *table, char **paths);
+int		check_in_paths(t_cmds *cmd, char **paths, char *path);
 int     find_in(char *builtin, char **reserved);
 int     istream(t_cmds *cmd, int (*pipe)[2], int i);
 int     ostream(t_cmds *cmd, int (*pipe)[2], int i);
@@ -141,7 +143,7 @@ int     _execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2
 void	piping_execute(int pip, t_cmdline *cmd, t_table *table);
 void    execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table);
 void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip);
-void	handle_status__and_wait(int *status);
+void	handle_status__and_wait(int pid, int *status);
 void	close_all_pipes(int pips[][2], int pip);
 
 /**********************************************/
