@@ -14,11 +14,9 @@
 
 int	cmd_check(t_cmds *cmd, t_table *table)
 {
-	int		i;
 	char	*path;
 	char	**paths;
 	
-	i = 0;
 	paths = add_paths(&table->env);
 	path = NULL;
 	if (paths == NULL)
@@ -62,15 +60,12 @@ int check_executables(t_cmds *cmd, t_table *table, char **paths)
 		free_char_pp(&paths);
 		return (1);
 	}
-	if(ft_strncmp(cmd->arg_pack[0], "./", 2) == 0)
+	if(access(cmd->arg_pack[0], F_OK & X_OK) == 0)
 	{
-		if(access(cmd->arg_pack[0], F_OK & X_OK) == 0)
-		{
-			cmd->path = getcwd(cmd->path, 10000);
-			cmd->path = join_arguments(cmd->path, '/', cmd->arg_pack[0]);
-			free_char_pp(&paths);
-			return (1);
-		}
+		cmd->path = getcwd(cmd->path, 10000);
+		cmd->path = join_arguments(cmd->path, '/', cmd->arg_pack[0]);
+		free_char_pp(&paths);
+		return (1);
 	}
 	return (0);
 }

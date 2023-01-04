@@ -139,6 +139,7 @@ int     check_command(t_cmds *cmds, t_vars *v, t_table *table);
 void	execution(t_cmdline **cmdline, t_table **table);
 void	execute(t_cmdline *cmd, t_table *table);
 void	_execute(t_vars *v, t_cmdline *cmd, t_table *table);
+void    _ffork(t_cmdline *cmd, t_table *table);
 int     _execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2]);
 void	piping_execute(int pip, t_cmdline *cmd, t_table *table);
 void    execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table);

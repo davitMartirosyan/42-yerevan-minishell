@@ -16,7 +16,6 @@ int ostream(t_cmds *cmd, int (*pipe)[2], int i)
 
 void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip)
 {
-
 	int o_stream;
 	int i_stream;
 

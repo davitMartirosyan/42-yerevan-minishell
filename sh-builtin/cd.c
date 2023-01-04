@@ -65,7 +65,7 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 		temp = temp->next;
 	}
 	if (check)
-		printf("%scd: HOME not set\n", SHELLERR);
+		printf("%s cd: HOME not set\n", SHELLERR);
 }
 
 void	print_cd(t_cmds *cmd, t_table *tab)
@@ -95,7 +95,8 @@ void	print_cd(t_cmds *cmd, t_table *tab)
 	{
 		res = chdir(matrix[1]);
 		if (res == -1)
-			printf("%scd: %s: No such file or directory\n", SHELLERR, matrix[1]);
+			ft_fprintf(STDERR_FILENO, \
+				"%s: %s: No such file or directory\n", SHELLERR, matrix[1]);
 		else if (res == 0)
 		{
 			if (!getcwd(cwd, 10000))
