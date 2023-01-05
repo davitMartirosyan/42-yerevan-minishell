@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   export.c										   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/10/25 14:31:17 by sabazyan		  #+#	#+#			 */
-/*   Updated: 2022/11/18 12:30:33 by sabazyan		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:31:17 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/11/18 12:30:33 by sabazyan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -18,24 +18,46 @@ int	export_err(char *str)
 	char	**key_val;
 
 	i = 0;
+	if (check_err(str) == 0)
+		return (1);
 	if (check_plus_equal(str))
 	{
-		key_val = ft_split(str, '+');
-		if (!key_val[0])
+		if (str[0] && str[0] == '+')
 			return (1);
+		key_val = ft_split(str, '+');
 		str = ft_split(key_val[0], '=')[0];
 	}
-	while (str[i])
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		return (1);
+	while (str[++i])
 	{
-		if (!ft_isalpha(str[0]) && str[0] != '_')
+		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
 			return (1);
-		while (str[++i])
-		{
-			if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
-				return (1);
-		}
 	}
 	return (0);
+}
+
+int	check_err(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '+' && str[i + 1] && str[i + 1] == '=')
+		{
+			while (j < i)
+			{
+				if (str[j] == '+')
+					return (0);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (1);
 }
 
 int	check_key(char *str, t_table *tab)
@@ -50,18 +72,6 @@ int	check_key(char *str, t_table *tab)
 		temp = temp->next;
 	}
 	return (0);
-}
-
-t_table	*create_tab(char **env)
-{
-	t_table	*tab;
-
-	tab = malloc(sizeof(t_table));
-	if (!tab || !env)
-		return (NULL);
-	//tab->status = 0;
-	tab->env = env_tokenizing(env);
-	return (tab);
 }
 
 int	check_plus_equal(char *str)

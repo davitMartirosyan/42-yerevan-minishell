@@ -1,52 +1,32 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   echo.c											 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/10/25 14:29:34 by sabazyan		  #+#	#+#			 */
-/*   Updated: 2022/12/17 14:32:53 by dmartiro		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:29:34 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/11/07 19:02:58 by sabazyan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-int	is_keyword(char *str)
-{
-	char	**keywords;
-	int		i;
-
-	keywords = ft_split(RESERVED, ' ');
-	i = -1;
-	while (keywords[++i])
-	{
-		if (ft_strcmp(keywords[i], str) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-int	is_token(char *str)
-{
-	char	**tokens;
-	int		i;
-
-	tokens = ft_split(TOKENS, ' ');
-	i = -1;
-	while (tokens[++i])
-	{
-		if (ft_strcmp(tokens[i], str) == 0)
-			return (1);
-	}
-	return (0);
-}
-
 void	with_flag(char **matrix, int i)
 {
+	int	is_first;
+
+	is_first = 1;
 	i++;
-	while (matrix[i] && is_token(matrix[i]) == 0)
+	while (matrix[i] != NULL)
 	{
+		if (matrix[i] && check_flag(matrix[i]) == 0 && is_first == 1)
+		{
+			if (matrix[i + 1] && check_flag(matrix[i + 1]) == 1)
+				is_first = 0;
+			i++;
+			continue ;
+		}
 		printf("%s", matrix[i]);
 		if (matrix[i + 1])
 			printf(" ");
@@ -54,20 +34,31 @@ void	with_flag(char **matrix, int i)
 	}
 }
 
-void	without_flag(char **matrix, t_table *tab, int i)
+void	without_flag(char **matrix, int i)
 {
-	(void)tab;
-	while (matrix[i] && is_token(matrix[i]) == 0)
+	while (matrix[i])
 	{
-		if (ft_strcmp(matrix[i], "$?") == 0)
-			printf("tab->status");
-		else
-			printf("%s", matrix[i]);
+		printf("%s", matrix[i]);
 		if (matrix[i + 1])
 			printf(" ");
 		i++;
 	}
 	printf("\n");
+}
+
+int	check_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] != '-')
+		return (1);
+	while (str[++i] != '\0')
+	{
+		if (str[i] != 'n')
+			return (1);
+	}
+	return (0);
 }
 
 void	print_echo(t_cmds *cmd, t_table *tab)
@@ -77,17 +68,13 @@ void	print_echo(t_cmds *cmd, t_table *tab)
 
 	matrix = cmd->arg_pack;
 	i = 1;
-	if (matrix[0] && is_keyword(matrix[0]) == 0)
-		printf("-minishell: %s: command not found\n", matrix[0]);
-	else if (matrix[0] && is_keyword(matrix[0]) == 1)
-	{
-		if (ft_strcmp(matrix[0], "echo") == 0 && !matrix[1])
-			printf("\n");
-		else if (ft_strcmp(matrix[0], "echo") == 0 && matrix[1]
-			&& ft_strcmp(matrix[1], "-n") != 0)
-			without_flag(matrix, tab, i);
-		else if (ft_strcmp(matrix[0], "echo") == 0
-			&& matrix[1] && ft_strcmp(matrix[1], "-n") == 0)
-			with_flag(matrix, i);
-	}
+	if (ft_strcmp(matrix[0], "echo") == 0 && !matrix[1])
+		printf("\n");
+	else if (ft_strcmp(matrix[0], "echo") == 0 && matrix[1]
+		&& check_flag(matrix[1]) == 1)
+		without_flag(matrix, i);
+	else if (ft_strcmp(matrix[0], "echo") == 0
+		&& matrix[1] && check_flag(matrix[1]) == 0)
+		with_flag(matrix, i);
+	tab->status = 0;
 }

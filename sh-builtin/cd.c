@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   cd.c											   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/10/25 14:30:20 by sabazyan		  #+#	#+#			 */
-/*   Updated: 2022/12/17 14:32:24 by dmartiro		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/11/07 19:06:07 by sabazyan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -19,6 +19,8 @@ void	change_path(t_table *tab, char *old_path)
 	t_env	*temp;
 
 	new_path = getcwd(cwd, 10000);
+	if (check_path(tab, new_path) == 1)
+		return ;
 	temp = tab->env;
 	while (temp)
 	{
@@ -33,13 +35,25 @@ void	change_path(t_table *tab, char *old_path)
 			temp->val = old_path;
 		temp = temp->next;
 	}
+	tab->status = 0;
 }
 
-void	change_path_to_home(t_table *tab, int res, char *old_path)
+int	check_path(t_table *tab, char *new_path)
+{
+	if (!new_path)
+	{
+		printf("cd: error retrieving current directory: getcwd: cannot access");
+		printf(" parent directories: No such file or directory\n");
+		tab->status = 1;
+		return (1);
+	}
+	return (0);
+}
+
+void	change_path_to_home(t_table *tab, char *old_path)
 {
 	t_env	*temp;
 	int		check;
-	char	cwd[10000];
 
 	temp = tab->env;
 	check = 1;
@@ -47,64 +61,57 @@ void	change_path_to_home(t_table *tab, int res, char *old_path)
 	{
 		if (!ft_strcmp(temp->key, "HOME"))
 		{
-			res = chdir(temp->val);
-			if (res == -1)
-				printf("%scd: %s: No such file or directory\n",
-					SHELLERR, temp->val);
-			else if (res == 0)
-			{
-				if (!getcwd(cwd, 10000))
-				{
-					printf("yesim inch\n");
-					return ;
-				}
+			if (chdir(temp->val) == -1)
+				printf("minishell: cd: %s: No such file or directory\n",
+					temp->val);
+			else
 				change_path(tab, old_path);
-			}
 			check = 0;
 		}
 		temp = temp->next;
 	}
 	if (check)
-		printf("%s cd: HOME not set\n", SHELLERR);
+		printf("minishell: cd: HOME not set\n");
 }
 
 void	print_cd(t_cmds *cmd, t_table *tab)
 {
 	char	**matrix;
-	t_env	*temp;
 	char	cwd[10000];
 	char	*old_path;
-	int		res;
 
-	(void)temp;
-	res = 0;
 	matrix = cmd->arg_pack;
-	temp = tab->env;
 	old_path = getcwd(cwd, 10000);
+	if (!old_path)
+		no_old_path(old_path, tab);
 	if (matrix[0] && ft_strcmp(matrix[0], "cd") == 0
 		&& (!matrix[1] || ft_strcmp(matrix[1], "~") == 0))
 	{
-		if (!getcwd(cwd, 10000))
-		{
-			printf("yesim inch\n");
-			return ;
-		}
-		change_path_to_home(tab, res, old_path);
+		tab->status = 1;
+		change_path_to_home(tab, old_path);
 	}
 	else if (matrix[0] && ft_strcmp(matrix[0], "cd") == 0 && matrix[1])
 	{
-		res = chdir(matrix[1]);
-		if (res == -1)
-			ft_fprintf(STDERR_FILENO, \
-				"%s: %s: No such file or directory\n", SHELLERR, matrix[1]);
-		else if (res == 0)
+		if (chdir(matrix[1]) == -1)
 		{
-			if (!getcwd(cwd, 10000))
-			{
-				printf("yesim inch\n");
-				return ;
-			}
-			change_path(tab, old_path);
+			printf("minishell: cd: %s: No such file or directory\n", matrix[1]);
+			tab->status = 1;
 		}
+		else
+			change_path(tab, old_path);
+	}
+}
+
+void	no_old_path(char *old_path, t_table *tab)
+{
+	t_env	*temp;
+
+	(void)old_path;
+	temp = tab->env;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->key, "PWD"))
+			old_path = temp->val;
+		temp = temp->next;
 	}
 }
