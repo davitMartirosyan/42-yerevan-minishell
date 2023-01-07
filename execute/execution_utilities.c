@@ -19,13 +19,11 @@ void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 		table->builtin[v->built](cmds, table);
 		exit(0);
 	}
-	else if (v->binar != -1 && cmds->i_stream != -1)
+	else if (v->binar != -1 && cmds->i_stream != -1 && cmds->o_stream != -1)
 		execve(cmds->path, cmds->arg_pack, create_envp(&table->env));
-	else if(cmds->i_stream == -1)
+	else if(cmds->i_stream == -1 || cmds->o_stream == -1)
 	{
-		ft_fprintf(STDERR_FILENO, \
-		"bash: %s: No such file or directory\n", cmds->patherr);
-		table->status = PATH_ERR_STATUS;
+		file_mode(table, cmds);
 		exit(1);
 	}
 	else if(v->binar == -1)
@@ -41,14 +39,10 @@ void	_execute(t_vars *v, t_cmdline *cmd, t_table *table)
 {
 	if (v->built != -1)
 		table->builtin[v->built](cmd->cmds, table);
-	else if (v->binar != -1 && cmd->cmds->i_stream != -1)
+	else if (v->binar != -1 && cmd->cmds->i_stream != -1 && cmd->cmds->o_stream != -1)
 		_ffork(cmd, table);
-	else if(cmd->cmds->i_stream == -1)
-	{
-		ft_fprintf(STDERR_FILENO, \
-		"bash: %s: No such file or directory\n", cmd->cmds->patherr);
-		table->status = PATH_ERR_STATUS;
-	}
+	else if(cmd->cmds->i_stream == -1 || cmd->cmds->o_stream == -1)
+		file_mode(table, cmd->cmds);
 	else if(v->binar == -1)
 	{
 		ft_fprintf(STDERR_FILENO, "-sadm: %s: Command not found\n", \

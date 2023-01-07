@@ -69,4 +69,19 @@ void	piping_execute(int pip, t_cmdline *cmd, t_table *table)
 		wait(&table->status);
 	free(pip_ptr);
 }
+
+void file_mode(t_table *table, t_cmds *cmds)
+{
+	if(cmds->i_stream == -1)
+	{
+		ft_fprintf(STDERR_FILENO, \
+		"bash: %s: No such file or directory\n", cmds->patherr);
+		table->status = PATH_ERR_STATUS;
+	}
+	if(cmds->o_stream == -1)
+	{
+		ft_fprintf(STDERR_FILENO, "bash: %s: Is a Directory\n", cmds->patherr);
+		table->status = PATH_ERR_STATUS;
+	}
+}
 // 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

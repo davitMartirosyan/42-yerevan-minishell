@@ -133,9 +133,9 @@ char	*valueof(char *key, t_env *env)
 	t_env *t;
 
 	t = env;
-	while (t->next != NULL)
+	while (t != NULL)
 	{
-		if (ft_strncmp(t->key, key, ft_strlen(key)) == 0 && \
+		if (ft_strcmp(t->key, key) == 0 && \
 			ft_strlen(t->key) == ft_strlen(key))
 			return (ft_strdup(t->val));
 		t = t->next;

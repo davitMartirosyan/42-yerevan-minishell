@@ -46,7 +46,7 @@ void	print_env(t_cmds *cmd, t_table *tab)
 	}
 	else
 	{
-		printf("env: %s: No such file or directory\n",
+		ft_fprintf(STDERR_FILENO, "env: %s: No such file or directory\n",
 			ft_strtrim(matrix[1], "\""));
 		tab->status = 127;
 	}

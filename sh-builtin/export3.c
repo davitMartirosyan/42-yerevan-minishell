@@ -21,7 +21,9 @@ void	ft_export(t_cmds *cmd, t_table *tab)
 	tab->status = 0;
 	matrix = cmd->arg_pack;
 	if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && !matrix[1])
+	{
 		print_export(tab);
+	}
 	else if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && matrix[1])
 	{
 		while (matrix[++i])
@@ -51,6 +53,7 @@ void	print_export(t_table *tab)
 	sorting(export_matrix);
 	while (export_matrix[++j] != NULL)
 		printf("declare -x %s\n", export_matrix[j]);
+	// free_char_pp(&export_matrix);
 }
 
 char	**create_export_matrix(t_table *tab, int count)
@@ -63,18 +66,20 @@ char	**create_export_matrix(t_table *tab, int count)
 	temp = tab->env;
 	i = 0;
 	matrix = malloc(sizeof(char *) * (count + 1));
+	if(!matrix)
+		return (NULL);
 	while (temp && temp->key)
 	{
-		if (temp->val)
+		if (temp->val != NULL)
 		{
-			if (ft_strchr(temp->val, '"'))
-				val = temp->val;
+			if (ft_strchr(temp->val, '"') == 0)
+				val = ft_strdup(temp->val);
 			else
 				val = ft_strjoin(ft_strjoin(ft_strdup("\""), temp->val), "\"");
-			matrix[i] = ft_strjoin(ft_strjoin(temp->key, "="), val);
+			matrix[i] = ft_strjoin(ft_strjoin(ft_strdup(temp->key), "="), val);
 		}
 		else
-			matrix[i] = temp->key;
+			i++;
 		i++;
 		temp = temp->next;
 	}

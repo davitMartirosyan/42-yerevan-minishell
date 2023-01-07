@@ -30,15 +30,13 @@ void	open__file__check__type(int type, char *filename, t_cmds *cmds)
 	if (type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (type == REDIR_IN)
-	{
 		fd = open(filename, O_RDONLY);
-		if(fd == -1)
-			cmds->patherr = ft_strdup(filename);
-	}
 	else if (type == APPEND)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (type == HEREDOC)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if(fd == -1)
+		cmds->patherr = ft_strdup(filename);
 	check_type(fd, type, cmds);
 }
 

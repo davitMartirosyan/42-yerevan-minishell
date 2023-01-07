@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-
 int lexical_analyzer(char *newpoint, t_table *table)
 {
 	char *cmdline;

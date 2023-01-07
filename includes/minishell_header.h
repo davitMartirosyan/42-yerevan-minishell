@@ -136,6 +136,7 @@ int     find_in(char *builtin, char **reserved);
 int     istream(t_cmds *cmd, int (*pipe)[2], int i);
 int     ostream(t_cmds *cmd, int (*pipe)[2], int i);
 int     check_command(t_cmds *cmds, t_vars *v, t_table *table);
+void	file_mode(t_table *table, t_cmds *cmds);
 void	execution(t_cmdline **cmdline, t_table **table);
 void	execute(t_cmdline *cmd, t_table *table);
 void	_execute(t_vars *v, t_cmdline *cmd, t_table *table);
