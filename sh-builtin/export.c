@@ -30,10 +30,8 @@ int	export_err(char *str)
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (1);
 	while (str[++i])
-	{
 		if (!ft_isalpha(str[i]) && !ft_isdigit(str[i]) && str[i] != '_')
 			return (1);
-	}
 	return (0);
 }
 

@@ -21,9 +21,7 @@ void	ft_export(t_cmds *cmd, t_table *tab)
 	tab->status = 0;
 	matrix = cmd->arg_pack;
 	if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && !matrix[1])
-	{
 		print_export(tab);
-	}
 	else if (matrix[0] && (ft_strcmp(matrix[0], "export") == 0) && matrix[1])
 	{
 		while (matrix[++i])
@@ -31,7 +29,7 @@ void	ft_export(t_cmds *cmd, t_table *tab)
 			if (export_err(matrix[i]))
 			{
 				ft_fprintf(STDERR_FILENO, \
-					"-minishell: export: `%s': not a valid identifier\n",
+					"-sadm: export: `%s': not a valid identifier\n",
 					matrix[i]);
 				tab->status = 1;
 				continue ;
@@ -53,7 +51,7 @@ void	print_export(t_table *tab)
 	sorting(export_matrix);
 	while (export_matrix[++j] != NULL)
 		printf("declare -x %s\n", export_matrix[j]);
-	// free_char_pp(&export_matrix);
+	free_char_pp(&export_matrix);
 }
 
 char	**create_export_matrix(t_table *tab, int count)
@@ -66,20 +64,20 @@ char	**create_export_matrix(t_table *tab, int count)
 	temp = tab->env;
 	i = 0;
 	matrix = malloc(sizeof(char *) * (count + 1));
-	if(!matrix)
-		return (NULL);
 	while (temp && temp->key)
 	{
-		if (temp->val != NULL)
+		if (temp->val)
 		{
-			if (ft_strchr(temp->val, '"') == 0)
+			if (ft_strchr(temp->val, '"'))
 				val = ft_strdup(temp->val);
 			else
 				val = ft_strjoin(ft_strjoin(ft_strdup("\""), temp->val), "\"");
 			matrix[i] = ft_strjoin(ft_strjoin(ft_strdup(temp->key), "="), val);
+			free(val);
+			*val = 0;
 		}
 		else
-			i++;
+			matrix[i] = ft_strdup(temp->key);
 		i++;
 		temp = temp->next;
 	}

@@ -33,22 +33,23 @@ void	no_pwd(t_table *tab)
 	t_env	*temp;
 
 	temp = tab->env;
-	if (tab->status == 0)
+	if (tab->pwd_status == 0)
 	{
 		while (temp)
 		{
-			if (ft_strcmp(temp->key, "PWD") == 0)
+			if (ft_strcmp(ft_strdup(temp->key), "PWD") == 0)
 				printf("%s\n", temp->val);
 			temp = temp->next;
 		}
 	}
-	else if (tab->status == 1)
+	else if (tab->pwd_status == 1)
 	{
 		while (temp)
 		{
 			if (ft_strcmp(temp->key, "OLDPWD") == 0)
-				printf("%s\n", ft_strjoin(temp->val, "/.."));
+				printf("%s\n", ft_strjoin(ft_strdup(temp->val), "/.."));
 			temp = temp->next;
 		}
+		tab->pwd_status = 0;
 	}
 }

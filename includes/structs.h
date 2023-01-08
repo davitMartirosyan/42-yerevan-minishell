@@ -120,6 +120,7 @@ typedef struct s_table{
 	int		 dup0;
 	int		 dup1;
 	int		 get_pid;
+	int		pwd_status;
 	t_built	 builtin[8];
 	t_env	   *env;
 	t_tok	   *token;

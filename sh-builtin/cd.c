@@ -44,7 +44,7 @@ int	check_path(t_table *tab, char *new_path)
 	{
 		printf("cd: error retrieving current directory: getcwd: cannot access");
 		printf(" parent directories: No such file or directory\n");
-		tab->status = 1;
+		tab->pwd_status = 1;
 		return (1);
 	}
 	return (0);
