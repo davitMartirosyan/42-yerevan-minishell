@@ -1,23 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   piping_execution_components.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/11 21:36:22 by tumolabs          #+#    #+#             */
+/*   Updated: 2023/01/11 21:36:30 by tumolabs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell_header.h"
 
-int istream(t_cmds *cmd, int (*pipe)[2], int i)
+int	istream(t_cmds *cmd, int (*pipe)[2], int i)
 {
 	if (cmd->i_stream != 0)
-		return cmd->i_stream;
+		return (cmd->i_stream);
 	return (pipe[i - 1][0]);
 }
 
-int ostream(t_cmds *cmd, int (*pipe)[2], int i)
+int	ostream(t_cmds *cmd, int (*pipe)[2], int i)
 {
 	if (cmd->o_stream != 1)
-		return cmd->o_stream;
+		return (cmd->o_stream);
 	return (pipe[i][1]);
 }
 
 void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip)
 {
-	int o_stream;
-	int i_stream;
+	int	o_stream;
+	int	i_stream;
 
 	if (i == 0)
 	{
@@ -42,9 +54,9 @@ void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip)
 
 void	close_all_pipes(int pips[][2], int pip)
 {
-	int a;
+	int	a;
 
-	a = -1; 
+	a = -1;
 	while (++a < pip)
 	{
 		close(pips[a][1]);
@@ -55,7 +67,6 @@ void	close_all_pipes(int pips[][2], int pip)
 void	handle_status__and_wait(int pid, int *status)
 {
 	waitpid(pid, status, 0);
-
 	if (WIFEXITED(*status))
 		*status = WEXITSTATUS(*status);
 	else if (WIFSIGNALED(*status))

@@ -47,15 +47,15 @@ void	reserved(t_table **table)
 	(*table)->reserved[7] = NULL;
 }
 
-int get_pid()
+int	get_pid(void)
 {
-	pid_t pid;
-	int status;
-	
-	pid =  fork();
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
 	if (pid == 0)
 		exit(0);
 	else
 		wait(&status);
-	return ((int)pid-1);
+	return ((int)pid - 1);
 }

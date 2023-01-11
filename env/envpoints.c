@@ -12,13 +12,13 @@
 
 #include "minishell_header.h"
 
-t_env   *env_tokenizing(char **envp)
+t_env	*env_tokenizing(char **envp)
 {
-	int i;
-	char **_tok;
-	t_env *t;
-	t_env *temp;
-	
+	int		i;
+	char	**_tok;
+	t_env	*t;
+	t_env	*temp;
+
 	i = -1;
 	t = malloc(sizeof(t_env));
 	temp = t;
@@ -26,26 +26,24 @@ t_env   *env_tokenizing(char **envp)
 	{
 		_tok = ft_split(envp[i], '=');
 		t->key = ft_strdup(_tok[0]);
-		free(_tok[0]);
 		if (_tok[1])
 			t->val = ft_strdup(_tok[1]);
-		free(_tok[1]);
-		free(_tok);
+		free_char_pp(&_tok);
 		if (!envp[i + 1])
-			break;
+			break ;
 		t->next = malloc(sizeof(t_env));
 		if (!t->next)
 			return (NULL);
 		t = t->next;
 	}
 	t->next = NULL;
-   return (temp);
+	return (temp);
 }
 
 char	**add_paths(t_env **env)
 {
 	char	**paths;
-	
+
 	while ((*env) != NULL)
 	{
 		if (!ft_strncmp((*env)->key, "PATH", ft_strlen((*env)->key)))
@@ -60,10 +58,10 @@ char	**add_paths(t_env **env)
 
 char	**create_envp(t_env **env)
 {
-	int i;
-	int c;
-	char **envp;
-	t_env *minienv;
+	int		i;
+	int		c;
+	char	**envp;
+	t_env	*minienv;
 
 	minienv = *env;
 	i = 0;
@@ -85,11 +83,11 @@ char	**create_envp(t_env **env)
 	return (envp);
 }
 
-char *join_env(char *key, char eq, char *value)
+char	*join_env(char *key, char eq, char *value)
 {
-	t_vars v;
-	char *env_line;
-	
+	t_vars	v;
+	char	*env_line;
+
 	if (!key && !value)
 		return (ft_strdup(""));
 	if (!key)

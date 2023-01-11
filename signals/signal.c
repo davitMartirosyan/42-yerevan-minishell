@@ -22,8 +22,8 @@ void	inthandle(int sig)
 
 void	handleterm(int sig)
 {
-	struct termios term;
-	
+	struct termios	term;
+
 	tcgetattr(0, &term);
 	if (sig == 0)
 	{

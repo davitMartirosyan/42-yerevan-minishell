@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fprintf.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/11 20:25:01 by tumolabs          #+#    #+#             */
+/*   Updated: 2023/01/11 20:25:59 by tumolabs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell_header.h"
 
 int ft_fprintf(int fd, const char *placeholder, ...)
 {
     va_list ap;
-    char *s;
+    char    *s;
     int i;
     int cout;
 

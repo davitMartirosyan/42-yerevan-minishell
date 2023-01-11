@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 10:35:34 by sabazyan          #+#    #+#             */
-/*   Updated: 2022/11/14 10:35:37 by sabazyan         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:28:49 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	**create_export_matrix(t_table *tab, int count)
 				val = ft_strjoin(ft_strjoin(ft_strdup("\""), temp->val), "\"");
 			matrix[i] = ft_strjoin(ft_strjoin(ft_strdup(temp->key), "="), val);
 			free(val);
-			*val = 0;
 		}
 		else
 			matrix[i] = ft_strdup(temp->key);

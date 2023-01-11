@@ -13,9 +13,10 @@
 #include "minishell_header.h"
 
 static void	unlink_heredocuments(int limit, int pid);
+
 void	free_char_pp(char ***pp)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!(*pp) && !*(*pp))
