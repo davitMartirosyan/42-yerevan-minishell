@@ -57,13 +57,11 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
 	pip = pipes(&table->token);
 	i = 0;
 	ccount = 0;
+	v->cconst = 0;
 	while (cmds != NULL)
 	{
 		if(!check_command(cmds, v, table))
-		{
 			cmds = cmds->next;
-			continue;
-		}
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
@@ -72,6 +70,7 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
 			piping(cmds, pip_ptr, i, pip);
 			execute_pipe_command(cmds, v, table);
 			dup2(cmds->i_stream, STDIN_FILENO);
+			// v->cconst = 0;
 		}
 		cmds = cmds->next;
 		ccount++;
