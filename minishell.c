@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
 /*												+#+#+#+#+#+   +#+		   */
 /*   Created: 2022/09/21 20:19:57 by dmartiro		  #+#	#+#			 */
-/*   Updated: 2022/12/18 14:32:33 by dmartiro		 ###   ########.fr	   */
+/*   Updated: 2023/01/11 06:15:50 by tumolabs         ###   ########.fr       */
 /*																			*/
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int argc, char *argv[], char *envp[])
 			handleterm(0);
 		if (lexical_analyzer(cmdline, table))
 		{
-			// syntax_error(table);
+			syntax_error(table);
 			tree = parse_tree(table);
 			execution(&tree, &table);
 			update_table(tree, table);
