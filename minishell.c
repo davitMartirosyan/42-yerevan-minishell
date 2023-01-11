@@ -47,7 +47,7 @@ int main(int argc, char *argv[], char *envp[])
 			handleterm(0);
 		if (lexical_analyzer(cmdline, table))
 		{
-			syntax_error(table);
+			// syntax_error(table);
 			tree = parse_tree(table);
 			execution(&tree, &table);
 			update_table(tree, table);

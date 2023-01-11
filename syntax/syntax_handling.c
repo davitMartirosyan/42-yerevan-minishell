@@ -40,9 +40,6 @@ void	syntax_error(t_table *table)
 		if(tmp->type == PIPE)
 			if(pipe_error(tmp, table) == -1)
 				break;
-		if(typeis_heredoc(tmp->type))
-			if(redirection_error(tmp, table) == -1)
-				break;
 		tmp = tmp->next;
 	}
 }

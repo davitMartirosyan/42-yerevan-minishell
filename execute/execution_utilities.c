@@ -3,10 +3,7 @@
 int	check_command(t_cmds *cmds, t_vars *v, t_table *table)
 {
 	if (!cmds->arg_pack)
-	{
-		cmds = cmds->next;
 		return (0);
-	}
 	v->built = find_in(cmds->arg_pack[0], table->reserved);
 	v->binar = cmd_check(cmds, table);
 	return (1);
@@ -63,7 +60,10 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
 	while (cmds != NULL)
 	{
 		if(!check_command(cmds, v, table))
+		{
+			cmds = cmds->next;
 			continue;
+		}
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
