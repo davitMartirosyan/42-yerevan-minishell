@@ -56,10 +56,16 @@ void	check_type(int fd, int type, t_cmds *cmds)
 	}
 }
 
-int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table)
+int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table, int *rtr)
 {
 	if (typeis_heredoc((*token)->type))
 	{
+		if(!(*token)->next || !typeis_arg((*token)->next->type))
+		{
+			_errno_(table, (*token)->tok);
+			*rtr = -1;
+			return 0;
+		}
 		heredoc(token, *(*cmds), table);
 		if (typeis_arg((*token)->type))
 			*token = (*token)->next;

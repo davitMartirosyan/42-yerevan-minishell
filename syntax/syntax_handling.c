@@ -12,53 +12,95 @@
 
 #include "minishell_header.h"
 
-static int token_syntax_analyzer(t_table *table, t_cmdline *commands);
 
-int syntax_handling(char *cmdline, t_table *table, t_cmdline *commands)
+void print_tokens(t_tok *tok)
 {
-	static int syn = 0;
-	
-	if (syn == 0)
+	t_tok *tmp;
+
+	tmp = tok;
+	while(tmp != NULL)
 	{
-		if (!cmdline[0])
-			return (0);
-		if (!quote_syntax_analyzer(cmdline, table->q_c))
-		{
-			printf("%s%s '%s'\n", SHELLERR, TOKEN_SYNTAX_ERR, "\'");
-			return (0);
-		}
-		syn++;
-		return (1);
+		printf("{%s} : %d\n", tmp->tok, tmp->type);
+		tmp = tmp->next;
 	}
-	else
+}
+
+void	syntax_error(t_table *table)
+{
+	t_tok *tmp;
+
+	tmp = table->token;
+	if(!tmp)
+		return;
+	while(tmp != NULL)
 	{
-		if (!token_syntax_analyzer(table, commands))
-		{
-			syn--;
+		if(typeis_redirection(tmp->type))
+			if(redirection_error(tmp, table) == -1)
+				break;
+		if(tmp->type == PIPE)
+			if(pipe_error(tmp, table) == -1)
+				break;
+		if(typeis_heredoc(tmp->type))
+			if(redirection_error(tmp, table) == -1)
+				break;
+		tmp = tmp->next;
+	}
+}
+
+int	pipe_error(t_tok *tmp, t_table *table)
+{
+
+	tmp = tmp->next;
+	if(tmp == NULL || (tmp->type == SEP && tmp->next == NULL))
+	{
+		_errno_(table, "|");
+		return (-1);
+	}
+	while(tmp != NULL)
+	{
+		if(tmp->type == SEP || typeis_arg(tmp->type) || typeis_redirection(tmp->type))	
 			return (0);
+		else
+		{
+			_errno_(table, "|");
+			return (-1);
 		}
-		syn--;
-		return (1);
+		tmp = tmp->next;
 	}
 	return (0);
 }
 
-static int token_syntax_analyzer(t_table *table, t_cmdline *commands)
+int	redirection_error(t_tok *tmp, t_table *table)
 {
-	t_tok *toks;
-	t_cmds *cmd;
-
-	(void)cmd;
-	(void)toks;
-	toks = NULL;
-	cmd = NULL;
-	toks = table->token;
-	cmd = commands->cmds;
-	if (toks != NULL && commands != NULL)
+	tmp = tmp->next;
+	if(tmp == NULL)
 	{
-		return (1);
+		_errno_(table, "newline");
+		return (-1);
+	}
+	while(tmp != NULL)
+	{
+		if(tmp->type == SEP)
+		{
+			tmp = tmp->next;
+			continue;
+		}
+		if((typeis_arg(tmp->type)))
+			return (0);
+		else
+		{
+			_errno_(table, tmp->tok);
+			return (-1);
+		}
+		tmp = tmp->next;
 	}
 	return (0);
 }
 
+void	_errno_(t_table *table, char *err)
+{
+	if(table->syntax)
+		free(table->syntax);
+	table->syntax = ft_strdup(err);
+}
 //valgrind -leak-check=full

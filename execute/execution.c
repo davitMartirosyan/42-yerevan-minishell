@@ -16,6 +16,11 @@ void	execution(t_cmdline **commands, t_table **table)
 {
 	int pip;
 
+	if((*table)->syntax)
+	{
+		ft_fprintf(STDERR_FILENO, "-sadm: %s `%s'\n", TOKEN_SYNTAX_ERR, (*table)->syntax);
+		return ;
+	}
 	if (commands && *commands)
 	{
 		pip = pipes(&((*table)->token));

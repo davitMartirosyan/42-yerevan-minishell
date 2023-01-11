@@ -112,6 +112,7 @@ typedef struct s_table{
 	char		**minienv;
 	char		*reserved[8];
 	char		*err_handling;
+	char		*syntax;
 	int		 type;
 	int		 status;
 	int		 q_c[2];

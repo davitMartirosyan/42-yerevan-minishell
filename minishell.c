@@ -43,10 +43,11 @@ int main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		cmdline = ft_readline("Minishell-$ ");
-		if (!cmdline)
+		if (!cmdline[0])
 			handleterm(0);
 		if (lexical_analyzer(cmdline, table))
 		{
+			syntax_error(table);
 			tree = parse_tree(table);
 			execution(&tree, &table);
 			update_table(tree, table);
@@ -55,5 +56,3 @@ int main(int argc, char *argv[], char *envp[])
 	}
 	return (0);
 }
-
-

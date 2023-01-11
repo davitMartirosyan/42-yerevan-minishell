@@ -17,14 +17,13 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	t_vars *v;
 	char *delim;
 	char *term;
-	char *tmpfile;
-	
+	char *tmpfile;	
 	delim = NULL;
 	term = NULL;
 	tmpfile = NULL;
 	v = malloc(sizeof(t_vars));
 	v->log = (*token)->type;
-	while ((*token)->type != WORD && (*token)->type != EXP_FIELD)
+	while ((*token)->type != WORD && (*token)->type != EXP_FIELD && (*token) != NULL)
 		*token = (*token)->next;
 	delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);

@@ -70,10 +70,11 @@ void	reserved(t_table **table);
 /**********************************************/
 /**************Lexical Analyzing***************/
 /**********************************************/
-int		check_quotes(char *cmdline, int *q_counts);
-int		quote_syntax_analyzer(char *cmdline, int *q_c);
 int		contains(char *tok, char *cmdline, int *pos);
 int     lexical_analyzer(char *cmdline, t_table *table);
+int		check_quotes(char *cmdline, int *q_counts);
+int		quote_syntax_analyzer(char *cmdline, int *q_c);
+void    quote_error(int *t_f, t_table *table);
 void	token_replacment(char *cmdline, char schr, char rchr);
 void	openquotes(char *cmdline);
 void	inside_quote(char *cmdline, int *pos, int find);
@@ -88,13 +89,13 @@ char	*exit_status_code(char *cmd, t_table *table, int *pos);
 /**********************************************/
 t_tok	*tokenization(char *cmdline);
 char	*word(char *cmdline, int len, int s_pos);
-int		wordlen(char *wordstart, int s_pos);
-int		typeface(int c, int len);
 void	add_word(char *cmdline, int *pos, t_tok **token);
 void	redirection(char *cmdline, int *pos, int io, t_tok **token);
-void	add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
 void	expansion(char *cmdline, int *pos, int quote, t_tok **token);
+void	add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
 void	space(char *cmdline, int *pos, t_tok **token);
+int		wordlen(char *wordstart, int s_pos);
+int		typeface(int c, int len);
 
 /**********************************************/
 /************Parsing (Parse Tree)**************/
@@ -114,7 +115,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char	*join_arguments(char *s1, int delimiter, char *s2);
 char	*word_expansions(t_tok **token);
 int		pipes(t_tok **token);
-int		type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table);
+int		type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table, int *rtr);
 int		typeis_redirection(int type);
 int		typeis_arg(int type);
 int		typeis_heredoc(int type);
@@ -122,7 +123,11 @@ int		typeis_heredoc(int type);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/
-int	 syntax_handling(char *cmdline, t_table *table, t_cmdline *commands);
+int     redirection_error(t_tok *tmp, t_table *table);
+int     pipe_error(t_tok *tmp, t_table *table);
+void	syntax_error(t_table *table);
+void	_errno_(t_table *table, char *err);
+void    print_tokens(t_tok *tok);
 
 /**********************************************/
 /*****************Execution********************/

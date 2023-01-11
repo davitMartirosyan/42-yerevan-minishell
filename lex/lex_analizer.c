@@ -11,21 +11,36 @@
 /* ************************************************************************** */
 
 #include "minishell_header.h"
+
 int lexical_analyzer(char *newpoint, t_table *table)
 {
 	char *cmdline;
+	int t_f;
 
-	cmdline = NULL;
+	t_f = 1;
 	cmdline = ft_strdup(newpoint);
 	openquotes(cmdline);
-	if (syntax_handling(cmdline, table, NULL))
+	if (quote_syntax_analyzer(cmdline, table->q_c))
 	{
 		cmdline = find_replace(cmdline, table);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);
-		free(cmdline);
-		return (1);
 	}
+	else
+		quote_error(&t_f, table);
 	free(cmdline);
-	return (0);
+	if(t_f == 1)	
+		return (t_f);
+	return (t_f);
+}
+
+void quote_error(int *t_f, t_table *table)
+{
+	char *d_s;
+
+	d_s = "\'";
+	if(table->q_c[0] % 2 != 0)
+		d_s = "\"";
+	ft_fprintf(STDERR_FILENO, "-sadm: %s `%s'\n", TOKEN_SYNTAX_ERR, d_s);
+	*t_f = 0;
 }

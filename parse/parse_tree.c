@@ -31,7 +31,8 @@ t_cmds *parse(t_tok *token, t_table *table)
 
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
-	char *joined;
+	char	*joined;
+	int rtr;
 
 	while (token != NULL)
 	{
@@ -50,8 +51,12 @@ void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 			token = token->next;
 			continue;
 		}
-		if (!type_is_p_h(&token, &cmds, table))
+		if (!type_is_p_h(&token, &cmds, table, &rtr))
+		{	
+			if(rtr == -1)
+				break;
 			continue;
+		}
 		token = token->next;
 	}
 	(*cmds)->next = NULL;
@@ -77,6 +82,11 @@ t_cmdline *parse_tree(t_table *table)
 	t_cmdline	*commands;
 	t_tok		*tokens;
 
+	if(table->syntax)
+	{
+		free_tokens(table->token);
+		return (NULL);
+	}
 	commands = NULL;
 	tokens = table->token;
 	if (tokens != NULL)
@@ -86,7 +96,6 @@ t_cmdline *parse_tree(t_table *table)
 			return (NULL);
 		commands->cmds = parse(tokens, table);
 		if (commands->cmds != NULL)
-			if (syntax_handling(NULL, table, commands))
 				return (commands);
 	}
 	return (NULL);

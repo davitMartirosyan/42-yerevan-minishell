@@ -30,6 +30,8 @@ void	free_tokens(t_tok *token)
 {
 	t_tok *fre;
 
+	if(!token)
+		return ;
 	fre = token;
 	while (token != NULL)
 	{
@@ -73,6 +75,13 @@ void	free_parse_tree(t_cmdline *tree)
 
 void	update_table(t_cmdline *tree, t_table *table)
 {
+	if(table->syntax)
+	{
+		free(table->syntax);
+		table->syntax = NULL;
+	}
+	if(!tree || !table || !table->token)
+		return;
 	free_tokens(table->token);
 	unlink_heredocuments(table->hdocs, table->get_pid);
 	free_parse_tree(tree);
