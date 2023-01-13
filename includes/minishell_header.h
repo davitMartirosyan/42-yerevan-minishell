@@ -33,6 +33,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdarg.h>
+# include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -45,6 +46,7 @@
 # include "./structs.h"
 # include "./builtins.h"
 
+extern int         g_var;
 char		*ft_readline(char *line);
 void		inthandle(int sig);
 void		handleterm(int sig);

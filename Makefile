@@ -7,7 +7,7 @@ YELLOW="\033[1;33m"
 
 NAME = minishell
 
-PREFIX = $(shell find ${HOME} -name readline-dmartiro 2>/dev/null)
+PREFIX = $(shell find ${HOME} -name dmartiro-readline 2>/dev/null)
 
 CC = cc -I includes/
 
@@ -27,9 +27,9 @@ _OBJS = $(patsubst %.c, %.o, $(SRCS))
 
 OBJS = $(patsubst %.o, $(OBJS_DIR)/%.o, $(_OBJS))
 
-INCLUDES = -I./readline-dmartiro/include
+INCLUDES = -I./dmartiro-readline/include
 
-LINKERS	= -lreadline #-L./readline-dmartiro/lib 
+LINKERS	= -lreadline -L./dmartiro-readline/lib 
 
 $(OBJS_DIR)/%.o: %.c
 	@ $(MKDIR) $(OBJS_DIR)/env

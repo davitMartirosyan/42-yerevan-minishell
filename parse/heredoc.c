@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-
+void heredoc_sig(int sig);
+int g_var = 0;
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 {
 	t_vars *v;
@@ -94,11 +95,21 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 
 	term = NULL;
 	heredoc = NULL;
+	signal(SIGINT, heredoc_sig);
 	while (1)
 	{
 		heredoc = readline("> ");
+		if(g_var == 1)
+		{
+			// printf("ok\n");
+			ft_signal(0);
+			return (NULL); 
+		}
 		if (heredoc == NULL)
-			return (NULL);
+		{
+			term = ft_strjoin(term, "\n");
+			break;
+		}
 		if (heredoc && ft_strcmp(heredoc, delim) != 0)
 			term = join_arguments(term, '\n', heredoc);
 		if (ft_strlen(heredoc) == ft_strlen(delim) && \
@@ -110,12 +121,24 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 		free(heredoc);
 	}
 	free(heredoc);
-	if (term)
+	if (term && g_var == 0)
 	{
 		if (flag != 1)
 			term = find_replace(term, table);
 		return (term);
 	}
 	else
+	{
+		g_var = 0;
 		return (NULL);
+	}
+}
+
+void heredoc_sig(int sig)
+{
+	(void)sig;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_var = 1;
 }
