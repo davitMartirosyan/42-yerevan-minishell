@@ -23,8 +23,9 @@
 # define TOKEN_SYNTAX_ERR "Syntax error near unexpected token"
 # define COMMANDERR "Command Not Found\n"
 # define FILEERR "No Such file or directory\n"
-# define HEREDOC_SYNTAX_WARNING "Warning: HEREDOC (wanted ${"
+# define HEREDOC_SYNTAX_WARNING "Warning: here-document at line"
 # define HEREDOC_LIMIT_ERR  "maximum here-document count exceeded"
+#define P  printf("ok")
 
 # include <stdio.h>
 # include <string.h>
@@ -37,6 +38,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include <stdint.h>
 # include <fcntl.h>
 # include <termios.h>
 # include <errno.h>

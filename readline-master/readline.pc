@@ -1,4 +1,4 @@
-prefix=/Users/tumolabs/Desktop/mini/dmartiro-readline
+prefix=/home/dmartiro/Desktop/minishell/dmartiro-readline
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

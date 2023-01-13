@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:15:04 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/11 21:35:22 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/14 01:47:09 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 void	execution(t_cmdline **commands, t_table **table)
 {
 	int	pip;
-
+	
 	if ((*table)->syntax)
 	{
 		ft_fprintf(STDERR_FILENO, \
 		"-sadm: %s `%s'\n", TOKEN_SYNTAX_ERR, (*table)->syntax);
 		return ;
+	}
+	if(g_var == 1)
+	{
+		g_var = 0;
+		return;
 	}
 	if (commands && *commands)
 	{

@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   heredoc.c										  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/11/15 12:00:41 by root			  #+#	#+#			 */
-/*   Updated: 2022/12/18 15:06:43 by dmartiro		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/14 01:49:07 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/14 02:11:51 by dmartiro         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -24,12 +24,13 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	tmpfile = NULL;
 	v = malloc(sizeof(t_vars));
 	v->log = (*token)->type;
-	while ((*token)->type != WORD && (*token)->type != EXP_FIELD && (*token) != NULL)
+	while ((*token)->type != WORD && \
+		(*token)->type != EXP_FIELD && (*token) != NULL)
 		*token = (*token)->next;
 	delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);
 	if (!term)
-		return ;
+		return ;	
 	tmpfile = new_file(table);
 	open__file__check__type(v->log, tmpfile, cmds);
 	if (term)
@@ -78,7 +79,8 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 		}
 		if ((*token)->type == SEP || (*token)->type == HEREDOC)
 			(*v)->let++;
-		if ((*v)->let == 1 || (*token)->next == NULL || (*token)->type == PIPE)
+		if ((*v)->let == 1 || (*token)->next == NULL || \
+			(*token)->type == PIPE)
 			break;
 		*token = (*token)->next;
 	}
@@ -101,12 +103,14 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 		heredoc = readline("> ");
 		if(g_var == 1)
 		{
-			// printf("ok\n");
 			ft_signal(0);
-			return (NULL); 
+			break; 
 		}
 		if (heredoc == NULL)
 		{
+			ft_fprintf(STDERR_FILENO, \
+			"-sadm: %s %d delimited by end-of-file (wanted `%s')\n", \
+			HEREDOC_SYNTAX_WARNING, (uintmax_t)__LINE__, delim);
 			term = ft_strjoin(term, "\n");
 			break;
 		}
@@ -127,11 +131,7 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 			term = find_replace(term, table);
 		return (term);
 	}
-	else
-	{
-		g_var = 0;
-		return (NULL);
-	}
+	return (NULL);
 }
 
 void heredoc_sig(int sig)
