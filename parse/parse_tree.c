@@ -55,6 +55,8 @@ void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 		{	
 			if(rtr == -1)
 				break;
+			if(g_var == 1)
+				break;
 			continue;
 		}
 		token = token->next;
