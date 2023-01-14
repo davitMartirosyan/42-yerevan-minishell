@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:32:46 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/11 21:32:54 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:39:03 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,50 @@
 
 int	cmd_check(t_cmds *cmd, t_table *table)
 {
-	char	*path;
 	char	**paths;
 
 	paths = add_paths(&table->env);
-	path = NULL;
 	if (paths == NULL)
-		return (-2);
-	if (check_executables(cmd, table, paths))
-		return (0);
-	if (check_in_paths(cmd, paths, path))
-		return (0);
+	{
+		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		return (1);
+	}
+	if (ft_strncmp(cmd->arg_pack[0], "minishell", 10) == 0)
+	{
+		cmd->path = join_paths(table->cwd, '/', cmd->arg_pack[0]);
+		free_char_pp(&paths);
+		return (1);
+	}
+	if(ft_strncmp(cmd->arg_pack[0], ".", 1) == 0)
+	{		
+		if(check_executables(cmd, table))
+		{
+			free_char_pp(&paths);
+			return (1);
+		}
+		else
+		{
+			free_char_pp(&paths);
+			return (0);
+		}
+	}
+	if(ft_strncmp(cmd->arg_pack[0], "/", 1) == 0)
+	{
+		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		return (1);
+	}
+	if (check_in_paths(cmd, paths))
+		return (1);
 	free_char_pp(&paths);
-	return (-1);
+	return (0);
 }
 
-int	check_in_paths(t_cmds *cmd, char **paths, char *path)
+int	check_in_paths(t_cmds *cmd, char **paths)
 {
+	char *path;
 	int	i;
-
 	i = 0;
+	printf("||||||||||||||\n");
 	while (paths[i])
 	{
 		path = join_paths(paths[i], '/', cmd->arg_pack[0]);
@@ -52,7 +76,7 @@ int	check_in_paths(t_cmds *cmd, char **paths, char *path)
 	return (0);
 }
 
-int	check_executables(t_cmds *cmd, t_table *table, char **paths)
+/* int	check_executables(t_cmds *cmd, t_table *table, char **paths)
 {
 	if (ft_strcmp(cmd->arg_pack[0], "minishell") == 0)
 	{
@@ -60,7 +84,13 @@ int	check_executables(t_cmds *cmd, t_table *table, char **paths)
 		free_char_pp(&paths);
 		return (1);
 	}
-	if (access(cmd->arg_pack[0], F_OK & X_OK) == 0)
+	if(ft_strncmp(cmd->arg_pack[0], "/", 0) == 0)
+		return (1);
+	// printf("R_OK ::%d::\n", access(cmd->arg_pack[0], R_OK));
+	// printf("F_OK ::%d::\n", access(cmd->arg_pack[0], F_OK));
+	// printf("W_OK ::%d::\n", access(cmd->arg_pack[0], W_OK));
+	// printf("X_OK ::%d::\n", access(cmd->arg_pack[0], X_OK));
+	if (ft_strncmp(cmd->arg_pack[0], ".", 1) == 0 && !access(cmd->arg_pack[0], F_OK & X_OK))
 	{
 		cmd->path = getcwd(cmd->path, 10000);
 		cmd->path = join_arguments(cmd->path, '/', cmd->arg_pack[0]);
@@ -69,6 +99,7 @@ int	check_executables(t_cmds *cmd, t_table *table, char **paths)
 	}
 	return (0);
 }
+*/
 
 int	find_in(char *builtin, char **reserved)
 {
@@ -120,4 +151,22 @@ char	*join_paths(char *s1, int delimiter, char *s2)
 		arguments[i++] = s2[c];
 	arguments[i] = '\0';
 	return (arguments);
+}
+
+
+int check_executables(t_cmds *cmd, t_table *table)
+{
+	int f_stat;
+	
+	(void)table;
+	printf("...........\n");
+	f_stat = access(cmd->arg_pack[0], X_OK);
+	if(f_stat == 0)
+	{
+		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		return (1);
+	}
+	else
+		return (0);
+	return (0);
 }

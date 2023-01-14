@@ -69,6 +69,14 @@ typedef enum s_status
 	HEREDOC_LIMIT_ERR_STATUS = 2
 }	t_status;
 
+enum
+{
+	NO_FILE_OR_DIR = 1,
+	PATH_ERR = 2,
+	COMMAND_NOT_FOUND = 3,
+	PERMISSION_DENIED = 4
+};
+
 typedef struct s_cmdline
 {
 	t_cmds	*cmds;
