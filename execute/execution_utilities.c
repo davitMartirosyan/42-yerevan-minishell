@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:33:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/11 21:33:49 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/14 11:59:55 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,17 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
 	ccount = 0;
 	while (cmds != NULL)
 	{
-		if (! check_command(cmds, v, table))
+		if (!check_command(cmds, v, table))
+		{
+			g_var = 23;
 			cmds = cmds->next;
+			continue;
+		}
 		cmds->pid = fork();
 		if (cmds->pid == 0)
 		{
+			if(g_var == 23)
+				exit(0);
 			dup2(cmds->i_stream, STDIN_FILENO);
 			dup2(cmds->o_stream, STDOUT_FILENO);
 			piping(cmds, pip_ptr, i, pip);

@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /home/dmartiro/Desktop/minishell/dmartiro-readline
+prefix = /Users/tumolabs/Desktop/mini/dmartiro-readline
 
 datarootdir = ${prefix}/share
 
@@ -49,7 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /home/dmartiro/Desktop/minishell/readline-master
+BUILD_DIR = /Users/tumolabs/Desktop/mini/readline-master
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

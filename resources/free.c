@@ -91,6 +91,7 @@ void	update_table(t_cmdline *tree, t_table *table)
 	table->q_c[1] = 0;
 	table->hdocs = 0;
 	table->get_heredoc_flag = 0;
+	g_var = 0;
 }
 
 static void	unlink_heredocuments(int limit, int pid)
