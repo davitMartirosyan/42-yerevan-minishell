@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:33:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/14 17:36:22 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:24:06 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,44 @@ void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 		table->builtin[v->built](cmds, table);
 		exit(0);
 	}
-	else if (v->binar != -1 && cmds->i_stream != -1 && cmds->o_stream != -1)
+	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
 		execve(cmds->path, cmds->arg_pack, create_envp(&table->env));
 	else if (cmds->i_stream == -1 || cmds->o_stream == -1)
 	{
 		file_mode(table, cmds);
 		exit(1);
 	}
-	else if (v->binar == -1)
+	else if (v->binar > 1)
 	{
-		ft_fprintf(STDERR_FILENO, \
-		"-sadm: %s: Command not found\n", cmds->arg_pack[0]);
-		table->status = CMD_ERR_STATUS;
+		if(v->binar == 2)
+			ft_fprintf(STDERR_FILENO, "-sadm: %s: command not found\n", \
+				cmds->arg_pack[0]);
+		if(v->binar == 3)
+			ft_fprintf(STDERR_FILENO, "-sadm: %s: no such file or directory\n", \
+				cmds->arg_pack[0]);
 		exit(1);
 	}
 }
 
 void	_execute(t_vars *v, t_cmdline *cmd, t_table *table)
 {
-	if (v->built != -1)
+	if (cmd->cmds->i_stream == -1 || cmd->cmds->o_stream == -1)
+		file_mode(table, cmd->cmds);
+	else if (v->built != -1)
 		table->builtin[v->built](cmd->cmds, table);
 	else if (v->binar == 1 && cmd->cmds->i_stream != -1 && \
 		cmd->cmds->o_stream != -1)
 		_ffork(cmd, table);
-	else if (v->binar == 0)
-		printf("error\n");
-	else if (cmd->cmds->i_stream == -1 || cmd->cmds->o_stream == -1)
-		file_mode(table, cmd->cmds);
+	else if (v->binar > 1)
+	{
+		if(v->binar == 2)
+			ft_fprintf(STDERR_FILENO, "-sadm: %s: command not found\n", \
+				cmd->cmds->arg_pack[0]);
+		if(v->binar == 3)
+			ft_fprintf(STDERR_FILENO, "-sadm: %s: no such file or directory\n", \
+				cmd->cmds->arg_pack[0]);
+	}
+	
 }
 
 int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
@@ -102,7 +113,6 @@ void	_ffork(t_cmdline *cmd, t_table *table)
 		signal(SIGQUIT, SIG_DFL);
 		table->minienv = create_envp(&table->env);
 		execve(cmd->cmds->path, cmd->cmds->arg_pack, table->minienv);
-		exit(0);
 	}
 	else
 		handle_status__and_wait(cmd->cmds->pid, &table->status);

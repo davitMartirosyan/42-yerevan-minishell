@@ -15,11 +15,21 @@
 void	select_filename(t_tok **token, t_cmds *cmds)
 {
 	int type;
-	
+	char *filename;
+
+	filename = NULL;
 	type = (*token)->type;
 	while ((*token)->type != WORD && (*token)->type != EXP_FIELD)
 		*token = (*token)->next;
-	open__file__check__type(type, (*token)->tok, cmds);
+	while(*token != NULL && typeis_arg((*token)->type))
+	{
+		filename = ft_strjoin(filename, (*token)->tok);
+		if((*token)->next == NULL)
+			break;
+		*token = (*token)->next;
+	}
+	open__file__check__type(type, filename, cmds);
+	free(filename);
 }
 
 void	open__file__check__type(int type, char *filename, t_cmds *cmds)
