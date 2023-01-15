@@ -112,6 +112,8 @@ typedef struct s_table
 	char		*reserved[8];
 	char		*err_handling;
 	char		*syntax;
+	char		**paths;
+	int			(*pip_ptr)[2];
 	int			type;
 	int			status;
 	int			q_c[2];

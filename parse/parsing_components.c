@@ -24,7 +24,7 @@ void	select_filename(t_tok **token, t_cmds *cmds)
 	while(*token != NULL && typeis_arg((*token)->type))
 	{
 		filename = ft_strjoin(filename, (*token)->tok);
-		if((*token)->next == NULL)
+		if((*token)->next == NULL || !typeis_arg((*token)->next->type))
 			break;
 		*token = (*token)->next;
 	}

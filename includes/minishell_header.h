@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 00:25:45 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/15 00:25:46 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:25:18 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,13 @@ void		piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip);
 void		handle_status__and_wait(int pid, int *status);
 void		close_all_pipes(int pips[][2], int pip);
 int			cmd_check(t_cmds *cmd, t_table *table);
-int			check_executables(t_cmds *cmd, t_table *table);
 int			check_in_paths(t_cmds *cmd, char **paths);
 int			find_in(char *builtin, char **reserved);
 int			istream(t_cmds *cmd, int (*pipe)[2], int i);
 int			ostream(t_cmds *cmd, int (*pipe)[2], int i);
 int			check_command(t_cmds *cmds, t_vars *v, t_table *table);
 int			_execute_pipes(t_cmds *cmds, t_vars *v, t_table *t, int (*pptr)[2]);
+void        __execute__pipe__command(t_cmds *cmds, t_table *t, t_vars *v);
 
 /**********************************************/
 /****************Free Resources****************/

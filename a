@@ -1,3 +1,7 @@
+Makefile
+OBJS
+a
+a.out
 env
 execute
 git.sh
@@ -5,13 +9,9 @@ google
 includes
 lex
 libft
-ls
-Makefile
 minishell
 minishell.c
-OBJS
 parse
-readline-master
 resources
 sh-builtin
 signals

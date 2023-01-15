@@ -86,6 +86,8 @@ void	update_table(t_cmdline *tree, t_table *table)
 	free_tokens(table->token);
 	unlink_heredocuments(table->hdocs, table->get_pid);
 	free_parse_tree(tree);
+	if(table->paths)
+		free_char_pp(&table->paths);
 	table->err_handling = 0;
 	table->q_c[0] = 0;
 	table->q_c[1] = 0;

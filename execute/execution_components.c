@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:32:46 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 12:36:07 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:10:23 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int	cmd_check(t_cmds *cmd, t_table *table)
 {
-	char	**paths;
-
-	paths = add_paths(&table->env);
-	if(ft_strncmp(cmd->arg_pack[0], "/", 1) == 0)
+	table->paths = add_paths(&table->env);
+	if (table->paths == NULL)
+	{
+		cmd->path = ft_strdup(cmd->arg_pack[0]);
+		return (1);
+	}
+	if(ft_strncmp(cmd->arg_pack[0], ".", 1) == 0
+		|| ft_strchr(cmd->arg_pack[0], '/'))
 	{
 		if(access(cmd->arg_pack[0], X_OK) == 0)
 		{
@@ -26,34 +30,14 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 		}
 		return (3);
 	}
-	if (paths == NULL)
-	{
-		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		return (3);
-	}
 	if (ft_strncmp(cmd->arg_pack[0], "minishell", 10) == 0)
 	{
 		cmd->path = join_paths(table->cwd, '/', cmd->arg_pack[0]);
-		free_char_pp(&paths);
 		return (1);
 	}
-	if(ft_strncmp(cmd->arg_pack[0], ".", 1) == 0)
-	{		
-		if(check_executables(cmd, table))
-		{
-			free_char_pp(&paths);
-			return (1);
-		}
-		else
-		{
-			free_char_pp(&paths);
-			return (3);
-		}
-	}
-	if (check_in_paths(cmd, paths))
+	if (check_in_paths(cmd, table->paths))
 		return (1);
-	free_char_pp(&paths);
-	return (2);
+	return (0);
 }
 
 int	check_in_paths(t_cmds *cmd, char **paths)
@@ -69,7 +53,6 @@ int	check_in_paths(t_cmds *cmd, char **paths)
 			cmd->path = ft_strdup(path);
 			cmd->exit_status = EXIT_SUCCESS;
 			free(path);
-			free_char_pp(&paths);
 			return (1);
 		}
 		free(path);
@@ -129,20 +112,4 @@ char	*join_paths(char *s1, int delimiter, char *s2)
 		arguments[i++] = s2[c];
 	arguments[i] = '\0';
 	return (arguments);
-}
-
-int check_executables(t_cmds *cmd, t_table *table)
-{
-	int f_stat;
-	
-	(void)table;
-	f_stat = access(cmd->arg_pack[0], X_OK);
-	if(f_stat == 0)
-	{
-		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		return (1);
-	}
-	else
-		return (0);
-	return (0);
 }

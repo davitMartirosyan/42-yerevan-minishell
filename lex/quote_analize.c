@@ -104,6 +104,7 @@ char	*exit_status_code_and_pid(char *cmd, t_table *table, int *pos)
 
 	(void)table;
 	(void)pos;
+	status = NULL;
 	if(cmd[*pos+1] == '?')
 		status = ft_itoa(table->status);
 	else if(cmd[*pos+1] == '$')

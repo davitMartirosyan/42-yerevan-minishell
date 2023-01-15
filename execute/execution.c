@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:15:04 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 12:50:46 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:36:21 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,4 @@ void	print_errors(t_vars *v, t_cmds *cmds, t_table *table)
 			exit(126);
 		return;
 	}
-		
 }

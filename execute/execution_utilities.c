@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utilities.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:33:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 12:50:08 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:27:59 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 	{
 		if(execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
 		{
-			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", cmds->arg_pack[0], "Command not found");
-			exit(1);
+			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", \
+				cmds->arg_pack[0], "Command not found");
+			exit(127);
 		}
 	}
 	else if (v->binar > 1)
