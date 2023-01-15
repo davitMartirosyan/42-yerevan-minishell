@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:32:46 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/14 17:55:53 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/14 23:59:22 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 	char	**paths;
 
 	paths = add_paths(&table->env);
+	if(ft_strncmp(cmd->arg_pack[0], "/", 1) == 0)
+	{
+		if(access(cmd->arg_pack[0], X_OK) == 0)
+		{
+			cmd->path = ft_strdup(cmd->arg_pack[0]);
+			return (1);
+		}
+		return (3);
+	}
 	if (paths == NULL)
 	{
 		cmd->path = ft_strdup(cmd->arg_pack[0]);
@@ -40,11 +49,6 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 			free_char_pp(&paths);
 			return (3);
 		}
-	}
-	if(ft_strncmp(cmd->arg_pack[0], "/", 1) == 0)
-	{
-		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		return (1);
 	}
 	if (check_in_paths(cmd, paths))
 		return (1);
@@ -74,31 +78,6 @@ int	check_in_paths(t_cmds *cmd, char **paths)
 	}
 	return (0);
 }
-
-/* int	check_executables(t_cmds *cmd, t_table *table, char **paths)
-{
-	if (ft_strcmp(cmd->arg_pack[0], "minishell") == 0)
-	{
-		cmd->path = join_paths(table->cwd, '/', cmd->arg_pack[0]);
-		free_char_pp(&paths);
-		return (1);
-	}
-	if(ft_strncmp(cmd->arg_pack[0], "/", 0) == 0)
-		return (1);
-	// printf("R_OK ::%d::\n", access(cmd->arg_pack[0], R_OK));
-	// printf("F_OK ::%d::\n", access(cmd->arg_pack[0], F_OK));
-	// printf("W_OK ::%d::\n", access(cmd->arg_pack[0], W_OK));
-	// printf("X_OK ::%d::\n", access(cmd->arg_pack[0], X_OK));
-	if (ft_strncmp(cmd->arg_pack[0], ".", 1) == 0 && !access(cmd->arg_pack[0], F_OK & X_OK))
-	{
-		cmd->path = getcwd(cmd->path, 10000);
-		cmd->path = join_arguments(cmd->path, '/', cmd->arg_pack[0]);
-		free_char_pp(&paths);
-		return (1);
-	}
-	return (0);
-}
-*/
 
 int	find_in(char *builtin, char **reserved)
 {

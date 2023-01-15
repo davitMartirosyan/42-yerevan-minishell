@@ -1,14 +1,16 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   minishell_header.h								 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/09/21 20:20:22 by dmartiro		  #+#	#+#			 */
-/*   Updated: 2023/01/11 21:50:56 by tumolabs         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_header.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/15 00:25:45 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/15 00:25:46 by dmartiro         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_HEADER_H
 # define MINISHELL_HEADER_H
@@ -21,8 +23,8 @@
 
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR "Syntax error near unexpected token"
-# define COMMANDERR "Command Not Found\n"
-# define FILEERR "No Such file or directory\n"
+# define COMMANDERR "Command Not Found"
+# define FILEERR "No Such file or directory"
 # define HEREDOC_SYNTAX_WARNING "Warning: here-document at line"
 # define HEREDOC_LIMIT_ERR  "maximum here-document count exceeded"
 #define P  printf("ok")
@@ -78,7 +80,7 @@ char		*find_replace(char *cmdline, t_table *table);
 char		*keyof(char *cmdline, int pos);
 char		*valueof(char *key, t_env *env);
 char		*replace(char *cmdline, char *key, char *val, int *pos);
-char		*exit_status_code(char *cmd, t_table *table, int *pos);
+char		*exit_status_code_and_pid(char *cmd, t_table *table, int *pos);
 void		quote_error(int *t_f, t_table *table);
 void		token_replacment(char *cmdline, char schr, char rchr);
 void		openquotes(char *cmdline);
@@ -141,8 +143,9 @@ char		*join_paths(char *s1, int delimiter, char *s2);
 void		file_mode(t_table *table, t_cmds *cmds);
 void		execution(t_cmdline **cmdline, t_table **table);
 void		execute(t_cmdline *cmd, t_table *table);
-void		_execute(t_vars *v, t_cmdline *cmd, t_table *table);
-void		_ffork(t_cmdline *cmd, t_table *table);
+void		_execute(t_vars *v, t_cmds *cmds, t_table *table);
+void		_ffork(t_cmds *cmds, t_table *table);
+void        print_errors(t_vars *v, t_cmds *cmds, t_table *table);
 void		piping_execute(int pip, t_cmdline *cmd, t_table *table);
 void		execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table);
 void		piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip);

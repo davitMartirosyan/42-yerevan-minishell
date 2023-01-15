@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:15:04 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/14 18:24:25 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:32:43 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execution(t_cmdline **commands, t_table **table)
 	if ((*table)->syntax)
 	{
 		ft_fprintf(STDERR_FILENO, \
-		"-sadm: %s `%s'\n", TOKEN_SYNTAX_ERR, (*table)->syntax);
+		"minishell: %s `%s'\n", TOKEN_SYNTAX_ERR, (*table)->syntax);
 		return ;
 	}
 	if(g_var == 1)
@@ -43,14 +43,13 @@ void	execute(t_cmdline *cmd, t_table *table)
 
 	if (!cmd->cmds->arg_pack)
 		return ;
-	table->status = 0;
 	table->dup0 = dup(STDIN_FILENO);
 	table->dup1 = dup(STDOUT_FILENO);
 	v.built = find_in(cmd->cmds->arg_pack[0], table->reserved);
 	v.binar = cmd_check(cmd->cmds, table);
 	dup2(cmd->cmds->i_stream, STDIN_FILENO);
 	dup2(cmd->cmds->o_stream, STDOUT_FILENO);
-	_execute(&v, cmd, table);
+	_execute(&v, cmd->cmds, table);
 	dup2(table->dup0, STDIN_FILENO);
 	dup2(table->dup1, STDOUT_FILENO);
 	close(table->dup0);
@@ -66,7 +65,6 @@ void	piping_execute(int pip, t_cmdline *cmd, t_table *table)
 	int		ccount;
 
 	cmds = cmd->cmds;
-	table->status = 0;
 	pip_ptr = malloc(sizeof(*pip_ptr) * pip);
 	if (!pip_ptr)
 		return ;
@@ -86,12 +84,33 @@ void	file_mode(t_table *table, t_cmds *cmds)
 	if (cmds->i_stream == -1)
 	{
 		ft_fprintf(STDERR_FILENO, \
-		"bash: %s: No such file or directory\n", cmds->patherr);
+		"minishell: %s: No such file or directory\n", cmds->patherr);
+		perror("")
 		table->status = PATH_ERR_STATUS;
 	}
 	if (cmds->o_stream == -1)
 	{
-		ft_fprintf(STDERR_FILENO, "bash: %s: Is a Directory\n", cmds->patherr);
+		ft_fprintf(STDERR_FILENO, "minishell: %s: Is a Directory\n", cmds->patherr);
 		table->status = PATH_ERR_STATUS;
 	}
+}
+
+void	print_errors(t_vars *v, t_cmds *cmds, t_table *table)
+{
+	if(v->binar == 2)
+	{
+		fprintf(stderr, "minishell: %s: Command not found\n", \
+			cmds->arg_pack[0]);
+		table->status = CMD_ERR_STATUS;
+		return ;
+	}
+	else if(v->binar == 3)
+	{
+		fprintf(stderr, "minishell: %s: No such file or directory\n", \
+			cmds->arg_pack[0]);
+		table->status = 126;
+		if(v->log == 12)
+			return ;
+	}
+		
 }

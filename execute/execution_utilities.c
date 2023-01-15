@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utilities.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:33:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/14 18:24:06 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/14 23:53:10 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,49 +23,40 @@ int	check_command(t_cmds *cmds, t_vars *v, t_table *table)
 
 void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 {
+	if (cmds->i_stream == -1 || cmds->o_stream == -1)
+	{
+		file_mode(table, cmds);
+		exit(1);
+	}
 	if (v->built != -1)
 	{
 		table->builtin[v->built](cmds, table);
 		exit(0);
 	}
 	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
-		execve(cmds->path, cmds->arg_pack, create_envp(&table->env));
-	else if (cmds->i_stream == -1 || cmds->o_stream == -1)
 	{
-		file_mode(table, cmds);
-		exit(1);
+		if(execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
+			exit(0);
 	}
 	else if (v->binar > 1)
 	{
-		if(v->binar == 2)
-			ft_fprintf(STDERR_FILENO, "-sadm: %s: command not found\n", \
-				cmds->arg_pack[0]);
-		if(v->binar == 3)
-			ft_fprintf(STDERR_FILENO, "-sadm: %s: no such file or directory\n", \
-				cmds->arg_pack[0]);
+		v->log = 12;
+		print_errors(v, cmds, table);
 		exit(1);
 	}
 }
 
-void	_execute(t_vars *v, t_cmdline *cmd, t_table *table)
+void	_execute(t_vars *v, t_cmds *cmds, t_table *table)
 {
-	if (cmd->cmds->i_stream == -1 || cmd->cmds->o_stream == -1)
-		file_mode(table, cmd->cmds);
+	if (cmds->i_stream == -1 || cmds->o_stream == -1)
+		file_mode(table, cmds);
 	else if (v->built != -1)
-		table->builtin[v->built](cmd->cmds, table);
-	else if (v->binar == 1 && cmd->cmds->i_stream != -1 && \
-		cmd->cmds->o_stream != -1)
-		_ffork(cmd, table);
+		table->builtin[v->built](cmds, table);
+	else if (v->binar == 1 && cmds->i_stream != -1 && \
+		cmds->o_stream != -1)
+		_ffork(cmds, table);
 	else if (v->binar > 1)
-	{
-		if(v->binar == 2)
-			ft_fprintf(STDERR_FILENO, "-sadm: %s: command not found\n", \
-				cmd->cmds->arg_pack[0]);
-		if(v->binar == 3)
-			ft_fprintf(STDERR_FILENO, "-sadm: %s: no such file or directory\n", \
-				cmd->cmds->arg_pack[0]);
-	}
-	
+		print_errors(v, cmds, table);
 }
 
 int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
@@ -103,18 +94,19 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
 	return (ccount);
 }
 
-void	_ffork(t_cmdline *cmd, t_table *table)
+void	_ffork(t_cmds *cmds, t_table *table)
 {
 	signal(SIGINT, SIG_IGN);
-	cmd->cmds->pid = fork();
-	if (cmd->cmds->pid == 0)
+	cmds->pid = fork();
+	if (cmds->pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		table->minienv = create_envp(&table->env);
-		execve(cmd->cmds->path, cmd->cmds->arg_pack, table->minienv);
+		if(execve(cmds->path, cmds->arg_pack, table->minienv) == -1)
+			exit(0);
 	}
 	else
-		handle_status__and_wait(cmd->cmds->pid, &table->status);
+		handle_status__and_wait(cmds->pid, &table->status);
 	ft_signal(0);
 }

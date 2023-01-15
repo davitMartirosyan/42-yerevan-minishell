@@ -96,7 +96,7 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 	}
 }
 
-char	*exit_status_code(char *cmd, t_table *table, int *pos)
+char	*exit_status_code_and_pid(char *cmd, t_table *table, int *pos)
 {
 	char *status;
 	char *left;
@@ -104,7 +104,10 @@ char	*exit_status_code(char *cmd, t_table *table, int *pos)
 
 	(void)table;
 	(void)pos;
-	status = ft_itoa(table->status);
+	if(cmd[*pos+1] == '?')
+		status = ft_itoa(table->status);
+	else if(cmd[*pos+1] == '$')
+		status = ft_itoa(get_pid());
 	left = ft_substr(cmd, 0, *pos);
 	newpoint = ft_strjoin(left, status);
 	newpoint = ft_strjoin(newpoint, cmd+(*pos+2));

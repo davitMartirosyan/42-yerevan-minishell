@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 01:49:07 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/14 09:30:42 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/14 22:02:37 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	v = malloc(sizeof(t_vars));
 	v->log = (*token)->type;
 	while ((*token)->type != WORD && \
-		(*token)->type != EXP_FIELD && (*token) != NULL)
+		(*token)->type != EXP_FIELD)
 		*token = (*token)->next;
 	delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);

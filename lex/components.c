@@ -81,31 +81,30 @@ void	token_replacment(char *cmdline, char schr, char rchr)
 
 char	*find_replace(char *cmdline, t_table *table)
 {
+	t_vars v;
 	char *key;
 	char *val;
-	int i;
-	int hdflag;
 
-	i = 0;
-	key = NULL;
-	val = NULL;
-	hdflag = 0;
-	while (cmdline[i])
+	v.log = 0;
+	v.let = 0;
+	while (cmdline[v.log])
 	{
-		if (cmdline[i] && cmdline[i] == '<' && cmdline[i+1] == '<')
-			hdflag = 1;
-		if (cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] != '?' && cmdline[i+1] != '\0')
+		if (cmdline[v.log] && cmdline[v.log] == '<' && \
+			cmdline[v.log+1] == '<' && v.let++){}
+		if (cmdline[v.log] && cmdline[v.log] == '$' && \
+			cmdline[v.log + 1] != '?' && cmdline[v.log + 1] != '$' && \
+				cmdline[v.log + 1] != '\0')
 		{
-			if (hdflag == 0)
+			if (v.let == 0)
 			{
-				key = keyof(cmdline, i + 1);
+				key = keyof(cmdline, v.log + 1);
 				val = valueof(key, table->env);
-				cmdline = replace(cmdline, key, val, &i);
+				cmdline = replace(cmdline, key, val, &v.log);
 			}
 		}
-		else if (cmdline[i] && cmdline[i] == '$' && cmdline[i + 1] == '?')
-			cmdline = exit_status_code(cmdline, table, &i);
-		i++;
+		else if (cmdline[v.log] && cmdline[v.log] == '$')
+			cmdline = exit_status_code_and_pid(cmdline, table, &v.log);
+		v.log++;
 	}
 	return (cmdline);
 }

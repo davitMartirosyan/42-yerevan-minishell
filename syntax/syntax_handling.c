@@ -46,7 +46,6 @@ void	syntax_error(t_table *table)
 
 int	pipe_error(t_tok *tmp, t_table *table)
 {
-
 	tmp = tmp->next;
 	if(tmp == NULL || (tmp->type == SEP && tmp->next == NULL))
 	{
@@ -96,6 +95,7 @@ int	redirection_error(t_tok *tmp, t_table *table)
 
 void	_errno_(t_table *table, char *err)
 {
+	table->status = SYNTAX_ERR_STATUS;
 	if(table->syntax)
 		free(table->syntax);
 	table->syntax = ft_strdup(err);

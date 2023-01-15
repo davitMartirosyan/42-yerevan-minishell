@@ -70,7 +70,7 @@ int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table, int *rtr)
 {
 	if (typeis_heredoc((*token)->type))
 	{
-		if(!(*token)->next || !typeis_arg((*token)->next->type))
+		if(!(*token)->next)
 		{
 			_errno_(table, (*token)->tok);
 			*rtr = -1;
