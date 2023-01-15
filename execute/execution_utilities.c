@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:33:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/14 23:53:10 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 12:50:08 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
 	{
 		if(execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
-			exit(0);
+		{
+			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", cmds->arg_pack[0], "Command not found");
+			exit(1);
+		}
 	}
 	else if (v->binar > 1)
 	{
 		v->log = 12;
 		print_errors(v, cmds, table);
-		exit(1);
 	}
 }
 
@@ -104,7 +106,10 @@ void	_ffork(t_cmds *cmds, t_table *table)
 		signal(SIGQUIT, SIG_DFL);
 		table->minienv = create_envp(&table->env);
 		if(execve(cmds->path, cmds->arg_pack, table->minienv) == -1)
-			exit(0);
+		{
+			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", cmds->arg_pack[0], "Command not found");
+			exit(127);
+		}
 	}
 	else
 		handle_status__and_wait(cmds->pid, &table->status);

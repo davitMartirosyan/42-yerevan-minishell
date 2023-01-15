@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:32:46 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/14 23:59:22 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 12:36:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_in_paths(t_cmds *cmd, char **paths)
 		path = 0;
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	find_in(char *builtin, char **reserved)

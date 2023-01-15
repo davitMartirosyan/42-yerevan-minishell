@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:15:04 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 11:32:43 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/15 12:50:46 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	file_mode(t_table *table, t_cmds *cmds)
 	{
 		ft_fprintf(STDERR_FILENO, \
 		"minishell: %s: No such file or directory\n", cmds->patherr);
-		perror("")
 		table->status = PATH_ERR_STATUS;
 	}
 	if (cmds->o_stream == -1)
@@ -97,20 +96,13 @@ void	file_mode(t_table *table, t_cmds *cmds)
 
 void	print_errors(t_vars *v, t_cmds *cmds, t_table *table)
 {
-	if(v->binar == 2)
+	if(v->binar == 3)
 	{
-		fprintf(stderr, "minishell: %s: Command not found\n", \
-			cmds->arg_pack[0]);
-		table->status = CMD_ERR_STATUS;
-		return ;
-	}
-	else if(v->binar == 3)
-	{
-		fprintf(stderr, "minishell: %s: No such file or directory\n", \
-			cmds->arg_pack[0]);
+		ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", cmds->arg_pack[0], strerror(errno));
 		table->status = 126;
 		if(v->log == 12)
-			return ;
+			exit(126);
+		return;
 	}
 		
 }
