@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_header.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 00:25:45 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/15 14:25:18 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/01/16 11:56:36 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:56:37 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_HEADER_H
 # define MINISHELL_HEADER_H
@@ -19,7 +17,7 @@
 # define CMD_REGEX		 	"[:[A-Za-z]:]* [:[A-Za-z]:[[-]*[A-Za-z]]*]*"
 # define HEREDOC_REGEX		"[[<<][A-Za-z]]*"
 # define SHELL 				"Minishell-$ "
-# define SHELLERR		   "-sadm"
+# define SHELLERR			"-sadm"
 
 /*Error Handlers*/
 # define TOKEN_SYNTAX_ERR "Syntax error near unexpected token"
@@ -27,7 +25,6 @@
 # define FILEERR "No Such file or directory"
 # define HEREDOC_SYNTAX_WARNING "Warning: here-document at line"
 # define HEREDOC_LIMIT_ERR  "maximum here-document count exceeded"
-#define P  printf("ok")
 
 # include <stdio.h>
 # include <string.h>
@@ -50,7 +47,7 @@
 # include "./structs.h"
 # include "./builtins.h"
 
-extern int         g_var;
+extern int			 g_var;
 char		*ft_readline(char *line);
 void		inthandle(int sig);
 void		handleterm(int sig);
@@ -120,6 +117,7 @@ void		select_filename(t_tok **token, t_cmds *cmds);
 void		open__file__check__type(int type, char *filename, t_cmds *cmds);
 void		check_type(int fd, int type, t_cmds *cmds);
 void		heredoc(t_tok **token, t_cmds *cmds, t_table *table);
+void		heredoc_sig(int sig);
 int			pipes(t_tok **token);
 int			type_is_p_h(t_tok **tok, t_cmds ***cmds, t_table *table, int *rtr);
 int			typeis_redirection(int type);
@@ -145,20 +143,21 @@ void		execution(t_cmdline **cmdline, t_table **table);
 void		execute(t_cmdline *cmd, t_table *table);
 void		_execute(t_vars *v, t_cmds *cmds, t_table *table);
 void		_ffork(t_cmds *cmds, t_table *table);
-void        print_errors(t_vars *v, t_cmds *cmds, t_table *table);
+void		print_errors(t_vars *v, t_cmds *cmds, t_table *table);
 void		piping_execute(int pip, t_cmdline *cmd, t_table *table);
 void		execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table);
 void		piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip);
 void		handle_status__and_wait(int pid, int *status);
 void		close_all_pipes(int pips[][2], int pip);
+void		__ffork__exec__pipe__(t_cmds *cmds, t_table *table, t_vars *v);
+void		__execute__pipe__command(t_cmds *cmds, t_table *t, t_vars *v);
 int			cmd_check(t_cmds *cmd, t_table *table);
 int			check_in_paths(t_cmds *cmd, char **paths);
 int			find_in(char *builtin, char **reserved);
 int			istream(t_cmds *cmd, int (*pipe)[2], int i);
 int			ostream(t_cmds *cmd, int (*pipe)[2], int i);
 int			check_command(t_cmds *cmds, t_vars *v, t_table *table);
-int			_execute_pipes(t_cmds *cmds, t_vars *v, t_table *t, int (*pptr)[2]);
-void        __execute__pipe__command(t_cmds *cmds, t_table *t, t_vars *v);
+int			_execute_pipes(t_cmds *cmds, t_vars *v, t_table *t);
 
 /**********************************************/
 /****************Free Resources****************/

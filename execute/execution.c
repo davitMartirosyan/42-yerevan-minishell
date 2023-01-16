@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 20:15:04 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 14:36:21 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/01/16 11:56:00 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:56:01 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,52 +56,68 @@ void	execute(t_cmdline *cmd, t_table *table)
 	close(table->dup1);
 }
 
+void	_execute(t_vars *v, t_cmds *cmds, t_table *table)
+{
+	if (cmds->i_stream == -1 || cmds->o_stream == -1)
+		file_mode(table, cmds);
+	else if (v->built != -1)
+		table->builtin[v->built](cmds, table);
+	else if (v->binar == 1 && cmds->i_stream != -1 && \
+		cmds->o_stream != -1)
+		_ffork(cmds, table);
+	else if (v->binar > 1)
+		print_errors(v, cmds, table);
+}
+
 void	piping_execute(int pip, t_cmdline *cmd, t_table *table)
 {
 	t_vars	v;
 	t_cmds	*cmds;
-	int		(*pip_ptr)[2];
-	int		i;
+	t_cmds	*tmpcmds;
 	int		ccount;
 
 	cmds = cmd->cmds;
-	pip_ptr = malloc(sizeof(*pip_ptr) * pip);
-	if (!pip_ptr)
+	tmpcmds = cmd->cmds;
+	table->pip_ptr = malloc(sizeof(*(table->pip_ptr)) * pip);
+	if (!table->pip_ptr)
 		return ;
-	i = -1;
-	while (++i < pip)
-		pipe(pip_ptr[i]);
-	ccount = _execute_pipes(cmds, &v, table, pip_ptr);
-	i = -1;
-	close_all_pipes(pip_ptr, pip);
-	while (ccount--)
-		wait(&table->status);
-	free(pip_ptr);
+	v.log = -1;
+	while (++v.log < pip)
+		pipe(table->pip_ptr[v.log]);
+	ccount = _execute_pipes(cmds, &v, table);
+	close_all_pipes(table->pip_ptr, pip);
+	while(ccount--)
+	{
+		handle_status__and_wait(tmpcmds->pid, &table->status);
+		tmpcmds = tmpcmds->next;
+	}
+	free(table->pip_ptr);
 }
 
-void	file_mode(t_table *table, t_cmds *cmds)
+void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 {
-	if (cmds->i_stream == -1)
+	if (cmds->i_stream == -1 || cmds->o_stream == -1)
 	{
-		ft_fprintf(STDERR_FILENO, \
-		"minishell: %s: No such file or directory\n", cmds->patherr);
-		table->status = PATH_ERR_STATUS;
+		file_mode(table, cmds);
+		exit(1);
 	}
-	if (cmds->o_stream == -1)
+	if (v->built != -1)
 	{
-		ft_fprintf(STDERR_FILENO, "minishell: %s: Is a Directory\n", cmds->patherr);
-		table->status = PATH_ERR_STATUS;
+		table->builtin[v->built](cmds, table);
+		exit(0);
 	}
-}
-
-void	print_errors(t_vars *v, t_cmds *cmds, t_table *table)
-{
-	if(v->binar == 3)
+	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
 	{
-		ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", cmds->arg_pack[0], strerror(errno));
-		table->status = 126;
-		if(v->log == 12)
-			exit(126);
-		return;
+		if(execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
+		{
+			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", \
+				cmds->arg_pack[0], "Command not found");
+			exit(127);
+		}
+	}
+	else if (v->binar > 1)
+	{
+		v->log = 12;
+		print_errors(v, cmds, table);
 	}
 }

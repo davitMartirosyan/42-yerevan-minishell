@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping_execution_components.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 21:36:22 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/11 21:36:30 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/01/16 11:56:12 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:56:13 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,6 @@ int	ostream(t_cmds *cmd, int (*pipe)[2], int i)
 	if (cmd->o_stream != 1)
 		return (cmd->o_stream);
 	return (pipe[i][1]);
-}
-
-void	piping(t_cmds *cmd, int pip_ptr[][2], int i, int pip)
-{
-	int	o_stream;
-	int	i_stream;
-
-	if (i == 0)
-	{
-		o_stream = ostream(cmd, pip_ptr, i);
-		dup2(o_stream, STDOUT_FILENO);
-	}
-	else if (i > 0 && i < pip)
-	{
-		i_stream = istream(cmd, pip_ptr, i);
-		o_stream = ostream(cmd, pip_ptr, i);
-		dup2(i_stream, STDIN_FILENO);
-		dup2(o_stream, STDOUT_FILENO);
-	}
-	else
-	{
-		i_stream = istream(cmd, pip_ptr, i);
-		dup2(i_stream, STDIN_FILENO);
-		dup2(cmd->o_stream, STDOUT_FILENO);
-	}
-	close_all_pipes(pip_ptr, pip);
 }
 
 void	close_all_pipes(int pips[][2], int pip)

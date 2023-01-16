@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   parse_tree.c									   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/12/02 00:36:43 by dmartiro		  #+#	#+#			 */
-/*   Updated: 2022/12/14 07:40:20 by dmartiro		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_tree.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/16 11:57:48 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:57:49 by dmartiro         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -126,6 +126,6 @@ void	separate(t_cmds **commands)
 		tmp = tmp->next;
 	}
 }
-// "echo $USER" | > file
+// "echo $dmartiro		" | > file
 
 //gcc -I includes */*.c minishell.c -lreadline -o minishell && ./minishell

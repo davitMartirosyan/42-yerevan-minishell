@@ -3,68 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/15 13:00:53 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 13:00:56 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/01/16 11:56:51 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:56:52 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-
-int contains(char *tok, char *cmdline, int *pos)
-{
-	int i;
-	int c;
-	int j;
-	int len;
-	int flag;
-	int count;
-
-	i = -1;
-	len = ft_strlen(tok);
-	count = 0;
-	while (cmdline[++i])
-	{	
-		c = 0;
-		j = i;
-		if (cmdline[j] == tok[c])
-		{
-			flag = 0;	
-			while (tok[c])
-			{
-				if (cmdline[j] == tok[c])
-				{
-					++count;
-					flag++;
-					j++;
-				}
-				c++;
-			}
-			if (cmdline[j] == tok[c - 1])
-			{
-				++count;
-				i = j;
-				continue;
-			}
-			if (count != len && cmdline[j] != tok[c - 1])
-			{
-				count = 0;
-				i = j;
-				continue;
-			}
-			if (flag == len && count == len)
-			{
-				*pos = j;
-				count = 0;
-				return(1);
-			}
-			i = j;
-		}
-		count = 0;
-	}
-	return (0);
-}
 
 void	token_replacment(char *cmdline, char schr, char rchr)
 {

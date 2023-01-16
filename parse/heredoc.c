@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 01:49:07 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/15 12:57:21 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/01/16 11:57:38 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:57:39 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-void heredoc_sig(int sig);
 int g_var = 0;
+
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 {
 	t_vars *v;
@@ -24,8 +24,7 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	tmpfile = NULL;
 	v = malloc(sizeof(t_vars));
 	v->log = (*token)->type;
-	while ((*token)->type != WORD && \
-		(*token)->type != EXP_FIELD)
+	while ((*token)->type != WORD && (*token)->type != EXP_FIELD)
 		*token = (*token)->next;
 	delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);
@@ -134,11 +133,11 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	return (NULL);
 }
 
-void heredoc_sig(int sig)
+void	heredoc_sig(int sig)
 {
 	(void)sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_on_new_line();
-	// rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	g_var = 1;
 }

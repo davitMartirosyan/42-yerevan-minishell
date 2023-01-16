@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   minishell.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <dmartiro@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/09/21 20:19:57 by dmartiro		  #+#	#+#			 */
-/*   Updated: 2023/01/11 06:15:50 by tumolabs         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro		 <dmartiro		@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/16 11:40:06 by dmartiro		              #+#    #+#             */
+/*   Updated: 2023/01/16 11:40:09 by dmartiro		             ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell_header.h"
@@ -47,7 +47,7 @@ int main(int argc, char *argv[], char *envp[])
 			handleterm(0);
 		if (lexical_analyzer(cmdline, table))
 		{
-			// syntax_error(table);
+			syntax_error(table);
 			tree = parse_tree(table);
 			execution(&tree, &table);
 			update_table(tree, table);

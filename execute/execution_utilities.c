@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utilities.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 21:33:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/01/15 14:27:59 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/01/16 11:55:52 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/16 11:55:55 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
+
 
 int	check_command(t_cmds *cmds, t_vars *v, t_table *table)
 {
@@ -19,82 +20,6 @@ int	check_command(t_cmds *cmds, t_vars *v, t_table *table)
 	v->built = find_in(cmds->arg_pack[0], table->reserved);
 	v->binar = cmd_check(cmds, table);
 	return (1);
-}
-
-void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
-{
-	if (cmds->i_stream == -1 || cmds->o_stream == -1)
-	{
-		file_mode(table, cmds);
-		exit(1);
-	}
-	if (v->built != -1)
-	{
-		table->builtin[v->built](cmds, table);
-		exit(0);
-	}
-	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
-	{
-		if(execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
-		{
-			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", \
-				cmds->arg_pack[0], "Command not found");
-			exit(127);
-		}
-	}
-	else if (v->binar > 1)
-	{
-		v->log = 12;
-		print_errors(v, cmds, table);
-	}
-}
-
-void	_execute(t_vars *v, t_cmds *cmds, t_table *table)
-{
-	if (cmds->i_stream == -1 || cmds->o_stream == -1)
-		file_mode(table, cmds);
-	else if (v->built != -1)
-		table->builtin[v->built](cmds, table);
-	else if (v->binar == 1 && cmds->i_stream != -1 && \
-		cmds->o_stream != -1)
-		_ffork(cmds, table);
-	else if (v->binar > 1)
-		print_errors(v, cmds, table);
-}
-
-int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table, int (*pip_ptr)[2])
-{
-	int	pip;
-	int	ccount;
-	int	i;
-
-	pip = pipes(&table->token);
-	i = 0;
-	ccount = 0;
-	while (cmds != NULL)
-	{
-		if (!check_command(cmds, v, table))
-		{
-			g_var = 23;
-			cmds = cmds->next;
-			continue;
-		}
-		cmds->pid = fork();
-		if (cmds->pid == 0)
-		{
-			if(g_var == 23)
-				exit(0);
-			dup2(cmds->i_stream, STDIN_FILENO);
-			dup2(cmds->o_stream, STDOUT_FILENO);
-			piping(cmds, pip_ptr, i, pip);
-			execute_pipe_command(cmds, v, table);
-			dup2(cmds->i_stream, STDIN_FILENO);
-		}
-		cmds = cmds->next;
-		ccount++;
-		i++;
-	}
-	return (ccount);
 }
 
 void	_ffork(t_cmds *cmds, t_table *table)
@@ -115,4 +40,31 @@ void	_ffork(t_cmds *cmds, t_table *table)
 	else
 		handle_status__and_wait(cmds->pid, &table->status);
 	ft_signal(0);
+}
+
+void	file_mode(t_table *table, t_cmds *cmds)
+{
+	if (cmds->i_stream == -1)
+	{
+		ft_fprintf(STDERR_FILENO, \
+		"minishell: %s: No such file or directory\n", cmds->patherr);
+		table->status = PATH_ERR_STATUS;
+	}
+	if (cmds->o_stream == -1)
+	{
+		ft_fprintf(STDERR_FILENO, "minishell: %s: Is a Directory\n", cmds->patherr);
+		table->status = PATH_ERR_STATUS;
+	}
+}
+
+void	print_errors(t_vars *v, t_cmds *cmds, t_table *table)
+{
+	if(v->binar == 3)
+	{
+		ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", cmds->arg_pack[0], strerror(errno));
+		table->status = 126;
+		if(v->log == 12)
+			exit(126);
+		return;
+	}
 }
