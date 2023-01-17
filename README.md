@@ -30,7 +30,7 @@ thus it is crucial to divide the code of the project into different parts: `lexe
 
 [**Lexer**](https://en.wikipedia.org/wiki/Lexical_analysis) -  lexical analysis, lexing or tokenization is the process of converting a sequence of characters.
 
-[**Parser**](https://en.wikipedia.org/wiki/Parsing) - The parser is in charge of storing the tokenized string and save it in a useful manner for the executor to use later. Our data structure is managed as follows.
+[**Parser**](https://en.wikipedia.org/wiki/Parsing) - The parser is in charge of storing the tokenized string and save it in a useful manner for the executor to use later.
 
 [**Executer**](https://www.cs.uleth.ca/~holzmann/C/system/shell_commands.html) - With all our data properly on our structs, the executer has all the necessary information to execute commands. For this part we use separate processess to execute either our builtins or other commands inside child processes that redirect **`stdin`** and **`stdout`**.
 ## 🛠 Skills
