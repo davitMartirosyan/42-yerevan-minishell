@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   pwd.c															      :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: sabazyan <marvin@42.fr>						    +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/10/25 14:30:41 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2022/10/25 14:30:52 by sabazyan			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:30:41 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/10/25 14:30:52 by sabazyan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -37,19 +37,30 @@ void	no_pwd(t_table *tab)
 	{
 		while (temp)
 		{
-			if (ft_strcmp(ft_strdup(temp->key), "PWD") == 0)
+			if (ft_strcmp(temp->key, "PWD") == 0)
 				printf("%s\n", temp->val);
 			temp = temp->next;
 		}
 	}
 	else if (tab->pwd_status == 1)
+		pwd_loop(tab);
+}
+
+void	pwd_loop(t_table *tab)
+{
+	t_env	*temp;
+	char	*path;
+
+	temp = tab->env;
+	while (temp)
 	{
-		while (temp)
+		if (ft_strcmp(temp->key, "OLDPWD") == 0)
 		{
-			if (ft_strcmp(temp->key, "OLDPWD") == 0)
-				printf("%s\n", ft_strjoin(ft_strdup(temp->val), "/.."));
-			temp = temp->next;
+			path = ft_strjoin(ft_strdup(temp->val), "/..");
+			printf("%s\n", path);
+			free(path);
 		}
-		tab->pwd_status = 0;
+		temp = temp->next;
 	}
+	tab->pwd_status = 0;
 }

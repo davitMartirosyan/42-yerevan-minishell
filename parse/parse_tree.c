@@ -6,15 +6,15 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:48 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:49 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:21:02 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-t_cmds *parse(t_tok *token, t_table *table)
+t_cmds	*parse(t_tok *token, t_table *table)
 {
-	t_cmds *commands;
+	t_cmds	*commands;
 
 	(void)commands;
 	(void)table;
@@ -32,7 +32,7 @@ t_cmds *parse(t_tok *token, t_table *table)
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
 	char	*joined;
-	int rtr;
+	int		rtr;
 
 	while (token != NULL)
 	{
@@ -43,48 +43,48 @@ void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 			(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, joined);
 			if (joined != NULL)
 				free(joined);
-			continue;
+			continue ;
 		}
 		if (typeis_redirection(token->type))
 		{
 			select_filename(&token, *cmds);
 			token = token->next;
-			continue;
+			continue ;
 		}
 		if (!type_is_p_h(&token, &cmds, table, &rtr))
 		{	
-			if(rtr == -1)
-				break;
-			if(g_var == 1)
-				break;
-			continue;
+			if (rtr == -1)
+				break ;
+			if (g_var == 1)
+				break ;
+			continue ;
 		}
 		token = token->next;
 	}
 	(*cmds)->next = NULL;
 }
 
-char *word_expansions(t_tok **token)
+char	*word_expansions(t_tok **token)
 {
-	char *word_exps;
-	
+	char	*word_exps;
+
 	word_exps = NULL;
 	while ((*token) != NULL)
 	{
 		word_exps = ft_strjoin(word_exps, (*token)->tok);
 		*token = (*token)->next;
 		if ((*token) != NULL && !typeis_arg((*token)->type))
-			break;
+			break ;
 	}
 	return (word_exps);
 }
 
-t_cmdline *parse_tree(t_table *table)
+t_cmdline	*parse_tree(t_table *table)
 {
 	t_cmdline	*commands;
 	t_tok		*tokens;
 
-	if(table->syntax)
+	if (table->syntax)
 	{
 		free_tokens(table->token);
 		return (NULL);
@@ -98,17 +98,17 @@ t_cmdline *parse_tree(t_table *table)
 			return (NULL);
 		commands->cmds = parse(tokens, table);
 		if (commands->cmds != NULL)
-				return (commands);
+			return (commands);
 	}
 	return (NULL);
 }
 
 void	separate(t_cmds **commands)
 {
-	t_cmds *tmp;
-	int i;
+	t_cmds	*tmp;
+	int		i;
 
-	if (!commands &&  !*commands)
+	if (!commands && !*commands)
 		return ;
 	tmp = *commands;
 	while ((*commands) != NULL)
@@ -116,7 +116,7 @@ void	separate(t_cmds **commands)
 		if ((*commands)->arguments != NULL)
 			(*commands)->arg_pack = ft_split((*commands)->arguments, 1);
 		commands = &(*commands)->next;
-	}	
+	}
 	while (tmp != NULL)
 	{
 		i = -1;
@@ -126,6 +126,3 @@ void	separate(t_cmds **commands)
 		tmp = tmp->next;
 	}
 }
-// "echo $dmartiro		" | > file
-
-//gcc -I includes */*.c minishell.c -lreadline -o minishell && ./minishell

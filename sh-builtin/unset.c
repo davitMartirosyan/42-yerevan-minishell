@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   unset.c															    :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: sabazyan <marvin@42.fr>						    +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/10/25 14:31:54 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2022/11/07 19:07:18 by sabazyan			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:31:54 by sabazyan          #+#    #+#             */
+/*   Updated: 2023/01/17 01:03:41 by tumolabs         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -43,6 +43,9 @@ void	remove_node(t_table *tab, char *str)
 		{
 			if (ft_strcmp(temp->next->key, str) == 0)
 			{
+				free(temp->next->key);
+				free(temp->next->val);
+				free(temp->next);
 				temp->next = temp->next->next;
 				break ;
 			}
@@ -65,7 +68,7 @@ void	ft_unset(t_cmds *cmd, t_table *tab)
 		{
 			if (unset_err(matrix[i]))
 			{
-				printf("-minishell: export: `%s': not a valid identifier\n",
+				printf("minishell: export: `%s': not a valid identifier\n",
 					matrix[i]);
 				tab->status = 1;
 				continue ;

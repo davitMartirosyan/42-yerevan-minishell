@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:01 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:02 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:11:22 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token)
 {
-	int i;
-	int _p;
-	int type;
-	char *pipe;
-	
+	int		i;
+	int		_p;
+	int		type;
+	char	*pipe;
+
 	i = *pos;
 	_p = 1;
 	pipe = NULL;
@@ -31,5 +31,5 @@ void	add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token)
 		type = PIPE;
 	add(token, new_token(_p, pipe, type));
 	free(pipe);
-	*pos += _p-1;
+	*pos += _p - 1;
 }

@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:05 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:06 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 05:21:02 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	openquotes(char *cmdline)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (cmdline[++i])
@@ -26,11 +26,11 @@ void	openquotes(char *cmdline)
 	}
 }
 
-int check_quotes(char *cmdline, int *q_c)
+int	check_quotes(char *cmdline, int *q_c)
 {
-	int i;
-	int dbl;
-	int sgl;
+	int	i;
+	int	dbl;
+	int	sgl;
 
 	dbl = 0;
 	sgl = 0;
@@ -46,13 +46,13 @@ int check_quotes(char *cmdline, int *q_c)
 	q_c[1] = sgl;
 	if ((dbl % 2 != 0) || (sgl % 2 != 0))
 		return (0);
-	else 
+	else
 		return (1);
 }
 
 void	inside_quote(char *cmdline, int *pos, int find)
 {
-	int i;
+	int	i;
 
 	i = *pos;
 	if (find == SGL)
@@ -60,7 +60,7 @@ void	inside_quote(char *cmdline, int *pos, int find)
 		while (cmdline[++i])
 		{
 			if (cmdline[i] && cmdline[i] == '\"')
-				break;
+				break ;
 			if (cmdline[i] && cmdline[i] == '\'')
 				cmdline[i] = 7;
 		}
@@ -68,19 +68,13 @@ void	inside_quote(char *cmdline, int *pos, int find)
 	else if (find == DBL)
 	{
 		while (cmdline[++i])
-		{
-			if (cmdline[i] && cmdline[i] == '\'')
-				break;
-			if (cmdline[i] && cmdline[i] == '\"')
-				cmdline[i] = 8;
-			if (cmdline[i] && cmdline[i] == '$')
-				cmdline[i] = 4;
-		}
+			if (!__meta_chars(&cmdline[i]))
+				break ;
 	}
 	*pos = i;
 }
 
-int quote_syntax_analyzer(char *cmdline, int *q_c)
+int	quote_syntax_analyzer(char *cmdline, int *q_c)
 {
 	if (check_quotes(cmdline, q_c))
 	{
@@ -98,20 +92,20 @@ int quote_syntax_analyzer(char *cmdline, int *q_c)
 
 char	*exit_status_code_and_pid(char *cmd, t_table *table, int *pos)
 {
-	char *status;
-	char *left;
-	char *newpoint;
+	char	*status;
+	char	*left;
+	char	*newpoint;
 
 	(void)table;
 	(void)pos;
 	status = NULL;
-	if(cmd[*pos+1] == '?')
+	if (cmd[*pos + 1] == '?')
 		status = ft_itoa(table->status);
-	else if(cmd[*pos+1] == '$')
+	else if (cmd[*pos + 1] == '$')
 		status = ft_itoa(get_pid());
 	left = ft_substr(cmd, 0, *pos);
 	newpoint = ft_strjoin(left, status);
-	newpoint = ft_strjoin(newpoint, cmd+(*pos+2));
+	newpoint = ft_strjoin(newpoint, cmd + (*pos + 2));
 	free(cmd);
 	free(status);
 	return (newpoint);

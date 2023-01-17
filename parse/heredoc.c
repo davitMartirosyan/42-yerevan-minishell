@@ -6,19 +6,21 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:39 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:36:53 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-int g_var = 0;
+
+int	g_var = 0;
 
 void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 {
-	t_vars *v;
-	char *delim;
-	char *term;
-	char *tmpfile;	
+	t_vars	*v;
+	char	*delim;
+	char	*term;
+	char	*tmpfile;
+
 	delim = NULL;
 	term = NULL;
 	tmpfile = NULL;
@@ -29,7 +31,7 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 	delim = heredoc_delimiter(token, &v);
 	term = open_heredoc_prompt(delim, v->var, table);
 	if (!term)
-		return ;	
+		return ;
 	tmpfile = new_file(table);
 	open__file__check__type(v->log, tmpfile, cmds);
 	if (term)
@@ -45,8 +47,8 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 
 char	*new_file(t_table *table)
 {
-	char *tmpfile;
-	char *tmp;
+	char	*tmpfile;
+	char	*tmp;
 
 	tmp = NULL;
 	tmp = ft_itoa(table->get_pid);
@@ -65,8 +67,8 @@ char	*new_file(t_table *table)
 
 char	*heredoc_delimiter(t_tok **token, t_vars **v)
 {
-	char *delim;
-	
+	char	*delim;
+
 	delim = NULL;
 	while (*token != NULL)
 	{
@@ -79,8 +81,8 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 		if ((*token)->type == SEP || (*token)->type == HEREDOC)
 			(*v)->let++;
 		if ((*v)->let == 1 || (*token)->next == NULL || \
-			(*token)->type == PIPE)
-			break;
+				(*token)->type == PIPE)
+			break ;
 		*token = (*token)->next;
 	}
 	if (delim)
@@ -91,8 +93,8 @@ char	*heredoc_delimiter(t_tok **token, t_vars **v)
 
 char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 {
-	char *heredoc;
-	char *term;
+	char	*heredoc;
+	char	*term;
 
 	term = NULL;
 	heredoc = NULL;
@@ -100,26 +102,26 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	while (1)
 	{
 		heredoc = readline("> ");
-		if(g_var == 1)
+		if (g_var == 1)
 		{
 			ft_signal(0);
-			break; 
+			break ;
 		}
 		if (heredoc == NULL)
 		{
 			ft_fprintf(STDERR_FILENO, \
-			"-sadm: %s %d delimited by end-of-file (wanted `%s')\n", \
+			"minishell: %s %d delimited by end-of-file (wanted `%s')\n", \
 			HEREDOC_SYNTAX_WARNING, (uintmax_t)__LINE__, delim);
 			term = ft_strjoin(term, "\n");
-			break;
+			break ;
 		}
 		if (heredoc && ft_strcmp(heredoc, delim) != 0)
 			term = join_arguments(term, '\n', heredoc);
 		if (ft_strlen(heredoc) == ft_strlen(delim) && \
-			ft_strcmp(heredoc, delim) == 0)
+				ft_strcmp(heredoc, delim) == 0)
 		{
 			term = ft_strjoin(term, "\n");
-			break;
+			break ;
 		}
 		free(heredoc);
 	}
@@ -138,6 +140,6 @@ void	heredoc_sig(int sig)
 	(void)sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	g_var = 1;
 }
+/*rl_replace_line("", 0);*/

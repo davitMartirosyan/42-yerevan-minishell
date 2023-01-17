@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:00 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:56:01 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:28:16 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	execution(t_cmdline **commands, t_table **table)
 {
 	int	pip;
-	
+
 	if ((*table)->syntax)
 	{
 		ft_fprintf(STDERR_FILENO, \
 		"minishell: %s `%s'\n", TOKEN_SYNTAX_ERR, (*table)->syntax);
 		return ;
 	}
-	if(g_var == 1)
+	if (g_var == 1)
 	{
 		g_var = 0;
-		return;
+		return ;
 	}
 	if (commands && *commands)
 	{
@@ -86,7 +86,7 @@ void	piping_execute(int pip, t_cmdline *cmd, t_table *table)
 		pipe(table->pip_ptr[v.log]);
 	ccount = _execute_pipes(cmds, &v, table);
 	close_all_pipes(table->pip_ptr, pip);
-	while(ccount--)
+	while (ccount--)
 	{
 		handle_status__and_wait(tmpcmds->pid, &table->status);
 		tmpcmds = tmpcmds->next;
@@ -108,7 +108,7 @@ void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 	}
 	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
 	{
-		if(execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
+		if (execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
 		{
 			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", \
 				cmds->arg_pack[0], "Command not found");

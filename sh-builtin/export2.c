@@ -1,26 +1,16 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   export2.c															  :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: sabazyan <marvin@42.fr>						    +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/11/14 10:34:00 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2022/11/14 10:34:04 by sabazyan			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/14 10:34:00 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/11/14 10:34:04 by sabazyan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
-
-void	create_key_value(char *str, t_table *tab)
-{
-	if (check_plus_equal(str) == 0)
-		create_key(str, tab);
-	else if (check_plus_equal(str) > 0)
-		create_key_new_value(str, tab);
-	else
-		create_key_plus_value(str, tab);
-}
 
 void	create_key(char *str, t_table *tab)
 {
@@ -31,13 +21,13 @@ void	create_key(char *str, t_table *tab)
 	temp = tab->env;
 	while (temp->next != NULL)
 		temp = temp->next;
-	temp->next = malloc(sizeof(t_env));
+	temp->next = malloc(sizeof(t_env) + 1);
 	if (!temp->next)
 		return ;
 	temp->next->key = NULL;
 	temp->next->val = NULL;
 	temp = temp->next;
-	temp->key = str;
+	temp->key = ft_strdup(str);
 	temp->next = NULL;
 }
 
@@ -46,6 +36,7 @@ void	create_key_new_value(char *str, t_table *tab)
 	t_env	*temp;
 	int		index;
 	int		len;
+	char	*tmp_str;
 
 	temp = tab->env;
 	index = check_plus_equal(str);
@@ -60,7 +51,8 @@ void	create_key_new_value(char *str, t_table *tab)
 	temp->next->key = NULL;
 	temp->next->val = NULL;
 	temp = temp->next;
-	temp->key = ft_substr(str, 0, index);
+	tmp_str = ft_substr(str, 0, index);
+	temp->key = tmp_str;
 	temp->val = ft_substr(str, index + 1, len);
 	temp->next = NULL;
 }
@@ -68,54 +60,46 @@ void	create_key_new_value(char *str, t_table *tab)
 int	create_key_new_value2(char *str, t_table *tab, int index, int len)
 {
 	t_env	*temp;
+	char	*tmp_str;
 
 	temp = tab->env;
-	if (check_key(ft_substr(str, 0, index), tab) && str[index + 1])
+	tmp_str = ft_substr(str, 0, index);
+	if (check_key(tmp_str, tab) && str[index + 1])
 	{
 		while (temp)
 		{
-			if (!ft_strcmp(temp->key, ft_substr(str, 0, index)))
-				temp->val = ft_substr(str, index + 1, len);
+			if (!ft_strcmp(temp->key, tmp_str))
+				create_key_new_value3(temp, str, index, len);
 			temp = temp->next;
 		}
+		free(tmp_str);
 		return (1);
 	}
-	else if (check_key(ft_substr(str, 0, index), tab) && !str[index + 1])
+	else if (check_key(tmp_str, tab) && !str[index + 1])
 	{
-		while (temp)
-		{
-			if (!ft_strcmp(temp->key, ft_substr(str, 0, index)))
-				temp->val = "";
-			temp = temp->next;
-		}
+		create_key_new_value4(temp, tmp_str);
 		return (1);
 	}
+	free(tmp_str);
 	return (0);
 }
 
-void	create_key_plus_value(char *str, t_table *tab)
+void	create_key_new_value3(t_env *temp, char *str, int index, int len)
 {
-	t_env	*temp;
-	int		index;
-	int		len;
+	free(temp->val);
+	temp->val = ft_substr(str, index + 1, len);
+}
 
-	temp = tab->env;
-	index = -1 * check_plus_equal(str);
-	len = ft_strlen(str);
-	if (check_key(ft_substr(str, 0, index), tab))
+void	create_key_new_value4(t_env *temp, char *tmp_str)
+{
+	while (temp)
 	{
-		loop_plus_value(str, temp, index, len);
-		return ;
-	}
-	while (temp->next != NULL)
+		if (!ft_strcmp(temp->key, tmp_str))
+		{
+			free(temp->val);
+			temp->val = ft_strdup("");
+		}
 		temp = temp->next;
-	temp->next = malloc(sizeof(t_env));
-	if (!temp->next)
-		return ;
-	temp->next->key = NULL;
-	temp->next->val = NULL;
-	temp = temp->next;
-	temp->key = ft_substr(str, 0, index);
-	temp->val = ft_strtrim(ft_substr(str, index + 2, len), "\"");
-	temp->next = NULL;
+	}
+	free(tmp_str);
 }

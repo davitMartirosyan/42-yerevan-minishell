@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro		 <dmartiro		@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 11:12:08 by dmartiro		              #+#    #+#             */
-/*   Updated: 2023/01/16 11:34:06 by dmartiro		             ###   ########.fr       */
+/*   Created: 2022/10/25 14:29:34 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/11/07 19:02:58 by sabazyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	with_flag(char **matrix, int i)
 			i++;
 			continue ;
 		}
-		printf("%s\b", matrix[i]);
+		printf("%s", matrix[i]);
 		if (matrix[i + 1])
 			printf(" ");
 		i++;

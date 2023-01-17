@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   env.c															      :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: sabazyan <marvin@42.fr>						    +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/10/25 14:32:26 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2022/11/07 19:04:03 by sabazyan			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabazyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:32:26 by sabazyan          #+#    #+#             */
+/*   Updated: 2022/11/07 19:04:03 by sabazyan         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -46,7 +46,7 @@ void	print_env(t_cmds *cmd, t_table *tab)
 	}
 	else
 	{
-		ft_fprintf(STDERR_FILENO, "env: %s: No such file or directory\n",
+		printf("env: %s: No such file or directory\n",
 			ft_strtrim(matrix[1], "\""));
 		tab->status = 127;
 	}

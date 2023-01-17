@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:36 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:56:37 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 05:19:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # include "./structs.h"
 # include "./builtins.h"
 
-extern int			 g_var;
+extern int	g_var;
 char		*ft_readline(char *line);
 void		inthandle(int sig);
 void		handleterm(int sig);
@@ -80,11 +80,14 @@ char		*replace(char *cmdline, char *key, char *val, int *pos);
 char		*exit_status_code_and_pid(char *cmd, t_table *table, int *pos);
 void		quote_error(int *t_f, t_table *table);
 void		token_replacment(char *cmdline, char schr, char rchr);
+void		_key_value_pair(char **cmdline, char **k, char **v, t_table *t);
 void		openquotes(char *cmdline);
 void		inside_quote(char *cmdline, int *pos, int find);
+int			dollar_expansions(char *cmdline, t_vars *v);
 int			contains(char *tok, char *cmdline, int *pos);
 int			lexical_analyzer(char *cmdline, t_table *table);
 int			check_quotes(char *cmdline, int *q_counts);
+int			__meta_chars(char *cmdline_ch);
 int			quote_syntax_analyzer(char *cmdline, int *q_c);
 
 /**********************************************/
@@ -93,9 +96,9 @@ int			quote_syntax_analyzer(char *cmdline, int *q_c);
 t_tok		*tokenization(char *cmdline);
 char		*word(char *cmdline, int len, int s_pos);
 void		add_word(char *cmdline, int *pos, t_tok **token);
-void		redirection(char *cmdline, int *pos, int io, t_tok **token);
-void		expansion(char *cmdline, int *pos, int quote, t_tok **token);
-void		add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token);
+void		redirection(char *cmdline, int *pos, int io, t_tok **tok);
+void		expansion(char *cmdline, int *pos, int quote, t_tok **tok);
+void		add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **tok);
 void		space(char *cmdline, int *pos, t_tok **token);
 int			wordlen(char *wordstart, int s_pos);
 int			typeface(int c, int len);
@@ -157,6 +160,9 @@ int			find_in(char *builtin, char **reserved);
 int			istream(t_cmds *cmd, int (*pipe)[2], int i);
 int			ostream(t_cmds *cmd, int (*pipe)[2], int i);
 int			check_command(t_cmds *cmds, t_vars *v, t_table *table);
+int			is_file(char *path);
+int			is_dir(char *path);
+int			check_dir_or_file(t_cmds *cmd);
 int			_execute_pipes(t_cmds *cmds, t_vars *v, t_table *t);
 
 /**********************************************/
@@ -164,6 +170,7 @@ int			_execute_pipes(t_cmds *cmds, t_vars *v, t_table *t);
 /**********************************************/
 void		free_tokens(t_tok *token);
 void		free_parse_tree(t_cmdline *tree);
+void		free_cmd_workspace(t_cmds *cmd);
 void		free_char_pp(char ***pp);
 void		update_table(t_cmdline *tree, t_table *table);
 #endif

@@ -6,37 +6,36 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:44 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:13:13 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-int typeis_arg(int type)
+int	typeis_arg(int type)
 {
 	if (type == WORD || type == EXP_FIELD)
 		return (1);
 	return (0);
 }
 
-int typeis_redirection(int type)
+int	typeis_redirection(int type)
 {
-	if (type == REDIR_OUT || type == REDIR_IN \
-		|| type == APPEND)
+	if (type == REDIR_OUT || type == REDIR_IN || type == APPEND)
 		return (1);
 	return (0);
 }
 
-int typeis_heredoc(int type)
+int	typeis_heredoc(int type)
 {
 	if (type == HEREDOC)
 		return (1);
 	return (0);
 }
 
-int pipes(t_tok **token)
+int	pipes(t_tok **token)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (*token != NULL)
@@ -45,14 +44,14 @@ int pipes(t_tok **token)
 			count++;
 		token = &(*token)->next;
 	}
-	return count;
+	return (count);
 }
 
 char	*join_arguments(char *s1, int delimiter, char *s2)
 {
-	char *arguments;
-	int i;
-	int c;
+	char	*arguments;
+	int		i;
+	int		c;
 
 	if (!s1 && !s2)
 		return (ft_strdup(""));

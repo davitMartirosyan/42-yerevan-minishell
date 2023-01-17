@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro		 <dmartiro		@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 11:40:06 by dmartiro		              #+#    #+#             */
-/*   Updated: 2023/01/16 11:40:09 by dmartiro		             ###   ########.fr       */
+/*   Created: 2023/01/17 03:27:33 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/17 03:29:22 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell_header.h"
 
-char *ft_readline(char *line)
+char	*ft_readline(char *line)
 {
 	char	*cmd;
 
@@ -28,12 +28,12 @@ char *ft_readline(char *line)
 	return (cmd);
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_table		*table;
 	t_cmdline	*tree;
 	char		*cmdline;
-	
+
 	(void)argv;
 	(void)argc;
 	tree = NULL;

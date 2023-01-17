@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:43 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:56:44 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:53:32 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,10 @@ typedef struct s_table
 	int			dup1;
 	int			get_pid;
 	int			pwd_status;
+	int			first;
 	t_built		builtin[8];
 	t_env		*env;
 	t_tok		*token;
+	t_vars		v;
 }	t_table;
 #endif

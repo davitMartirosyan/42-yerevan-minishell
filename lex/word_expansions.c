@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:28 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:29 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:38:43 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
 
-int wordlen(char *wordstart, int s_pos)
+int	wordlen(char *wordstart, int s_pos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (wordstart[s_pos] && ft_iswordpart(wordstart[s_pos]))
@@ -25,10 +25,10 @@ int wordlen(char *wordstart, int s_pos)
 	return (i);
 }
 
-char *word(char *cmdline, int len, int s_pos)
+char	*word(char *cmdline, int len, int s_pos)
 {
-	char *word;
-	int i;
+	char	*word;
+	int		i;
 
 	i = 0;
 	word = NULL;
@@ -45,9 +45,9 @@ char *word(char *cmdline, int len, int s_pos)
 
 void	add_word(char *cmdline, int *pos, t_tok **token)
 {
-	int len;
-	char *wordpart;
-	
+	int		len;
+	char	*wordpart;
+
 	(void)token;
 	len = wordlen(cmdline, *pos);
 	wordpart = NULL;
@@ -59,17 +59,17 @@ void	add_word(char *cmdline, int *pos, t_tok **token)
 
 void	space(char *cmdline, int *pos, t_tok **token)
 {
-	int i;
-	int len;
-	char *separator;
-	
+	int		i;
+	int		len;
+	char	*separator;
+
 	i = *pos;
 	len = 0;
 	separator = NULL;
 	while (cmdline[++i])
 	{
 		if (!ft_isspace(cmdline[i]))
-			break;
+			break ;
 		++len;
 	}
 	separator = word(cmdline, len, *pos);
@@ -80,22 +80,21 @@ void	space(char *cmdline, int *pos, t_tok **token)
 
 void	expansion(char *cmdline, int *pos, int quote, t_tok **token)
 {
-	int i;
-	int len;
-	char *expo;
-	
+	int		i;
+	int		len;
+	char	*expo;
+
 	i = *pos;
 	len = 0;
 	expo = NULL;
 	while (cmdline[++i])
 	{
 		if (cmdline[i] == quote)
-			break;
+			break ;
 		++len;
 	}
-	expo = word(cmdline, len, *pos+1);
+	expo = word(cmdline, len, *pos + 1);
 	add(token, new_token(len, expo, EXP_FIELD));
 	free(expo);
-	*pos += len+1;
+	*pos += len + 1;
 }
-

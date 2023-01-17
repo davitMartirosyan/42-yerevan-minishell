@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:58 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:59 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:40:33 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	free_char_pp(char ***pp)
 
 void	free_tokens(t_tok *token)
 {
-	t_tok *fre;
+	t_tok	*fre;
 
-	if(!token)
+	if (!token)
 		return ;
 	fre = token;
 	while (token != NULL)
@@ -45,27 +45,16 @@ void	free_tokens(t_tok *token)
 
 void	free_parse_tree(t_cmdline *tree)
 {
+	t_cmds	*cmd;
+	t_cmds	*cmdtmp;
+
 	(void)tree;
-
-	t_cmds *cmd;
-	t_cmds *cmdtmp;
-
 	cmd = tree->cmds;
 	cmdtmp = cmd;
 	while (cmd != NULL)
 	{
 		cmdtmp = cmd->next;
-		if (cmd->i_stream != 0)
-			close(cmd->i_stream);
-		if (cmd->o_stream != 1)
-			close(cmd->o_stream);
-		cmd->i_stream = STDIN;
-		cmd->o_stream = STDOUT;
-		free(cmd->arguments);
-		free(cmd->path);
-		free(cmd->patherr);
-		if (cmd->arg_pack != NULL)
-			free_char_pp(&cmd->arg_pack);
+		free_cmd_workspace(cmd);
 		free(cmd);
 		cmd = cmdtmp;
 	}
@@ -76,17 +65,17 @@ void	free_parse_tree(t_cmdline *tree)
 
 void	update_table(t_cmdline *tree, t_table *table)
 {
-	if(table->syntax)
+	if (table->syntax)
 	{
 		free(table->syntax);
 		table->syntax = NULL;
 	}
-	if(!tree || !table || !table->token)
-		return;
+	if (!tree || !table || !table->token)
+		return ;
 	free_tokens(table->token);
 	unlink_heredocuments(table->hdocs, table->get_pid);
 	free_parse_tree(tree);
-	if(table->paths)
+	if (table->paths)
 		free_char_pp(&table->paths);
 	table->err_handling = 0;
 	table->q_c[0] = 0;
@@ -98,16 +87,16 @@ void	update_table(t_cmdline *tree, t_table *table)
 
 static void	unlink_heredocuments(int limit, int pid)
 {
-	int i;
-	char *path;
-	char *pid_;
+	int		i;
+	char	*path;
+	char	*pid_;
 
 	path = NULL;
 	pid_ = NULL;
 	i = -1;
 	while (++i < limit)
 	{
-		pid_ = ft_itoa(pid); 
+		pid_ = ft_itoa(pid);
 		path = ft_strdup("/var/tmp/.minishell-");
 		path = ft_strjoin(path, pid_);
 		free(pid_);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping_components.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:05 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:56:06 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:35:43 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table)
 		{
 			g_var = 23;
 			cmds = cmds->next;
-			continue;
+			continue ;
 		}
 		cmds->pid = fork();
 		if (cmds->pid == 0)
@@ -37,9 +37,9 @@ int	_execute_pipes(t_cmds *cmds, t_vars *v, t_table *table)
 	return (ccount);
 }
 
-void __ffork__exec__pipe__(t_cmds *cmds, t_table *table, t_vars *v)
+void	__ffork__exec__pipe__(t_cmds *cmds, t_table *table, t_vars *v)
 {
-	if(g_var == 23)
+	if (g_var == 23)
 		exit(0);
 	dup2(cmds->i_stream, STDIN_FILENO);
 	dup2(cmds->o_stream, STDOUT_FILENO);

@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   exit.c															     :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: sabazyan <marvin@42.fr>						    +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/10/25 14:32:49 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2022/10/25 14:32:52 by sabazyan			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:32:49 by sabazyan          #+#    #+#             */
+/*   Updated: 2023/01/17 01:04:11 by tumolabs         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -86,7 +86,7 @@ void	ft_exit(t_cmds *cmd, t_table *tab)
 		|| ft_atoi_(matrix[1]) < -1 * (check + 1))
 	{
 		printf("exit\n");
-		printf("bash: exit: %s: numeric argument required\n", matrix[1]);
+		printf("minishell: exit: %s: numeric argument required\n", matrix[1]);
 		tab->status = 255;
 		exit(tab->status);
 	}

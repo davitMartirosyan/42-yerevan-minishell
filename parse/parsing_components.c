@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:53 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:54 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:27:09 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	select_filename(t_tok **token, t_cmds *cmds)
 {
-	int type;
-	char *filename;
+	int		type;
+	char	*filename;
 
 	filename = NULL;
 	type = (*token)->type;
 	while ((*token)->type != WORD && (*token)->type != EXP_FIELD)
 		*token = (*token)->next;
-	while(*token != NULL && typeis_arg((*token)->type))
+	while (*token != NULL && typeis_arg((*token)->type))
 	{
 		filename = ft_strjoin(filename, (*token)->tok);
-		if((*token)->next == NULL || !typeis_arg((*token)->next->type))
-			break;
+		if ((*token)->next == NULL || !typeis_arg((*token)->next->type))
+			break ;
 		*token = (*token)->next;
 	}
 	open__file__check__type(type, filename, cmds);
@@ -34,8 +34,8 @@ void	select_filename(t_tok **token, t_cmds *cmds)
 
 void	open__file__check__type(int type, char *filename, t_cmds *cmds)
 {
-	int fd;
-	
+	int	fd;
+
 	fd = 0;
 	if (type == REDIR_OUT)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -45,7 +45,7 @@ void	open__file__check__type(int type, char *filename, t_cmds *cmds)
 		fd = open(filename, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (type == HEREDOC)
 		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if(fd == -1)
+	if (fd == -1)
 		cmds->patherr = ft_strdup(filename);
 	check_type(fd, type, cmds);
 }
@@ -66,30 +66,30 @@ void	check_type(int fd, int type, t_cmds *cmds)
 	}
 }
 
-int type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table, int *rtr)
+int	type_is_p_h(t_tok **token, t_cmds ***cmds, t_table *table, int *rtr)
 {
 	if (typeis_heredoc((*token)->type))
 	{
-		if(!(*token)->next)
+		if (!(*token)->next)
 		{
 			_errno_(table, (*token)->tok);
 			*rtr = -1;
-			return 0;
+			return (0);
 		}
 		heredoc(token, *(*cmds), table);
 		if (typeis_arg((*token)->type))
 			*token = (*token)->next;
-		return 0;
+		return (0);
 	}
 	if ((*token)->type == PIPE)
 	{
 		*cmds = &(*(*cmds))->next;
 		*(*cmds) = malloc(sizeof(t_cmds));
-		std(*cmds);	
+		std(*cmds);
 		*token = (*token)->next;
-		return 0;
+		return (0);
 	}
-	return 1;
+	return (1);
 }
 
 void	std(t_cmds **cmds)

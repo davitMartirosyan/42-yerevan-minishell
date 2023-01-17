@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   cd.c															       :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>			  +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/10/25 14:30:20 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2023/01/11 20:28:18 by tumolabs			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
+/*   Updated: 2023/01/17 01:03:52 by tumolabs         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -19,35 +19,44 @@ void	change_path(t_table *tab, char *old_path)
 	t_env	*temp;
 
 	new_path = getcwd(cwd, 10000);
-	if (check_path(tab, new_path) == 1)
-		return ;
-	temp = tab->env;
-	while (temp)
-	{
-		if (!ft_strcmp(temp->key, "PWD"))
-			temp->val = new_path;
-		temp = temp->next;
-	}
-	temp = tab->env;
-	while (temp)
-	{
-		if (!ft_strcmp(temp->key, "OLDPWD"))
-			temp->val = old_path;
-		temp = temp->next;
-	}
-	tab->status = 0;
-}
-
-int	check_path(t_table *tab, char *new_path)
-{
 	if (!new_path)
 	{
 		printf("cd: error retrieving current directory: getcwd: cannot access");
 		printf(" parent directories: No such file or directory\n");
 		tab->pwd_status = 1;
-		return (1);
+		return ;
 	}
-	return (0);
+	temp = tab->env;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->key, "PWD"))
+		{
+			if (tab->first == 1)
+				free(temp->val);
+			temp->val = new_path;
+		}
+		temp = temp->next;
+	}
+	path_loop(tab, old_path);
+}
+
+void	path_loop(t_table *tab, char *old_path)
+{
+	t_env	*temp;
+
+	temp = tab->env;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->key, "OLDPWD"))
+		{
+			if (tab->first == 1)
+				free(temp->val);
+			temp->val = old_path;
+		}
+		temp = temp->next;
+	}
+	tab->status = 0;
+	tab->first = 0;
 }
 
 void	change_path_to_home(t_table *tab, char *old_path)
@@ -94,7 +103,8 @@ void	print_cd(t_cmds *cmd, t_table *tab)
 	{
 		if (chdir(matrix[1]) == -1)
 		{
-			printf("minishell: cd: %s: No such file or directory\n", matrix[1]);
+			ft_fprintf(STDERR_FILENO, \
+			"minishell: cd: %s: No such file or directory\n", matrix[1]);
 			tab->status = 1;
 		}
 		else
@@ -106,7 +116,6 @@ void	no_old_path(char *old_path, t_table *tab)
 {
 	t_env	*temp;
 
-	(void)old_path;
 	temp = tab->env;
 	while (temp)
 	{

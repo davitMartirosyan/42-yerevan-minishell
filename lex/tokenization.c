@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:14 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:57:15 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:34:22 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ static void	check_heredoc_count(t_tok *tokens);
 
 t_tok	*tokenization(char *cmdline)
 {
-	t_tok *tokens;
-	int i;
+	t_tok	*tokens;
+	int		i;
 
 	tokens = NULL;
 	i = 0;
 	while (cmdline && cmdline[i])
 	{
-		if (cmdline[i] && ft_iswordpart(cmdline[i]) && (int)ft_strlen(cmdline) > i)
+		if (cmdline[i] && ft_iswordpart(cmdline[i]) && \
+				(int)ft_strlen(cmdline) > i)
 			add_word(cmdline, &i, &tokens);
 		if (cmdline[i] && ft_isspace(cmdline[i]))
 			space(cmdline, &i, &tokens);
@@ -41,9 +42,9 @@ t_tok	*tokenization(char *cmdline)
 	return (tokens);
 }
 
-t_tok *new_token(int len, char *token, int type)
+t_tok	*new_token(int len, char *token, int type)
 {
-	t_tok *tok;
+	t_tok	*tok;
 
 	tok = NULL;
 	tok = malloc(sizeof(t_tok));
@@ -52,8 +53,8 @@ t_tok *new_token(int len, char *token, int type)
 	tok->len = 0;
 	tok->tok = NULL;
 	tok->type = 0;
-	tok->len  = len;
-	tok->tok  = ft_strdup(token);
+	tok->len = len;
+	tok->tok = ft_strdup(token);
 	tok->type = type;
 	tok->next = NULL;
 	return (tok);
@@ -68,8 +69,8 @@ void	add(t_tok **lst, t_tok *new)
 
 static void	check_heredoc_count(t_tok *tokens)
 {
-	int i;
-	t_tok *toks;
+	int		i;
+	t_tok	*toks;
 
 	i = 0;
 	toks = tokens;
@@ -81,7 +82,7 @@ static void	check_heredoc_count(t_tok *tokens)
 	}
 	if (i > 16)
 	{
-		printf("%s: %s\n", SHELLERR, HEREDOC_LIMIT_ERR);
+		ft_fprintf(STDERR_FILENO, "%s: %s\n", SHELLERR, HEREDOC_LIMIT_ERR);
 		exit(2);
 	}
 }

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   ft_lstmap.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: dmartiro <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/04/03 18:06:06 by dmartiro		  #+#	#+#			 */
-/*   Updated: 2022/04/06 21:01:06 by dmartiro		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/17 02:54:24 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/17 02:54:25 by dmartiro         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void	*(*f)(void	*), void	(*del)(void	*))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void	*), void (*del)(void *))
 {
 	t_list	*newlist;
 	t_list	*newnode;
 
-	newlist = (void	*)0;
+	newlist = (void *) 0;
 	if (!lst || !f || !del)
 		return (0);
 	while (lst)

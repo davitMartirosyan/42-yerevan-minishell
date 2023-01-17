@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:55:44 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/16 11:55:46 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:29:25 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,11 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 	if (table->paths == NULL)
 	{
 		cmd->path = ft_strdup(cmd->arg_pack[0]);
-		return (1);
+		return (check_dir_or_file(cmd));
 	}
-	if(ft_strncmp(cmd->arg_pack[0], ".", 1) == 0
+	if (ft_strncmp(cmd->arg_pack[0], ".", 1) == 0
 		|| ft_strchr(cmd->arg_pack[0], '/'))
-	{
-		if(access(cmd->arg_pack[0], X_OK) == 0)
-		{
-			cmd->path = ft_strdup(cmd->arg_pack[0]);
-			return (1);
-		}
-		return (3);
-	}
+		return (check_dir_or_file(cmd));
 	if (ft_strncmp(cmd->arg_pack[0], "minishell", 10) == 0)
 	{
 		cmd->path = join_paths(table->cwd, '/', cmd->arg_pack[0]);
@@ -42,8 +35,9 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 
 int	check_in_paths(t_cmds *cmd, char **paths)
 {
-	char *path;
-	int	i;
+	char	*path;
+	int		i;
+
 	i = 0;
 	while (paths[i])
 	{

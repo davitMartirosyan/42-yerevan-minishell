@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																											    */
-/*																					:::      ::::::::   */
-/*   export3.c															  :+:      :+:    :+:   */
-/*																		    +:+ +:+			 +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>			  +#+  +:+       +#+			*/
-/*																		+#+#+#+#+#+   +#+			   */
-/*   Created: 2022/11/14 10:35:34 by sabazyan			  #+#    #+#			     */
-/*   Updated: 2023/01/11 20:28:49 by tumolabs			 ###   ########.fr       */
-/*																											    */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/14 10:35:34 by sabazyan          #+#    #+#             */
+/*   Updated: 2023/01/17 01:03:21 by tumolabs         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_header.h"
@@ -28,8 +28,7 @@ void	ft_export(t_cmds *cmd, t_table *tab)
 		{
 			if (export_err(matrix[i]))
 			{
-				ft_fprintf(STDERR_FILENO, \
-					"-sadm: export: `%s': not a valid identifier\n",
+				printf("minishell: export: `%s': not a valid identifier\n",
 					matrix[i]);
 				tab->status = 1;
 				continue ;
@@ -51,19 +50,26 @@ void	print_export(t_table *tab)
 	sorting(export_matrix);
 	while (export_matrix[++j] != NULL)
 		printf("declare -x %s\n", export_matrix[j]);
-	free_char_pp(&export_matrix);
+	free_matrix(export_matrix);
 }
 
 char	**create_export_matrix(t_table *tab, int count)
 {
 	t_env	*temp;
 	char	**matrix;
-	char	*val;
 	int		i;
 
 	temp = tab->env;
 	i = 0;
 	matrix = malloc(sizeof(char *) * (count + 1));
+	loop_export(temp, matrix, i);
+	return (matrix);
+}
+
+void	loop_export(t_env *temp, char **matrix, int i)
+{
+	char	*val;
+
 	while (temp && temp->key)
 	{
 		if (temp->val)
@@ -81,44 +87,14 @@ char	**create_export_matrix(t_table *tab, int count)
 		temp = temp->next;
 	}
 	matrix[i] = NULL;
-	return (matrix);
 }
 
-int	key_count(t_table *tab)
+void	create_key_value(char *str, t_table *tab)
 {
-	t_env	*temp;
-	int		i;
-
-	temp = tab->env;
-	i = 0;
-	while (temp)
-	{
-		i++;
-		temp = temp->next;
-	}
-	return (i);
-}
-
-void	sorting(char **arr)
-{
-	int		i;
-	int		j;
-	char	*temp;
-
-	i = 0;
-	while (arr[i])
-	{
-		j = i + 1;
-		while (arr[j])
-		{
-			if (arr[i][0] > arr[j][0])
-			{
-				temp = arr[i];
-				arr[i] = arr[j];
-				arr[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
+	if (check_plus_equal(str) == 0)
+		create_key(str, tab);
+	else if (check_plus_equal(str) > 0)
+		create_key_new_value(str, tab);
+	else
+		create_key_plus_value(str, tab);
 }

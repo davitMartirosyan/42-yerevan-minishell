@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   resource.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 02:54:42 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 02:54:43 by dmartiro         ###   ########.fr       */
+/*   Created: 2023/01/17 03:32:47 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/01/17 03:42:13 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell_header.h"
 
-void	*ft_memchr(const void	*s, int c, size_t n)
+void	free_cmd_workspace(t_cmds *cmd)
 {
-	size_t			i;
-	unsigned char	cc;
-	unsigned char	*ss;
-
-	cc = c;
-	ss = (unsigned char *)s;
-	i = 0;
-	while (i < n)
-	{
-		if (ss[i] == cc)
-			return ((unsigned char *)(s + i));
-		i++;
-	}
-	return (0);
+	if (cmd->i_stream != 0)
+		close(cmd->i_stream);
+	if (cmd->o_stream != 1)
+		close(cmd->o_stream);
+	cmd->i_stream = STDIN;
+	cmd->o_stream = STDOUT;
+	free(cmd->arguments);
+	free(cmd->path);
+	free(cmd->patherr);
+	if (cmd->arg_pack != NULL)
+		free_char_pp(&cmd->arg_pack);
 }
