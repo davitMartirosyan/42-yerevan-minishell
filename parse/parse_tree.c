@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:48 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 03:21:02 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/17 06:46:35 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,13 @@ t_cmds	*parse(t_tok *token, t_table *table)
 
 void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 {
-	char	*joined;
 	int		rtr;
 
 	while (token != NULL)
 	{
 		if (typeis_arg(token->type))
 		{
-			joined = NULL;
-			joined = word_expansions(&token);
-			(*cmds)->arguments = join_arguments((*cmds)->arguments, 1, joined);
-			if (joined != NULL)
-				free(joined);
+			__expand__join(cmds, &token);
 			continue ;
 		}
 		if (typeis_redirection(token->type))
@@ -53,30 +48,13 @@ void	parse_to(t_tok *token, t_table *table, t_cmds **cmds)
 		}
 		if (!type_is_p_h(&token, &cmds, table, &rtr))
 		{	
-			if (rtr == -1)
-				break ;
-			if (g_var == 1)
+			if (rtr == -1 || g_var == 1)
 				break ;
 			continue ;
 		}
 		token = token->next;
 	}
 	(*cmds)->next = NULL;
-}
-
-char	*word_expansions(t_tok **token)
-{
-	char	*word_exps;
-
-	word_exps = NULL;
-	while ((*token) != NULL)
-	{
-		word_exps = ft_strjoin(word_exps, (*token)->tok);
-		*token = (*token)->next;
-		if ((*token) != NULL && !typeis_arg((*token)->type))
-			break ;
-	}
-	return (word_exps);
 }
 
 t_cmdline	*parse_tree(t_table *table)

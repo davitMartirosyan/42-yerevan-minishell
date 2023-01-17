@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:36 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 05:19:30 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 07:08:01 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char		*heredoc_delimiter(t_tok **token, t_vars **v);
 char		*open_heredoc_prompt(char *delim, int flag, t_table *table);
 char		*join_arguments(char *s1, int delimiter, char *s2);
 char		*word_expansions(t_tok **token);
+void		__expand__join(t_cmds **cmds, t_tok **token);
 void		std(t_cmds **cmds);
 void		separate(t_cmds **commands);
 void		parse_to(t_tok *token, t_table *table, t_cmds **cmds);
@@ -120,13 +121,14 @@ void		select_filename(t_tok **token, t_cmds *cmds);
 void		open__file__check__type(int type, char *filename, t_cmds *cmds);
 void		check_type(int fd, int type, t_cmds *cmds);
 void		heredoc(t_tok **token, t_cmds *cmds, t_table *table);
+void		__free_(t_vars *v, char *tmpfile, char *term, char *delim);
 void		heredoc_sig(int sig);
 int			pipes(t_tok **token);
 int			type_is_p_h(t_tok **tok, t_cmds ***cmds, t_table *table, int *rtr);
 int			typeis_redirection(int type);
 int			typeis_arg(int type);
 int			typeis_heredoc(int type);
-
+int			__open__readline__prompt(char **heredoc, char **delim, char **term);
 /**********************************************/
 /****************Err Handling******************/
 /**********************************************/

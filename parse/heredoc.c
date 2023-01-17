@@ -6,7 +6,7 @@
 /*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:57:38 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 04:36:53 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/17 07:11:59 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	heredoc(t_tok **token, t_cmds *cmds, t_table *table)
 		write(cmds->i_stream, term, ft_strlen(term));
 	close(cmds->i_stream);
 	v->fd = open(tmpfile, O_RDONLY, 0644);
-	free(tmpfile);
 	cmds->i_stream = v->fd;
-	free(v);
-	free(term);
-	free(delim);
+	__free_(v, tmpfile, term, delim);
 }
 
 char	*new_file(t_table *table)
@@ -102,27 +99,8 @@ char	*open_heredoc_prompt(char *delim, int flag, t_table *table)
 	while (1)
 	{
 		heredoc = readline("> ");
-		if (g_var == 1)
-		{
-			ft_signal(0);
+		if (__open__readline__prompt(&heredoc, &delim, &term) == 0)
 			break ;
-		}
-		if (heredoc == NULL)
-		{
-			ft_fprintf(STDERR_FILENO, \
-			"minishell: %s %d delimited by end-of-file (wanted `%s')\n", \
-			HEREDOC_SYNTAX_WARNING, (uintmax_t)__LINE__, delim);
-			term = ft_strjoin(term, "\n");
-			break ;
-		}
-		if (heredoc && ft_strcmp(heredoc, delim) != 0)
-			term = join_arguments(term, '\n', heredoc);
-		if (ft_strlen(heredoc) == ft_strlen(delim) && \
-				ft_strcmp(heredoc, delim) == 0)
-		{
-			term = ft_strjoin(term, "\n");
-			break ;
-		}
 		free(heredoc);
 	}
 	free(heredoc);
