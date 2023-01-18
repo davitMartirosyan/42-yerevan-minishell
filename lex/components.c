@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:51 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 05:03:45 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:32:29 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ char	*replace(char *cmd, char *key, char *val, int *pos)
 	newpoint[i] = '\0';
 	newpoint = ft_strjoin(newpoint, val);
 	newpoint = ft_strjoin(newpoint, cmd + i + 1 + ft_strlen(key));
-	free(val);
 	free(key);
+	free(val);
 	free(cmd);
 	return (newpoint);
 }

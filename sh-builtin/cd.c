@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
-/*   Updated: 2023/01/17 01:03:52 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:51:58 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	change_path(t_table *tab, char *old_path)
 		{
 			if (tab->first == 1)
 				free(temp->val);
-			temp->val = new_path;
+			free(temp->val);
+			temp->val = ft_strdup(new_path);
 		}
 		temp = temp->next;
 	}

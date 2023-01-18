@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:54 by sabazyan          #+#    #+#             */
-/*   Updated: 2023/01/17 01:03:41 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:32:01 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_unset(t_cmds *cmd, t_table *tab)
 		{
 			if (unset_err(matrix[i]))
 			{
-				printf("minishell: export: `%s': not a valid identifier\n",
+				printf("minishell: unset: `%s': not a valid identifier\n",
 					matrix[i]);
 				tab->status = 1;
 				continue ;
