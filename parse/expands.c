@@ -40,8 +40,8 @@ char	*word_expansions(t_tok **token)
 
 void	__free_(t_vars *v, char *tmpfile, char *term, char *delim)
 {
-	if(!v || !tmpfile || !term || !delim)
-		return;
+	if (!v || !tmpfile || !term || !delim)
+		return ;
 	free(tmpfile);
 	free(v);
 	free(term);
