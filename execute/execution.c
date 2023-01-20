@@ -24,6 +24,7 @@ void	execution(t_cmdline **commands, t_table **table)
 	}
 	if (g_var == 1)
 	{
+		(*table)->status = 1;
 		g_var = 0;
 		return ;
 	}
