@@ -25,6 +25,7 @@ int	lexical_analyzer(char *newpoint, t_table *table)
 		cmdline = find_replace(cmdline, table);
 		token_replacment(cmdline, 4, '$');
 		table->token = tokenization(cmdline);
+		replace_tokens(table->token);
 	}
 	else
 		quote_error(&t_f, table);
@@ -59,6 +60,8 @@ void	_key_value_pair(char **cmdline, char **key, char **val, t_table *table)
 {
 	*key = keyof(*cmdline, table->v.log + 1);
 	*val = valueof(*key, table->env);
+	token_replacment(*val, '\'', 7);
+	token_replacment(*val, '"', 8);
 	*cmdline = replace(*cmdline, *key, *val, &table->v.log);
 }
 

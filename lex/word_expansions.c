@@ -89,6 +89,7 @@ void	expansion(char *cmdline, int *pos, int quote, t_tok **token)
 	expo = NULL;
 	while (cmdline[++i])
 	{
+		find_quotes(&cmdline[i], quote);
 		if (cmdline[i] == quote)
 			break ;
 		++len;

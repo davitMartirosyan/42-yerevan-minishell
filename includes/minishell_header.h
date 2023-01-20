@@ -95,6 +95,8 @@ int			quote_syntax_analyzer(char *cmdline, int *q_c);
 /**********************************************/
 t_tok		*tokenization(char *cmdline);
 char		*word(char *cmdline, int len, int s_pos);
+void		replace_tokens(t_tok *token);
+void		find_quotes(char *cmdline, int quote);
 void		add_word(char *cmdline, int *pos, t_tok **token);
 void		redirection(char *cmdline, int *pos, int io, t_tok **tok);
 void		expansion(char *cmdline, int *pos, int quote, t_tok **tok);

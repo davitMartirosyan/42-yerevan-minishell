@@ -33,3 +33,30 @@ void	add_pipe(char *cmdline, int *pos, int _p_ch, t_tok **token)
 	free(pipe);
 	*pos += _p - 1;
 }
+
+void	replace_tokens(t_tok *token)
+{
+	t_tok	*toks;
+
+	toks = token;
+	while (toks != NULL)
+	{
+		token_replacment(toks->tok, 7, '\'');
+		token_replacment(toks->tok, 8, '\"');
+		toks = toks->next;
+	}
+}
+
+void	find_quotes(char *cmdline, int quote)
+{
+	char	q_s;
+
+	if (quote == '\'')
+		q_s = '\"';
+	else
+		q_s = '\'';
+	if (*cmdline == q_s && q_s == '\'')
+			*cmdline = 7;
+	if (*cmdline == q_s && q_s == '\"')
+		*cmdline = 8;
+}
