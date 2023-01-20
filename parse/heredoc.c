@@ -117,7 +117,7 @@ void	heredoc_sig(int sig)
 {
 	(void)sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	g_var = 1;
 }
-/*rl_replace_line("", 0);*/

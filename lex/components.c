@@ -45,7 +45,8 @@ char	*find_replace(char *cmdline, t_table *table)
 			if (table->v.let == 0)
 				_key_value_pair(&cmdline, &key, &val, table);
 		}
-		else if (cmdline[table->v.log] && cmdline[table->v.log] == '$')
+		else if (cmdline[table->v.log] && cmdline[table->v.log] == '$'
+			&& cmdline[table->v.log + 1] != '\0')
 			cmdline = exit_status_code_and_pid(cmdline, table, &table->v.log);
 		table->v.log++;
 	}

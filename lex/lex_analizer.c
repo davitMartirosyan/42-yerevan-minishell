@@ -60,8 +60,6 @@ void	_key_value_pair(char **cmdline, char **key, char **val, t_table *table)
 {
 	*key = keyof(*cmdline, table->v.log + 1);
 	*val = valueof(*key, table->env);
-	token_replacment(*val, '\'', 7);
-	token_replacment(*val, '"', 8);
 	*cmdline = replace(*cmdline, *key, *val, &table->v.log);
 }
 

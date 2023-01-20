@@ -40,6 +40,8 @@ char	*word_expansions(t_tok **token)
 
 void	__free_(t_vars *v, char *tmpfile, char *term, char *delim)
 {
+	if(!v || !tmpfile || !term || !delim)
+		return;
 	free(tmpfile);
 	free(v);
 	free(term);
@@ -50,6 +52,8 @@ int	__open__readline__prompt(char **heredoc, char **delim, char **term)
 {
 	if (g_var == 1)
 	{
+		free(*delim);
+		free(*term);
 		ft_signal(0);
 		return (0);
 	}
