@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:00 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 04:28:16 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/22 19:30:53 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	execute(t_cmdline *cmd, t_table *table)
 {
 	t_vars	v;
 
-	if (!cmd->cmds->arg_pack)
-		return ;
 	table->dup0 = dup(STDIN_FILENO);
 	table->dup1 = dup(STDOUT_FILENO);
 	v.built = find_in(cmd->cmds->arg_pack[0], table->reserved);

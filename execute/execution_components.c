@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_components.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:55:44 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/17 04:29:25 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/22 19:31:14 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	cmd_check(t_cmds *cmd, t_table *table)
 {
+	if(!cmd->arg_pack || !cmd->arg_pack[0] || !cmd->arg_pack[0][0])
+		return (1);
 	table->paths = add_paths(&table->env);
 	if (table->paths == NULL)
 	{
@@ -62,23 +64,27 @@ int	find_in(char *builtin, char **reserved)
 
 	v.let = -1;
 	v.var = -1;
+	if (!builtin || !builtin[0])
+		return (-1);
 	while (reserved[++v.let])
 	{
 	}
 	while (reserved[++v.var])
 	{
-		v.def = ft_strlen(reserved[v.var]);
 		v.log = ft_strlen(builtin);
-		if (ft_strncmp(builtin, reserved[v.var], v.def) == 0 && \
-			v.def == v.log)
+		if (ft_strcmp(builtin, reserved[v.var]) == 0)
 			break ;
 	}
 	if (v.var == v.let && ft_strncmp(builtin, reserved[v.var - 1], \
 		ft_strlen(reserved[v.var - 1])) != 0)
+	{
 		return (-1);
+	}
 	else if (v.var == v.let && ft_strncmp(builtin, reserved[v.var - 1], \
 		ft_strlen(builtin)) != 0)
+	{
 		return (-1);
+	}
 	return (v.var);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:20 by sabazyan          #+#    #+#             */
-/*   Updated: 2023/01/18 22:51:58 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/22 19:19:52 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	no_old_path(char *old_path, t_table *tab)
 {
 	t_env	*temp;
 
+	(void)old_path;
 	temp = tab->env;
 	while (temp)
 	{
