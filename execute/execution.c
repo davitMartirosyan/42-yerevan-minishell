@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:56:00 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/01/22 19:30:53 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:48:23 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	execute(t_cmdline *cmd, t_table *table)
 
 	table->dup0 = dup(STDIN_FILENO);
 	table->dup1 = dup(STDOUT_FILENO);
+	if(!cmd->cmds->arg_pack ||!cmd->cmds->arg_pack[0])
+		return ;
 	v.built = find_in(cmd->cmds->arg_pack[0], table->reserved);
 	v.binar = cmd_check(cmd->cmds, table);
 	dup2(cmd->cmds->i_stream, STDIN_FILENO);
