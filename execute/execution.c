@@ -109,10 +109,13 @@ void	execute_pipe_command(t_cmds *cmds, t_vars *v, t_table *table)
 	}
 	else if (v->binar == 1 && cmds->i_stream != -1 && cmds->o_stream != -1)
 	{
-		if (execve(cmds->path, cmds->arg_pack, create_envp(&table->env)) == -1)
+		char **envp = create_envp(&table->env);
+		if (execve(cmds->path, cmds->arg_pack, envp) == -1)
 		{
 			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", \
 				cmds->arg_pack[0], "Command not found");
+			free_char_pp(&envp);
+			table->status = 127;
 			exit(127);
 		}
 	}

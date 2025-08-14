@@ -28,6 +28,8 @@ t_env	*env_tokenizing(char **envp)
 		t->key = ft_strdup(_tok[0]);
 		if (_tok[1])
 			t->val = ft_strdup(_tok[1]);
+		else
+			t->val = NULL;
 		free_char_pp(&_tok);
 		if (!envp[i + 1])
 			break ;
@@ -73,11 +75,19 @@ char	**create_envp(t_env **env)
 	envp = malloc(sizeof(char *) * (i + 1));
 	if (!envp)
 		return (NULL);
-	c = -1;
+	c = 0;
 	while (minienv != NULL)
 	{
-		envp[++c] = join_env(minienv->key, '=', minienv->val);
+		envp[c] = join_env(minienv->key, '=', minienv->val);
+		if (!envp[c])
+		{
+			while (c > 0)
+                free(envp[--c]);
+            free(envp);
+			return (NULL);
+		}
 		minienv = minienv->next;
+		c++;
 	}
 	envp[c] = NULL;
 	return (envp);
@@ -85,27 +95,29 @@ char	**create_envp(t_env **env)
 
 char	*join_env(char *key, char eq, char *value)
 {
-	t_vars	v;
 	char	*env_line;
-
 	if (!key && !value)
 		return (ft_strdup(""));
 	if (!key)
 		return (ft_strdup(value));
 	if (!value)
 		return (ft_strdup(key));
-	v.log = ft_strlen(key);
-	v.def = ft_strlen(value);
-	env_line = malloc(sizeof(char) * (v.log + v.def + 2));
-	if (!env_line)
+	// v.log = ft_strlen(key);
+	// v.def = ft_strlen(value);
+	// env_line = malloc(sizeof(char) * (v.log + v.def + 2));
+	// if (!env_line)
+	// 	return (NULL);
+	// v.var = -1;
+	// v.let = -1;
+	// while (key[++v.var])
+	// 	env_line[v.var] = key[v.var];
+	// env_line[v.var++] = eq;
+	// while (value[++v.let])
+	// 	env_line[v.var++] = value[v.let];
+	// env_line[v.var] = '\0';
+	char* temp = ft_strjoin(key, (char[2]){eq, '\0'});
+	if (!temp)
 		return (NULL);
-	v.var = -1;
-	v.let = -1;
-	while (key[++v.var])
-		env_line[v.var] = key[v.var];
-	env_line[v.var++] = eq;
-	while (value[++v.let])
-		env_line[v.var++] = value[v.let];
-	env_line[v.var] = '\0';
+	env_line = ft_strjoin(temp,value);
 	return (env_line);
 }

@@ -16,13 +16,15 @@ void	openquotes(char *cmdline)
 {
 	int	i;
 
-	i = -1;
-	while (cmdline[++i])
+	i = 0;
+	while (cmdline[i])
 	{
-		if (cmdline[i] == '\'')
-			inside_quote(cmdline, &i, DBL);
 		if (cmdline[i] == '\"')
 			inside_quote(cmdline, &i, SGL);
+		else if (cmdline[i] == '\'')
+			inside_quote(cmdline, &i, DBL);
+		else
+			i++;
 	}
 }
 
@@ -57,8 +59,11 @@ void	inside_quote(char *cmdline, int *pos, int find)
 	i = *pos;
 	if (find == SGL)
 	{
-		while (cmdline[++i])
+		while (1)
 		{
+			i++;
+			if (cmdline[i] == '\0')
+				break ;
 			if (cmdline[i] && cmdline[i] == '\"')
 				break ;
 			if (cmdline[i] && cmdline[i] == '\'')
@@ -67,9 +72,14 @@ void	inside_quote(char *cmdline, int *pos, int find)
 	}
 	else if (find == DBL)
 	{
-		while (cmdline[++i])
+		while (1)
+		{
+			i++;
+			if(cmdline[i] == '\0')
+				break ;
 			if (!__meta_chars(&cmdline[i]))
 				break ;
+		}
 	}
 	*pos = i;
 }

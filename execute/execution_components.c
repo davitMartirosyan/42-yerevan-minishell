@@ -16,7 +16,8 @@ int	cmd_check(t_cmds *cmd, t_table *table)
 {
 	if(!cmd->arg_pack || !cmd->arg_pack[0] || !cmd->arg_pack[0][0])
 		return (1);
-	table->paths = add_paths(&table->env);
+	if (!table->paths)
+		table->paths = add_paths(&table->env);
 	if (table->paths == NULL)
 	{
 		cmd->path = ft_strdup(cmd->arg_pack[0]);

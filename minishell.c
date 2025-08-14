@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_signal(0);
 	while (1)
 	{
-		cmdline = ft_readline("Minishell-$ ");
+		cmdline = ft_readline("msh→ ");
 		if (!cmdline[0])
 			handleterm(0);
 		if (lexical_analyzer(cmdline, table))

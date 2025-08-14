@@ -29,8 +29,8 @@ void	_ffork(t_cmds *cmds, t_table *table)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		table->minienv = create_envp(&table->env);
-		if (execve(cmds->path, cmds->arg_pack, table->minienv) == -1)
+		char** child_envp = create_envp(&table->env);
+		if (execve(cmds->path, cmds->arg_pack, child_envp) == -1)
 		{
 			ft_fprintf(STDERR_FILENO, "minishell: %s: %s\n", \
 				cmds->arg_pack[0], "Command not found");
