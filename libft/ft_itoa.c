@@ -32,8 +32,8 @@ static long int	ilen(long n)
 
 char	*ft_iszero(char *str)
 {
-	str[0] = '0';
-	str[1] = '\0';
+	str[0] = '\0';
+	// str[1] = '\0';
 	return (str);
 }
 
