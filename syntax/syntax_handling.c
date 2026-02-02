@@ -27,7 +27,7 @@ void	print_tokens(t_tok *tok)
 void	syntax_error(t_table *table)
 {
 	t_tok	*tmp;
-
+	int a;
 	tmp = table->token;
 	if (!tmp)
 		return ;
